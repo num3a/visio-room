@@ -1,0 +1,1 @@
+import '../../api/bookings/bookings.js'
