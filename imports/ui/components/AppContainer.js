@@ -1,61 +1,92 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Link } from 'react-router';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { Layout, Button, Header, Navigation, Drawer, Content,
+    Footer, FooterSection, FooterLinkList, FooterDropDownSection,
+    Grid, Cell
+} from 'react-mdl';
+import { getColorClass, getTextColorClass} from '../utils/palette';
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {purple500, white } from 'material-ui/styles/colors';
-
-injectTapEventPlugin();
-
-class AppContainer extends Component {
-    renderAvatarButton() {
-        const style = {margin: 5};
-
-        return(
-            <IconMenu
-                iconButtonElement={
-                    <IconButton><MoreVertIcon /></IconButton>
-                }
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-            >
-                <MenuItem primaryText="Refresh" />
-                <MenuItem primaryText="CGU" />
-                <MenuItem primaryText="Help" />
-                <MenuItem primaryText="Sign out" />
-            </IconMenu>
-
+class App extends Component {
+    _renderLoginLinks() {
+        console.log('CURRENT_USER', this.props.currentUser);
+        return (
+            <Navigation className={"mdl-layout--small-screen-only"}>
+                <Link to="/login">Log In</Link>
+                <Link to="/signup">Sign Up</Link>
+            </Navigation>
         );
     }
-
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme()}>
-                <div>
-                    <AppBar
-                        title="Hello"
-                        iconElementRight={this.renderAvatarButton()}
-                    />
-                    <Drawer
-                        docked={true}
-                        width={300}
-                        open={false}
-                    >
-                        <MenuItem>Home</MenuItem>
-                        <MenuItem>Profile</MenuItem>
+            <div>
+                <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
+                    <Header className={getColorClass('primary')} title="Material Design Lite" scroll>
+                        <Navigation className={"mdl-layout--large-screen-only"}>
+                            <Link to="/login">Log In</Link>
+                            <Link to="/signup" >
+                                <Button raised ripple accent>Sign Up</Button>
+                            </Link>
+                        </Navigation>
+                    </Header>
+                    <Drawer title="Title">
+                        {this._renderLoginLinks()}
                     </Drawer>
-                    {this.props.children}
-                </div>
-            </MuiThemeProvider>
+                    <Content>
+                        {this.props.children}
+                        <Footer size="mega">
+                            <FooterSection type="middle">
+                                <FooterDropDownSection title="Features">
+                                    <FooterLinkList>
+                                        <a href="#">About</a>
+                                        <a href="#">Terms</a>
+                                        <a href="#">Partners</a>
+                                        <a href="#">Updates</a>
+                                    </FooterLinkList>
+                                </FooterDropDownSection>
+                                <FooterDropDownSection title="Details">
+                                    <FooterLinkList>
+                                        <a href="#">Specs</a>
+                                        <a href="#">Tools</a>
+                                        <a href="#">Resources</a>
+                                    </FooterLinkList>
+                                </FooterDropDownSection>
+                                <FooterDropDownSection title="Technology">
+                                    <FooterLinkList>
+                                        <a href="#">How it works</a>
+                                        <a href="#">Patterns</a>
+                                        <a href="#">Usage</a>
+                                        <a href="#">Products</a>
+                                        <a href="#">Contracts</a>
+                                    </FooterLinkList>
+                                </FooterDropDownSection>
+                                <FooterDropDownSection title="FAQ">
+                                    <FooterLinkList>
+                                        <a href="#">Questions</a>
+                                        <a href="#">Answers</a>
+                                        <a href="#">Contact Us</a>
+                                    </FooterLinkList>
+                                </FooterDropDownSection>
+                            </FooterSection>
+                            <FooterSection type="bottom" logo="More Information">
+                                <FooterLinkList>
+                                    <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
+                                    <a href="#">Help</a>
+                                    <a href="#">Privacy & Terms</a>
+                                </FooterLinkList>
+                            </FooterSection>
+                        </Footer>
+                    </Content>
+                </Layout>
+            </div>
         );
     }
 }
 
-export default AppContainer;
+export default AppContainer = createContainer(() => {
+    return {
+        currentUser: Meteor.user(),
+    };
+}, App);

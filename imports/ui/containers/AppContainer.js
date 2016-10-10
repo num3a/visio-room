@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import { Layout, Button, Header, Navigation, Drawer, Content,
     Footer, FooterSection, FooterLinkList, FooterDropDownSection,
     Grid, Cell
 } from 'react-mdl';
 import { getColorClass, getTextColorClass} from '../utils/palette';
-class AppContainer extends Component {
 
+class App extends Component {
+    _renderLoginLinks() {
+        console.log('CURRENT_USER', this.props.currentUser);
+        return (
+            <Navigation className={"mdl-layout--small-screen-only"}>
+                <a href="#">Log In</a>
+                <a href="#">Sign Up</a>
+            </Navigation>
+        );
+    }
     render() {
         return (
             <div>
@@ -21,10 +31,7 @@ class AppContainer extends Component {
                         </Navigation>
                     </Header>
                     <Drawer title="Title">
-                        <Navigation className={"mdl-layout--small-screen-only"}>
-                            <a href="#">Log In</a>
-                            <a href="#">Sign Up</a>
-                        </Navigation>
+                        {this._renderLoginLinks()}
                     </Drawer>
                     <Content>
                         <Grid className="demo-grid-1" >
@@ -81,4 +88,8 @@ class AppContainer extends Component {
     }
 }
 
-export default AppContainer;
+export default AppContainer = createContainer(() => {
+    return {
+        currentUser: Meteor.user(),
+    };
+}, App);
