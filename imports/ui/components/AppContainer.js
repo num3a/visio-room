@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 
+import { TopNavigationContainer, SideNavigationContainer} from './navigation';
 import { Layout, Button, Header, Navigation, Drawer, Content,
     Footer, FooterSection, FooterLinkList, FooterDropDownSection,
     Grid, Cell
@@ -10,66 +11,22 @@ import { Layout, Button, Header, Navigation, Drawer, Content,
 import { getColorClass, getTextColorClass} from '../utils/palette';
 
 class App extends Component {
-    _renderLoginLinks() {
-        console.log('CURRENT_USER', this.props.currentUser);
-        return (
-            <Navigation className={"mdl-layout--small-screen-only"}>
-                <Link to="/login">Log In</Link>
-                <Link to="/signup">Sign Up</Link>
-            </Navigation>
-        );
-    }
     render() {
         return (
             <div>
                 <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
                     <Header className={getColorClass('primary')} title="Material Design Lite" scroll>
-                        <Navigation className={"mdl-layout--large-screen-only"}>
-                            <Link to="/login">Log In</Link>
-                            <Link to="/signup" >
-                                <Button raised ripple accent>Sign Up</Button>
-                            </Link>
-                        </Navigation>
+
+                        <div className={"mdl-layout--large-screen-only"}>
+                            <TopNavigationContainer/>
+                        </div>
                     </Header>
                     <Drawer title="Title">
-                        {this._renderLoginLinks()}
+                        <SideNavigationContainer/>
                     </Drawer>
                     <Content>
                         {this.props.children}
-                        <Footer size="mega">
-                            <FooterSection type="middle">
-                                <FooterDropDownSection title="Features">
-                                    <FooterLinkList>
-                                        <a href="#">About</a>
-                                        <a href="#">Terms</a>
-                                        <a href="#">Partners</a>
-                                        <a href="#">Updates</a>
-                                    </FooterLinkList>
-                                </FooterDropDownSection>
-                                <FooterDropDownSection title="Details">
-                                    <FooterLinkList>
-                                        <a href="#">Specs</a>
-                                        <a href="#">Tools</a>
-                                        <a href="#">Resources</a>
-                                    </FooterLinkList>
-                                </FooterDropDownSection>
-                                <FooterDropDownSection title="Technology">
-                                    <FooterLinkList>
-                                        <a href="#">How it works</a>
-                                        <a href="#">Patterns</a>
-                                        <a href="#">Usage</a>
-                                        <a href="#">Products</a>
-                                        <a href="#">Contracts</a>
-                                    </FooterLinkList>
-                                </FooterDropDownSection>
-                                <FooterDropDownSection title="FAQ">
-                                    <FooterLinkList>
-                                        <a href="#">Questions</a>
-                                        <a href="#">Answers</a>
-                                        <a href="#">Contact Us</a>
-                                    </FooterLinkList>
-                                </FooterDropDownSection>
-                            </FooterSection>
+                        <Footer size="mini">
                             <FooterSection type="bottom" logo="More Information">
                                 <FooterLinkList>
                                     <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>

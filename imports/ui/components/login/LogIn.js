@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import { Layout, Button, Header,  Content,
     Footer, FooterSection, FooterLinkList, FooterDropDownSection,
-Card, CardText, CardTitle, CardActions, CardMenu, IconButton,
+    Card, CardText, CardTitle, CardActions, CardMenu, IconButton,
     List, ListItem,
     Grid, Cell, Textfield
 } from 'react-mdl';
-const SignUp = (props) => (
+
+const LogIn = (props) => (
     <div className="vs-signup">
         <Grid>
             <Cell col={6} offset={3} >
                 <List>
                     <ListItem>
                         <Textfield
-                            onChange={props.onEmailChange}
+                            onChange={() => props.onEmailChange()}
                             label="Email"
                             style={{width: '300px'}}
                         />
                     </ListItem>
+
                     <ListItem>
                         <Textfield
-                            onChange={props.onPasswordChange}
+                            onChange={() => props.onPasswordChange()}
                             label="Password"
                             style={{width: '300px'}}
                         />
                     </ListItem>
                     <ListItem>
-                        <Textfield
-                            onChange={props.onConfirmChange}
-                            label="Confirm Password"
-                            style={{width: '300px'}}
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <Button onClick={props.onSignUpClick} raised accent ripple>Sign Up</Button>
+                        <Button onClick={props.onLoginClick} raised accent ripple>Login</Button>
                     </ListItem>
                 </List>
             </Cell>
@@ -56,4 +51,4 @@ const SignUp = (props) => (
     </div>
 );
 
-export default SignUp;
+export default LogIn;

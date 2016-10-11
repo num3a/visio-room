@@ -6,6 +6,7 @@ import AppContainer from '../../ui/components/AppContainer';
 import HomeContainer from '../../ui/components/home';
 import SignUpContainer from '../../ui/components/signup';
 import LogInContainer from '../../ui/components/login';
+import ProfileContainer from '../../ui/components/profile';
 
 /*
  import ListPageContainer from '../../ui/containers/ListPageContainer.js';
@@ -20,6 +21,7 @@ export const renderRoutes = () => (
             <IndexRoute component={HomeContainer} />
             <Route path="/signup" component={SignUpContainer} />
             <Route path="/login" component={LogInContainer} />
+            <Route path="/profile" component={ProfileContainer} />
             <Route path="*" component={NotFoundPage}/>
         </Route>
     </Router>
