@@ -7,16 +7,27 @@ import {  Button,  Navigation } from 'react-mdl';
 class Nav extends Component {
     render() {
         if(this.props.currentUser != null) {
-            return ( <div></div>);
-        }
-            return(
-                <Navigation>
-                    <Link to="/login">Log In</Link>
-                    <Link to="/signup">
-                        Sign Up
-                    </Link>
-                </Navigation>
+            return (
+                    <Navigation>
+                        <Link to="/" >Home</Link>
+                        <Link to="/profile" >Profile</Link>
+                        <Link to="/" >History</Link>
+                        <Link to="/" >Payments</Link>
+                        <Link to="/" >Settings</Link>
+                        <Link to="/" >Help</Link>
+                        <Link to="/" >CGU</Link>
+                        <Link to="/" >Log out</Link>
+                    </Navigation>
             );
+        }
+        return(
+            <Navigation>
+                <Link to="/login">Log In</Link>
+                <Link to="/signup" >
+                    <Button raised ripple accent>Sign Up</Button>
+                </Link>
+            </Navigation>
+        );
 
     }
 }

@@ -11,22 +11,24 @@ import { Layout, Button, Header, Navigation, Drawer, Content,
 import { getColorClass, getTextColorClass} from '../utils/palette';
 
 class App extends Component {
+
+    //Toggle drawer with class is-visible
     render() {
         return (
-            <div>
                 <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
-                    <Header className={getColorClass('primary')} title="Material Design Lite" scroll>
+                    <Header className={getColorClass('primary')} title="Material Design Lite" >
 
-                        <div className={"mdl-layout--large-screen-only"}>
-                            <TopNavigationContainer/>
-                        </div>
+                            <TopNavigationContainer className={"mdl-layout--large-screen-only"}/>
                     </Header>
-                    <Drawer title="Title">
+                    <Drawer title="Menu" className={"mdl-layout--small-screen-only "} open={true}>
                         <SideNavigationContainer/>
                     </Drawer>
-                    <Content>
+
+                    <Content style={{height: '650px'}}>
                         {this.props.children}
-                        <Footer size="mini">
+                    </Content>
+
+                    <Footer size="mini">
                             <FooterSection type="bottom" logo="More Information">
                                 <FooterLinkList>
                                     <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
@@ -35,9 +37,7 @@ class App extends Component {
                                 </FooterLinkList>
                             </FooterSection>
                         </Footer>
-                    </Content>
                 </Layout>
-            </div>
         );
     }
 }
