@@ -5,11 +5,27 @@ Card, CardText, CardTitle, CardActions, CardMenu, IconButton,
     List, ListItem,
     Grid, Cell, Textfield
 } from 'react-mdl';
+
+import { getColorClass, getTextColorClass} from '../../utils/palette';
+
 const SignUp = (props) => (
     <div className="vs-signup">
         <Grid>
-            <Cell col={6} offset={3} >
+            <Cell col={4} offsetDesktop={3} offsetTablet={1} style={{backgroundColor: getColorClass('grey', 100)}} >
+                <h2>Sign Up</h2>
                 <List>
+                    <ListItem>
+                        <Textfield
+                           label="Firstname"
+                            style={{width: '300px'}}
+                        />
+                    </ListItem>
+                    <ListItem>
+                        <Textfield
+                            label="Lastname"
+                            style={{width: '300px'}}
+                        />
+                    </ListItem>
                     <ListItem>
                         <Textfield
                             onChange={props.onEmailChange}
@@ -36,7 +52,7 @@ const SignUp = (props) => (
                     </ListItem>
                 </List>
             </Cell>
-            <Cell>
+            <Cell col={4} >
                 <Card shadow={0} >
                     <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
                     <CardText>
@@ -44,7 +60,7 @@ const SignUp = (props) => (
                         Mauris sagittis pellentesque lacus eleifend lacinia...
                     </CardText>
                     <CardActions border>
-                        <Button colored>Get Started</Button>
+                        <Button colored onClick={props.onOAuthClick}>LinkedIn</Button>
                     </CardActions>
                     <CardMenu style={{color: '#fff'}}>
                         <IconButton name="share" />

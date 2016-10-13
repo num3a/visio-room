@@ -2,10 +2,28 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
-import {  Button,  Navigation, IconButton, Menu, MenuItem } from 'react-mdl';
+import { FABButton,  Button,  Navigation, IconButton, Menu, MenuItem, Spinner} from 'react-mdl';
 
 class Nav extends Component {
+    renderMenuIcon() {
+        if(this.props.currentUser.profile.pictureUrl){
+            return (
+                <FABButton size={50} id="demo-menu-lower-right">
+                    <img src={this.props.currentUser.profile.pictureUrl} width={60} height={60} />
+                </FABButton>
+                );
+        }
+        return (
+            <IconButton name="more_vert" id="demo-menu-lower-right" />
+        )
+
+    }
     render() {
+        if(this.props.isLogginIn){
+            return (<div>
+                <Spinner/>
+            </div>);
+        }
         if(this.props.currentUser != null) {
             return (
                     <Navigation className={"mdl-layout--large-screen-only"}>
@@ -14,19 +32,21 @@ class Nav extends Component {
                         <Link to="/" >History</Link>
                         <Link to="/" >Payments</Link>
                         <div style={{position: 'relative'}}>
-                            <IconButton name="more_vert" id="demo-menu-lower-right" />
+                            {this.renderMenuIcon()}
                             <Menu target="demo-menu-lower-right" align="right">
                                 <MenuItem>Settings</MenuItem>
                                 <MenuItem>Help</MenuItem>
                                 <MenuItem>CGU</MenuItem>
-                                <MenuItem>Log out</MenuItem>
+                                <MenuItem>
+                                    <Link to="/logout">Log out</Link>
+                                </MenuItem>
                             </Menu>
                         </div>
                     </Navigation>
             );
         }
         return(
-            <Navigation>
+            <Navigation className={"mdl-layout--large-screen-only"}>
                 <Link to="/login">Log In</Link>
                 <Link to="/signup" >
                     <Button raised ripple accent>Sign Up</Button>
@@ -41,5 +61,6 @@ class Nav extends Component {
 export default TopNavigationContainer = createContainer(() => {
     return {
         currentUser: Meteor.user(),
+        isLogginIn: Meteor.loggingIn(),
     };
 }, Nav);

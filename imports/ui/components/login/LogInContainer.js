@@ -18,7 +18,7 @@ class Container extends Component {
 
     _handleLogin(){
         Meteor.loginWithPassword('ernest.emmanuel@hotmail.fr','tobeskin');
-        browserHistory.push('/profile');
+        browserHistory.push('/');
     }
 
     render() {

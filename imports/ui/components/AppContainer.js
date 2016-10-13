@@ -17,14 +17,13 @@ class App extends Component {
         return (
                 <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
                     <Header className={getColorClass('primary')} title="Material Design Lite" >
-
                             <TopNavigationContainer className={"mdl-layout--large-screen-only"}/>
                     </Header>
                     <Drawer title="Menu" className={"mdl-layout--small-screen-only "} open={true}>
                         <SideNavigationContainer/>
                     </Drawer>
 
-                    <Content style={{height: '650px'}}>
+                    <Content >
                         {this.props.children}
                     </Content>
 
