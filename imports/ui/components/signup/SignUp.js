@@ -60,7 +60,9 @@ const SignUp = (props) => (
                         Mauris sagittis pellentesque lacus eleifend lacinia...
                     </CardText>
                     <CardActions border>
-                        <Button colored onClick={props.onOAuthClick}>LinkedIn</Button>
+                        <Button colored onClick={props.onOAuthClick}>
+                            <img src="/assets/Sign-In-Small---Default.png" />
+                        </Button>
                     </CardActions>
                     <CardMenu style={{color: '#fff'}}>
                         <IconButton name="share" />

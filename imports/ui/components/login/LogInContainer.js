@@ -16,11 +16,24 @@ class Container extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps){
+        if(this.props.currentUser){
+            browserHistory.push('/');
+        }
+    }
+
     _handleLogin(){
         Meteor.loginWithPassword('ernest.emmanuel@hotmail.fr','tobeskin');
         browserHistory.push('/');
     }
 
+    _handleOAuth() {
+        Meteor.loginWithLinkedin({}, (error)=> {
+            if(error){
+                console.log('oauth error', error);
+            }
+        });
+    }
     render() {
         return(
             <div>
@@ -28,6 +41,7 @@ class Container extends Component {
                     onEmailChange={(email) => this.setState({ email: email})}
                     onPasswordChange={(password) =>  this.setState({password: password})}
                     onLoginClick={this._handleLogin.bind(this)}
+                    onOAuthClick={() => this._handleOAuth()}
                 />
             </div>
         );

@@ -5,11 +5,12 @@ import { Layout, Button, Header,  Content,
     List, ListItem,
     Grid, Cell, Textfield
 } from 'react-mdl';
+import { getColorClass, getTextColorClass} from '../../utils/palette';
 
 const LogIn = (props) => (
-    <div className="vs-signup">
+    <div className="vs-login">
         <Grid>
-            <Cell col={6} offset={3} >
+            <Cell col={4} offsetDesktop={3} offsetTablet={1} style={{backgroundColor: getColorClass('grey', 100)}} >
                 <List>
                     <ListItem>
                         <Textfield
@@ -31,7 +32,7 @@ const LogIn = (props) => (
                     </ListItem>
                 </List>
             </Cell>
-            <Cell>
+            <Cell col={4} >
                 <Card shadow={0} >
                     <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
                     <CardText>
@@ -39,7 +40,9 @@ const LogIn = (props) => (
                         Mauris sagittis pellentesque lacus eleifend lacinia...
                     </CardText>
                     <CardActions border>
-                        <Button colored>Get Started</Button>
+                        <Button colored onClick={props.onOAuthClick}>
+                            <img src="/assets/Sign-In-Small---Default.png" />
+                        </Button>
                     </CardActions>
                     <CardMenu style={{color: '#fff'}}>
                         <IconButton name="share" />

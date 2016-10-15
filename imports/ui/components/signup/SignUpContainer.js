@@ -15,6 +15,12 @@ class Container extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps){
+        if(this.props.currentUser){
+            browserHistory.push('/');
+        }
+    }
+
     _handleSignUp() {
         let canRedirect = false;
         Accounts.createUser({ email: 'erndedddddddzeaddst.emmanuel@hotmail.fr', password: 'tobeskin', profile: {
@@ -33,22 +39,15 @@ class Container extends Component {
             }
         });
     }
-    _handleOAuth() {
-        let canRedirect = false;
 
+    _handleOAuth() {
         Meteor.loginWithLinkedin({}, (error)=> {
             if(error){
                 console.log('oauth error', error);
             }
-            else{
-                canRedirect = true;
-            }
-
-            if(canRedirect){
-                browerHistory.push('/');
-            }
         });
     }
+
     render() {
         return(
             <div>
