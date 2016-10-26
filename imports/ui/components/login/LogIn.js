@@ -34,7 +34,7 @@ const LogIn = (props) => (
             </Cell>
             <Cell col={4} >
                 <Card shadow={0} >
-                    <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
+                    <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Linkedin</CardTitle>
                     <CardText>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Mauris sagittis pellentesque lacus eleifend lacinia...

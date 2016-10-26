@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
+import Rooms from '../../api/rooms/rooms';
 
 import { TopNavigationContainer, SideNavigationContainer} from './navigation';
 import { Layout, Button, Header, Navigation, Drawer, Content,
@@ -19,7 +20,10 @@ class App extends Component {
                     <Header className={getColorClass('primary')} title="VisioRoom" >
                             <TopNavigationContainer className={"mdl-layout--large-screen-only"}/>
                     </Header>
-                    <Drawer title="Menu" className={"mdl-layout--small-screen-only "} open={true}>
+                    <Drawer
+                        ref={(drawer) => this._drawer = drawer}
+                        title="Menu"
+                        className={"mdl-layout--small-screen-only "} open={true}>
                         <SideNavigationContainer/>
                     </Drawer>
 
@@ -42,7 +46,15 @@ class App extends Component {
 }
 
 export default AppContainer = createContainer(() => {
+   //  Meteor.subscribe('rooms.all');
+
+    const roomsHandle = Meteor.subscribe('rooms.all');
+
+
+    const loading = !roomsHandle.ready();
+    //const rooms = Rooms.find({});
     return {
         currentUser: Meteor.user(),
+        //rooms: Rooms.find({}).fetch(),
     };
 }, App);

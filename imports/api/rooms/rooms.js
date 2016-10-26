@@ -21,17 +21,20 @@ Rooms.deny({
 });
 
 Rooms.schema = new SimpleSchema({
-    roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
+    _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
     pricePerDay: { type: Number },
     name: { type: String },
     address: { type: String },
-    location: { type: LocationSchema },
+    location: { type: LocationSchema, optional: true },
     capacity: { type: Number },
     description: { type: String },
 });
 
 Rooms.attachSchema(Rooms.schema);
-Rooms._ensureIndex({ "location": "2dsphere"});
+
+if(Meteor.isServer){
+    Rooms._ensureIndex({ "location": "2dsphere"});
+}
 
 // This represents the keys from YachtieProfiles objects that should be published
 // to the client. If we add secret properties to List objects, don't list

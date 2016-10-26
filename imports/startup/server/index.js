@@ -9,3 +9,5 @@ import './security.js';
 import './register-api.js';
 
 import './oauth.js';
+
+import './seeds.js';
