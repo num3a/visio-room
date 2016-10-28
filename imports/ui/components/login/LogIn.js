@@ -11,26 +11,19 @@ const LogIn = (props) => (
     <div className="vs-login">
         <Grid>
             <Cell col={4} offsetDesktop={3} offsetTablet={1} style={{backgroundColor: getColorClass('grey', 100)}} >
-                <List>
-                    <ListItem>
+                <Card>
                         <Textfield
                             onChange={() => props.onEmailChange()}
                             label="Email"
                             style={{width: '300px'}}
                         />
-                    </ListItem>
-
-                    <ListItem>
                         <Textfield
                             onChange={() => props.onPasswordChange()}
                             label="Password"
                             style={{width: '300px'}}
                         />
-                    </ListItem>
-                    <ListItem>
                         <Button onClick={props.onLoginClick} raised accent ripple>Login</Button>
-                    </ListItem>
-                </List>
+                </Card>
             </Cell>
             <Cell col={4} >
                 <Card shadow={0} >
