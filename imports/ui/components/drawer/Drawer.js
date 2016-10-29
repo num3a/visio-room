@@ -8,10 +8,12 @@ class VisioRoomDrawer extends Component {
     _getMenuItems() {
         const menus = [
             {
+                id: 1,
                 name: 'Home',
                 url: '/',
             },
             {
+                id: 2,
                 name: 'Profile',
                 url: '/profile',
             },
@@ -27,6 +29,7 @@ class VisioRoomDrawer extends Component {
             menus.map((menu) => {
                 return(<MenuItem
                     onTouchTap={() => this._onMenuClick(menu.url)}
+                    key={menu.id}
                 >
                     {menu.name}
                 </MenuItem>);
