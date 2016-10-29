@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import Rooms from '../../api/rooms/rooms';
-
-import { TopNavigationContainer, SideNavigationContainer} from './navigation';
-import { Layout, Button, Header, Navigation, Drawer, Content,
-    Footer, FooterSection, FooterLinkList, FooterDropDownSection,
-    Grid, Cell
-} from 'react-mdl';
-import { getColorClass, getTextColorClass} from '../utils/palette';
+import React, {Component} from "react";
+import classNames from "classnames";
+import {createContainer} from "meteor/react-meteor-data";
+import {TopNavigationContainer, SideNavigationContainer} from "./navigation";
+import {Layout, Header, Drawer, Content, Footer, FooterSection, FooterLinkList} from "react-mdl";
+import {getColorClass, getTextColorClass} from "../utils/palette";
 
 class App extends Component {
 
