@@ -5,6 +5,12 @@ import { connect } from 'react-redux';
 import { closeDrawer} from '../../actions/drawer';
 
 class VisioRoomDrawer extends Component {
+
+    constructor(){
+        super();
+        this.drawer = null;
+    }
+
     _getMenuItems() {
         const menus = [
             {
@@ -42,13 +48,17 @@ class VisioRoomDrawer extends Component {
         dispatch(closeDrawer());
         //TODO: open url
     }
+    _onRequestChange() {
 
+    }
     render() {
         return (
             <Drawer
+                ref={(drawer) => this.drawer = drawer}
                 docked={true}
                 width={300}
                 open={this.props.isOpen}
+                onRequestChange={() => this._onRequestChange()}
             >
                 {this._renderMenuItems()}
             </Drawer>

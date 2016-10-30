@@ -15,19 +15,21 @@ export const Rooms = new RoomsCollection('Rooms');
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Rooms.deny({
-    insert() { return true; },
-    update() { return true; },
-    remove() { return true; },
+    insert() { return false; },
+    update() { return false; },
+    remove() { return false; },
 });
 
 Rooms.schema = new SimpleSchema({
     _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
-    pricePerDay: { type: Number },
+    pricePerDay: { type: Number, decimal: true},
     name: { type: String },
     address: { type: String },
-    location: { type: LocationSchema, optional: true },
+    location: { type: [Number], decimal: true, optional: true },
     capacity: { type: Number },
     description: { type: String },
+    createdAt: { type: Date, defaultValue: new Date(), optional: false}
+
 });
 
 Rooms.attachSchema(Rooms.schema);
