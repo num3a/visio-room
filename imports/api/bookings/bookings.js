@@ -21,11 +21,11 @@ Bookings.deny({
 
 Bookings.schema = new SimpleSchema({
     roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
-    position : { type: String, optional: true},
-    isBlocked: { type: Boolean, optional: true},
+    isBooked: { type: Boolean, optional: false},
+    isBlocked: { type: Boolean, optional: false},
     bookingDate: { type: Date, optional: true},
     attendeeCount: { type: Number, optional: true},
-    createdAt: { type: Date, optional: true}
+    createdAt: { type: Date, optional: false}
 });
 
 Bookings.attachSchema(Bookings.schema);

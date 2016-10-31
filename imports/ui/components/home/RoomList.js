@@ -6,8 +6,9 @@ import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
 import { Rooms } from '../../../api/rooms/rooms';
+import { Bookings } from '../../../api/bookings/bookings';
 
-class RoomList extends Component {
+ class RoomList extends Component {
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
@@ -71,10 +72,7 @@ class RoomList extends Component {
 
 
 const RoomListContainer = createContainer(() => {
-    //  Meteor.subscribe('rooms.all');
-
     const roomsHandle = Meteor.subscribe('rooms.all');
-
 
     const loading = !roomsHandle.ready();
     //const rooms = Rooms.find({});
