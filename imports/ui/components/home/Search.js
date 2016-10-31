@@ -7,13 +7,15 @@ class Search extends Component {
     render() {
         return (
             <div>
-                <h4>Search</h4>
-                <label>Date:</label>
-                <DatePicker
-                    container="inline"
-                    hintText="Choose a date"
-                />
-                <Slider defaultValue={1} />
+                <form>
+                    <h4>Search</h4>
+                    <label>Date:</label>
+                    <DatePicker
+                        container="inline"
+                        hintText="Choose a date"
+                    />
+                    <Slider defaultValue={1} />
+                </form>
             </div>
         );
     }

@@ -8,8 +8,8 @@ Meteor.startup(() =>{
     if(roomsCount === 0){
         Rooms.insert({
             location: [
+                48.868172,
                 2.334401,
-                48.868172
             ],
             name: "Opera",
             address: "3 Avenue de l'Opéra, 75001 Paris",
@@ -20,8 +20,8 @@ Meteor.startup(() =>{
 
         Rooms.insert({
             location: [
-                2.335401,
-                48.864172
+                48.868172,
+                2.334401,
             ],
             name: "Opera 2",
             address: "3 Avenue de l'Opéra, 75001 Paris",
@@ -32,8 +32,8 @@ Meteor.startup(() =>{
 
         Rooms.insert({
             location: [
+                48.868172,
                 2.334401,
-                48.868172
             ],
             name: "Opera",
             address: "3 Avenue de l'Opéra, 75001 Paris",
