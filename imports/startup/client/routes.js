@@ -11,6 +11,7 @@ import ProfileContainer from '../../ui/components/profile';
 
 import AppContainer2 from '../../ui/components/AppContainer2';
 import HomeContainer2 from '../../ui/components/home/HomeContainer2';
+import RoomDetailsContainer from '../../ui/components/RoomDetails';
 
 /*
  import ListPageContainer from '../../ui/containers/ListPageContainer.js';
@@ -23,6 +24,7 @@ export const renderRoutes = () => (
     <Router history={browserHistory}>
         <Route path="/v2" component={AppContainer2} >
             <IndexRoute component={HomeContainer2} />
+            <Route path="rooms/:roomId" component={RoomDetailsContainer} />
             <Route path="*" component={NotFoundPage}/>
         </Route>
         <Route path="/" component={AppContainer}>

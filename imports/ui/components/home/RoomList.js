@@ -6,7 +6,7 @@ import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
 import { Rooms } from '../../../api/rooms/rooms';
-import { Bookings } from '../../../api/bookings/bookings';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
  class RoomList extends Component {
     _renderCards() {
@@ -34,7 +34,7 @@ import { Bookings } from '../../../api/bookings/bookings';
                                 </p>
                             </CardText>
                             <CardActions>
-                                <RaisedButton primary label="Book this room" />
+                                <RaisedButton onClick={() => this._navigate(room._id)} primary label="Open this room" />
                             </CardActions>
                             <CardText expandable={true}>
                                 {room.description}
@@ -44,6 +44,10 @@ import { Bookings } from '../../../api/bookings/bookings';
                 );
             })
         );
+    }
+
+    _navigate(roomId){
+        browserHistory.push(`/v2/rooms/${roomId}`);
     }
 
     render() {
@@ -72,14 +76,15 @@ import { Bookings } from '../../../api/bookings/bookings';
 
 
 const RoomListContainer = createContainer(() => {
-    const roomsHandle = Meteor.subscribe('rooms.all');
-
+    const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
+    //TODO: fix loading with publishComposite
     const loading = !roomsHandle.ready();
-    //const rooms = Rooms.find({});
+
+    console.log('SUBSCRIBE rooms.bookingsAvailable.byDate', loading);
     return {
         currentUser: Meteor.user(),
         rooms: Rooms.find({}).fetch(),
-        loading: loading,
+        loading: false,
     };
 }, RoomList);
 

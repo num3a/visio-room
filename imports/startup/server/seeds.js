@@ -3,7 +3,6 @@ import { Rooms } from '../../api/rooms/rooms';
 import { Bookings } from '../../api/bookings/bookings';
 import moment from 'moment';
 
-//TODO: initialize bookings
 const generateBookings = (error, _id) => {
     if(error){
         console.log('Cannot generate bookings', error);
