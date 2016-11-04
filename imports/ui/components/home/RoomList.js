@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Rooms } from '../../../api/rooms/rooms';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
- class RoomList extends Component {
+class RoomList extends Component {
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
@@ -64,7 +64,10 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
         return (
             <div>
                 <div className="row">
-                    <h5>{this.props.rooms.length } result(s) found:</h5>
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                        <h5>{this.props.rooms.length } result(s) found:</h5>
+                    </div>
                 </div>
                 <div className="row">
                     {this._renderCards()}
@@ -79,11 +82,12 @@ const RoomListContainer = createContainer(() => {
     const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
     //TODO: fix loading with publishComposite
     const loading = !roomsHandle.ready();
-
+    let rooms = Rooms.find({}, { disableOplog: true, reactive: false}).fetch();
     console.log('SUBSCRIBE rooms.bookingsAvailable.byDate', loading);
+
     return {
         currentUser: Meteor.user(),
-        rooms: Rooms.find({}).fetch(),
+        rooms: rooms,
         loading: false,
     };
 }, RoomList);

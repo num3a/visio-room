@@ -16,7 +16,12 @@ Meteor.publish('rooms.byId', (roomId) => {
     return Rooms.find({_id: roomId});
 });
 
-Meteor.publishComposite('rooms.bookingsAvailable.byDate', function(bookingDate) {
+Meteor.publish('rooms.byIds', (roomIds) => {
+    //TODO: validate roomIds
+    return Rooms.find({ _id: { $in: roomIds} });
+});
+
+Meteor.publishComposite('rooms.bookingsAvailable.byDate', (bookingDate) => {
     new SimpleSchema({
         bookingDate: { type: Date}
     }).validate({bookingDate});
