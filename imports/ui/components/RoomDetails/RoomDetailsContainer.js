@@ -10,9 +10,7 @@ class RoomDetails extends Component {
         if(this.props.loading){
             return (<CircularProgress size={80} thickness={5} />);
         }
-        else {
-            return (<div></div>);
-        }
+            return (<div></div>);     gi
     }
     render() {
         return (<div>
@@ -31,7 +29,7 @@ const RoomDetailsContainer = createContainer(({ params }) => {
     return {
         rooms: Rooms.find({_id: params.roomId}).fetch(),
         bookings: Bookings.find({ roomId: params.roomId }).fetch(),
-        loading: bookingHandle && roomHandle,
+        loading: bookingHandle.ready() && roomHandle.ready(),
     }
 }, RoomDetails);
 

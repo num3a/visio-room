@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
-import { closeDrawer} from '../../actions/drawer';
+import { closeDrawer, toggleDrawer} from '../../actions/drawer';
 
 class VisioRoomDrawer extends Component {
 
@@ -48,14 +48,17 @@ class VisioRoomDrawer extends Component {
         dispatch(closeDrawer());
         //TODO: open url
     }
-    _onRequestChange() {
-
+    _onRequestChange(open, reason) {
+        const { dispatch } = this.props;
+        if(!open){
+            dispatch(closeDrawer());
+        }
     }
     render() {
         return (
             <Drawer
                 ref={(drawer) => this.drawer = drawer}
-                docked={true}
+                docked={false}
                 width={300}
                 open={this.props.isOpen}
                 onRequestChange={() => this._onRequestChange()}

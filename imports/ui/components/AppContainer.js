@@ -17,7 +17,9 @@ class App extends Component {
                     <Drawer
                         ref={(drawer) => this._drawer = drawer}
                         title="Menu"
-                        className={"mdl-layout--small-screen-only "} open={true}>
+                        className={"mdl-layout--small-screen-only "}
+                        open={true}
+                    >
                         <SideNavigationContainer/>
                     </Drawer>
 
