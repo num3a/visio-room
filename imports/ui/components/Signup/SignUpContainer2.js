@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import LogIn from './LogIn';
+import SignUp from './SignUp';
 import { Accounts } from 'meteor/accounts-base';
 //import Meteor from 'meteor/meteor';
-import { Router, browserHistory} from 'react-router'
-
+import { Router, browerHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 //TODO: add meteor data system
 
@@ -22,9 +21,23 @@ class Container extends Component {
         }
     }
 
-    _handleLogin(){
-        Meteor.loginWithPassword('ernest.emmanuel@hotmail.fr','tobeskin');
-        browserHistory.push('/');
+    _handleSignUp() {
+        let canRedirect = false;
+        Accounts.createUser({ email: 'erndedddddddzeaddst.emmanuel@hotmail.fr', password: 'tobeskin', profile: {
+            lastName: 'Ernest',
+            firstName: 'Emmanuel'
+        }}, (error) => {
+            if(error){
+                console.error('An error occured', error);
+            }
+            else{
+                canRedirect = true;
+            }
+
+            if(canRedirect){
+                browerHistory.push('/');
+            }
+        });
     }
 
     _handleOAuth() {
@@ -34,13 +47,15 @@ class Container extends Component {
             }
         });
     }
+
     render() {
         return(
             <div>
-                <LogIn
+                <SignUp
                     onEmailChange={(email) => this.setState({ email: email})}
                     onPasswordChange={(password) =>  this.setState({password: password})}
-                    onLoginClick={this._handleLogin.bind(this)}
+                    onConfirmChange={() => {}}
+                    onSignUpClick={() => this._handleSignUp()}
                     onOAuthClick={() => this._handleOAuth()}
                 />
             </div>
@@ -48,7 +63,7 @@ class Container extends Component {
     }
 }
 
-export default LoginContainer = createContainer(() => {
+export default SignUpContainer = createContainer(() => {
     return {
         currentUser: Meteor.user()
     };

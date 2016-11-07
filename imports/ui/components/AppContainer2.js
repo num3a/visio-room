@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import VisioRoomDrawer from './drawer/Drawer';
+import VisioRoomDrawer from './Drawer/Drawer';
 import VisioRoomAppBar from './AppBar/AppBar';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

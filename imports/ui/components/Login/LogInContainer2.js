@@ -1,0 +1,57 @@
+import React, { Component } from 'react';
+import LogIn from './LogIn2';
+import { Accounts } from 'meteor/accounts-base';
+//import Meteor from 'meteor/meteor';
+import { Router, browserHistory} from 'react-router'
+
+import { createContainer } from 'meteor/react-meteor-data';
+//TODO: add meteor data system
+
+class Container extends Component {
+    constructor(){
+        super();
+        this.state = {
+            email: '',
+            password: '',
+        };
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.currentUser){
+            browserHistory.push('/');
+        }
+    }
+
+    _handleLogin(){
+        Meteor.loginWithPassword('ernest.emmanuel@hotmail.fr','tobeskin');
+        browserHistory.push('/');
+    }
+
+    _handleOAuth() {
+        Meteor.loginWithLinkedin({
+            redirect_ui: 'http://localhost:4000',
+        }, (error)=> {
+            if(error){
+                console.log('oauth error', error);
+            }
+        });
+    }
+    render() {
+        return(
+            <div>
+                <LogIn
+                    onEmailChange={(email) => this.setState({ email: email})}
+                    onPasswordChange={(password) =>  this.setState({password: password})}
+                    onLoginClick={this._handleLogin.bind(this)}
+                    onOAuthClick={() => this._handleOAuth()}
+                />
+            </div>
+        );
+    }
+}
+
+export default LoginContainer = createContainer(() => {
+    return {
+        currentUser: Meteor.user()
+    };
+}, Container);

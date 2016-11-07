@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-
 // route components
 import AppContainer from '../../ui/components/AppContainer';
-import HomeContainer from '../../ui/components/home';
-import SignUpContainer from '../../ui/components/signup';
-import LogInContainer from '../../ui/components/login';
-import LogOutContainer from '../../ui/components/logout';
-import ProfileContainer from '../../ui/components/profile';
+
+import HomeContainer from '../../ui/components/Home';
+import ProfileContainer from '../../ui/components/Profile';
 
 import AppContainer2 from '../../ui/components/AppContainer2';
-import HomeContainer2 from '../../ui/components/home/HomeContainer2';
+import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
+
+
+import SignUpContainer from '../../ui/components/Signup';
+import LogInContainer from '../../ui/components/Login';
+import LogOutContainer from '../../ui/components/Logout';
+
+import SignUpContainer2 from '../../ui/components/Signup/SignUpContainer2';
+import LogInContainer2 from '../../ui/components/Login/LogInContainer2';
 
 /*
  import ListPageContainer from '../../ui/containers/ListPageContainer.js';
@@ -20,21 +25,44 @@ import RoomDetailsContainer from '../../ui/components/RoomDetails';
  */
 import NotFoundPage from '../../ui/pages/NotFoundPage.js';
 
+const redirectIfLoggedIn = (nextState, replace) => {
+    if(Meteor.user()){
+        replace({
+            pathname: '/',
+            state: { nextPathname: nextState.location.pathname }
+        });
+    }
+};
+
+const requireAuth = (nextState, replace) => {
+    if(Meteor.user()) {
+        console.log('USER IS LOGGED');
+    }
+    else {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        });
+
+        console.log('USER IS NOT LOGGED')
+    }
+};
+
 export const renderRoutes = () => (
     <Router history={browserHistory}>
-        <Route path="/v2" component={AppContainer2} >
+        <Route path="/" component={AppContainer2} >
             <IndexRoute component={HomeContainer2} />
-            <Route path="rooms/:roomId" component={RoomDetailsContainer} />
-            <Route path="*" component={NotFoundPage}/>
-        </Route>
-        <Route path="/" component={AppContainer}>
-            <IndexRoute component={HomeContainer} />
-            <Route path="/signup" component={SignUpContainer} />
-            <Route path="/login" component={LogInContainer} />
-            <Route path="/logout" component={LogOutContainer} />
-            <Route path="/profile" component={ProfileContainer} />
-            <Route path="*" component={NotFoundPage}/>
-        </Route>
 
+            <Route name="authenticatedPages" onEnter={requireAuth}>
+                <Route path="rooms/:roomId" component={RoomDetailsContainer} />
+                <Route path="profile" component={ProfileContainer} />
+            </Route>
+            <Route name="nonAuthenticatedPages" onEnter={redirectIfLoggedIn}>
+                <Route path="signup" component={SignUpContainer2} />
+                <Route path="login" component={LogInContainer2} />
+            </Route>
+            <Route path="logout" component={LogOutContainer} />
+            <Route path="*" component={NotFoundPage}/>
+        </Route>
     </Router>
 );

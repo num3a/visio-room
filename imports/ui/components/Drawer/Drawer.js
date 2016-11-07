@@ -3,6 +3,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { closeDrawer, toggleDrawer} from '../../actions/drawer';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 class VisioRoomDrawer extends Component {
 
@@ -22,6 +23,11 @@ class VisioRoomDrawer extends Component {
                 id: 2,
                 name: 'Profile',
                 url: '/profile',
+            },
+            {
+                id: 3,
+                name: 'Log Out',
+                url: '/logout',
             },
         ];
 
@@ -46,7 +52,7 @@ class VisioRoomDrawer extends Component {
     _onMenuClick(url) {
         const { dispatch } = this.props;
         dispatch(closeDrawer());
-        //TODO: open url
+        browserHistory.push(url);
     }
     _onRequestChange(open, reason) {
         const { dispatch } = this.props;

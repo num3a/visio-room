@@ -47,7 +47,7 @@ class RoomList extends Component {
     }
 
     _navigate(roomId){
-        browserHistory.push(`/v2/rooms/${roomId}`);
+        browserHistory.push(`/rooms/${roomId}`);
     }
 
     render() {
