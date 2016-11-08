@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import VisioRoomDrawer from './Drawer/Drawer';
 import VisioRoomAppBar from './AppBar/AppBar';
+import LoginModal from './Login/LoginModal';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -26,6 +27,7 @@ class AppContainer extends Component {
                         <VisioRoomAppBar/>
                         <VisioRoomDrawer />
                         {this.props.children}
+                        <LoginModal />
                     </div>
                 </MuiThemeProvider>
             </Provider>

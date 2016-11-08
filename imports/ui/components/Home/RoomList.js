@@ -9,6 +9,12 @@ import { Rooms } from '../../../api/rooms/rooms';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 class RoomList extends Component {
+    _disableOpenRoom(){
+        if(this.props.isAuthenticated){
+            return false;
+        }
+        return true;
+    }
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
@@ -34,7 +40,7 @@ class RoomList extends Component {
                                 </p>
                             </CardText>
                             <CardActions>
-                                <RaisedButton onClick={() => this._navigate(room._id)} primary label="Open this room" />
+                                <RaisedButton disabled={this._disableOpenRoom()} onClick={() => this._navigate(room._id)} primary label="Open this room" />
                             </CardActions>
                             <CardText expandable={true}>
                                 {room.description}
@@ -82,10 +88,11 @@ const RoomListContainer = createContainer(() => {
     const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
     //TODO: fix loading with publishComposite
     const loading = !roomsHandle.ready();
-    let rooms = Rooms.find({}, { disableOplog: true, reactive: false}).fetch();
+    let rooms = Rooms.find({}).fetch();
     console.log('SUBSCRIBE rooms.bookingsAvailable.byDate', loading);
 
     return {
+        isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
         rooms: rooms,
         loading: false,

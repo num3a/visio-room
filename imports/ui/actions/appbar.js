@@ -1,3 +1,12 @@
-/**
- * Created by eernest on 29/10/2016.
- */
+import * as types from './actionTypes';
+
+const openLoginModal = (isOpen) => {
+    return {
+        type: types.APPBAR_OPEN_LOGIN_MODAL,
+        openLoginModal: isOpen
+    };
+};
+
+export {
+    openLoginModal,
+};

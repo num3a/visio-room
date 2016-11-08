@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 
 const LogIn = (props) => (
@@ -10,11 +11,15 @@ const LogIn = (props) => (
                 <form>
                     <TextField
                         hintText="Login"
+                        floatingLabelText="Login"
+                        type="email"
                     />
                     <br />
                     <br />
                     <TextField
+                        floatingLabelText="Password"
                         hintText="Password"
+                        type="password"
                     />
                     <br />
                     <br />
