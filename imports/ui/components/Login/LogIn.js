@@ -1,50 +1,42 @@
 import React, { Component } from 'react';
-import { Layout, Button, Header,  Content,
-    Footer, FooterSection, FooterLinkList, FooterDropDownSection,
-    Card, CardText, CardTitle, CardActions, CardMenu, IconButton,
-    List, ListItem,
-    Grid, Cell, Textfield
-} from 'react-mdl';
-import { getColorClass, getTextColorClass} from '../../utils/palette';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
+
 
 const LogIn = (props) => (
-    <div className="vs-login">
-        <Grid>
-            <Cell col={4} offsetDesktop={3} offsetTablet={1} style={{backgroundColor: getColorClass('grey', 100)}} >
-                <Card>
-                        <Textfield
-                            onChange={() => props.onEmailChange()}
-                            label="Email"
-                            style={{width: '300px'}}
-                        />
-                        <Textfield
-                            onChange={() => props.onPasswordChange()}
-                            label="Password"
-                            style={{width: '300px'}}
-                        />
-                        <Button onClick={props.onLoginClick} raised accent ripple>Login</Button>
-                </Card>
-            </Cell>
-            <Cell col={4} >
-                <Card shadow={0} >
-                    <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Linkedin</CardTitle>
-                    <CardText>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris sagittis pellentesque lacus eleifend lacinia...
-                    </CardText>
-                    <CardActions border>
-                        <Button colored onClick={props.onOAuthClick}>
-                            <img src="/assets/Sign-In-Small---Default.png" />
-                        </Button>
-                    </CardActions>
-                    <CardMenu style={{color: '#fff'}}>
-                        <IconButton name="share" />
-                    </CardMenu>
-                </Card>
-
-            </Cell>
-        </Grid>
+    <div>
+        <div className="row">
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <form>
+                    <TextField
+                        hintText="Login"
+                        floatingLabelText="Login"
+                        type="email"
+                        onChange={props.onEmailChange}
+                    />
+                    <br />
+                    <br />
+                    <TextField
+                        floatingLabelText="Password"
+                        hintText="Password"
+                        type="password"
+                        onChange={props.onPasswordChange}
+                    />
+                    <br />
+                    <br />
+                    <RaisedButton onClick={props.onLoginClick} label="Log In" secondary={true}/>
+                </form>
+                <span style={{color: 'red'}}>{props.errorMessage}</span>
+            </div>
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <br />
+                <br />
+                <RaisedButton label="Log In with LinkedIn" primary={true} onClick={props.onOAuthClick}/>
+            </div>
+        </div>
     </div>
+
 );
 
 export default LogIn;

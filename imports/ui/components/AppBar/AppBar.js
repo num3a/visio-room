@@ -25,12 +25,12 @@ class VisioRoomAppBar extends Component {
     }
     _onLoginClick(){
         const { dispatch } = this.props;
-        dispatch(openLoginModal(true));
+        dispatch(openLoginModal());
     }
     _renderRightButton(){
         if (!this.props.isAuthenticated) {
             return(
-                <FlatButton onClick={() => this._onLoginClick()}>Login or Signup</FlatButton>
+                <FlatButton onClick={() => this._onLoginClick()}>Login</FlatButton>
             );
         }
         else {

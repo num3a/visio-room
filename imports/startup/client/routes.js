@@ -15,9 +15,6 @@ import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
 import LogOutContainer from '../../ui/components/Logout';
 
-import SignUpContainer2 from '../../ui/components/Signup/SignUpContainer2';
-import LogInContainer2 from '../../ui/components/Login/LogInContainer2';
-
 /*
  import ListPageContainer from '../../ui/containers/ListPageContainer.js';
  import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.js';
@@ -58,8 +55,8 @@ export const renderRoutes = () => (
                 <Route path="profile" component={ProfileContainer} />
             </Route>
             <Route name="nonAuthenticatedPages" onEnter={redirectIfLoggedIn}>
-                <Route path="signup" component={SignUpContainer2} />
-                <Route path="login" component={LogInContainer2} />
+                <Route path="signup" component={SignUpContainer} />
+                <Route path="login" component={LogInContainer} />
             </Route>
             <Route path="logout" component={LogOutContainer} />
             <Route path="*" component={NotFoundPage}/>

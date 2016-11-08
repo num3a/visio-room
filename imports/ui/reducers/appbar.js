@@ -11,7 +11,11 @@ const appBarReducer = (state = initialState, action = {}) => {
                 ...state,
                 openLoginModal: action.openLoginModal
             };
-
+        case types.APPBAR_CLOSE_LOGIN_MODAL:
+            return {
+                ...state,
+                openLoginModal: action.openLoginModal,
+            };
         default:
             return state;
     }

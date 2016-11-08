@@ -4,17 +4,46 @@ import { surroundingDates } from '../../../common/utils/dateUtils';
 import { Rooms } from '../../../api/rooms/rooms';
 import { Bookings} from '../../../api/bookings/bookings';
 import CircularProgress from 'material-ui/CircularProgress';
+import {Card, CardActions, CardHeader, CardMedia, CardText} from "material-ui/Card";
+import {staticMarkerImage} from "../../../common/utils/googleMaps";
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class RoomDetails extends Component {
     _renderRoomDetails() {
+        let room = this.props.rooms[0];
+        var staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 800, 400);
+
         if(this.props.loading){
             return (<CircularProgress size={80} thickness={5} />);
         }
-            return (<div></div>);     gi
+        return (
+            <Card className="home-card">
+                <CardHeader
+                />
+                <CardMedia>
+                    <img src={staticImageUrl} />
+                </CardMedia>
+                <CardText>
+                    <p>
+                        Capacity: {room.capacity}
+                    </p>
+                    <p>
+                        Price: {room.pricePerDay}
+                    </p>
+                </CardText>
+                <CardActions>
+                    <RaisedButton fullWidth primary label="Book" />
+                </CardActions>
+                <CardText>
+                    {room.description}
+                </CardText>
+            </Card>
+        );
     }
     render() {
         return (<div>
-            <h3>Rooms details</h3>
+            <h3>{this.props.rooms[0].name}</h3>
             {this._renderRoomDetails()}
         </div>);
     }

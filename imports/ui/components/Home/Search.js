@@ -4,6 +4,7 @@ import DatePicker from "material-ui/DatePicker";
 import Slider from "material-ui/Slider";
 
 class Search extends Component {
+
     render() {
         return (
             <div>
@@ -14,7 +15,6 @@ class Search extends Component {
                         container="inline"
                         hintText="Choose a date"
                     />
-                    <Slider defaultValue={1} />
                 </form>
             </div>
         );

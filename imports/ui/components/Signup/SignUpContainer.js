@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import SignUp from './SignUp';
 import { Accounts } from 'meteor/accounts-base';
-//import Meteor from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import { Router, browerHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
+import { closeLoginModal } from '../../actions/appbar';
+import { connect } from 'react-redux';
+
 //TODO: add meteor data system
 
 class Container extends Component {
@@ -12,6 +15,8 @@ class Container extends Component {
         this.state = {
             email: '',
             password: '',
+            confirm: '',
+            errorMessage: '',
         };
     }
 
@@ -21,16 +26,36 @@ class Container extends Component {
         }
     }
 
+    _onEmailChange(event){
+        this.setState({email: event.target.value});
+    }
+    _onPasswordChange(event){
+        this.setState({password: event.target.value});
+    }
+
+    _onConfirmPasswordChange(event){
+        this.setState({confirm: event.target.value});
+    }
+
     _handleSignUp() {
+        if(this.state.password !== this.state.confirm){
+            this.setState({errorMessage: 'Please confirm password.'});
+            return;
+        }
+
         let canRedirect = false;
-        Accounts.createUser({ email: 'erndedddddddzeaddst.emmanuel@hotmail.fr', password: 'tobeskin', profile: {
+        Accounts.createUser({ email: this.state.email, password: this.state.password, profile: {
             lastName: 'Ernest',
             firstName: 'Emmanuel'
         }}, (error) => {
             if(error){
-                console.error('An error occured', error);
+                console.log('An error occured', error);
+                this.setState({errorMessage: error.reason});
+
             }
             else{
+                const { dispatch } = this.props;
+                dispatch(closeLoginModal());
                 canRedirect = true;
             }
 
@@ -41,9 +66,15 @@ class Container extends Component {
     }
 
     _handleOAuth() {
-        Meteor.loginWithLinkedin({}, (error)=> {
+        Meteor.loginWithLinkedin({
+            redirectUrl: 'http://localhost:3000',
+        }, (error)=> {
             if(error){
                 console.log('oauth error', error);
+            }
+            else {
+                const { dispatch } = this.props;
+                dispatch(closeLoginModal());
             }
         });
     }
@@ -52,19 +83,28 @@ class Container extends Component {
         return(
             <div>
                 <SignUp
-                    onEmailChange={(email) => this.setState({ email: email})}
-                    onPasswordChange={(password) =>  this.setState({password: password})}
-                    onConfirmChange={() => {}}
+                    onEmailChange={(event) => this._onEmailChange(event)}
+                    onPasswordChange={(event) =>  this._onPasswordChange(event)}
+                    onConfirmChange={(event) =>  this._onConfirmPasswordChange(event)}
                     onSignUpClick={() => this._handleSignUp()}
                     onOAuthClick={() => this._handleOAuth()}
+                    errorMessage={this.state.errorMessage}
                 />
             </div>
         );
     }
 }
 
-export default SignUpContainer = createContainer(() => {
+const SignUpContainer = createContainer(() => {
     return {
         currentUser: Meteor.user()
     };
 }, Container);
+
+
+const mapStateToProps = (state) => {
+    return {
+    };
+};
+
+export default connect(mapStateToProps)(SignUpContainer);
