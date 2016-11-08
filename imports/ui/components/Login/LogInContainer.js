@@ -49,7 +49,6 @@ class Container extends Component {
     }
     _handleOAuth() {
         Meteor.loginWithLinkedin({
-            redirectUrl: 'http://localhost:3000',
         }, (error)=> {
             if(error){
                 console.log('oauth error', error);
