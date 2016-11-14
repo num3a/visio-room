@@ -85,7 +85,8 @@ class RoomList extends Component {
 
 
 const RoomListContainer = createContainer(() => {
-    const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
+    const roomsHandle = Meteor.subscribe('rooms.all');
+    //const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
     //TODO: fix loading with publishComposite
     const loading = !roomsHandle.ready();
     let rooms = Rooms.find({}).fetch();

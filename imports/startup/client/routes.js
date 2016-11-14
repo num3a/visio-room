@@ -50,11 +50,11 @@ export const renderRoutes = () => (
         <Route path="/" component={AppContainer2} >
             <IndexRoute component={HomeContainer2} />
 
-            <Route name="authenticatedPages" onEnter={requireAuth}>
+            <Route name="authenticatedPages">
                 <Route path="rooms/:roomId" component={RoomDetailsContainer} />
                 <Route path="profile" component={ProfileContainer} />
             </Route>
-            <Route name="nonAuthenticatedPages" onEnter={redirectIfLoggedIn}>
+            <Route name="nonAuthenticatedPages">
                 <Route path="signup" component={SignUpContainer} />
                 <Route path="login" component={LogInContainer} />
             </Route>
