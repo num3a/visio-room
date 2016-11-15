@@ -7,6 +7,9 @@ import CircularProgress from "material-ui/CircularProgress";
 import {Card, CardActions, CardHeader, CardMedia, CardText} from "material-ui/Card";
 import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import RaisedButton from "material-ui/RaisedButton";
+import { grey500, green500, red500 } from "material-ui/styles/colors";
+import moment from 'moment';
+import RoomBookingStepper from './RoomBookingStepper';
 import {
     Step,
     Stepper,
@@ -41,9 +44,6 @@ class RoomDetails extends Component {
                             Price: {room.pricePerDay}
                         </p>
                     </CardText>
-                    <CardActions>
-                        <RaisedButton fullWidth primary label="Book"/>
-                    </CardActions>
                     <CardText>
                         {room.description}
                     </CardText>
@@ -59,13 +59,21 @@ class RoomDetails extends Component {
         //todo: remove mocks
         let tabs = [{},{},{},{},{},{},{},{},{},{}];
         let i = 0;
+        let now = moment();
         return(
             tabs.map(() => {
                 i++;
-                return <div key={i} className="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    <Card style={{margin:10, backgroundColor: 'purple', color: 'white'}}>
-                        <CardHeader>1 june</CardHeader>
-                        <CardText>1 july</CardText>
+                let color = (i % 2 == 0) ? green500 : red500;
+                if(i == 1){
+                    color = grey500;
+                }
+                return <div key={i} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                    <Card style={{margin:10, backgroundColor: color, color: 'white'}}>
+                        <CardHeader
+                            titleColor="white"
+                            title={now.add(1, 'days').toDate().toDateString()}
+                        />
+                        <CardText>description</CardText>
                     </Card>
                 </div>;
             })
@@ -88,7 +96,15 @@ class RoomDetails extends Component {
                     <div className="row">
                         {this._renderBookingControls()}
                     </div>
+                    <div className="row">
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <RaisedButton fullWidth primary>Go</RaisedButton>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div className="row">
+                <RoomBookingStepper />
             </div>
         </div>);
     }

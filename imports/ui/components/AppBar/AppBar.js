@@ -42,7 +42,7 @@ class VisioRoomAppBar extends Component {
             <AppBar
                 onLeftIconButtonTouchTap={() => this._toggleDrawer()}
                 iconElementRight={this._renderRightButton()}
-                title="Home"/>
+                title="VisioRoom"/>
         );
     }
 }
