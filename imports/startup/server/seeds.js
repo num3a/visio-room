@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Rooms } from '../../api/rooms/rooms';
 import { Bookings } from '../../api/bookings/bookings';
+import { Voucher } from '../../api/voucher/vouchers';
 import moment from 'moment';
 
 const generateBookings = (error, _id) => {
@@ -12,7 +13,7 @@ const generateBookings = (error, _id) => {
     let now = moment();
     now.set({'hour': 12, 'minutes': 0, 'second': 0, 'millisecond': 0});
 
-    var bookingsCount = Bookings.find({ roomId: _id}).count();
+    let bookingsCount = Bookings.find({ roomId: _id}).count();
 
     if( bookingsCount === 0){
         for(let i = 0; i < 500; i++) {
@@ -22,6 +23,23 @@ const generateBookings = (error, _id) => {
                 isBlocked: false,
                 bookingDate: now.add(1, 'days').toDate(),
                 attendeeCount: 0,
+                createdAt: new Date()
+            });
+        }
+    }
+};
+
+const generateVouchers = () => {
+    var voucherCount = Voucher.find({}).count();
+
+    if(voucherCount === 0){
+        for(let i = 0; i < 500; i++) {
+            let newCode = (new Date().getTime()).toString(36).toUpperCase();
+
+                Voucher.insert({
+                isValid: true,
+                code: newCode,
+                percentage: 100.0,
                 createdAt: new Date()
             });
         }
@@ -68,4 +86,5 @@ Meteor.startup(() =>{
         }, generateBookings);
     }
 
+    generateVouchers();
 });

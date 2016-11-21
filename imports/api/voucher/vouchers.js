@@ -23,9 +23,11 @@ Voucher.schema = new SimpleSchema({
     _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
     isValid: { type: Boolean},
     code: {type: String},
-    percentage: { type: [Number], decimal: true},
-    createdAt: { type: Date, defaultValue: new Date(), optional: false}
-
+    percentage: { type: Number, decimal: true},
+    createdAt: { type: Date, defaultValue: new Date(), optional: false},
+    usedAt: { type: Date, optional: true },
+    usedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
+    usedFor: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 });
 
 Voucher.attachSchema(Voucher.schema);

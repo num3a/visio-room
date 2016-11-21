@@ -9,6 +9,9 @@ import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import RaisedButton from "material-ui/RaisedButton";
 import { grey500, green500, red500 } from "material-ui/styles/colors";
 import moment from 'moment';
+
+import BookingControls from './BookingControls';
+
 import RoomBookingStepper from './RoomBookingStepper';
 import {
     Step,
@@ -55,31 +58,6 @@ class RoomDetails extends Component {
         }
     }
 
-    _renderBookingControls(){
-        //todo: remove mocks
-        let tabs = [{},{},{},{},{},{},{},{},{},{}];
-        let i = 0;
-        let now = moment();
-        return(
-            tabs.map(() => {
-                i++;
-                let color = (i % 2 == 0) ? green500 : red500;
-                if(i == 1){
-                    color = grey500;
-                }
-                return <div key={i} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                    <Card style={{margin:10, backgroundColor: color, color: 'white'}}>
-                        <CardHeader
-                            titleColor="white"
-                            title={now.add(1, 'days').toDate().toDateString()}
-                        />
-                        <CardText>description</CardText>
-                    </Card>
-                </div>;
-            })
-        );
-    }
-
     render() {
         return (<div>
             {this._renderTitle()}
@@ -88,23 +66,12 @@ class RoomDetails extends Component {
                     {this._renderRoomDetails()}
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                            <h4>Select a booking day:</h4>
-                        </div>
-                    </div>
-                    <div className="row">
-                        {this._renderBookingControls()}
-                    </div>
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <RaisedButton fullWidth primary>Go</RaisedButton>
-                        </div>
+                    <div>
+                        <RoomBookingStepper/>
                     </div>
                 </div>
             </div>
             <div className="row">
-                <RoomBookingStepper />
             </div>
         </div>);
     }

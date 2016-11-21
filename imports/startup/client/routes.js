@@ -21,6 +21,7 @@ import LogOutContainer from '../../ui/components/Logout';
  import AuthPageJoin from '../../ui/pages/AuthPageJoin.js';
  */
 import NotFoundPage from '../../ui/pages/NotFoundPage.js';
+import CGU from '../../ui/pages/CGU.js';
 
 const redirectIfLoggedIn = (nextState, replace) => {
     if(Meteor.user()){
@@ -57,6 +58,7 @@ export const renderRoutes = () => (
             <Route name="nonAuthenticatedPages">
                 <Route path="signup" component={SignUpContainer} />
                 <Route path="login" component={LogInContainer} />
+                <Route path="cgu" component={CGU} />
             </Route>
             <Route path="logout" component={LogOutContainer} />
             <Route path="*" component={NotFoundPage}/>

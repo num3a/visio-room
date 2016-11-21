@@ -4,4 +4,7 @@ import '../../api/bookings/server/publications.js';
 import '../../api/rooms/rooms.js';
 import '../../api/rooms/server/publications.js';
 
+import '../../api/voucher/vouchers.js';
+import '../../api/voucher/server/publications.js';
+import '../../api/voucher/methods.js';
 import '../../api/signup/methods';
