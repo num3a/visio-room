@@ -6,8 +6,7 @@ import AuthenticationModal from './Modal/AuthenticationModal';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 import createLogger from 'redux-logger';

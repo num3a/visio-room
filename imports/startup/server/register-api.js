@@ -8,3 +8,5 @@ import '../../api/voucher/vouchers.js';
 import '../../api/voucher/server/publications.js';
 import '../../api/voucher/methods.js';
 import '../../api/signup/methods';
+
+import '../../api/email/methods.js';

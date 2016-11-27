@@ -53,6 +53,10 @@ class Container extends Component {
             if(error){
                 console.log('oauth error', error);
             }
+            else {
+                const { dispatch } = this.props;
+                dispatch(closeLoginModal());
+            }
         });
     }
     render() {

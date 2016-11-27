@@ -38,6 +38,9 @@ class RoomBookingStepper extends Component {
             stepIndex: stepIndex + 1,
             finished: stepIndex >= 2,
         });
+        if(stepIndex === 2){
+            Meteor.call('email.send');
+        }
     };
 
     handlePrev() {
