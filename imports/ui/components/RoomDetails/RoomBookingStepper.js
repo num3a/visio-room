@@ -228,7 +228,7 @@ const RoomBookingStepperContainer = createContainer(() => {
     return {
         isAuthenticated: Meteor.userId(),
         loadingVoucher: !voucherHandle.ready(),
-        voucher: Voucher.findOne({}),
+        voucher: Voucher.findOne({ code: 'IVR8QN1N' }),
     };
 }, RoomBookingStepper);
 

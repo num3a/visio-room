@@ -12,7 +12,7 @@ import Avatar from "material-ui/Avatar";
 
 class VisioRoomDrawer extends Component {
 
-    constructor(){
+    constructor(){/**/
         super();
         this.drawer = null;
     }
@@ -23,26 +23,40 @@ class VisioRoomDrawer extends Component {
                 id: 1,
                 name: 'Home',
                 url: '/',
+                disabled: false,
             },
             {
                 id: 2,
                 name: 'Profile',
                 url: '/profile',
+                disabled: false,
+
             },
             {
                 id: 3,
                 name: 'Booking History',
                 url: '/history',
+                disabled: false,
             },
             {
                 id: 4,
-                name: 'About',
-                url: '/about',
+                name: 'Payments',
+                url: '/payments',
+                disabled: true,
             },
             {
                 id: 5,
+                name: 'About',
+                url: '/about',
+                disabled: false,
+
+            },
+            {
+                id: 6,
                 name: 'Log Out',
                 url: '/logout',
+                disabled: false,
+
             },
         ];
 
@@ -54,6 +68,7 @@ class VisioRoomDrawer extends Component {
         dispatch(closeDrawer());
         dispatch(openLoginModal());
     }
+
     _renderLoggedMenuItems(){
         if(this.props.isAuthenticated) {
             return <div></div>;
@@ -66,6 +81,15 @@ class VisioRoomDrawer extends Component {
             </MenuItem>
         );
     }
+
+    _renderAvatar(){
+        let { currentUser } = this.props;
+        if(!currentUser.profile || !currentUser.profile.pictureUrl){
+            return (<Avatar>{currentUser.profile.firstName[0].toUpperCase()}{currentUser.profile.lastName[0].toUpperCase()}</Avatar>);
+        }
+        return (<Avatar src={currentUser.profile.pictureUrl} />);
+    }
+
     _renderMenuItems() {
         if(!this.props.isAuthenticated) {
             return <div></div>;
@@ -76,6 +100,7 @@ class VisioRoomDrawer extends Component {
         return(
             menus.map((menu) => {
                 return(<MenuItem
+                    disabled={menu.disabled}
                     onTouchTap={() => this._onMenuClick(menu.url)}
                     key={menu.id}
                 >
@@ -89,15 +114,13 @@ class VisioRoomDrawer extends Component {
         if(!this.props.isAuthenticated) {
             return <div></div>;
         }
-        let { currentUser } = this.props;
 
+        let { currentUser } = this.props;
         if(this.props.currentUser){
             return (  <List>
                 <ListItem
                     disabled={true}
-                    leftAvatar={
-                        <Avatar src={currentUser.profile.pictureUrl} />
-                    }
+                    leftAvatar={this._renderAvatar()}
                 >
                     {currentUser.profile.firstName} {currentUser.profile.lastName.toUpperCase()}
                 </ListItem>
@@ -105,18 +128,19 @@ class VisioRoomDrawer extends Component {
         }
     }
 
-
     _onMenuClick(url) {
         const { dispatch } = this.props;
         dispatch(closeDrawer());
         browserHistory.push(url);
     }
+
     _onRequestChange(open, reason) {
         const { dispatch } = this.props;
         if(!open){
             dispatch(closeDrawer());
         }
     }
+
     render(){
         return (
             <Drawer

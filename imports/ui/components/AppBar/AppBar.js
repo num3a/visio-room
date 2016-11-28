@@ -4,21 +4,28 @@ import AppBar from 'material-ui/AppBar';
 import { toggleDrawer} from '../../actions/drawer';
 import { createContainer } from 'meteor/react-meteor-data';
 import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import { Router, browserHistory} from 'react-router'
 import { openLoginModal } from '../../actions/login';
-
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';
-import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
-//                iconElementLeft={<IconButton> <ChevronLeft color="white" /> </IconButton>}
 
-/*
-*     <div>
- <FlatButton style={{color: 'white', fontSize: 24, fontWeight: 400,}}>SignUp</FlatButton>
- <FlatButton>Login</FlatButton>
- </div>
- */
+const Logged = (props) => (
+    <IconMenu
+        {...props}
+        iconButtonElement={
+            <IconButton><MoreVertIcon color="white" /></IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+    >
+        <MenuItem primaryText="Switch language" />
+    </IconMenu>
+);
 
 class VisioRoomAppBar extends Component {
+
     _toggleDrawer(){
         const { dispatch } = this.props;
         dispatch(toggleDrawer());
@@ -34,7 +41,7 @@ class VisioRoomAppBar extends Component {
             );
         }
         else {
-            return(<div></div>);
+            return(<Logged />);
         }
     }
     render() {
@@ -42,6 +49,7 @@ class VisioRoomAppBar extends Component {
             <AppBar
                 onLeftIconButtonTouchTap={() => this._toggleDrawer()}
                 iconElementRight={this._renderRightButton()}
+
                 title="VisioRoom"/>
         );
     }
