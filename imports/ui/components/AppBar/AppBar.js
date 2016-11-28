@@ -5,7 +5,7 @@ import { toggleDrawer} from '../../actions/drawer';
 import { createContainer } from 'meteor/react-meteor-data';
 import FlatButton from 'material-ui/FlatButton';
 import { Router, browserHistory} from 'react-router'
-import { openLoginModal } from '../../actions/appbar';
+import { openLoginModal } from '../../actions/login';
 
 import IconButton from 'material-ui/IconButton';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';

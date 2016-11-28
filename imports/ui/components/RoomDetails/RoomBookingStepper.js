@@ -9,9 +9,11 @@ import Checkbox from 'material-ui/Checkbox';
 import {Voucher} from "../../../api/voucher/vouchers";
 import Dialog from 'material-ui/Dialog';
 import CircularProgress from "material-ui/CircularProgress";
-
+import {connect} from "react-redux";
+import { closeBookingModal, openBookingModal} from '../../actions/room';
 import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
+import { Router, browserHistory } from  'react-router';
 
 //TODO: add redux
 //TODO: plug validation voucher
@@ -39,11 +41,16 @@ class RoomBookingStepper extends Component {
             stepIndex: stepIndex + 1,
             finished: stepIndex >= 2,
         });
-        if(stepIndex === 2){
+        if(stepIndex >= 2){
+            const { dispatch } = this.props;
+            dispatch(openBookingModal());
+
             Meteor.call('email.send');
+
             Meteor.setTimeout(() => {
-                this.completeDialog.open = false;
-                console.log('complete', this.completeDialog);
+                dispatch(closeBookingModal());
+
+                browserHistory.push('/history');
             }, 5000);
         }
     };
@@ -159,6 +166,7 @@ class RoomBookingStepper extends Component {
     }
     render() {
         const {finished, stepIndex} = this.state;
+        const { openBookingModal } = this.props;
         const contentStyle = {margin: '0 16px'};
         const buttonDisabled = this.getNextButtonActiveState();
 
@@ -176,7 +184,7 @@ class RoomBookingStepper extends Component {
                     </Step>
                 </Stepper>
                 <div style={contentStyle}>
-                    {finished ? (
+                    {openBookingModal ? (
                         <Dialog
                             ref={(dialog) => { completeDialog = dialog}}
                             open
@@ -214,13 +222,20 @@ class RoomBookingStepper extends Component {
     }
 }
 
-const RoomBookingStepperContainer = createContainer(({ params }) => {
+const RoomBookingStepperContainer = createContainer(() => {
     const voucherHandle = Meteor.subscribe('voucher.byCode', 'IVR8QN1N'); // this.props.voucherCode);
 
     return {
         isAuthenticated: Meteor.userId(),
         loadingVoucher: !voucherHandle.ready(),
         voucher: Voucher.findOne({}),
-    }
+    };
 }, RoomBookingStepper);
-export default RoomBookingStepperContainer;
+
+const mapStateToProps = (state) => {
+    return {
+        openBookingModal: state.room.openBookingModal,
+    };
+};
+
+export default connect(mapStateToProps)(RoomBookingStepperContainer);

@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Router, browerHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
-import { closeLoginModal } from '../../actions/appbar';
+import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
 
 //TODO: add meteor data system

@@ -4,10 +4,10 @@ import messaging from './messaging';
 import room from './room';
 import drawer from './drawer';
 import search from './search';
-import appbar from './appbar';
+import login from './login';
 
 const VisioRoomReducers = combineReducers({
-    appbar: appbar,
+    login: login,
     user: user,
     messaging: messaging,
     room: room,

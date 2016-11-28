@@ -3,6 +3,7 @@ import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import {connect} from "react-redux";
 import {closeDrawer} from "../../actions/drawer";
+import { openLoginModal, closeLoginModal } from '../../actions/login';
 import {browserHistory} from "react-router";
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
@@ -47,8 +48,23 @@ class VisioRoomDrawer extends Component {
 
         return menus;
     }
-    _renderLoggedMenuItems(){
 
+    _handleLogin(){
+        const { dispatch } = this.props;
+        dispatch(closeDrawer());
+        dispatch(openLoginModal());
+    }
+    _renderLoggedMenuItems(){
+        if(this.props.isAuthenticated) {
+            return <div></div>;
+        }
+        return(
+            <MenuItem
+                onTouchTap={() => this._handleLogin()}
+                >
+                Log In
+            </MenuItem>
+        );
     }
     _renderMenuItems() {
         if(!this.props.isAuthenticated) {
@@ -110,6 +126,7 @@ class VisioRoomDrawer extends Component {
                 open={this.props.isOpen}
                 onRequestChange={() => this._onRequestChange()}
             >
+                {this._renderLoggedMenuItems()}
                 {this._renderProfileInformations()}
                 {this._renderMenuItems()}
             </Drawer>

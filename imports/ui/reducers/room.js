@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialSate = {
     roomId: '',
+    openBookingModal: false,
 };
 
 const roomReducer = (state = initialSate, action = {}) => {
@@ -10,6 +11,11 @@ const roomReducer = (state = initialSate, action = {}) => {
             return {
                 ...state,
                 roomId: action.roomId,
+            };
+        case types.ROOM_OPEN_BOOKING_MODAL:
+            return {
+                ...state,
+                openBookingModal: action.openBookingModal,
             };
         default:
             return state;

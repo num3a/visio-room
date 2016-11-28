@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LogIn from './LogIn';
 import { Meteor } from 'meteor/meteor';
 import { Router, browserHistory} from 'react-router'
-import { closeLoginModal } from '../../actions/appbar';
+import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
 
 import { createContainer } from 'meteor/react-meteor-data';

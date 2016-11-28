@@ -7,6 +7,22 @@ const selectedRoomChanged = (roomId) => {
     };
 };
 
+const openBookingModal = () => {
+    return {
+        type: types.ROOM_OPEN_BOOKING_MODAL,
+        openBookingModal: true
+    };
+};
+
+const closeBookingModal = () => {
+    return {
+        type: types.ROOM_OPEN_BOOKING_MODAL,
+        openBookingModal: false
+    };
+};
+
 export {
     selectedRoomChanged,
+    openBookingModal,
+    closeBookingModal,
 }

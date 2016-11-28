@@ -8,10 +8,10 @@ import SignUpContainer from '../Signup/SignUpContainer';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 
-import { closeLoginModal } from '../../actions/appbar';
+import { closeLoginModal } from '../../actions/login';
 class AuthenticationModal extends Component {
     _onRequestClose(){
-        const { dispatch } = props;
+        const { dispatch } = this.props;
         dispatch(closeLoginModal());
     }
 
@@ -51,7 +51,7 @@ class AuthenticationModal extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        openLoginModal: state.appbar.openLoginModal,
+        openLoginModal: state.login.openLoginModal,
     };
 };
 
