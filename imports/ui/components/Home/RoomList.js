@@ -55,7 +55,16 @@ class RoomList extends Component {
     _navigate(roomId){
         browserHistory.push(`/rooms/${roomId}`);
     }
-
+    _loginMessage(){
+        if(!this.props.isAuthenticated){
+            return(<div className="row">
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h5>Please login to book a room.</h5>
+                    </div>
+                </div>
+            );
+        }
+    }
     render() {
         if(this.props.loading){
             return (
@@ -69,10 +78,10 @@ class RoomList extends Component {
 
         return (
             <div>
+                {this._loginMessage()}
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                        <h5>{this.props.rooms.length } result(s) found:</h5>
+                        <h5>{this.props.rooms.length } room(s) found:</h5>
                     </div>
                 </div>
                 <div className="row">
@@ -86,11 +95,8 @@ class RoomList extends Component {
 
 const RoomListContainer = createContainer(() => {
     const roomsHandle = Meteor.subscribe('rooms.all');
-    //const roomsHandle = Meteor.subscribe('rooms.bookingsAvailable.byDate', new Date());
-    //TODO: fix loading with publishComposite
     const loading = !roomsHandle.ready();
     let rooms = Rooms.find({}).fetch();
-    console.log('SUBSCRIBE rooms.bookingsAvailable.byDate', loading);
 
     return {
         isAuthenticated: Meteor.userId(),

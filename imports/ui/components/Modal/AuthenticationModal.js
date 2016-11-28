@@ -16,8 +16,18 @@ class AuthenticationModal extends Component {
     }
 
     render() {
+
+        const actions = [
+            <FlatButton
+                label="Close"
+                primary={true}
+                onTouchTap={() => this._onRequestClose()}
+            />
+        ];
+
         return (
             <Dialog
+                actions={actions}
                 modal={true}
                 open={this.props.openLoginModal}
                 style={{height: 400}}

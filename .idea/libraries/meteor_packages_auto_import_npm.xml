@@ -2573,6 +2573,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_export.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_wks-ext.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/es6.array.some.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.1/npm/node_modules/meteor-babel-helpers/index.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_ie8-dom-define.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/weak-set.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/es7.reflect.define-metadata.js" />
@@ -3362,14 +3363,10 @@
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/transformation/plugin.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/concat.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/helpers/normalize-ast.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/path.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/runtime-module.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/from.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/helpers/merge.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/runtime.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/shift.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/transformation/pipeline.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/meteor-babel-helpers/index.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/every.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/index-of.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/copy-within.js" />
@@ -9434,6 +9431,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_export.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_wks-ext.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/es6.array.some.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.1/npm/node_modules/meteor-babel-helpers/index.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/_ie8-dom-define.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/weak-set.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/core-js/modules/es7.reflect.define-metadata.js" />
@@ -10223,14 +10221,10 @@
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/transformation/plugin.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/concat.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/helpers/normalize-ast.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/path.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/runtime-module.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/from.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/helpers/merge.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/regenerator-runtime/runtime.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/shift.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-compiler/6.13.0/npm/node_modules/babel-core/lib/transformation/pipeline.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/1.0.0/npm/node_modules/meteor-babel-helpers/index.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/every.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/index-of.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.30.2/npm/node_modules/core-js/library/fn/array/copy-within.js" />

@@ -23,6 +23,7 @@ import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 class RoomBookingStepper extends Component {
     constructor() {
         super();
+        this.completeDialog = null;
 
         this.state = {
             finished: false,
@@ -40,6 +41,10 @@ class RoomBookingStepper extends Component {
         });
         if(stepIndex === 2){
             Meteor.call('email.send');
+            Meteor.setTimeout(() => {
+                this.completeDialog.open = false;
+                console.log('complete', this.completeDialog);
+            }, 5000);
         }
     };
 
@@ -173,6 +178,7 @@ class RoomBookingStepper extends Component {
                 <div style={contentStyle}>
                     {finished ? (
                         <Dialog
+                            ref={(dialog) => { completeDialog = dialog}}
                             open
                             title="Booking in progress"
                             onRequestClose={() => {}}

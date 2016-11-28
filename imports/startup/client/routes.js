@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 // route components
-import AppContainer from '../../ui/components/AppContainer';
 
 import HomeContainer from '../../ui/components/Home';
 import ProfileContainer from '../../ui/components/Profile';
 
-import AppContainer2 from '../../ui/components/AppContainer2';
+import AppContainer from '../../ui/components/AppContainer';
 import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 
@@ -48,7 +47,7 @@ const requireAuth = (nextState, replace) => {
 
 export const renderRoutes = () => (
     <Router history={browserHistory}>
-        <Route path="/" component={AppContainer2} >
+        <Route path="/" component={AppContainer} >
             <IndexRoute component={HomeContainer2} />
 
             <Route name="authenticatedPages">

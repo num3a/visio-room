@@ -1,56 +1,37 @@
-import React, {Component} from "react";
-import classNames from "classnames";
-import {createContainer} from "meteor/react-meteor-data";
-import {TopNavigationContainer, SideNavigationContainer} from "./navigation";
-import {Layout, Header, Drawer, Content, Footer, FooterSection, FooterLinkList} from "react-mdl";
-import {getColorClass, getTextColorClass} from "../utils/palette";
+import React, { Component } from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import VisioRoomDrawer from './Drawer/Drawer';
+import VisioRoomAppBar from './AppBar/AppBar';
+import AuthenticationModal from './Modal/AuthenticationModal';
 
-class App extends Component {
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import VisioRoomTheme from '../theme/VisioRoomTheme';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider, connect } from 'react-redux';
+import createLogger from 'redux-logger';
+import VisioRoomReducers from '../reducers';
 
-    //Toggle drawer with class is-visible
+injectTapEventPlugin();
+const logger = createLogger();
+const createStoreWithMiddleware = applyMiddleware(logger)(createStore);
+const store = createStoreWithMiddleware(VisioRoomReducers);
+
+class AppContainer extends Component {
     render() {
         return (
-                <Layout fixedHeader className={classNames(getColorClass('grey', 100), getTextColorClass('grey', 700))}>
-                    <Header className={getColorClass('primary')} title="VisioRoom" >
-                            <TopNavigationContainer className={"mdl-layout--large-screen-only"}/>
-                    </Header>
-                    <Drawer
-                        ref={(drawer) => this._drawer = drawer}
-                        title="Menu"
-                        className={"mdl-layout--small-screen-only "}
-                        open={true}
-                    >
-                        <SideNavigationContainer/>
-                    </Drawer>
-
-                    <Content >
+            <Provider store={store}>
+                <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
+                    <div>
+                        <VisioRoomAppBar/>
+                        <VisioRoomDrawer />
                         {this.props.children}
-                    </Content>
-
-                    <Footer size="mini">
-                            <FooterSection type="bottom" logo="More Information">
-                                <FooterLinkList>
-                                    <a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a>
-                                    <a href="#">Help</a>
-                                    <a href="#">Privacy & Terms</a>
-                                </FooterLinkList>
-                            </FooterSection>
-                        </Footer>
-                </Layout>
+                        <AuthenticationModal />
+                    </div>
+                </MuiThemeProvider>
+            </Provider>
         );
     }
 }
 
-export default AppContainer = createContainer(() => {
-   //  Meteor.subscribe('rooms.all');
-
-    const roomsHandle = Meteor.subscribe('rooms.all');
-
-
-    const loading = !roomsHandle.ready();
-    //const rooms = Rooms.find({});
-    return {
-        currentUser: Meteor.user(),
-        //rooms: Rooms.find({}).fetch(),
-    };
-}, App);
+export default AppContainer;
