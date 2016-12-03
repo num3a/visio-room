@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {createContainer} from "meteor/react-meteor-data";
-import {surroundingDates} from "../../../common/utils/dateUtils";
+import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 import {Rooms} from "../../../api/rooms/rooms";
 import {Bookings} from "../../../api/bookings/bookings";
 import CircularProgress from "material-ui/CircularProgress";
@@ -67,7 +67,9 @@ class RoomDetails extends Component {
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
                     <div>
-                        <RoomBookingStepper/>
+                        <RoomBookingStepper
+                            bookings={this.props.bookings}
+                        />
                     </div>
                 </div>
             </div>
@@ -87,10 +89,10 @@ class RoomDetails extends Component {
 }
 
 const RoomDetailsContainer = createContainer(({ params }) => {
-    //TODO: handle different dates
     let now = new Date();
-    let surround = surroundingDates(now);
-    const bookingHandle = Meteor.subscribe('bookings.byRoom', params.roomId, surround.minDate, surround.maxDate);
+    let maxDate = addDays(now, 10);
+
+    const bookingHandle = Meteor.subscribe('bookings.byRoom', params.roomId, now, maxDate);
     const roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
     return {
         rooms: Rooms.findOne(params.roomId),

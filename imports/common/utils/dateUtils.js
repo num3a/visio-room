@@ -10,6 +10,11 @@ const surroundingDates = (date) => {
     };
 };
 
+const addDays = (date, numberOfDays) => {
+    return moment(date).add(numberOfDays, 'days').toDate();
+};
+
 export {
-    surroundingDates
+    surroundingDates,
+    addDays
 }

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import moment from "moment";
-import {grey500, green500, red500, cyan700} from "material-ui/styles/colors";
-import {Card, CardHeader} from "material-ui/Card";
+import {blueGrey500, green500, red500, cyan700} from "material-ui/styles/colors";
+import {Card, CardHeader, CardActions } from "material-ui/Card";
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -15,7 +15,6 @@ import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
 
-//TODO: add redux
 //TODO: plug validation voucher
 //TODO: add selectable booking date
 //TODO: validate booking method
@@ -99,26 +98,37 @@ class RoomBookingStepper extends Component {
         return disabled;
     }
 
+    handleBookingSelection(booking){
+        alert(booking._id);
+
+        //TODO: dispatch booking id;
+    }
     renderBookingControls(){
-        //todo: remove mocks
-        let tabs = [{},{},{},{},{},{},{},{},{},{},{},{},];
-        let i = 0;
-        let now = moment();
+        let { bookings } = this.props;
+
         return(
             <div className="row">
                 {
-                    tabs.map(() => {
-                        i++;
-                        let color = (i % 2 == 0) ? green500 : red500;
-                        if(i == 1){
-                            color = grey500;
-                        }
-                        return <div key={i} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                            <Card style={{margin:10, backgroundColor: color, color: 'white'}}>
+                    bookings.map((booking) => {
+                        let isActive = !booking.isBooked && !booking.isBlocked;
+                        let color = isActive ? green500 : red500;
+                        let label = isActive ? 'Book': 'Not available';
+
+                        return <div key={booking._id} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                            <Card style={{margin:10, backgroundColor: blueGrey500}}>
                                 <CardHeader
                                     titleColor="white"
-                                    title={now.add(1, 'days').toDate().toDateString()}
+                                    title={booking.bookingDate.toDateString()}
                                 />
+                                <CardActions>
+                                    <FlatButton
+                                        label={label}
+                                        disabled={!isActive}
+                                        backgroundColor={color}
+                                        style={{ color: 'white'}}
+                                        onClick={() => this.handleBookingSelection(booking)}
+                                    />
+                                </CardActions>
                             </Card>
                         </div>;
                     })
@@ -136,6 +146,7 @@ class RoomBookingStepper extends Component {
             />
         </div>);
     }
+
     onCGUChange(isInputChecked){
         this.setState({cgu: isInputChecked});
     }
@@ -164,6 +175,7 @@ class RoomBookingStepper extends Component {
             </div>
         )
     }
+
     render() {
         const {finished, stepIndex} = this.state;
         const { openBookingModal } = this.props;
@@ -224,11 +236,12 @@ class RoomBookingStepper extends Component {
 
 const RoomBookingStepperContainer = createContainer(() => {
     const voucherHandle = Meteor.subscribe('voucher.byCode', 'IVR8QN1N'); // this.props.voucherCode);
+    Meteor.subscribe('voucher.byCode','IVRBY4KW');
 
     return {
         isAuthenticated: Meteor.userId(),
         loadingVoucher: !voucherHandle.ready(),
-        voucher: Voucher.findOne({ code: 'IVR8QN1N' }),
+        voucher: Voucher.findOne({ code: { $in: ['IVR8QN1N','IVRBY4KW']}}),
     };
 }, RoomBookingStepper);
 
