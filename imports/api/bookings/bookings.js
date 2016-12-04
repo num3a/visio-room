@@ -33,11 +33,14 @@ Bookings.attachSchema(Bookings.schema);
 // This represents the keys from YachtieProfiles objects that should be published
 // to the client. If we add secret properties to List objects, don't list
 // them here to keep them private to the server.
+/*
 Bookings.publicFields = {
     name: 1,
     incompleteCount: 1,
     userId: 1,
 };
+
+*/
 
 
 Bookings.helpers({

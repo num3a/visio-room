@@ -23,8 +23,10 @@ class RoomDetails extends Component {
     shouldComponentUpdate(nextProps, nextState){
         if(JSON.stringify(this.props.rooms) === JSON.stringify(nextProps.rooms)){
             return false;
+            console.log('prevent component update');
         }
 
+        console.log('RoomDetails component update');
         return true;
     }
     _renderRoomDetails() {
@@ -58,7 +60,31 @@ class RoomDetails extends Component {
         }
     }
 
+    componentWillUnmount(){
+        console.log('roomDetails will unmount');
+    }
+
+    componentDidMount(){
+        console.log('roomDetails did unmount');
+    }
+
+    componentWillMount(){
+        console.log('roomDetails will Mount');
+    }
+    _renderBookingStepper() {
+
+        return(
+            <div>
+                <RoomBookingStepper
+                />
+            </div>
+        );
+
+    }
+
     render() {
+
+        console.log('done loading');
         return (<div>
             {this._renderTitle()}
             <div className="row">
@@ -66,11 +92,7 @@ class RoomDetails extends Component {
                     {this._renderRoomDetails()}
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                    <div>
-                        <RoomBookingStepper
-                            bookings={this.props.bookings}
-                        />
-                    </div>
+                    {this._renderBookingStepper()}
                 </div>
             </div>
             <div className="row">
@@ -92,13 +114,16 @@ const RoomDetailsContainer = createContainer(({ params }) => {
     let now = new Date();
     let maxDate = addDays(now, 10);
 
-    const bookingHandle = Meteor.subscribe('bookings.byRoom', params.roomId, now, maxDate);
-    const roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
+    let bookingHandle = Meteor.subscribe('bookings.byRoom', params.roomId, now, maxDate);
+    let roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
+    let bookings = Bookings.find({ roomId: params.roomId }).fetch();
+    let rooms = Rooms.findOne(params.roomId);
+
     return {
-        rooms: Rooms.findOne(params.roomId),
-        bookings: Bookings.find({ roomId: params.roomId }).fetch(),
+        rooms: rooms,
+        //bookings: Bookings.find({ roomId: params.roomId }).fetch(),
         loadingRooms: !roomHandle.ready(),
-        loadingBookings: !bookingHandle.ready(),
+        //loadingBookings: !bookingHandle.ready(),
     }
 }, RoomDetails);
 

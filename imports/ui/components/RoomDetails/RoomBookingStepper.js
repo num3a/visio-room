@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import {Voucher} from "../../../api/voucher/vouchers";
+import { Bookings } from '../../../api/bookings/bookings';
 import Dialog from 'material-ui/Dialog';
 import CircularProgress from "material-ui/CircularProgress";
 import {connect} from "react-redux";
@@ -14,6 +15,7 @@ import { closeBookingModal, openBookingModal} from '../../actions/room';
 import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
+import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 
 //TODO: plug validation voucher
 //TODO: add selectable booking date
@@ -22,6 +24,15 @@ import { Router, browserHistory } from  'react-router';
 //TODO: redirect to mybookings page
 
 class RoomBookingStepper extends Component {
+
+      componentWillUnmount(){
+        console.log('roomBookingStepper will unmount');
+    }
+
+    componentDidMount(){
+        console.log('roomBookingStepper did unmount');
+    }
+
     constructor() {
         super();
         this.completeDialog = null;
@@ -110,6 +121,8 @@ class RoomBookingStepper extends Component {
             <div className="row">
                 {
                     bookings.map((booking) => {
+                        console.log('displaying booking:', booking);
+
                         let isActive = !booking.isBooked && !booking.isBlocked;
                         let color = isActive ? green500 : red500;
                         let label = isActive ? 'Book': 'Not available';
@@ -234,16 +247,25 @@ class RoomBookingStepper extends Component {
     }
 }
 
+
+
 const RoomBookingStepperContainer = createContainer(() => {
+    let now  = moment().toDate();
+    let maxDate = addDays(now, 10);
+
     const voucherHandle = Meteor.subscribe('voucher.byCode', 'IVR8QN1N'); // this.props.voucherCode);
     Meteor.subscribe('voucher.byCode','IVRBY4KW');
+    let bookingHandle = Meteor.subscribe('bookings.byRoom', 't4uAE4xaGLkA54Ff7', now, maxDate);
 
     return {
         isAuthenticated: Meteor.userId(),
         loadingVoucher: !voucherHandle.ready(),
         voucher: Voucher.findOne({ code: { $in: ['IVR8QN1N','IVRBY4KW']}}),
+        bookings: Bookings.find({ roomId: 't4uAE4xaGLkA54Ff7' }).fetch(),
+        loadingBookings : !bookingHandle.ready()
     };
 }, RoomBookingStepper);
+
 
 const mapStateToProps = (state) => {
     return {

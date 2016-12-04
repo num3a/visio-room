@@ -1,16 +1,26 @@
 import { Meteor } from 'meteor/meteor';
 import { Bookings } from '../bookings.js';
 import { surroundingDates } from '../../../common/utils/dateUtils';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 Meteor.publish('bookings.all', () => {
     return Bookings.find({});
 });
 
 Meteor.publish('bookings.byRoom', (roomId, minDate, maxDate) => {
-   return Bookings.find({
-       roomId: roomId,
-       bookingDate: { $gt: minDate, $lt: maxDate }
-   });
+    new SimpleSchema({
+        roomId: { type: String, regEx: SimpleSchema.RegEx.Id},
+        minDate: { type: Date},
+        maxDate: { type: Date}
+
+    }).validate({ roomId, minDate, maxDate});
+
+    const query = {
+        roomId: roomId,
+        bookingDate: { $gt: minDate, $lt: maxDate }
+    };
+
+    return Bookings.find(query);
 });
 
 Meteor.publish('bookings.byDate.roomIdOnly', (bookingDate) => {

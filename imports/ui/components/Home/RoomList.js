@@ -102,7 +102,7 @@ const RoomListContainer = createContainer(() => {
         isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
         rooms: rooms,
-        loading: false,
+        loading: loading,
     };
 }, RoomList);
 
