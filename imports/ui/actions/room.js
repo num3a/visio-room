@@ -21,8 +21,16 @@ const closeBookingModal = () => {
     };
 };
 
+const selectedBookingChanged = (bookingId) => {
+    return {
+        type: types.ROOM_SELECTED_BOOKING_CHANGED,
+        bookingId:bookingId,
+    };
+};
+
 export {
     selectedRoomChanged,
     openBookingModal,
     closeBookingModal,
+    selectedBookingChanged,
 }

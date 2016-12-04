@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {createContainer} from "meteor/react-meteor-data";
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 import {Rooms} from "../../../api/rooms/rooms";
-import {Bookings} from "../../../api/bookings/bookings";
 import CircularProgress from "material-ui/CircularProgress";
 import {Card, CardActions, CardHeader, CardMedia, CardText} from "material-ui/Card";
 import {staticMarkerImage} from "../../../common/utils/googleMaps";
@@ -60,22 +59,12 @@ class RoomDetails extends Component {
         }
     }
 
-    componentWillUnmount(){
-        console.log('roomDetails will unmount');
-    }
-
-    componentDidMount(){
-        console.log('roomDetails did unmount');
-    }
-
-    componentWillMount(){
-        console.log('roomDetails will Mount');
-    }
     _renderBookingStepper() {
 
         return(
             <div>
                 <RoomBookingStepper
+                    roomId={this.props.roomId}
                 />
             </div>
         );
@@ -111,19 +100,13 @@ class RoomDetails extends Component {
 }
 
 const RoomDetailsContainer = createContainer(({ params }) => {
-    let now = new Date();
-    let maxDate = addDays(now, 10);
-
-    let bookingHandle = Meteor.subscribe('bookings.byRoom', params.roomId, now, maxDate);
     let roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
-    let bookings = Bookings.find({ roomId: params.roomId }).fetch();
     let rooms = Rooms.findOne(params.roomId);
 
     return {
+        roomId: params.roomId,
         rooms: rooms,
-        //bookings: Bookings.find({ roomId: params.roomId }).fetch(),
         loadingRooms: !roomHandle.ready(),
-        //loadingBookings: !bookingHandle.ready(),
     }
 }, RoomDetails);
 

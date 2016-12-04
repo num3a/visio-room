@@ -11,7 +11,7 @@ import { Bookings } from '../../../api/bookings/bookings';
 import Dialog from 'material-ui/Dialog';
 import CircularProgress from "material-ui/CircularProgress";
 import {connect} from "react-redux";
-import { closeBookingModal, openBookingModal} from '../../actions/room';
+import { closeBookingModal, openBookingModal, selectedBookingChanged} from '../../actions/room';
 import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
@@ -24,14 +24,6 @@ import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 //TODO: redirect to mybookings page
 
 class RoomBookingStepper extends Component {
-
-      componentWillUnmount(){
-        console.log('roomBookingStepper will unmount');
-    }
-
-    componentDidMount(){
-        console.log('roomBookingStepper did unmount');
-    }
 
     constructor() {
         super();
@@ -91,7 +83,12 @@ class RoomBookingStepper extends Component {
 
         switch (stepIndex){
             case 0:
-                disabled = false;
+                if(this.props.bookingId){
+                    disabled = false;
+                }
+                else {
+                    disabled = true;
+                }
                 break;
             case 1:
                 disabled = true;
@@ -110,19 +107,20 @@ class RoomBookingStepper extends Component {
     }
 
     handleBookingSelection(booking){
-        alert(booking._id);
-
-        //TODO: dispatch booking id;
+        const { dispatch } = this.props;
+        dispatch(selectedBookingChanged(booking._id));
     }
+
     renderBookingControls(){
         let { bookings } = this.props;
+        if(!bookings){
+            return <h1>No data</h1>;
+        }
 
         return(
             <div className="row">
                 {
                     bookings.map((booking) => {
-                        console.log('displaying booking:', booking);
-
                         let isActive = !booking.isBooked && !booking.isBlocked;
                         let color = isActive ? green500 : red500;
                         let label = isActive ? 'Book': 'Not available';
@@ -249,19 +247,19 @@ class RoomBookingStepper extends Component {
 
 
 
-const RoomBookingStepperContainer = createContainer(() => {
+const RoomBookingStepperContainer = createContainer(({roomId}) => {
     let now  = moment().toDate();
     let maxDate = addDays(now, 10);
 
     const voucherHandle = Meteor.subscribe('voucher.byCode', 'IVR8QN1N'); // this.props.voucherCode);
     Meteor.subscribe('voucher.byCode','IVRBY4KW');
-    let bookingHandle = Meteor.subscribe('bookings.byRoom', 't4uAE4xaGLkA54Ff7', now, maxDate);
+    let bookingHandle = Meteor.subscribe('bookings.byRoom', roomId, now, maxDate);
 
     return {
         isAuthenticated: Meteor.userId(),
         loadingVoucher: !voucherHandle.ready(),
         voucher: Voucher.findOne({ code: { $in: ['IVR8QN1N','IVRBY4KW']}}),
-        bookings: Bookings.find({ roomId: 't4uAE4xaGLkA54Ff7' }).fetch(),
+        bookings: Bookings.find({ roomId: roomId }).fetch(),
         loadingBookings : !bookingHandle.ready()
     };
 }, RoomBookingStepper);
@@ -270,6 +268,7 @@ const RoomBookingStepperContainer = createContainer(() => {
 const mapStateToProps = (state) => {
     return {
         openBookingModal: state.room.openBookingModal,
+        bookingId: state.room.bookingId,
     };
 };
 
