@@ -11,7 +11,7 @@ import { Bookings } from '../../../api/bookings/bookings';
 import Dialog from 'material-ui/Dialog';
 import CircularProgress from "material-ui/CircularProgress";
 import {connect} from "react-redux";
-import { closeBookingModal, openBookingModal, selectedBookingChanged} from '../../actions/room';
+import { closeBookingModal, openBookingModal, selectedBookingChanged, selectedVoucherChanged, voucherIsValid} from '../../actions/room';
 import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
@@ -43,11 +43,22 @@ class RoomBookingStepper extends Component {
             stepIndex: stepIndex + 1,
             finished: stepIndex >= 2,
         });
+
+        if(stepIndex == 1){
+
+        }
         if(stepIndex >= 2){
             const { dispatch } = this.props;
             dispatch(openBookingModal());
+            let code = this.props.voucher;
+            console.log('Code: ', code);
 
-            Meteor.call('email.send');
+            const bookingWithVoucher = {
+                userId: Meteor.userId(),
+                bookingId: this.props.bookingId,
+                code: code,
+            };
+            Meteor.call('bookings.bookWithVoucher', bookingWithVoucher);
 
             Meteor.setTimeout(() => {
                 dispatch(closeBookingModal());
@@ -91,10 +102,12 @@ class RoomBookingStepper extends Component {
                 }
                 break;
             case 1:
-                disabled = true;
-                if(this.props.voucher){
-                    disabled = false;
-                }
+               if(this.props.voucherIsValid){
+                   disabled = false;
+               }
+               else {
+                   disabled = true;
+               }
                 break;
             case 2:
                 disabled = !cgu;
@@ -111,6 +124,28 @@ class RoomBookingStepper extends Component {
         dispatch(selectedBookingChanged(booking._id));
     }
 
+    onVoucherChange(voucher){
+        const { dispatch } = this.props;
+        dispatch(selectedVoucherChanged(voucher));
+
+        //TODO: encapsulate validation in async redux action
+        Meteor.call('voucher.validate', voucher, (error, result) => {
+            if(error){
+                console.log('cannot validate voucher', error);
+                dispatch(voucherIsValid(false));
+                return;
+            }
+            if (result.isValid === true) {
+                console.log('validation result', result);
+                dispatch(voucherIsValid(true));
+            }
+            else {
+                dispatch(voucherIsValid(false));
+            }
+
+        });
+    }
+
     renderBookingControls(){
         let { bookings } = this.props;
         if(!bookings){
@@ -123,7 +158,7 @@ class RoomBookingStepper extends Component {
                     bookings.map((booking) => {
                         let isActive = !booking.isBooked && !booking.isBlocked;
                         let color = isActive ? green500 : red500;
-                        let label = isActive ? 'Book': 'Not available';
+                        let label = isActive ? 'Book': 'Booked';
 
                         return <div key={booking._id} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                             <Card style={{margin:10, backgroundColor: blueGrey500}}>
@@ -152,8 +187,8 @@ class RoomBookingStepper extends Component {
     renderVoucherControls() {
         return (<div className="row center-xs">
             <TextField
-                value="IVR8QN1N"
                 hintText="Enter your voucher"
+                onChange={(event, value) => this.onVoucherChange(value)}
             />
         </div>);
     }
@@ -193,6 +228,8 @@ class RoomBookingStepper extends Component {
         const contentStyle = {margin: '0 16px'};
         const buttonDisabled = this.getNextButtonActiveState();
 
+        //TODO: move stepper state in redux!
+
         return (
             <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
                 <Stepper activeStep={stepIndex} >
@@ -208,37 +245,37 @@ class RoomBookingStepper extends Component {
                 </Stepper>
                 <div style={contentStyle}>
                     {openBookingModal ? (
-                        <Dialog
-                            ref={(dialog) => { completeDialog = dialog}}
-                            open
-                            title="Booking in progress"
-                            onRequestClose={() => {}}
-                        >
-                            <div>
-                                <CircularProgress thickness={5} />
-                                <span>You will receive a confirmation email shortly.</span></div>
-                        </Dialog>
+                            <Dialog
+                                ref={(dialog) => { completeDialog = dialog}}
+                                open
+                                title="Booking in progress"
+                                onRequestClose={() => {}}
+                            >
+                                <div>
+                                    <CircularProgress thickness={5} />
+                                    <span>You will receive a confirmation email shortly.</span></div>
+                            </Dialog>
 
-                    ) : (
-                        <div>
-                            <div>{this.getStepContent(stepIndex)}</div>
-                            <div style={{marginTop: 12}}>
-                                <FlatButton
-                                    label="Back"
-                                    disabled={stepIndex === 0}
-                                    onTouchTap={() => this.handlePrev()}
-                                    style={{marginRight: 12}}
-                                />
-                                <RaisedButton
-                                    disabled={buttonDisabled}
-                                    label={stepIndex === 2 ? 'Complete booking' : 'Next'}
-                                    color={stepIndex === 2 ? green500 : cyan700 }
-                                    primary={true}
-                                    onTouchTap={() => this.handleNext()}
-                                />
+                        ) : (
+                            <div>
+                                <div>{this.getStepContent(stepIndex)}</div>
+                                <div style={{marginTop: 12}}>
+                                    <FlatButton
+                                        label="Back"
+                                        disabled={stepIndex === 0}
+                                        onTouchTap={() => this.handlePrev()}
+                                        style={{marginRight: 12}}
+                                    />
+                                    <RaisedButton
+                                        disabled={buttonDisabled}
+                                        label={stepIndex === 2 ? 'Complete booking' : 'Next'}
+                                        color={stepIndex === 2 ? green500 : cyan700 }
+                                        primary={true}
+                                        onTouchTap={() => this.handleNext()}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                 </div>
             </div>
         );
@@ -251,14 +288,10 @@ const RoomBookingStepperContainer = createContainer(({roomId}) => {
     let now  = moment().toDate();
     let maxDate = addDays(now, 10);
 
-    const voucherHandle = Meteor.subscribe('voucher.byCode', 'IVR8QN1N'); // this.props.voucherCode);
-    Meteor.subscribe('voucher.byCode','IVRBY4KW');
     let bookingHandle = Meteor.subscribe('bookings.byRoom', roomId, now, maxDate);
 
     return {
         isAuthenticated: Meteor.userId(),
-        loadingVoucher: !voucherHandle.ready(),
-        voucher: Voucher.findOne({ code: { $in: ['IVR8QN1N','IVRBY4KW']}}),
         bookings: Bookings.find({ roomId: roomId }).fetch(),
         loadingBookings : !bookingHandle.ready()
     };
@@ -269,6 +302,8 @@ const mapStateToProps = (state) => {
     return {
         openBookingModal: state.room.openBookingModal,
         bookingId: state.room.bookingId,
+        voucher: state.room.voucher,
+        voucherIsValid: state.room.voucherIsValid,
     };
 };
 

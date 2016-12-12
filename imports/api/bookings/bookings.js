@@ -14,16 +14,19 @@ export const Bookings = new BookingsCollection('Bookings');
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Bookings.deny({
-    insert() { return true; },
-    update() { return true; },
-    remove() { return true; },
+    insert() { return false; },
+    update() { return false; },
+    remove() { return false; },
 });
 
 Bookings.schema = new SimpleSchema({
     roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
+    bookedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
+    voucherUsed: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
     isBooked: { type: Boolean, optional: false},
     isBlocked: { type: Boolean, optional: false},
     bookingDate: { type: Date, optional: true},
+    bookedAt: { type: Date, optional: true},
     attendeeCount: { type: Number, optional: true},
     createdAt: { type: Date, optional: false}
 });

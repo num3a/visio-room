@@ -8,7 +8,7 @@ import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';
 import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
-
+import HistoryContainer from '../../ui/components/History';
 
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
@@ -53,6 +53,7 @@ export const renderRoutes = () => (
             <Route name="authenticatedPages">
                 <Route path="rooms/:roomId" component={RoomDetailsContainer} />
                 <Route path="profile" component={ProfileContainer} />
+                <Route path="history" component={HistoryContainer} />
             </Route>
             <Route name="nonAuthenticatedPages">
                 <Route path="signup" component={SignUpContainer} />

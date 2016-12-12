@@ -28,9 +28,25 @@ const selectedBookingChanged = (bookingId) => {
     };
 };
 
+const selectedVoucherChanged = (voucher) => {
+    return {
+        type: types.ROOM_SELECTED_VOUCHER_CHANGED,
+        voucher: voucher,
+    };
+};
+
+const voucherIsValid = (isValid) => {
+    return {
+        type: types.ROOM_VOUCHER_IS_VALID,
+        isValid: isValid,
+    };
+};
+
 export {
     selectedRoomChanged,
     openBookingModal,
     closeBookingModal,
     selectedBookingChanged,
+    selectedVoucherChanged,
+    voucherIsValid,
 }

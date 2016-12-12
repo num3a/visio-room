@@ -23,6 +23,21 @@ Meteor.publish('bookings.byRoom', (roomId, minDate, maxDate) => {
     return Bookings.find(query);
 });
 
+Meteor.publish('bookings.byUserId', (userId) => {
+    new SimpleSchema({
+        userId: { type: String, regEx: SimpleSchema.RegEx.Id},
+    }).validate({ userId });
+
+    const query = {
+        bookedBy: userId
+    };
+
+    const options = {
+        limit: 30,
+    };
+    return Bookings.find(query, options);
+});
+
 Meteor.publish('bookings.byDate.roomIdOnly', (bookingDate) => {
     new SimpleSchema({
         bookingDate: { type: Date}

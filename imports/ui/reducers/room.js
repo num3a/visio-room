@@ -4,7 +4,8 @@ const initialSate = {
     roomId: '',
     bookingId: '',
     openBookingModal: false,
-
+    voucher: '',
+    voucherIsValid: false,
 };
 
 const roomReducer = (state = initialSate, action = {}) => {
@@ -24,6 +25,17 @@ const roomReducer = (state = initialSate, action = {}) => {
                 ...state,
                 bookingId: action.bookingId
             };
+        case types.ROOM_SELECTED_VOUCHER_CHANGED:
+            return {
+                ...state,
+                voucher: action.voucher,
+            };
+        case types.ROOM_VOUCHER_IS_VALID: {
+            return {
+                ...state,
+                voucherIsValid: action.isValid,
+            }
+        }
         default:
             return state;
     }
