@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import moment from "moment";
-import {blueGrey500, green500, red500, cyan700} from "material-ui/styles/colors";
+import {grey400, grey500, green500, red500, cyan700} from "material-ui/styles/colors";
 import {Card, CardHeader, CardActions } from "material-ui/Card";
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -161,7 +161,7 @@ class RoomBookingStepper extends Component {
                         let label = isActive ? 'Book': 'Booked';
 
                         return <div key={booking._id} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                            <Card style={{margin:10, backgroundColor: blueGrey500}}>
+                            <Card style={{margin:10, backgroundColor: grey500}}>
                                 <CardHeader
                                     titleColor="white"
                                     title={booking.bookingDate.toDateString()}
