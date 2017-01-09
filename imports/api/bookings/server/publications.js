@@ -38,6 +38,18 @@ Meteor.publish('bookings.byUserId', (userId) => {
     return Bookings.find(query, options);
 });
 
+Meteor.publish('bookings.byId', (bookingId) => {
+    new SimpleSchema({
+        bookingId: { type: String, regEx: SimpleSchema.RegEx.Id},
+    }).validate({ bookingId });
+
+    const query = {
+        _id: bookingId
+    };
+
+    return Bookings.findOne(query);
+});
+
 Meteor.publish('bookings.byDate.roomIdOnly', (bookingDate) => {
     new SimpleSchema({
         bookingDate: { type: Date}

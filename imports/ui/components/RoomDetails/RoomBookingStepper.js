@@ -16,6 +16,7 @@ import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
+import SelectedBookingDetails from './SelectedBookingDetails';
 
 //TODO: plug validation voucher
 //TODO: add selectable booking date
@@ -122,6 +123,7 @@ class RoomBookingStepper extends Component {
     handleBookingSelection(booking){
         const { dispatch } = this.props;
         dispatch(selectedBookingChanged(booking._id));
+        this.handleNext();
     }
 
     onVoucherChange(voucher){
@@ -232,6 +234,7 @@ class RoomBookingStepper extends Component {
 
         return (
             <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+
                 <Stepper activeStep={stepIndex} >
                     <Step>
                         <StepLabel>Select a booking date</StepLabel>
@@ -258,8 +261,13 @@ class RoomBookingStepper extends Component {
 
                         ) : (
                             <div>
+
+                                <SelectedBookingDetails
+                                    bookingId={this.props.bookingId}
+                                    stepIndex={stepIndex}
+                                />
                                 <div>{this.getStepContent(stepIndex)}</div>
-                                <div style={{marginTop: 12}}>
+                                <div style={{marginTop: 12}} className={stepIndex === 0 ? 'hidden': ''}>
                                     <FlatButton
                                         label="Back"
                                         disabled={stepIndex === 0}
@@ -281,8 +289,6 @@ class RoomBookingStepper extends Component {
         );
     }
 }
-
-
 
 const RoomBookingStepperContainer = createContainer(({roomId}) => {
     let now  = moment().toDate();
