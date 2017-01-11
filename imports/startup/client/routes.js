@@ -9,6 +9,7 @@ import AppContainer from '../../ui/components/AppContainer';
 import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import HistoryContainer from '../../ui/components/History';
+import DiscoverContainer from '../../ui/components/Discover';
 
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
@@ -59,6 +60,7 @@ export const renderRoutes = () => (
                 <Route path="signup" component={SignUpContainer} />
                 <Route path="login" component={LogInContainer} />
                 <Route path="cgu" component={CGU} />
+                <Route path="discover" component={DiscoverContainer} />
             </Route>
             <Route path="logout" component={LogOutContainer} />
             <Route path="*" component={NotFoundPage}/>
