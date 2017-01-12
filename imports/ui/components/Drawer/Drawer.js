@@ -9,6 +9,8 @@ import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
 import {createContainer} from "meteor/react-meteor-data";
 import Avatar from "material-ui/Avatar";
+import { grey700, white } from 'material-ui/styles/colors';
+
 
 class VisioRoomDrawer extends Component {
 
@@ -76,7 +78,8 @@ class VisioRoomDrawer extends Component {
         return(
             <MenuItem
                 onTouchTap={() => this._handleLogin()}
-                >
+                style={{color: white}}
+            >
                 Log In
             </MenuItem>
         );
@@ -103,6 +106,7 @@ class VisioRoomDrawer extends Component {
                     disabled={menu.disabled}
                     onTouchTap={() => this._onMenuClick(menu.url)}
                     key={menu.id}
+                    style={{color: white}}
                 >
                     {menu.name}
                 </MenuItem>);
@@ -121,6 +125,7 @@ class VisioRoomDrawer extends Component {
                 <ListItem
                     disabled={true}
                     leftAvatar={this._renderAvatar()}
+                    style={{color: white}}
                 >
                     {currentUser.profile.firstName} {currentUser.profile.lastName.toUpperCase()}
                 </ListItem>
@@ -149,6 +154,7 @@ class VisioRoomDrawer extends Component {
                 width={300}
                 open={this.props.isOpen}
                 onRequestChange={() => this._onRequestChange()}
+                containerStyle={{backgroundColor: grey700}}
             >
                 {this._renderLoggedMenuItems()}
                 {this._renderProfileInformations()}
