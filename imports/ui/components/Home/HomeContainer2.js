@@ -13,11 +13,27 @@ import RoomList from './RoomList';
 //TODO: add http://flexboxgrid.com/
 //TODO: 4 cols for search /
 class HomeContainer2 extends Component {
+    onChargeClick(){
+        const chargeData = {
+            amount: 1000,
+            currency: "eur",
+            description: "Example charge",
+            source: "",
+        };
+
+        Meteor.call('payments.createCharge', chargeData, (err, charge)=> {
+            console.log('payments.charge.err', err);
+            console.log('payments.charge.data', charge);
+
+        });
+    }
+
     render() {
         return(
             <div>
                 <div className="row">
                     <div className="col-lg-12">
+                        <RaisedButton onClick={() => this.onChargeClick()} >Test Charge</RaisedButton>
                     </div>
                 </div>
                 <div className="row">

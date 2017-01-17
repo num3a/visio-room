@@ -12,3 +12,5 @@ import '../../api/signup/methods';
 
 import '../../api/email/methods.js'
 import '../../api/email/methods/bookings.js'
+
+import '../../api/payments/methods.js';
