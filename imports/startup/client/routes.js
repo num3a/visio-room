@@ -10,7 +10,7 @@ import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import HistoryContainer from '../../ui/components/History';
 import DiscoverContainer from '../../ui/components/Discover';
-
+import PaymentsContainer from '../../ui/components/Payments';
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
 import LogOutContainer from '../../ui/components/Logout';
@@ -55,6 +55,7 @@ export const renderRoutes = () => (
                 <Route path="rooms/:roomId" component={RoomDetailsContainer} />
                 <Route path="profile" component={ProfileContainer} />
                 <Route path="history" component={HistoryContainer} />
+                <Route path="payments" component={PaymentsContainer} />
             </Route>
             <Route name="nonAuthenticatedPages">
                 <Route path="signup" component={SignUpContainer} />

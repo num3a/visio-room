@@ -101,9 +101,6 @@ const HistoryContainer = createContainer(() => {
 
     let rooms = Rooms.find( {_id : { $in: roomIds }}).fetch();
 
-
-
-
     return {
         isAuthenticated: Meteor.userId(),
         bookings: bookings,

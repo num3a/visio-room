@@ -10,6 +10,7 @@ import ListItem from "material-ui/List/ListItem";
 import {createContainer} from "meteor/react-meteor-data";
 import Avatar from "material-ui/Avatar";
 import { grey700, white } from 'material-ui/styles/colors';
+import Badge from 'material-ui/Badge';
 
 
 class VisioRoomDrawer extends Component {
@@ -44,7 +45,8 @@ class VisioRoomDrawer extends Component {
                 id: 4,
                 name: 'Payments',
                 url: '/payments',
-                disabled: true,
+                disabled: false,
+                badge: '!',
             },
             {
                 id: 5,
@@ -93,6 +95,13 @@ class VisioRoomDrawer extends Component {
         return (<Avatar src={currentUser.profile.pictureUrl} />);
     }
 
+    _renderBadge(badgeContent){
+        return    <Badge
+            badgeContent={badgeContent}
+            secondary={true}
+        />;
+    }
+
     _renderMenuItems() {
         if(!this.props.isAuthenticated) {
             return <div></div>;
@@ -109,6 +118,7 @@ class VisioRoomDrawer extends Component {
                     style={{color: white}}
                 >
                     {menu.name}
+                    {menu.badge ? this._renderBadge(menu.badge) : <div></div>}
                 </MenuItem>);
             })
         );
@@ -118,6 +128,7 @@ class VisioRoomDrawer extends Component {
         if(!this.props.isAuthenticated) {
             return <div></div>;
         }
+
 
         let { currentUser } = this.props;
         if(this.props.currentUser){
@@ -174,6 +185,7 @@ const VisioRoomDrawerContainer = createContainer(() => {
 const mapStateToProps = (state) => {
     return {
         isOpen: state.drawer.isOpen,
+        //TODO: map payment token exists to display badge warning
     };
 };
 

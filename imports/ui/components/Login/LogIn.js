@@ -32,7 +32,7 @@ const LogIn = (props) => (
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <br />
                 <br />
-                <RaisedButton label="Log In with LinkedIn" primary={true} onClick={props.onOAuthClick}/>
+                <RaisedButton label="Continue with LinkedIn" primary={true} onClick={props.onOAuthClick}/>
             </div>
         </div>
     </div>

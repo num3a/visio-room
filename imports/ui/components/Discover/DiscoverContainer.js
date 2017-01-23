@@ -3,6 +3,7 @@ import { Parallax } from 'react-parallax';
 import { grey700, white } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import { browserHistory } from 'react-router';
+
 class DiscoverContainer extends Component {
 
     navigate(){
