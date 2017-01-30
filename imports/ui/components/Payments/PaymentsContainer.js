@@ -6,7 +6,10 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import AddCard from './AddCard';
-import { HTTP } from 'meteor/http'
+import { PaymentTokens } from '../../../api/payments/paymentTokens';
+
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Toggle from 'material-ui/Toggle';
 
 import { closeAddCardModal, openAddCardModal  } from '../../actions/payments';
 const style = {
@@ -58,6 +61,51 @@ class Payments extends Component {
             </Dialog>
         );
     }
+
+    _generateToken(){
+        const options = {
+            content: '',
+            data: {},
+            headers: {}
+        };
+
+        /*
+         HTTP.call('POST', url, (error, result) => {
+
+         }); */
+    }
+
+    _onDeleteClick(paymentToken){
+
+    }
+
+    _renderPayments(){
+        const { loadingTokens, paymentTokens } =  this.props;
+        if(loadingTokens){
+            return <h3>Loading payments ..</h3>;
+        }
+        return paymentTokens.map((paymentToken) => {
+            const { brand, expMonth, expYear, last4 } = paymentToken.card;
+
+            return  <div key={paymentToken._id}>
+                <Card>
+                    <CardText>
+                        Type: { brand }
+                    </CardText>
+                    <CardText>
+                        Expiration date: { expMonth } / { expYear }
+                    </CardText>
+                    <CardText>
+                        Number: **** **** **** {last4}
+                    </CardText>
+                    <CardActions>
+                        <FlatButton label="Delete"  onClick={(paymentToken) => this._onDeleteClick(paymentToken)}/>
+                    </CardActions>
+                </Card>
+            </div>;
+        });
+    }
+
     render(){
         return(<div>
             <div className="row">
@@ -67,6 +115,9 @@ class Payments extends Component {
             <FloatingActionButton style={style} onClick={()=>{this._openAddCardDialog()}}>
                 <ContentAdd />
             </FloatingActionButton>
+            <div className="row" >
+                {this._renderPayments()}
+            </div>
             <div className="row">
                 {this._renderDialog()}
             </div>
@@ -76,13 +127,16 @@ class Payments extends Component {
 
 
 const PaymentsContainer = createContainer(() => {
-    const roomsHandle = Meteor.subscribe('rooms.all');
-    const loading = !roomsHandle.ready();
-    //let rooms = Rooms.find({}).fetch();
+    let userId = Meteor.userId();
+    const tokenHandle = Meteor.subscribe('payments.tokenByUser', userId);
+    const loading = !tokenHandle.ready();
+    const paymentTokens = PaymentTokens.find({}).fetch();
 
     return {
         isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
+        loadingTokens: loading,
+        paymentTokens: paymentTokens,
     };
 }, Payments);
 

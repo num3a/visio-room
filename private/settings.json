@@ -1,7 +1,12 @@
 {
   "MONGO_URL": "mongodb://visiodb:n0806y@ds139187.mlab.com:39187/visio-meteor",
   "MAIL_URL": "smtp://postmaster@mail.visioroom.co:d485e1ba379da07022e28e1fb95281e9@smtp.mailgun.org:587",
+  "stripe": {
+    "secretKey": "sk_test_XpBlmXOXgKrcpz0MBUVM4E13",
+    "publishableKey": "pk_test_P5K1hZO06CiDNwcRdTGJrhzp"
+  },
   "STRIPE_API_KEY": "sk_test_XpBlmXOXgKrcpz0MBUVM4E13",
+
   "kadira": {
     "appId": "qxeEaGEwHYCHvEMfP",
     "appSecret": "699c0d09-0d73-4d2f-8816-f720b9d53d67",
@@ -22,6 +27,10 @@
     "kadira": {
       "appId": "qxeEaGEwHYCHvEMfP",
       "appSecret": "699c0d09-0d73-4d2f-8816-f720b9d53d67"
-    }
+    },
+    "stripe": {
+      "secretKey": "sk_test_XpBlmXOXgKrcpz0MBUVM4E13",
+      "publishableKey": "pk_test_P5K1hZO06CiDNwcRdTGJrhzp"
+    },
   }
 }

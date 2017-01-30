@@ -1,10 +1,16 @@
 import { Meteor } from 'meteor/meteor';
-import PaymentInternals from './paymentInternals';
+import PaymentInternals from './server/paymentInternals';
 const stripeKey = 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 
 const payments = new PaymentInternals(stripeKey);
 
 Meteor.methods({
+    'payments.saveToken'(token){
+      return payments.saveToken(token);
+    },
+    'payments.revokeToken'(tokenId){
+        return payments.revokeToken(tokenId);
+    },
     'payments.createCustomer'(customer) {
         return payments.createCustomer(customer);
     },

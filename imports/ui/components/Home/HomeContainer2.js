@@ -20,11 +20,40 @@ class HomeContainer2 extends Component {
             description: "Example charge",
             source: "",
         };
+        this._generateToken();
 
+        /*
         Meteor.call('payments.createCharge', chargeData, (err, charge)=> {
             console.log('payments.charge.err', err);
             console.log('payments.charge.data', charge);
 
+        });
+        */
+    }
+
+    _generateToken(){
+        const options = {
+            content: '',
+            data: {},
+            headers: {}
+        };
+
+
+        //let stripe2 = Stripe("sk_test_XpBlmXOXgKrcpz0MBUVM4E13");
+        Stripe.setPublishableKey('pk_test_P5K1hZO06CiDNwcRdTGJrhzp');
+
+        Stripe.card.createToken({
+            card: {
+                number: '4973559980575725',
+                exp_month : 12,
+                exp_year: 2018,
+                cvc: '123',
+                name: 'toto'
+            }
+        }, (err, token) =>{
+            // asynchronously called
+            console.log('err:', err);
+            console.log('token', token);
         });
     }
 
