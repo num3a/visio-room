@@ -17,6 +17,9 @@ import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import { Router, browserHistory } from  'react-router';
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 import SelectedBookingDetails from './SelectedBookingDetails';
+import Divider from 'material-ui/Divider';
+
+import BookingPayment from './BookingPayment';
 
 //TODO: plug validation voucher
 //TODO: add selectable booking date
@@ -188,6 +191,8 @@ class RoomBookingStepper extends Component {
 
     renderVoucherControls() {
         return (<div className="row center-xs">
+            <BookingPayment/>
+            <Divider />
             <TextField
                 hintText="Enter your voucher"
                 onChange={(event, value) => this.onVoucherChange(value)}

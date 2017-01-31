@@ -11,6 +11,7 @@ import {createContainer} from "meteor/react-meteor-data";
 import Avatar from "material-ui/Avatar";
 import { grey700, white } from 'material-ui/styles/colors';
 import Badge from 'material-ui/Badge';
+import { PaymentTokens } from '../../../api/payments/paymentTokens';
 
 
 class VisioRoomDrawer extends Component {
@@ -96,10 +97,15 @@ class VisioRoomDrawer extends Component {
     }
 
     _renderBadge(badgeContent){
-        return    <Badge
-            badgeContent={badgeContent}
-            secondary={true}
-        />;
+        const { paymentsCount } = this.props;
+        if(paymentsCount === 0){
+            return    <Badge
+                badgeContent={badgeContent}
+                secondary={true}
+            />;
+        }
+
+        return <div></div>;
     }
 
     _renderMenuItems() {
@@ -176,9 +182,16 @@ class VisioRoomDrawer extends Component {
 }
 
 const VisioRoomDrawerContainer = createContainer(() => {
+    const tokenHandle = Meteor.subscribe('payments.tokenByUser', Meteor.userId());
+
+    const loadingPayments = !tokenHandle.ready();
+    const paymentsCount = PaymentTokens.find({ userId: Meteor.userId(), expired: false}).count();
+
     return {
         isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
+        loadingPayments: loadingPayments,
+        paymentsCount: paymentsCount
     };
 }, VisioRoomDrawer);
 
