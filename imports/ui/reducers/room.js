@@ -6,6 +6,7 @@ const initialSate = {
     openBookingModal: false,
     voucher: '',
     voucherIsValid: false,
+    cguAccepted: false,
 };
 
 const roomReducer = (state = initialSate, action = {}) => {
@@ -30,12 +31,16 @@ const roomReducer = (state = initialSate, action = {}) => {
                 ...state,
                 voucher: action.voucher,
             };
-        case types.ROOM_VOUCHER_IS_VALID: {
+        case types.ROOM_VOUCHER_IS_VALID:
             return {
                 ...state,
                 voucherIsValid: action.isValid,
-            }
-        }
+            };
+        case types.ROOM_CGU_ACCEPTED:
+            return {
+                ...state,
+                cguAccepted: action.accepted,
+            };
         default:
             return state;
     }

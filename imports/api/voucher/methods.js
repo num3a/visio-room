@@ -14,6 +14,7 @@ Meteor.methods({
             return {
                 isValid: true,
                 code: code,
+                percentage: voucher.percentage,
             };
         }
 

@@ -42,6 +42,13 @@ const voucherIsValid = (isValid) => {
     };
 };
 
+const cguAccepted = (accepted) => {
+    return {
+        type: types.ROOM_CGU_ACCEPTED,
+        accepted: accepted,
+    };
+};
+
 export {
     selectedRoomChanged,
     openBookingModal,
@@ -49,4 +56,5 @@ export {
     selectedBookingChanged,
     selectedVoucherChanged,
     voucherIsValid,
+    cguAccepted,
 }

@@ -1,24 +1,20 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {createContainer} from "meteor/react-meteor-data";
 import moment from "moment";
 import {grey400, grey500, green500, red500, cyan700} from "material-ui/styles/colors";
 import {Card, CardHeader, CardActions } from "material-ui/Card";
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import {Voucher} from "../../../api/voucher/vouchers";
-import { Bookings } from '../../../api/bookings/bookings';
 import Dialog from 'material-ui/Dialog';
-import CircularProgress from "material-ui/CircularProgress";
-import {connect} from "react-redux";
-import { closeBookingModal, openBookingModal, selectedBookingChanged, selectedVoucherChanged, voucherIsValid} from '../../actions/room';
-import {createContainer} from "meteor/react-meteor-data";
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
+import CircularProgress from "material-ui/CircularProgress";
+import { closeBookingModal, openBookingModal, selectedBookingChanged, selectedVoucherChanged, voucherIsValid} from '../../actions/room';
 import { Router, browserHistory } from  'react-router';
+import { Bookings } from '../../../api/bookings/bookings';
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
-import SelectedBookingDetails from './SelectedBookingDetails';
-import Divider from 'material-ui/Divider';
 
+import SelectedBookingDetails from './SelectedBookingDetails';
 import BookingPayment from './BookingPayment';
 
 //TODO: plug validation voucher
@@ -45,7 +41,7 @@ class RoomBookingStepper extends Component {
         const {stepIndex} = this.state;
         this.setState({
             stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2,
+            finished: stepIndex >= 1,
         });
 
         if(stepIndex == 1){
@@ -84,9 +80,7 @@ class RoomBookingStepper extends Component {
             case 0:
                 return this.renderBookingControls();
             case 1:
-                return this.renderVoucherControls();
-            case 2:
-                return this.renderCompleteControls();
+                return this.renderBookingPayment();
             default:
                 return this.renderBookingControls();
         }
@@ -94,6 +88,7 @@ class RoomBookingStepper extends Component {
 
     getNextButtonActiveState(){
         const { stepIndex, cgu } = this.state;
+        const { cguAccepted } = this.props;
         let disabled = false;
 
         switch (stepIndex){
@@ -114,7 +109,7 @@ class RoomBookingStepper extends Component {
                }
                 break;
             case 2:
-                disabled = !cgu;
+                disabled = !cguAccepted;
                 break;
             default:
                 disabled = true;
@@ -127,28 +122,6 @@ class RoomBookingStepper extends Component {
         const { dispatch } = this.props;
         dispatch(selectedBookingChanged(booking._id));
         this.handleNext();
-    }
-
-    onVoucherChange(voucher){
-        const { dispatch } = this.props;
-        dispatch(selectedVoucherChanged(voucher));
-
-        //TODO: encapsulate validation in async redux action
-        Meteor.call('voucher.validate', voucher, (error, result) => {
-            if(error){
-                console.log('cannot validate voucher', error);
-                dispatch(voucherIsValid(false));
-                return;
-            }
-            if (result.isValid === true) {
-                console.log('validation result', result);
-                dispatch(voucherIsValid(true));
-            }
-            else {
-                dispatch(voucherIsValid(false));
-            }
-
-        });
     }
 
     renderBookingControls(){
@@ -185,48 +158,13 @@ class RoomBookingStepper extends Component {
                     })
                 }
             </div>
-
         );
     }
 
-    renderVoucherControls() {
-        return (<div className="row center-xs">
-            <BookingPayment/>
-            <Divider />
-            <TextField
-                hintText="Enter your voucher"
-                onChange={(event, value) => this.onVoucherChange(value)}
-            />
-        </div>);
-    }
-
-    onCGUChange(isInputChecked){
-        this.setState({cgu: isInputChecked});
-    }
-
-    renderCompleteControls() {
+    renderBookingPayment(){
         return (
-            <div className="row">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non p
-                    roident, sunt in culpa qui officia deserunt mollit anim id est l
-                    aborum.
-                    <span>By using the service, I accepts the <a target="_blank" href="/cgu">CGU</a></span>
-                </p>
-
-                <Checkbox
-                    label="I accept"
-                    onCheck={(event, isInputChecked) => {
-                        this.onCGUChange(isInputChecked)}
-                    }
-                />
-            </div>
-        )
+            <BookingPayment/>
+        );
     }
 
     render() {
@@ -243,9 +181,6 @@ class RoomBookingStepper extends Component {
                 <Stepper activeStep={stepIndex} >
                     <Step>
                         <StepLabel>Select a booking date</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Enter a voucher</StepLabel>
                     </Step>
                     <Step>
                         <StepLabel>Booking complete.</StepLabel>
@@ -281,8 +216,8 @@ class RoomBookingStepper extends Component {
                                     />
                                     <RaisedButton
                                         disabled={buttonDisabled}
-                                        label={stepIndex === 2 ? 'Complete booking' : 'Next'}
-                                        color={stepIndex === 2 ? green500 : cyan700 }
+                                        label={stepIndex === 1 ? 'Complete booking' : 'Next'}
+                                        color={stepIndex === 1 ? green500 : cyan700 }
                                         primary={true}
                                         onTouchTap={() => this.handleNext()}
                                     />
@@ -315,6 +250,7 @@ const mapStateToProps = (state) => {
         bookingId: state.room.bookingId,
         voucher: state.room.voucher,
         voucherIsValid: state.room.voucherIsValid,
+        cguAccepted: state.room.cguAccepted,
     };
 };
 

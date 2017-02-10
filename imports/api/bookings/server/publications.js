@@ -47,7 +47,7 @@ Meteor.publish('bookings.byId', (bookingId) => {
         _id: bookingId
     };
 
-    return Bookings.findOne(query);
+    return Bookings.find(query);
 });
 
 Meteor.publish('bookings.byDate.roomIdOnly', (bookingDate) => {
