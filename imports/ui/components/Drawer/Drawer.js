@@ -51,13 +51,19 @@ class VisioRoomDrawer extends Component {
             },
             {
                 id: 5,
-                name: 'About',
-                url: '/about',
-                disabled: false,
+                name: 'Admin',
+                url: '/admin',
+                disabled: true,
 
             },
             {
                 id: 6,
+                name: 'About',
+                url: '/about',
+                disabled: false,
+            },
+            {
+                id: 7,
                 name: 'Log Out',
                 url: '/logout',
                 disabled: false,

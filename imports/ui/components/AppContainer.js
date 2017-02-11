@@ -3,6 +3,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import VisioRoomDrawer from './Drawer/Drawer';
 import VisioRoomAppBar from './AppBar/AppBar';
 import AuthenticationModal from './Modal/AuthenticationModal';
+import RoomBookingModal from './Modal/RoomBookingModal';
+import AddPaymentModal from './Modal/AddPaymentModal';
+
 import './app.css';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -27,6 +30,8 @@ class AppContainer extends Component {
                         <VisioRoomDrawer />
                         {this.props.children}
                         <AuthenticationModal />
+                        <RoomBookingModal />
+                        <AddPaymentModal />
                     </div>
                 </MuiThemeProvider>
             </Provider>

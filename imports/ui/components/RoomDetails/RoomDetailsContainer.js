@@ -1,59 +1,39 @@
 import React, {Component} from "react";
 import {createContainer} from "meteor/react-meteor-data";
-import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 import {Rooms} from "../../../api/rooms/rooms";
 import CircularProgress from "material-ui/CircularProgress";
-import {Card, CardActions, CardHeader, CardMedia, CardText} from "material-ui/Card";
 import {staticMarkerImage} from "../../../common/utils/googleMaps";
-import RaisedButton from "material-ui/RaisedButton";
-import { grey500, green500, red500 } from "material-ui/styles/colors";
-import moment from 'moment';
-import BookingControls from './BookingControls';
 
-import RoomBookingStepper from './RoomBookingStepper';
-import {
-    Step,
-    Stepper,
-    StepLabel,
-} from 'material-ui/Stepper';
+import RoomBooking from './RoomBooking';
+import RoomDetailsInfo from './RoomInfo/RoomDetailsInfo';
 
 class RoomDetails extends Component {
-    shouldComponentUpdate(nextProps, nextState){
-        if(JSON.stringify(this.props.rooms) === JSON.stringify(nextProps.rooms)){
-            return false;
-            console.log('prevent component update');
-        }
-        console.log('RoomDetails component update');
-        return true;
-    }
+    /*
+     shouldComponentUpdate(nextProps, nextState){
+     if(JSON.stringify(this.props.rooms) === JSON.stringify(nextProps.rooms)){
+     return false;
+     console.log('prevent component update');
+     debugger;
+     }
+     console.log('RoomDetails component update');
+     return true;
+     }*/
 
     _renderRoomDetails() {
-        if(this.props.rooms) {
-            let room = this.props.rooms;
+        if(this.props.room) {
+            let room = this.props.room;
             let staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 800, 400);
 
             return (
-                <Card className="home-card">
-                    <CardHeader
-                        style={{ fontSize: 14 }}
-                    >
-                        {room.name}
-                    </CardHeader>
-                    <CardMedia>
-                        <img src={staticImageUrl}/>
-                    </CardMedia>
-                    <CardText>
-                        <p>
-                            Capacity: {room.capacity}
-                        </p>
-                        <p>
-                            Price: {room.pricePerDay}
-                        </p>
-                    </CardText>
-                    <CardText>
-                        {room.description}
-                    </CardText>
-                </Card>
+
+                <RoomDetailsInfo
+                    name={room.name}
+                    staticImageUrl={staticImageUrl}
+                    capacity={room.capacity}
+                    pricePerDay={room.pricePerDay}
+                    description={room.description}
+                />
+
             );
         }
         else {
@@ -64,7 +44,7 @@ class RoomDetails extends Component {
     _renderBookingStepper() {
         return(
             <div>
-                <RoomBookingStepper
+                <RoomBooking
                     roomId={this.props.roomId}
                 />
             </div>
@@ -72,7 +52,6 @@ class RoomDetails extends Component {
     }
 
     render() {
-        console.log('done loading');
         return (<div>
             <div className="row">
                 <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -91,24 +70,15 @@ class RoomDetails extends Component {
             </div>
         </div>);
     }
-
-    _renderTitle() {
-        if(this.props.rooms){
-            return <h3>{this.props.rooms.name}</h3>;
-        }
-        else {
-            return <div></div>;
-        }
-    }
 }
 
 const RoomDetailsContainer = createContainer(({ params }) => {
     let roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
-    let rooms = Rooms.findOne(params.roomId);
+    let room = Rooms.findOne(params.roomId);
 
     return {
         roomId: params.roomId,
-        rooms: rooms,
+        room: room,
         loadingRooms: !roomHandle.ready(),
     }
 }, RoomDetails);

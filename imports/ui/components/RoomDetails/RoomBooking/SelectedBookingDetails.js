@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {createContainer} from "meteor/react-meteor-data";
 import {connect} from "react-redux";
-import { Bookings } from '../../../api/bookings/bookings';
+import { Bookings } from '../../../../api/bookings/bookings';
 import moment from 'moment';
 
 class SelectedBookingDetails extends Component {
     render(){
-        if(this.props.booking && this.props.stepIndex > 0){
+        if(this.props.booking){
             const { booking } = this.props;
             const date = moment(booking.bookingDate).format('DD/MM/YYYY');
 

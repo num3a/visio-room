@@ -14,8 +14,8 @@ import { Router, browserHistory } from  'react-router';
 import { Bookings } from '../../../api/bookings/bookings';
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
 
-import SelectedBookingDetails from './SelectedBookingDetails';
-import BookingPayment from './BookingPayment';
+import SelectedBookingDetails from './RoomBooking/SelectedBookingDetails';
+import BookingPayment from './RoomBooking/BookingPayment/BookingPayment';
 
 //TODO: plug validation voucher
 //TODO: add selectable booking date
@@ -101,12 +101,14 @@ class RoomBookingStepper extends Component {
                 }
                 break;
             case 1:
-               if(this.props.voucherIsValid){
+                disabled = !cguAccepted;
+
+/*                if(this.props.voucherIsValid){
                    disabled = false;
                }
                else {
                    disabled = true;
-               }
+               }*/
                 break;
             case 2:
                 disabled = !cguAccepted;
@@ -176,7 +178,7 @@ class RoomBookingStepper extends Component {
         //TODO: move stepper state in redux!
 
         return (
-            <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+                <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
 
                 <Stepper activeStep={stepIndex} >
                     <Step>

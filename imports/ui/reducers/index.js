@@ -6,6 +6,7 @@ import drawer from './drawer';
 import search from './search';
 import login from './login';
 import payments from './payments';
+import booking from './booking';
 
 const VisioRoomReducers = combineReducers({
     login: login,
@@ -15,6 +16,7 @@ const VisioRoomReducers = combineReducers({
     drawer: drawer,
     search: search,
     payments: payments,
+    booking: booking,
 });
 
 export default VisioRoomReducers;

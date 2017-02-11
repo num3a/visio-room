@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import LoginContainer from '../Login/LogInContainer';
 import SignUpContainer from '../Signup/SignUpContainer';
 import {Tabs, Tab} from 'material-ui/Tabs';
