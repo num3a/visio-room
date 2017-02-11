@@ -42,6 +42,13 @@ const cguAccepted = (accepted) => {
     };
 };
 
+const selectedCardChanged = (card) => {
+    return {
+        type: types.BOOKING_SELECTED_CARD_CHANGED,
+        card: card,
+    };
+};
+
 export {
     openBookingModal,
     closeBookingModal,
@@ -49,4 +56,5 @@ export {
     selectedVoucherChanged,
     voucherIsValid,
     cguAccepted,
+    selectedCardChanged
 }

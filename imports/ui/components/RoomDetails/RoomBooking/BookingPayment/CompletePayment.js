@@ -18,7 +18,13 @@ class CompletePayment extends Component {
         const { dispatch } = this.props;
         dispatch(cguAccepted(isInputChecked));
     }
-
+    completeBooking(){
+        //TODO: retrieve all informations: voucher, bookingId, paymentToken
+        //TODO: display modal
+        //TODO: call booking payment methods
+        //TODO: if no errors => redirect to history
+        //TODO: errors => display message in popin
+    }
     render(){
         return    <div className="row">
             <div className="col-sm-12">
@@ -42,7 +48,7 @@ class CompletePayment extends Component {
                     />
                     <RaisedButton
                         label="Complete"
-                        disabled={!this.props.cguAccepted}
+                        disabled={!this.props.cguAccepted && !this.props.selectedCard}
                         color={green500 }
                         primary={true}
                         onTouchTap={() => this.completeBooking()}
@@ -56,6 +62,7 @@ class CompletePayment extends Component {
 const mapStateToProps = (state) => {
     return {
         cguAccepted: state.booking.cguAccepted,
+        selectedCard: state.booking.selectedCard,
     };
 };
 

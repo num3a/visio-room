@@ -7,6 +7,7 @@ const initialSate = {
     voucher: null,
     voucherIsValid: false,
     cguAccepted: false,
+    selectedCard: null,
 };
 
 const roomReducer = (state = initialSate, action = {}) => {
@@ -36,6 +37,12 @@ const roomReducer = (state = initialSate, action = {}) => {
                 ...state,
                 cguAccepted: action.accepted,
             };
+        case types.BOOKING_SELECTED_CARD_CHANGED:
+            return {
+                ...state,
+                selectedCard: action.card,
+            };
+
         default:
             return state;
     }
