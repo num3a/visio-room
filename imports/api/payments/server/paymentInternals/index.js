@@ -85,7 +85,7 @@ class PaymentInternals {
 
     createCharge(charge){
         new SimpleSchema({
-            amount: { type: Number },
+            amount: { type: Number, decimal: true },
             currency: { type: String, allowedValues: ["eur"]},
             description: { type: String },
             source: { type: String }
@@ -95,7 +95,7 @@ class PaymentInternals {
         const { amount, currency, description, source } = charge;
 
         const newCharge = this.stripeInstance.charges.create({
-            amount: amount,
+            amount: amount * 100,
             currency: currency,
             description: description,
             source: source,
@@ -105,6 +105,8 @@ class PaymentInternals {
             }
             else {
                 return charge;
+
+                //
             }
         });
 

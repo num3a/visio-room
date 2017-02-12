@@ -9,7 +9,7 @@ const generateBookings = (error, _id) => {
         console.log('Cannot generate bookings', error);
         return;
     }
-
+    let room = Rooms.findOne(_id);
     let now = moment();
     now.set({'hour': 12, 'minutes': 0, 'second': 0, 'millisecond': 0});
 
@@ -23,7 +23,8 @@ const generateBookings = (error, _id) => {
                 isBlocked: false,
                 bookingDate: now.add(1, 'days').toDate(),
                 attendeeCount: 0,
-                createdAt: new Date()
+                createdAt: new Date(),
+                price: room.pricePerDay
             });
         }
     }
@@ -39,7 +40,7 @@ const generateVouchers = () => {
                 Voucher.insert({
                 isValid: true,
                 code: newCode,
-                percentage: 100.0,
+                percentage: 50.0,
                 createdAt: new Date()
             });
         }

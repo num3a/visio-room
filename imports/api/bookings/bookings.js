@@ -28,7 +28,9 @@ Bookings.schema = new SimpleSchema({
     bookingDate: { type: Date, optional: true},
     bookedAt: { type: Date, optional: true},
     attendeeCount: { type: Number, optional: true},
-    createdAt: { type: Date, optional: false}
+    createdAt: { type: Date, optional: false},
+    price: { type: Number, decimal: true, optional: false},
+
 });
 
 Bookings.attachSchema(Bookings.schema);

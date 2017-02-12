@@ -6,7 +6,7 @@ import { PaymentTokens } from '../../../../../api/payments/paymentTokens';
 import FlatButton from 'material-ui/FlatButton';
 import { openAddCardModal  } from '../../../../actions/payments';
 import { selectedCardChanged } from '../../../../actions/booking';
-
+import _ from 'lodash';
 import { grey500, green500, red500} from "material-ui/styles/colors";
 
 class PaymentCardList extends Component {
@@ -24,12 +24,7 @@ class PaymentCardList extends Component {
     }
 
     onSelectedCardChange(token){
-        var selectedPaymentToken = this.props.paymentTokens.map((payment) => {
-            if(payment.token === token){
-                return payment;
-            }
-        })[0];
-
+        let selectedPaymentToken =  _.find(this.props.paymentTokens,{ 'token' : token });
         this.dispatchSelectedCard(selectedPaymentToken);
     }
 
@@ -51,7 +46,7 @@ class PaymentCardList extends Component {
         return        <div>
 
             <RadioButtonGroup
-                name="payments" defaultSelected={firstCard._id}
+                name="payments" defaultSelected={firstCard.token}
                 onChange={(event, value) => this.onSelectedCardChange(value)}
 
             >

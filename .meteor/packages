@@ -38,5 +38,5 @@ kadira:debug
 reywood:publish-composite
 email@1.1.18
 meteorhacks:ssr
-service-configuration
-http
+service-configuration@1.0.11
+http@1.2.10

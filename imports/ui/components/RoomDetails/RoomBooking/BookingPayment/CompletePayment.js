@@ -19,12 +19,26 @@ class CompletePayment extends Component {
         dispatch(cguAccepted(isInputChecked));
     }
     completeBooking(){
-        //TODO: retrieve all informations: voucher, bookingId, paymentToken
+
         //TODO: display modal
-        //TODO: call booking payment methods
         //TODO: if no errors => redirect to history
         //TODO: errors => display message in popin
+
+        var bookingData = {
+            token: this.props.selectedCard.token,
+            voucher: this.props.voucher,
+            bookingId: this.props.bookingId,
+            userId: Meteor.userId()
+        };
+
+         Meteor.call('bookings.bookWithPayment', bookingData, (err, charge)=> {
+            console.log('bookings.err', err);
+            console.log('bookings.data', charge);
+
+         });
+
     }
+
     render(){
         return    <div className="row">
             <div className="col-sm-12">
@@ -48,7 +62,7 @@ class CompletePayment extends Component {
                     />
                     <RaisedButton
                         label="Complete"
-                        disabled={!this.props.cguAccepted && !this.props.selectedCard}
+                        disabled={this.props.cguAccepted == false || !this.props.selectedCard}
                         color={green500 }
                         primary={true}
                         onTouchTap={() => this.completeBooking()}
@@ -63,6 +77,9 @@ const mapStateToProps = (state) => {
     return {
         cguAccepted: state.booking.cguAccepted,
         selectedCard: state.booking.selectedCard,
+        voucher: state.booking.voucher,
+        bookingId: state.booking.bookingId,
+
     };
 };
 
