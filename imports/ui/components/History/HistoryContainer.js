@@ -44,7 +44,9 @@ class History extends Component {
         let room = this._getRoomById(booking.roomId);
 
         let lastCancelDate = moment().add('days', 1);
-        const cancelIsActive = booking.bookingDate > lastCancelDate;
+        let cancelIsActive = booking.bookingDate > lastCancelDate;
+        cancelIsActive = true;
+
         return (
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" style={{marginTop: 10}}>
                 <Card>

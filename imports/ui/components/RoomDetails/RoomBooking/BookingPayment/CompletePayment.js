@@ -5,7 +5,10 @@ import { cguAccepted } from '../../../../actions/room';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green500 } from "material-ui/styles/colors";
-import { selectedBookingChanged } from '../../../../actions/booking';
+import { closeBookingModal, openBookingModal, selectedBookingChanged } from '../../../../actions/room';
+import { snackBarOpen, snackBarMessageChanged } from '../../../../actions/snackbar';
+import { browserHistory } from  'react-router';
+
 
 class CompletePayment extends Component {
 
@@ -20,25 +23,26 @@ class CompletePayment extends Component {
     }
     completeBooking(){
 
-        //TODO: display modal
-        //TODO: if no errors => redirect to history
-        //TODO: errors => display message in popin
-
-        var bookingData = {
+        let bookingData = {
             customerId: this.props.selectedCard.customerId,
             voucher: this.props.voucher,
             bookingId: this.props.bookingId,
             userId: Meteor.userId()
         };
 
-        //TODO: display modal
-
-
+        const { dispatch } = this.props;
+        dispatch(openBookingModal());
         Meteor.apply('bookings.bookWithPayment', [bookingData], {noRetry: true}, (err, charge)=> {
             console.log('bookings.err', err);
             console.log('bookings.data', charge);
-            //TODO: Dismiss modal
-            //TODO: Redirect
+            if(err){
+                dispatch(snackBarMessageChanged(err.message));
+                dispatch(snackBarOpen());
+            }
+            else {
+                dispatch(closeBookingModal());
+                browserHistory.push('/history');
+            }
          });
 
     }

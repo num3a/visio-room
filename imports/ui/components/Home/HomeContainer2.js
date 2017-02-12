@@ -1,73 +1,16 @@
 import React, {Component} from "react";
-import Search from "./Search";
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import RoomList from './RoomList';
 
-//TODO: add http://flexboxgrid.com/
-//TODO: 4 cols for search /
 class HomeContainer2 extends Component {
-    onChargeClick(){
-        const chargeData = {
-            amount: 1000,
-            currency: "eur",
-            description: "Example charge",
-            source: "",
-        };
-        this._generateToken();
-
-        /*
-        Meteor.call('payments.createCharge', chargeData, (err, charge)=> {
-            console.log('payments.charge.err', err);
-            console.log('payments.charge.data', charge);
-
-        });
-        */
-    }
-
-    _generateToken(){
-        const options = {
-            content: '',
-            data: {},
-            headers: {}
-        };
-
-
-        //let stripe2 = Stripe("sk_test_XpBlmXOXgKrcpz0MBUVM4E13");
-        Stripe.setPublishableKey('pk_test_P5K1hZO06CiDNwcRdTGJrhzp');
-
-        Stripe.card.createToken({
-            card: {
-                number: '4973559980575725',
-                exp_month : 12,
-                exp_year: 2018,
-                cvc: '123',
-                name: 'toto'
-            }
-        }, (err, token) =>{
-            // asynchronously called
-            console.log('err:', err);
-            console.log('token', token);
-        });
-    }
 
     render() {
         return(
             <div>
                 <div className="row">
-                    <div className="col-lg-12">
-                        <RaisedButton onClick={() => this.onChargeClick()} >Test Charge</RaisedButton>
-                    </div>
-                </div>
-                <div className="row">
                     <div className="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                        <RoomList/>
+                        <div className="box">
+                            <RoomList/>
+                        </div>
                     </div>
                 </div>
             </div>

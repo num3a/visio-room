@@ -53,7 +53,7 @@ class VisioRoomDrawer extends Component {
                 id: 5,
                 name: 'Admin',
                 url: '/admin',
-                disabled: true,
+                disabled: false,
 
             },
             {

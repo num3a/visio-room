@@ -13,6 +13,7 @@ import IconButton from 'material-ui/IconButton';
 
 const Logged = (props) => (
     <IconMenu
+
         {...props}
         iconButtonElement={
             <IconButton><MoreVertIcon color="white" /></IconButton>

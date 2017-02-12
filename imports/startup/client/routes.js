@@ -6,6 +6,7 @@ import HomeContainer from '../../ui/components/Home';
 import ProfileContainer from '../../ui/components/Profile';
 
 import AppContainer from '../../ui/components/AppContainer';
+import Administration from '../../ui/components/Administration';
 import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import HistoryContainer from '../../ui/components/History';
@@ -56,6 +57,7 @@ export const renderRoutes = () => (
                 <Route path="profile" component={ProfileContainer} />
                 <Route path="history" component={HistoryContainer} />
                 <Route path="payments" component={PaymentsContainer} />
+                <Route path="admin" components={Administration} />
             </Route>
             <Route name="nonAuthenticatedPages">
                 <Route path="signup" component={SignUpContainer} />
