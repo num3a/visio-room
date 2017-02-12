@@ -9,17 +9,23 @@ class RoomBooking extends Component {
 
         if(!this.props.bookingId){
             return <div className="row">
-                <div>
-                   <BookingSelection
-                   roomId={this.props.roomId}/>
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div className="box">
+                        <BookingSelection
+                            roomId={this.props.roomId}/>
+                    </div>
                 </div>
             </div>;
         }
         else {
-            return <div>
-                <BookingPayment
-                    roomId={this.props.roomId}
-                />
+            return <div className="row">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div className="box">
+                        <BookingPayment
+                            roomId={this.props.roomId}
+                        />
+                    </div>
+                </div>
             </div>
         }
     }

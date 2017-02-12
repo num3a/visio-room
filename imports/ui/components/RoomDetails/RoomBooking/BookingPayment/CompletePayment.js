@@ -25,16 +25,20 @@ class CompletePayment extends Component {
         //TODO: errors => display message in popin
 
         var bookingData = {
-            token: this.props.selectedCard.token,
+            customerId: this.props.selectedCard.customerId,
             voucher: this.props.voucher,
             bookingId: this.props.bookingId,
             userId: Meteor.userId()
         };
 
-         Meteor.call('bookings.bookWithPayment', bookingData, (err, charge)=> {
+        //TODO: display modal
+
+
+        Meteor.apply('bookings.bookWithPayment', [bookingData], {noRetry: true}, (err, charge)=> {
             console.log('bookings.err', err);
             console.log('bookings.data', charge);
-
+            //TODO: Dismiss modal
+            //TODO: Redirect
          });
 
     }

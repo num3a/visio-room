@@ -15,48 +15,50 @@ class AddCard extends Component {
         Stripe.setPublishableKey('pk_test_P5K1hZO06CiDNwcRdTGJrhzp');
         let form = event.target;
         Stripe.card.createToken(form
-           /* {
-            card: {
-                number: '4973559980575725',
-                exp_month : 12,
-                exp_year: 2018,
-                cvc: '123',
-                name: 'toto'
-            }
-        }*/
-        , (resultCode, result) =>{
-            // asynchronously called
-            console.log('err:', resultCode);
-            console.log('token', result);
+            /* {
+             card: {
+             number: '4973559980575725',
+             exp_month : 12,
+             exp_year: 2018,
+             cvc: '123',
+             name: 'toto'
+             }
+             }*/
+            , (resultCode, result) =>{
+                // asynchronously called
+                console.log('err:', resultCode);
+                console.log('token', result);
 
-            if(resultCode === 200){
+                if(resultCode === 200){
 
-                const { id, type, client_ip, created, card } = result;
-                const { exp_month, exp_year, last4, brand } = card;
-                let tokenToSave = {
-                    token: id,
-                    type: type,
-                    clientIp : client_ip,
-                    created : created,
-                    expired: false,
-                    card: {
-                        id: card.id,
-                        expMonth: exp_month,
-                        expYear: exp_year,
-                        last4: last4,
-                        brand: brand,
-                    }
-                };
+                    const { id, type, client_ip, created, card } = result;
+                    const { exp_month, exp_year, last4, brand } = card;
+                    let tokenToSave = {
+                        token: id,
+                        type: type,
+                        clientIp : client_ip,
+                        created : created,
+                        expired: false,
+                        card: {
+                            id: card.id,
+                            expMonth: exp_month,
+                            expYear: exp_year,
+                            last4: last4,
+                            brand: brand,
+                        }
+                    };
 
-                Meteor.call('payments.saveToken', tokenToSave, (error, result) => {
-                    console.log('payments.saveToken.error', error);
-                    console.log('payments.saveToken.result', result);
-                    if(result.saved === true){
-                        dispatch(closeAddCardModal());
-                    }
-                })
-            }
-        });
+                    Meteor.apply('payments.saveToken',[tokenToSave], { noRetry: true}, (error, result) => {
+
+//                    Meteor.call('payments.saveToken', tokenToSave, (error, result) => {
+                        console.log('payments.saveToken.error', error);
+                        console.log('payments.saveToken.result', result);
+                        if(result.saved === true){
+                            dispatch(closeAddCardModal());
+                        }
+                    })
+                }
+            });
 
         /*
          {
@@ -65,7 +67,7 @@ class AddCard extends Component {
          clientIp: { type: String },
          created: { type: Number}
          }
-        * */
+         * */
     }
     render(){
         return <div>
@@ -73,17 +75,17 @@ class AddCard extends Component {
                 <span className="payment-errors"></span>
 
                 <div className="form-row">
-                        <TextField
-                            hintText="Card Number"
-                            size="20"
-                            value="4000000000000077"
-                            data-stripe="number"/>
+                    <TextField
+                        hintText="Card Number"
+                        size="20"
+                        value="4000000000000077"
+                        data-stripe="number"/>
                 </div>
 
                 <div className="form-row">
-                        <TextField
-                            value={10}
-                            hintText="MM" size="2" data-stripe="exp_month"/>
+                    <TextField
+                        value={10}
+                        hintText="MM" size="2" data-stripe="exp_month"/>
 
                     <span> / </span>
                     <TextField hintText="YY"
@@ -101,9 +103,9 @@ class AddCard extends Component {
                 </div>
 
                 <div className="form-row">
-                        <TextField
-                            value={100023}
-                            hintText="Billing Postal Code" size="6" data-stripe="address_zip"/>
+                    <TextField
+                        value={100023}
+                        hintText="Billing Postal Code" size="6" data-stripe="address_zip"/>
                 </div>
                 <FlatButton
                     label="Submit"

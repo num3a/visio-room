@@ -1,5 +1,7 @@
 import { Stripe } from "stripe";
 import { PaymentTokens } from '../../paymentTokens';
+import { Meteor } from 'meteor/meteor';
+
 //const stripe = require("stripe")("sk_test_XpBlmXOXgKrcpz0MBUVM4E13");
 
 class PaymentInternals {
@@ -7,8 +9,8 @@ class PaymentInternals {
         this.stripeInstance = Stripe(stripeKey);
     }
 
-    saveToken(data){
-        if(!Meteor.userId()){
+    saveToken(data, userId){
+        if(!userId){
             throw new Meteor.Error('User is not authenticated');
         }
 
@@ -32,15 +34,17 @@ class PaymentInternals {
 
         const { token, type, clientIp, created, card, expired } = data;
 
-        PaymentTokens.insert({
-            userId: Meteor.userId(),
+        let newPaymentToken = {
+            userId: userId,
             token: token,
             type: type,
             clientIp: clientIp,
             created: created,
             card: card,
             expired: expired,
-        });
+        };
+
+        this.createCustomer(data.token, newPaymentToken);
 
         return {
             saved: true,
@@ -75,7 +79,48 @@ class PaymentInternals {
         });
     }
 
-    createCustomer(customer){
+    createCustomer(token, paymentToken){
+
+        /*
+
+         this.stripeInstance.customers.create({
+         email: emailAddress,
+         description: 'Customer for ' + emailAddress,
+         metadata: {'userId': Meteor.userId()},
+         source: token // obtained with Stripe.js
+         }, function(err, customer) {
+         if(err){
+         throw new Meteor.Error(err.message);
+         }
+         else {
+
+         }
+         });
+        * */
+
+        let {  emailAddress }  = Meteor.user().profile;
+
+        let wrappedCustomerCreate = Meteor.wrapAsync(this.stripeInstance.customers.create, this.stripeInstance.customers);
+
+        let customer = null;
+
+        try {
+            customer = wrappedCustomerCreate({
+                email: emailAddress,
+                description: 'Customer for ' + emailAddress,
+                metadata: {'userId': paymentToken.userId},
+                source: token // obtained with Stripe.js
+            });
+        }
+        catch (e){
+            throw  new Meteor.Error(e.message);
+        }
+
+        if(customer){
+            paymentToken.customerId = customer.id;
+
+        }
+        PaymentTokens.insert(paymentToken);
 
     }
 
@@ -88,17 +133,17 @@ class PaymentInternals {
             amount: { type: Number, decimal: true },
             currency: { type: String, allowedValues: ["eur"]},
             description: { type: String },
-            source: { type: String }
+            customerId: { type: String }
         }).validate(charge);
 
         //var token = request.body.stripeToken; // Using Express
-        const { amount, currency, description, source } = charge;
+        const { amount, currency, description, customerId } = charge;
 
         const newCharge = this.stripeInstance.charges.create({
             amount: amount * 100,
             currency: currency,
             description: description,
-            source: source,
+            customer: customerId,
         }, (err, charge) => {
             if(err){
                 throw new Meteor.Error(err.message);

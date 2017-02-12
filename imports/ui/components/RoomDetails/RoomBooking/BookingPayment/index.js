@@ -13,14 +13,14 @@ class BookingPayment extends Component {
 
         return  <div>
             <div className="row">
-                <div className="col-sm-12">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <SelectedBookingDetails
                         bookingId={this.props.bookingId}
                     />
                 </div>
             </div>
             <div className="row">
-                <div className="col-sm-12">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <PaymentCardList />
                 </div>
             </div>
@@ -28,7 +28,7 @@ class BookingPayment extends Component {
                 data={this.props.voucher}
             />
             <div className="row">
-                <div className="col-sm-12">
+                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <CompletePayment
                         roomId={this.props.roomId}
                     />

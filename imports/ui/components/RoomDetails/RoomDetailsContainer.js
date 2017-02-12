@@ -52,21 +52,24 @@ class RoomDetails extends Component {
     }
 
     render() {
-        return (<div>
-            <div className="row">
-                <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    {this._renderRoomDetails()}
-                </div>
-
-                <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                    {this._renderBookingStepper()}
-
+        return (<div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div className="box">
                     <div className="row">
+                        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div className="box">
 
+                            {this._renderRoomDetails()}
+                            </div>
+                        </div>
+
+                        <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                            <div className="box">
+                                {this._renderBookingStepper()}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="row">
             </div>
         </div>);
     }

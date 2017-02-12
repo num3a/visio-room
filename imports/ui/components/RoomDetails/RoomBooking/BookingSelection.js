@@ -24,8 +24,10 @@ class BookingSelection extends Component {
         return(
             <div>
                 <div className="row">
-                    <div className="col-sm-12">
-                        <h5>Select a booking date</h5>
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div className="box">
+                            <h5>Select a booking date</h5>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

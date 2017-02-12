@@ -36,6 +36,7 @@ PaymentTokens.schema = new SimpleSchema({
     clientIp: { type: String },
     created: { type: Number},
     card: { type: CardSchema },
+    customerId: { type: String },
     expired: { type: Boolean }
 });
 

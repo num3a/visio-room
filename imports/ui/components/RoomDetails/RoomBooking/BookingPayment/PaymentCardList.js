@@ -23,8 +23,8 @@ class PaymentCardList extends Component {
         dispatch(openAddCardModal());
     }
 
-    onSelectedCardChange(token){
-        let selectedPaymentToken =  _.find(this.props.paymentTokens,{ 'token' : token });
+    onSelectedCardChange(customerId){
+        let selectedPaymentToken =  _.find(this.props.paymentTokens,{ 'customerId' : customerId });
         this.dispatchSelectedCard(selectedPaymentToken);
     }
 
@@ -46,7 +46,7 @@ class PaymentCardList extends Component {
         return        <div>
 
             <RadioButtonGroup
-                name="payments" defaultSelected={firstCard.token}
+                name="payments" defaultSelected={firstCard.customerId}
                 onChange={(event, value) => this.onSelectedCardChange(value)}
 
             >
@@ -54,8 +54,7 @@ class PaymentCardList extends Component {
                     const last4 = "**** **** **** " + payment.card.last4;
                     return    <RadioButton
                         key={payment._id}
-                        onCheck={() => this.dispatchSelectedCard(payment)}
-                        value={payment.token}
+                        value={payment.customerId}
                         label={last4}
                     />
                 })}

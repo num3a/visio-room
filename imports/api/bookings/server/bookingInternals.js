@@ -75,13 +75,13 @@ export default class BookingInternals {
 
     }
 
-     updateBooking(bookingId, currentUserId, voucher){
+     updateBooking(bookingId, voucher){
         let voucherId = voucher == null ? null : voucher._id;
         let updateBookingQuery = {
             $set: {
                 isBooked: true,
                 bookedAt: moment().toDate(),
-                bookedBy: currentUserId,
+                bookedBy: Meteor.userId(),
                 voucherUsed: voucherId,
             }
         };
@@ -182,12 +182,13 @@ export default class BookingInternals {
         let successful = false;
         let internalError = null;
         let chargeResult = null;
+        //TODO: check has not been booked
 
         new SimpleSchema({
             bookingId: { type: String, regEx: SimpleSchema.RegEx.Id },
             userId: { type: String, regEx: SimpleSchema.RegEx.Id },
             voucher: { type: String, optional: true},
-            token: { type: String}
+            customerId: { type: String}
         }).validate(bookingWithPayment);
 
         this.checkUser(bookingWithPayment.userId);
@@ -203,7 +204,7 @@ export default class BookingInternals {
             amount: amount,
             currency: "eur",
             description: "Example charge",
-            source:  bookingWithPayment.token,
+            customerId:  bookingWithPayment.customerId,
         };
 
 
@@ -211,6 +212,7 @@ export default class BookingInternals {
             if(err){
                 console.log('payments.charge.err', err);
                 internalError = err;
+                successful = false;
             }
             else {
                 console.log('payments.charge.data', charge);

@@ -6,7 +6,8 @@ const payments = new PaymentInternals(stripeKey);
 
 Meteor.methods({
     'payments.saveToken'(token){
-      return payments.saveToken(token);
+        let userId = this.userId;
+        return payments.saveToken(token, userId);
     },
     'payments.revokeToken'(tokenId){
         return payments.revokeToken(tokenId);
