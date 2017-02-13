@@ -36,6 +36,10 @@ class BookingSelection extends Component {
                             let isActive = !booking.isBooked && !booking.isBlocked;
                             let color = isActive ? green500 : red500;
                             let label = isActive ? 'Book': 'Booked';
+                            if(booking.isBlocked){
+                                label = 'Unavailable';
+                                color = grey500;
+                            }
 
                             return <div key={booking._id} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                                 <Card style={{margin:10, backgroundColor: grey500}}>
@@ -65,7 +69,7 @@ class BookingSelection extends Component {
 
 const BookingSelectionContainer = createContainer(({roomId}) => {
     let now  = moment().toDate();
-    let maxDate = addDays(now, 10);
+    let maxDate = addDays(now, 20);
 
     let bookingHandle = Meteor.subscribe('bookings.byRoom', roomId, now, maxDate);
 

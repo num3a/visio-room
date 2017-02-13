@@ -13,3 +13,5 @@ import './oauth.js';
 import './seeds.js';
 
 import './stripe.js';
+
+import './roles.js';

@@ -254,9 +254,13 @@
         <item url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/row_trash/main.js" />
         <item url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/_component/component.js" />
         <item url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/doc_editor/inline.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/subscriptions.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/client/main.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/uiHelpers.js" />
         <item url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/doc_editor/docViewer.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/debug.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/client/main.css" />
+        <item url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/roles_common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/config/config.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.2.10/web.browser/httpcall_tests.js" />
         <item url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/config/config.css" />
@@ -571,9 +575,13 @@
       <root url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/row_trash/main.js" />
       <root url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/_component/component.js" />
       <root url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/doc_editor/inline.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/subscriptions.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/client/main.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/uiHelpers.js" />
       <root url="file://$USER_HOME$/.meteor/packages/msavin_mongol/2.0.1/web.browser/client/doc_editor/docViewer.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/client/debug.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/client/main.css" />
+      <root url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/roles_common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/config/config.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.2.10/web.browser/httpcall_tests.js" />
       <root url="file://$USER_HOME$/.meteor/packages/meteortoys_shell/3.0.0/web.browser/config/config.css" />

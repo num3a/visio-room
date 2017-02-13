@@ -8,6 +8,7 @@ import login from './login';
 import payments from './payments';
 import booking from './booking';
 import snackbar from './snackbar';
+import admin from './admin';
 
 const VisioRoomReducers = combineReducers({
     login: login,
@@ -19,6 +20,7 @@ const VisioRoomReducers = combineReducers({
     payments: payments,
     booking: booking,
     snackbar: snackbar,
+    admin: admin
 });
 
 export default VisioRoomReducers;

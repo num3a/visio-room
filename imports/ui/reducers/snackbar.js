@@ -10,7 +10,7 @@ const snackBarReducer = (state = initialSate, action = {}) => {
         case types.SNACKBAR_ERROR_MESSAGE_CHANGED:
             return {
                 ...state,
-                username: action.errorMessage,
+                errorMessage: action.errorMessage,
             };
         case types.SNACKBAR_ERROR_OPEN:
             return {

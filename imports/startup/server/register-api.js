@@ -16,3 +16,6 @@ import '../../api/email/methods/bookings.js'
 import '../../api/payments/methods.js';
 import '../../api/payments/paymentTokens.js';
 import '../../api/payments/server/publications.js';
+
+import '../../api/admin/methods.js';
+

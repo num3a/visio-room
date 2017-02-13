@@ -16,6 +16,14 @@ Meteor.publish('rooms.byId', (roomId) => {
     return Rooms.find({_id: roomId});
 });
 
+Meteor.publish('rooms.byAdmin', (email) => {
+    new SimpleSchema({
+        email: { type: String, regEx: SimpleSchema.RegEx.Email},
+    }).validate({email});
+
+    return Rooms.find({administrator: { $elemMatch: {$eq:  email }}});
+});
+
 Meteor.publish('rooms.byIds', (roomIds) => {
     new SimpleSchema({
         roomIds: { type: [String], regEx: SimpleSchema.RegEx.Id}

@@ -18,6 +18,7 @@ class ErrorMessageSnackBar extends Component {
                 message={this.props.message}
                 autoHideDuration={4000}
                 onRequestClose={() => this.handleRequestClose()}
+                style={{ color: 'red', width: 500}}
             />
         </div>;
     }

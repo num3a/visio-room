@@ -28,8 +28,9 @@ Rooms.schema = new SimpleSchema({
     location: { type: [Number], decimal: true, optional: true },
     capacity: { type: Number },
     description: { type: String },
-    createdAt: { type: Date, defaultValue: new Date(), optional: false}
-
+    createdAt: { type: Date, defaultValue: new Date(), optional: false},
+    contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false},
+    administrator: { type: [String], optional: false}
 });
 
 Rooms.attachSchema(Rooms.schema);

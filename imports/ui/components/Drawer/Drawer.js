@@ -12,6 +12,7 @@ import Avatar from "material-ui/Avatar";
 import { grey700, white } from 'material-ui/styles/colors';
 import Badge from 'material-ui/Badge';
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
+import { Roles } from 'meteor/alanning:roles';
 
 
 class VisioRoomDrawer extends Component {
@@ -22,6 +23,8 @@ class VisioRoomDrawer extends Component {
     }
 
     _getMenuItems() {
+        let isAdmin = Roles.userIsInRole(Meteor.userId(),'admin');
+
         const menus = [
             {
                 id: 1,
@@ -53,7 +56,7 @@ class VisioRoomDrawer extends Component {
                 id: 5,
                 name: 'Admin',
                 url: '/admin',
-                disabled: false,
+                disabled: !isAdmin,
 
             },
             {
