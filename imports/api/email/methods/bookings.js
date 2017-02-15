@@ -6,7 +6,7 @@ import { Rooms } from '../../rooms/rooms';
 SSR.compileTemplate('htmlEmail', Assets.getText('templates/bookingConfirmation.html'));
 
 Meteor.methods({
-    'email.bookings.confirmation'(booking, voucher) {
+    'email.bookings.confirmatdion'(booking, voucher) {
         let successful = false;
         let currentUserId = Meteor.userId();
         if(!currentUserId){

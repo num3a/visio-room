@@ -31,6 +31,7 @@ Rooms.schema = new SimpleSchema({
     createdAt: { type: Date, defaultValue: new Date(), optional: false},
     contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false},
     administrator: { type: [String], optional: false}
+    //TODO: add phone number, equipments, access details
 });
 
 Rooms.attachSchema(Rooms.schema);

@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Bookings } from '../bookings';
 import { Voucher } from '../../voucher/vouchers';
 import moment from 'moment';
+import EmailInternals from '../../email/server/emailInternals';
 
 export default class BookingInternals {
     constructor(){
@@ -20,7 +21,7 @@ export default class BookingInternals {
         }
     }
 
-     getVoucher(code){
+    getVoucher(code){
         let voucher = Voucher.findOne({ isValid: true, code: code}, {});
 
         if(voucher == null){
@@ -30,7 +31,7 @@ export default class BookingInternals {
         return voucher;
     }
 
-     getBooking(bookingId){
+    getBooking(bookingId){
         let booking = Bookings.findOne({ _id: bookingId, isBooked: false, isBlocked: false});
         //TODO: check data
         if(booking == null){
@@ -40,10 +41,10 @@ export default class BookingInternals {
         return booking;
     }
 
-     applyDiscount(price, percentage){
-         if(percentage == null){
-             return price;
-         }
+    applyDiscount(price, percentage){
+        if(percentage == null){
+            return price;
+        }
 
         if(percentage > 51){
             return price;
@@ -55,7 +56,7 @@ export default class BookingInternals {
         return price * percentage / 100;
     }
 
-     invalidateVoucher(voucherId,currentUserId, bookingId){
+    invalidateVoucher(voucherId,currentUserId, bookingId){
         let updateVoucherQuery = {
             $set: {
                 isValid: false,
@@ -75,7 +76,7 @@ export default class BookingInternals {
 
     }
 
-     updateBooking(bookingId, voucher){
+    updateBooking(bookingId, voucher){
         let voucherId = voucher == null ? null : voucher._id;
         let updateBookingQuery = {
             $set: {
@@ -94,12 +95,9 @@ export default class BookingInternals {
         });
     }
 
-     sendMailToUser(){
-        Meteor.call('email.bookings.confirmation', booking, voucher, (error, result)=> {
-            if(!error){
-                sent = true;
-            }
-        });
+    sendMailToUser(booking, voucher, chargeData){
+        var emailSender = new EmailInternals();
+        emailSender.sendBookingConfirmation(booking,voucher, chargeData);
     }
 
     bookWithVoucher(bookWithVoucher){
@@ -207,8 +205,7 @@ export default class BookingInternals {
             customerId:  bookingWithPayment.customerId,
         };
 
-
-         Meteor.call('payments.createCharge', chargeData, (err, charge)=> {
+        Meteor.call('payments.createCharge', chargeData, (err, charge)=> {
             if(err){
                 console.log('payments.charge.err', err);
                 internalError = err;
@@ -224,8 +221,10 @@ export default class BookingInternals {
                 if(voucher != null){
                     this.invalidateVoucher(voucher._id, bookingId);
                 }
+
+                this.sendMailToUser(booking,voucher,chargeData);
             }
-         });
+        });
 
         return {
             successful,
