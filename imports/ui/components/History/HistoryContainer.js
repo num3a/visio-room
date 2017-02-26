@@ -45,7 +45,7 @@ class History extends Component {
 
         let lastCancelDate = moment().add('days', 1);
         let cancelIsActive = booking.bookingDate > lastCancelDate;
-        cancelIsActive = true;
+        cancelIsActive = false;
 
         return (
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" style={{marginTop: 10}}>
