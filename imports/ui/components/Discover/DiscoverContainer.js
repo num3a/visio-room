@@ -14,8 +14,9 @@ class DiscoverContainer extends Component {
         return <div className="discover-background">
             <div className="row center-xs center-sm center-md center-lg">
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 discover-message">
-                    <h3 style={{color: white}}>Your office everywhere !</h3>
-                    <h3 style={{color: white}}>No compromise...</h3>
+                    <p style={{color: white}}>
+                        VisioRoom is an on-demand working spaces boutique that offers to individuals and professionals alike the most central and convenient working spaces, across major cities in the world. We believe in digital nomadism and aim at accelerating the shift to a new era of professional mobility.
+                    </p>
                     <RaisedButton label="Find a room" primary={true} onClick={() => this.navigate()} />
 
                 </div>

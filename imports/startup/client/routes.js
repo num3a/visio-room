@@ -21,8 +21,9 @@ import LogOutContainer from '../../ui/components/Logout';
  import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.js';
  import AuthPageJoin from '../../ui/pages/AuthPageJoin.js';
  */
-import NotFoundPage from '../../ui/pages/NotFoundPage.js';
-import CGU from '../../ui/pages/CGU.js';
+import NotFoundPage from '../../ui/pages/NotFoundPage';
+import CGU from '../../ui/pages/CGU';
+import Legal from '../../ui/pages/Legal';
 
 const redirectIfLoggedIn = (nextState, replace) => {
     if(Meteor.user()){
@@ -53,7 +54,15 @@ export const renderRoutes = () => (
             <IndexRoute component={HomeContainer2} />
 
             <Route name="authenticatedPages">
-                <Route path="rooms/:roomId" component={RoomDetailsContainer} />
+                <Route path="rooms/:roomId"
+                       component={RoomDetailsContainer}
+                       onEnter={() => {
+                            console.log('ROUTER: on enter');
+                    }}
+                       onLeave={() => {
+                           console.log('ROUTER: on leave');
+                       }}
+                />
                 <Route path="profile" component={ProfileContainer} />
                 <Route path="history" component={HistoryContainer} />
                 <Route path="payments" component={PaymentsContainer} />
@@ -63,6 +72,7 @@ export const renderRoutes = () => (
                 <Route path="signup" component={SignUpContainer} />
                 <Route path="login" component={LogInContainer} />
                 <Route path="cgu" component={CGU} />
+                <Route path="legal" component={Legal} />
                 <Route path="discover" component={DiscoverContainer} />
             </Route>
             <Route path="logout" component={LogOutContainer} />

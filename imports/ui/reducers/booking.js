@@ -10,6 +10,8 @@ const initialSate = {
     selectedCard: null,
 };
 
+//TODO: expose method to reset state on route leave
+
 const roomReducer = (state = initialSate, action = {}) => {
     switch (action.type){
         case types.BOOKING_OPEN_BOOKING_MODAL:

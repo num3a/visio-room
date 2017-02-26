@@ -1,9 +1,6 @@
-body {
-    min-height: 100%
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+#app{
+    height:100%;
+    width:100%;
+    overflow:hidden; /* or overflow:auto; if you want scrollbars */
 }
-#app {
-    height: 100%;
-    position: absolute;
-    width: 100%;
-}
-
