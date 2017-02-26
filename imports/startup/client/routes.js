@@ -24,6 +24,7 @@ import LogOutContainer from '../../ui/components/Logout';
 import NotFoundPage from '../../ui/pages/NotFoundPage';
 import CGU from '../../ui/pages/CGU';
 import Legal from '../../ui/pages/Legal';
+import About from '../../ui/pages/About';
 
 const redirectIfLoggedIn = (nextState, replace) => {
     if(Meteor.user()){
@@ -73,6 +74,7 @@ export const renderRoutes = () => (
                 <Route path="login" component={LogInContainer} />
                 <Route path="cgu" component={CGU} />
                 <Route path="legal" component={Legal} />
+                <Route path="about" component={About} />
                 <Route path="discover" component={DiscoverContainer} />
             </Route>
             <Route path="logout" component={LogOutContainer} />
