@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import { createContainer } from 'meteor/react-meteor-data';
 import Avatar from "material-ui/Avatar";
+import HistoryContainer from "../History/HistoryContainer";
 
 class Profile extends Component {
     _renderProfileInfo(){
@@ -43,10 +44,15 @@ class Profile extends Component {
         }
         else{
             return (
-                <div className="row">
-                    {this._renderProfileHeader()}
-                    {this._renderProfileInfo()}
+                <div>
+                    <div className="row">
+                        {this._renderProfileHeader()}
+                    </div>
+                    <div className="row">
+                        <HistoryContainer />
+                    </div>
                 </div>
+
             );
         }
     }

@@ -7,13 +7,28 @@ const SignUp = (props) => (
         <div className="row">
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <form>
+
                     <TextField
-                        hintText="Login"
-                        floatingLabelText="Login"
+                        hintText="FirstName"
+                        floatingLabelText="FirstName"
+                        type="text"
+                        onChange={props.onFirstNameChange}
+                    />
+
+                    <TextField
+                        hintText="LastName"
+                        floatingLabelText="LastName"
+                        type="text"
+                        onChange={props.onLastNameChange}
+                    />
+
+                    <TextField
+                        hintText="Email"
+                        floatingLabelText="Email"
                         type="email"
                         onChange={props.onEmailChange}
                     />
-                    <br />
+
                     <br />
                     <TextField
                         floatingLabelText="Password"
@@ -22,14 +37,12 @@ const SignUp = (props) => (
                         onChange={props.onPasswordChange}
                     />
                     <br />
-                    <br />
                     <TextField
                         floatingLabelText="Confirm Password"
                         hintText="Confirm Password"
                         type="password"
                         onChange={props.onConfirmChange}
                     />
-                    <br />
                     <br />
                     <RaisedButton onClick={props.onSignUpClick} label="Sign Up" secondary={true}/>
                 </form>

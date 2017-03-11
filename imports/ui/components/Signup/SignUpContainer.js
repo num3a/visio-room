@@ -14,6 +14,8 @@ class Container extends Component {
         super();
         this.state = {
             email: '',
+            firstName: '',
+            lastName: '',
             password: '',
             confirm: '',
             errorMessage: '',
@@ -37,6 +39,13 @@ class Container extends Component {
         this.setState({confirm: event.target.value});
     }
 
+    _onFirstNameChange(event){
+        this.setState({ firstName: event.target.value});
+    }
+    _onLastNameChange(event){
+        this.setState({ lastName: event.target.value});
+    }
+
     _handleSignUp() {
         if(this.state.password !== this.state.confirm){
             this.setState({errorMessage: 'Please confirm password.'});
@@ -45,8 +54,8 @@ class Container extends Component {
 
         let canRedirect = false;
         Accounts.createUser({ email: this.state.email, password: this.state.password, profile: {
-            lastName: 'Ernest',
-            firstName: 'Emmanuel'
+            lastName: this.state.lastName,
+            firstName: this.state.firstName
         }}, (error) => {
             if(error){
                 console.log('An error occured', error);
@@ -85,6 +94,8 @@ class Container extends Component {
                     onEmailChange={(event) => this._onEmailChange(event)}
                     onPasswordChange={(event) =>  this._onPasswordChange(event)}
                     onConfirmChange={(event) =>  this._onConfirmPasswordChange(event)}
+                    onFirstNameChange={(event) => this._onFirstNameChange(event)}
+                    onLastNameChange={(event) => this._onLastNameChange(event)}
                     onSignUpClick={() => this._handleSignUp()}
                     onOAuthClick={() => this._handleOAuth()}
                     errorMessage={this.state.errorMessage}

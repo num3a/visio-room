@@ -1,0 +1,21 @@
+{
+  "_id": "27jM4cW3nn8ZZEBbh",
+  "roles": {
+    "__global_roles__": [
+      "super-admin",
+      "admin"
+    ]
+  },
+  "profile": {
+    "firstName": "Emmanuel",
+    "headline": "Software Developer chez Infeeny",
+    "lastName": "Ernest",
+    "emailAddress": "eernest.pro@gmail.com",
+    "location": {
+      "name": "Paris Area, France"
+    },
+    "numConnections": 191,
+    "pictureUrl": "https://media.licdn.com/mpr/mprx/0__9OKVwTa1cMvpFjy7bXKta1fcA_esLt28-eO0O5f-8kdsz8Ai-EAgWIaqKYUyk-gFqerAHemOnPWJ3dl75Ru-xWCUnPHJ3XK75RPJYy7KBQk1c02iqSjMotYRiW4K3PT66xyYujLdqq",
+    "publicProfileUrl": "https://www.linkedin.com/in/emmanuel-ernest-92938464"
+  }
+}
