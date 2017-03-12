@@ -5,6 +5,8 @@ import VisioRoomAppBar from './AppBar/AppBar';
 import AuthenticationModal from './Modal/AuthenticationModal';
 import RoomBookingModal from './Modal/RoomBookingModal';
 import AddPaymentModal from './Modal/AddPaymentModal';
+import ForgotPasswordModal from './Modal/ForgotPasswordModal';
+
 import ErrorMessageSnackBar from './SnackBar/ErrorMessageSnackBar';
 
 import './app.css';
@@ -33,6 +35,7 @@ class AppContainer extends Component {
                         <AuthenticationModal />
                         <RoomBookingModal />
                         <AddPaymentModal />
+                        <ForgotPasswordModal/>
                         <ErrorMessageSnackBar />
                     </div>
                 </MuiThemeProvider>

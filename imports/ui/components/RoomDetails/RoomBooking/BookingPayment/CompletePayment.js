@@ -25,7 +25,7 @@ class CompletePayment extends Component {
 
         let bookingData = {
             customerId: this.props.selectedCard.customerId,
-            voucher: this.props.voucher,
+            voucher: this.props.voucher.code,
             bookingId: this.props.bookingId,
             userId: Meteor.userId()
         };

@@ -17,6 +17,7 @@ Meteor.methods({
             profile: {
                 firstName: authData.firstName,
                 lastName: authData.lastName,
+                emailAddress: authData.email,
             }
         });
     }

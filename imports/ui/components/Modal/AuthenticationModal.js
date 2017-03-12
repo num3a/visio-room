@@ -5,13 +5,19 @@ import FlatButton from 'material-ui/FlatButton';
 import LoginContainer from '../Login/LogInContainer';
 import SignUpContainer from '../Signup/SignUpContainer';
 import {Tabs, Tab} from 'material-ui/Tabs';
-
-
 import { closeLoginModal } from '../../actions/login';
+import { openForgotPasswordModal } from '../../actions/accounts';
+
 class AuthenticationModal extends Component {
     _onRequestClose(){
         const { dispatch } = this.props;
         dispatch(closeLoginModal());
+    }
+
+    onForgotPasswordClick(){
+        const { dispatch } = this.props;
+        dispatch(closeLoginModal());
+        dispatch( openForgotPasswordModal());
     }
 
     render() {
@@ -42,6 +48,14 @@ class AuthenticationModal extends Component {
                         <SignUpContainer/>
                     </Tab>
                 </Tabs>
+                <div className="row" >
+                    <div className="box">
+                        <FlatButton
+                            onClick={() => this.onForgotPasswordClick()}
+                            label="Forgot password" primary/>
+                    </div>
+                </div>
+
             </Dialog>
 
         );
