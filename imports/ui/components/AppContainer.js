@@ -6,7 +6,7 @@ import AuthenticationModal from './Modal/AuthenticationModal';
 import RoomBookingModal from './Modal/RoomBookingModal';
 import AddPaymentModal from './Modal/AddPaymentModal';
 import ForgotPasswordModal from './Modal/ForgotPasswordModal';
-
+import NavBarContainer from './NavBar/NavBarContainer';
 import ErrorMessageSnackBar from './SnackBar/ErrorMessageSnackBar';
 
 import './app.css';
@@ -29,8 +29,7 @@ class AppContainer extends Component {
             <Provider store={store}>
                 <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
                     <div>
-                        <VisioRoomAppBar/>
-                        <VisioRoomDrawer />
+                        <NavBarContainer />
                         {this.props.children}
                         <AuthenticationModal />
                         <RoomBookingModal />

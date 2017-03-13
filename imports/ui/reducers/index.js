@@ -10,6 +10,7 @@ import booking from './booking';
 import snackbar from './snackbar';
 import admin from './admin';
 import accounts from './accounts';
+import navbar from './navbar';
 
 const VisioRoomReducers = combineReducers({
     login: login,
@@ -23,6 +24,7 @@ const VisioRoomReducers = combineReducers({
     snackbar: snackbar,
     admin: admin,
     accounts: accounts,
+    navbar: navbar
 });
 
 export default VisioRoomReducers;

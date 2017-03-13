@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import {connect} from "react-redux";
-import {closeDrawer} from "../../actions/drawer";
+import {closeDrawer} from '../../actions/drawer';
 import { openLoginModal, closeLoginModal } from '../../actions/login';
-import {browserHistory} from "react-router";
+import {browserHistory} from 'react-router-dom';
 import List from "material-ui/List/List";
 import ListItem from "material-ui/List/ListItem";
 import {createContainer} from "meteor/react-meteor-data";
@@ -13,6 +13,7 @@ import { grey700, white } from 'material-ui/styles/colors';
 import Badge from 'material-ui/Badge';
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
 import { Roles } from 'meteor/alanning:roles';
+import createHistory from 'history/createBrowserHistory'
 
 
 class VisioRoomDrawer extends Component {
@@ -162,7 +163,8 @@ class VisioRoomDrawer extends Component {
     _onMenuClick(url) {
         const { dispatch } = this.props;
         dispatch(closeDrawer());
-        browserHistory.push(url);
+
+        this.props.history.push(url);
     }
 
     _onRequestChange(open, reason) {

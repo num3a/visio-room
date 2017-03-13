@@ -6,7 +6,8 @@ import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
 import { Rooms } from '../../../api/rooms/rooms';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, Link, NavLink } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
 class RoomList extends Component {
     _disableOpenRoom(){
@@ -41,6 +42,7 @@ class RoomList extends Component {
                             </CardText>
                             <CardActions>
                                 <RaisedButton disabled={this._disableOpenRoom()} onClick={() => this._navigate(room._id)} primary label="Open this room" />
+                                <Link to={`/rooms/${room._id}`} >Open this room</Link>
                             </CardActions>
                             <CardText expandable={true}>
                                 {room.description}
@@ -52,9 +54,6 @@ class RoomList extends Component {
         );
     }
 
-    _navigate(roomId){
-        browserHistory.push(`/rooms/${roomId}`);
-    }
     _loginMessage(){
         if(!this.props.isAuthenticated){
             return(<div className="row">

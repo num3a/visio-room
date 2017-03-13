@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Router, browserHistory } from  'react-router';
+import { Router } from  'react-router-dom';
+import { withRouter } from 'react-router';
+import createHistory from 'history/createBrowserHistory'
 
 class LogOutContainer extends Component {
     componentWillMount() {
         Meteor.logout();
-        browserHistory.push('/');
+
+        this.props.history.push('/');
     }
 
     render() {

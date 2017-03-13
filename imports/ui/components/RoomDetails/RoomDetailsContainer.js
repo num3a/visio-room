@@ -75,12 +75,12 @@ class RoomDetails extends Component {
     }
 }
 
-const RoomDetailsContainer = createContainer(({ params }) => {
-    let roomHandle = Meteor.subscribe('rooms.byId', params.roomId);
-    let room = Rooms.findOne(params.roomId);
+const RoomDetailsContainer = createContainer(({ match }) => {
+    let roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
+    let room = Rooms.findOne(match.params.roomId);
 
     return {
-        roomId: params.roomId,
+        roomId: match.params.roomId,
         room: room,
         loadingRooms: !roomHandle.ready(),
     }

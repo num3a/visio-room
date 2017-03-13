@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { green500 } from "material-ui/styles/colors";
 import { closeBookingModal, openBookingModal, selectedBookingChanged } from '../../../../actions/room';
 import { snackBarOpen, snackBarMessageChanged } from '../../../../actions/snackbar';
-import { browserHistory } from  'react-router';
+import { withRouter } from 'react-router-dom';
 
 
 class CompletePayment extends Component {
@@ -22,10 +22,11 @@ class CompletePayment extends Component {
         dispatch(cguAccepted(isInputChecked));
     }
     completeBooking(){
+        let code = this.props.voucher !== null && this.props.voucher.code !== null ? this.props.voucher.code : '';
 
         let bookingData = {
             customerId: this.props.selectedCard.customerId,
-            voucher: this.props.voucher.code,
+            voucher:code,
             bookingId: this.props.bookingId,
             userId: Meteor.userId()
         };
@@ -41,7 +42,7 @@ class CompletePayment extends Component {
             }
             else {
                 dispatch(closeBookingModal());
-                browserHistory.push('/history');
+                this.props.history.push('/history');
             }
          });
 
@@ -91,4 +92,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(CompletePayment);
+export default withRouter(connect(mapStateToProps)(CompletePayment));

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Switch,
+    withRouter
+} from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
+
 // route components
 
 import HomeContainer from '../../ui/components/Home';
 import ProfileContainer from '../../ui/components/Profile';
 
 import AppContainer from '../../ui/components/AppContainer';
-import Administration from '../../ui/components/Administration';
+import AdministrationContainer from '../../ui/components/Administration';
 import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import HistoryContainer from '../../ui/components/History';
@@ -49,36 +57,42 @@ const requireAuth = (nextState, replace) => {
     }
 };
 
-export const renderRoutes = () => (
-    <Router history={browserHistory}>
-        <Route path="/" component={AppContainer} >
-            <IndexRoute component={HomeContainer2} />
+const history = createHistory();
+/*;
+ *  onEnter={() => {
+ console.log('ROUTER: on enter');
+ }}
+ onLeave={() => {
+ console.log('ROUTER: on leave');
+ }}
+ */
 
-            <Route name="authenticatedPages">
-                <Route path="rooms/:roomId"
+const App = withRouter(AppContainer);
+
+export const renderRoutes = () => (
+    <Router history={history}>
+        <App>
+            <Switch>
+                <Route exact path="/" component={HomeContainer2} />
+                <Route exact path="/administration" component={AdministrationContainer} />
+
+                <Route path="/rooms/:roomId"
                        component={RoomDetailsContainer}
-                       onEnter={() => {
-                            console.log('ROUTER: on enter');
-                    }}
-                       onLeave={() => {
-                           console.log('ROUTER: on leave');
-                       }}
+
                 />
-                <Route path="profile" component={ProfileContainer} />
-                <Route path="history" component={HistoryContainer} />
-                <Route path="payments" component={PaymentsContainer} />
-                <Route path="admin" components={Administration} />
-            </Route>
-            <Route name="nonAuthenticatedPages">
-                <Route path="signup" component={SignUpContainer} />
-                <Route path="login" component={LogInContainer} />
-                <Route path="cgu" component={CGU} />
-                <Route path="legal" component={Legal} />
-                <Route path="about" component={About} />
-                <Route path="discover" component={DiscoverContainer} />
-            </Route>
-            <Route path="logout" component={LogOutContainer} />
-            <Route path="*" component={NotFoundPage}/>
-        </Route>
+                <Route path="/profile" component={ProfileContainer} />
+                <Route path="/history" component={HistoryContainer} />
+                <Route path="/payments" component={PaymentsContainer} />
+                <Route path="/signup" component={SignUpContainer} />
+                <Route path="/login" component={LogInContainer} />
+                <Route path="/cgu" component={CGU} />
+                <Route path="/legal" component={Legal} />
+                <Route path="/about" component={About} />
+                <Route path="/discover" component={DiscoverContainer} />
+
+                <Route path="/logout" component={LogOutContainer} />
+                <Route component={NotFoundPage}/>
+            </Switch>
+        </App>
     </Router>
 );

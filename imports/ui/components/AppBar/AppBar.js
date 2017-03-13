@@ -6,7 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { Router, browserHistory} from 'react-router'
+import { Router, browserHistory} from 'react-router-dom'
 import { openLoginModal } from '../../actions/login';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconButton from 'material-ui/IconButton';

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import LogIn from './LogIn';
 import { Meteor } from 'meteor/meteor';
-import { Router, browserHistory} from 'react-router'
+import { Router, browserHistory} from 'react-router-dom'
 import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
+import createHistory from 'history/createBrowserHistory'
 
 import { createContainer } from 'meteor/react-meteor-data';
 //TODO: add meteor data system
@@ -20,7 +21,7 @@ class Container extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.currentUser){
-            browserHistory.push('/');
+            this.props.history.push('/');
         }
     }
 

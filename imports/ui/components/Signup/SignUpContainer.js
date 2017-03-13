@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import SignUp from './SignUp';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
-import { Router, browerHistory } from 'react-router';
+import { Router, browerHistory } from 'react-router-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
 
 //TODO: add meteor data system
 
@@ -24,7 +25,7 @@ class Container extends Component {
 
     componentWillReceiveProps(nextProps){
         if(this.props.currentUser){
-            browserHistory.push('/');
+            this.props.history.push('/');
         }
     }
 
@@ -69,7 +70,7 @@ class Container extends Component {
             }
 
             if(canRedirect){
-                browerHistory.push('/');
+                this.props.history.push('/');
             }
         });
     }

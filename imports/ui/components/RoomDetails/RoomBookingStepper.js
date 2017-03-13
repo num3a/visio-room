@@ -10,9 +10,10 @@ import Dialog from 'material-ui/Dialog';
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import CircularProgress from "material-ui/CircularProgress";
 import { closeBookingModal, openBookingModal, selectedBookingChanged, selectedVoucherChanged, voucherIsValid} from '../../actions/room';
-import { Router, browserHistory } from  'react-router';
+import { Router, browserHistory } from  'react-router-dom';
 import { Bookings } from '../../../api/bookings/bookings';
 import { surroundingDates, addDays } from "../../../common/utils/dateUtils";
+import createHistory from 'history/createBrowserHistory';
 
 import SelectedBookingDetails from './RoomBooking/SelectedBookingDetails';
 import BookingPayment from './RoomBooking/BookingPayment/BookingPayment';
@@ -63,7 +64,7 @@ class RoomBookingStepper extends Component {
             Meteor.setTimeout(() => {
                 dispatch(closeBookingModal());
 
-                browserHistory.push('/history');
+                this.props.history.push('/history');
             }, 5000);
         }
     };
