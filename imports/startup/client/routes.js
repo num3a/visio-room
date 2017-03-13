@@ -4,10 +4,11 @@ import {
     Route,
     Link,
     Switch,
+    Redirect,
     withRouter
 } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
-
+import { PrivateRoute, AdminRoute } from './RoutesHelpers';
 // route components
 
 import HomeContainer from '../../ui/components/Home';
@@ -30,6 +31,8 @@ import LogOutContainer from '../../ui/components/Logout';
  import AuthPageJoin from '../../ui/pages/AuthPageJoin.js';
  */
 import NotFoundPage from '../../ui/pages/NotFoundPage';
+import NotAuthorized from '../../ui/pages/NotAuthorized';
+
 import CGU from '../../ui/pages/CGU';
 import Legal from '../../ui/pages/Legal';
 import About from '../../ui/pages/About';
@@ -68,29 +71,40 @@ const history = createHistory();
  */
 
 const App = withRouter(AppContainer);
-
+/*
+const PrivateRoute = ({ component, ...rest }) => (
+    <Route {...rest} render={props => (
+        Meteor.userId() ? (
+                React.createElement(component, props)
+            ) : (
+                <Redirect to={{
+                    pathname: '/login',
+                    state: { from: props.location }
+                }}/>
+            )
+    )}/>
+); */
 export const renderRoutes = () => (
     <Router history={history}>
         <App>
             <Switch>
                 <Route exact path="/" component={HomeContainer2} />
-                <Route exact path="/administration" component={AdministrationContainer} />
+                <AdminRoute exact path="/administration" component={AdministrationContainer} />
 
-                <Route path="/rooms/:roomId"
-                       component={RoomDetailsContainer}
+                <PrivateRoute path="/rooms/:roomId" component={RoomDetailsContainer} />
+                <PrivateRoute path="/profile" component={ProfileContainer} />
+                <PrivateRoute path="/history" component={HistoryContainer} />
+                <PrivateRoute path="/payments" component={PaymentsContainer} />
 
-                />
-                <Route path="/profile" component={ProfileContainer} />
-                <Route path="/history" component={HistoryContainer} />
-                <Route path="/payments" component={PaymentsContainer} />
                 <Route path="/signup" component={SignUpContainer} />
                 <Route path="/login" component={LogInContainer} />
+
                 <Route path="/cgu" component={CGU} />
                 <Route path="/legal" component={Legal} />
                 <Route path="/about" component={About} />
                 <Route path="/discover" component={DiscoverContainer} />
-
                 <Route path="/logout" component={LogOutContainer} />
+                <Route path="/unauthorized" component={NotAuthorized} />
                 <Route component={NotFoundPage}/>
             </Switch>
         </App>

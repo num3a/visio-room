@@ -14,6 +14,7 @@ class Container extends Component {
         super();
         this.state = {
             errorMessage: '',
+            redirectToReferrer: false,
         };
     }
 
@@ -33,10 +34,14 @@ class Container extends Component {
                 this.setState({errorMessage: error.reason});
             }
             else {
-                console.log('No error logging');
-                this.props.history.push('/');
+                this.redirectToReferrer();
             }
         });
+    }
+
+    redirectToReferrer(){
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        this.props.history.push(from);
     }
 
     _handleOAuth() {
@@ -46,8 +51,7 @@ class Container extends Component {
                 console.log('oauth error', error);
             }
             else {
-                const { dispatch } = this.props;
-                dispatch(closeLoginModal());
+                this.redirectToReferrer();
             }
         });
     }
