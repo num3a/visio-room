@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUp from './SignUp';
+import SignUp from './SignUp2';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Router, browerHistory } from 'react-router-dom';
@@ -14,11 +14,6 @@ class Container extends Component {
     constructor(){
         super();
         this.state = {
-            email: '',
-            firstName: '',
-            lastName: '',
-            password: '',
-            confirm: '',
             errorMessage: '',
         };
     }
@@ -75,6 +70,40 @@ class Container extends Component {
         });
     }
 
+    onSignUpFormSubmit(event) {
+        event.preventDefault();
+
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        const confirm = event.target.confirm.value;
+        const firstName = event.target.firstName.value;
+        const lastName = event.target.lastName.value;
+
+        if(password !== confirm){
+            this.setState({errorMessage: 'Please confirm password.'});
+            return;
+        }
+
+        let canRedirect = false;
+        Accounts.createUser({ email: email, password: password, profile: {
+            lastName: lastName,
+            firstName: firstName,
+        }}, (error) => {
+            if(error){
+                console.log('An error occured', error);
+                this.setState({errorMessage: error.reason});
+            }
+            else{
+                const { dispatch } = this.props;
+                canRedirect = true;
+            }
+
+            if(canRedirect){
+                this.props.history.push('/');
+            }
+        });
+    }
+
     _handleOAuth() {
         Meteor.loginWithLinkedin({
         }, (error)=> {
@@ -92,14 +121,9 @@ class Container extends Component {
         return(
             <div>
                 <SignUp
-                    onEmailChange={(event) => this._onEmailChange(event)}
-                    onPasswordChange={(event) =>  this._onPasswordChange(event)}
-                    onConfirmChange={(event) =>  this._onConfirmPasswordChange(event)}
-                    onFirstNameChange={(event) => this._onFirstNameChange(event)}
-                    onLastNameChange={(event) => this._onLastNameChange(event)}
-                    onSignUpClick={() => this._handleSignUp()}
                     onOAuthClick={() => this._handleOAuth()}
                     errorMessage={this.state.errorMessage}
+                    onSignUpFormSubmit={(event) => this.onSignUpFormSubmit(event)}
                 />
             </div>
         );

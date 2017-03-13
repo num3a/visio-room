@@ -10,10 +10,8 @@ import { getFirstEmail } from '../../../common/emailHelper';
 
 class ForgotPasswordContainer extends Component {
     onSubmitEmail(event){
-        debugger;
         event.preventDefault();
 
-        //const email = getFirstEmail(this.props.currentUser);
         let email = event.target.email.value;
 
         const options = {

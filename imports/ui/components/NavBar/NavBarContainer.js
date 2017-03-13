@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import {connect} from "react-redux";
 import {createContainer} from "meteor/react-meteor-data";
-import { grey700, white } from 'material-ui/styles/colors';
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
 import { Roles } from 'meteor/alanning:roles';
 import {closeDrawer} from "../../actions/drawer";
 import { toggleMobileNavBar } from '../../actions/navbar';
 import classNames from 'classnames';
+import './navbar.less';
 
 class NavBar extends Component {
     getNoAuthMenuItems(){

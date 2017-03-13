@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LogIn from './LogIn';
+import LogIn from './Login';
 import { Meteor } from 'meteor/meteor';
 import { Router, browserHistory} from 'react-router-dom'
 import { closeLoginModal } from '../../actions/login';
@@ -13,8 +13,6 @@ class Container extends Component {
     constructor(){
         super();
         this.state = {
-            email: '',
-            password: '',
             errorMessage: '',
         };
     }
@@ -24,30 +22,23 @@ class Container extends Component {
             this.props.history.push('/');
         }
     }
+    onLoginFormSubmit(event){
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
 
-    _handleLogin(){
-        console.log('login with password');
-        Meteor.loginWithPassword(this.state.email,this.state.password, (error) => {
+        Meteor.loginWithPassword(email, password, (error) => {
             if(error) {
                 console.log(error.reason);
                 this.setState({errorMessage: error.reason});
             }
             else {
                 console.log('No error logging');
-                const { dispatch } = this.props;
-                dispatch(closeLoginModal());
-                //browserHistory.push('/');
+                this.props.history.push('/');
             }
         });
-
     }
 
-    _onEmailChange(event){
-        this.setState({email: event.target.value});
-    }
-    _onPasswordChange(event){
-        this.setState({password: event.target.value});
-    }
     _handleOAuth() {
         Meteor.loginWithLinkedin({
         }, (error)=> {
@@ -64,9 +55,7 @@ class Container extends Component {
         return(
             <div>
                 <LogIn
-                    onEmailChange={(event) => this._onEmailChange(event)}
-                    onPasswordChange={(event) =>  this._onPasswordChange(event)}
-                    onLoginClick={() => this._handleLogin()}
+                    onLoginFormSubmit={(event) => this.onLoginFormSubmit(event)}
                     onOAuthClick={() => this._handleOAuth()}
                     errorMessage={this.state.errorMessage}
                 />
