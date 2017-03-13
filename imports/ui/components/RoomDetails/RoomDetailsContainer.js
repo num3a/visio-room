@@ -41,7 +41,7 @@ class RoomDetails extends Component {
         }
     }
 
-    _renderBookingStepper() {
+    renderBooking() {
         return(
             <div>
                 <RoomBooking
@@ -65,7 +65,7 @@ class RoomDetails extends Component {
 
                         <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
                             <div className="box">
-                                {this._renderBookingStepper()}
+                                {this.renderBooking()}
                             </div>
                         </div>
                     </div>

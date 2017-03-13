@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {createContainer} from "meteor/react-meteor-data";
 import BookingPayment from './BookingPayment';
 import BookingSelection from './BookingSelection';
+import {selectedBookingChanged, selectedVoucherChanged } from '../../../actions/booking';
 
 class RoomBooking extends Component {
     render(){
@@ -28,6 +29,12 @@ class RoomBooking extends Component {
                 </div>
             </div>
         }
+    }
+
+    componentWillUnmount(){
+        const { dispatch } = this.props;
+        dispatch(selectedVoucherChanged(''));
+        dispatch(selectedBookingChanged(''));
     }
 }
 
