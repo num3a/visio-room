@@ -30,7 +30,7 @@ class AppContainer extends Component {
                 <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
                     <div>
                         <NavBarContainer />
-                        {this.props.children}
+                            {this.props.children}
                         <AuthenticationModal />
                         <RoomBookingModal />
                         <AddPaymentModal />

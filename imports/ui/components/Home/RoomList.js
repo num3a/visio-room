@@ -5,9 +5,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import {staticMarkerImage} from "../../../common/utils/googleMaps";
 import CircularProgress from 'material-ui/CircularProgress';
 import { connect } from 'react-redux';
-import { Rooms } from '../../../api/rooms/rooms';
 import { Router, Route, Link, NavLink } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 
 class RoomList extends Component {
     _disableOpenRoom(){
@@ -41,8 +39,7 @@ class RoomList extends Component {
                                 </p>
                             </CardText>
                             <CardActions>
-                                <RaisedButton disabled={this._disableOpenRoom()} onClick={() => this._navigate(room._id)} primary label="Open this room" />
-                                <Link to={`/rooms/${room._id}`} >Open this room</Link>
+                                {this.props.isAuthenticated ? <Link to={`/rooms/${room._id}`} >Open this room</Link> : <span />}
                             </CardActions>
                             <CardText expandable={true}>
                                 {room.description}
@@ -79,11 +76,6 @@ class RoomList extends Component {
             <div>
                 {this._loginMessage()}
                 <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h5>{this.props.rooms.length } room(s) found:</h5>
-                    </div>
-                </div>
-                <div className="row">
                     {this._renderCards()}
                 </div>
             </div>);
@@ -92,18 +84,6 @@ class RoomList extends Component {
 }
 
 
-const RoomListContainer = createContainer(() => {
-    const roomsHandle = Meteor.subscribe('rooms.all');
-    const loading = !roomsHandle.ready();
-    let rooms = Rooms.find({}).fetch();
-
-    return {
-        isAuthenticated: Meteor.userId(),
-        currentUser: Meteor.user(),
-        rooms: rooms,
-        loading: loading,
-    };
-}, RoomList);
 
 
 const mapStateToProps = (state) => {
@@ -111,4 +91,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(RoomListContainer);
+export default connect(mapStateToProps)(RoomList);

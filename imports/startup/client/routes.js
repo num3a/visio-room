@@ -16,7 +16,7 @@ import ProfileContainer from '../../ui/components/Profile';
 
 import AppContainer from '../../ui/components/AppContainer';
 import AdministrationContainer from '../../ui/components/Administration';
-import HomeContainer2 from '../../ui/components/Home/HomeContainer2';
+import HomeContainer2 from '../../ui/components/Home/HomeContainer';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import HistoryContainer from '../../ui/components/History';
 import DiscoverContainer from '../../ui/components/Discover';
