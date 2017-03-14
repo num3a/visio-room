@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 const Legal = (props) => (
-    <div className="row">
-        <div className="center-xs center-sm center-lg center-md">
-            <div className="box">
+    <div className="container">
+        <div className="content">
                 <p>
-                    <h5> Mentions Légales </h5>
+                    <h1> Mentions Légales </h1>
 
                     <p>Tous droits de reproduction et de représentation réservés. Les textes présentés sur ce site sont couverts par le droit de la propriété intellectuelle.
                         Toutefois, VisioRoom ne garantit ni l’exactitude ni le caractère exhaustif des informations diffusées sur ce site.
@@ -21,10 +20,10 @@ const Legal = (props) => (
                     <strong>Forme Juridique</strong> <br />
                     GUETATZE SARL SIRET: 823 363 965<br />
                     <strong>Informations légales</strong><br />
-                    <a href="mailto://admin@visiroom.com">admin@visiroom.com</a> <br />
+                    <a href="mailto://emmanuel.ernest@visi-room.com">admin@visiroom.com</a> <br />
                     VisioRoom, 99 Avenue Achille Perreti 92200 Neuilly-sur-Seine<br />
 
-                </p>  </div>
+                </p>
         </div>
     </div>
 );

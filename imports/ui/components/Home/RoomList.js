@@ -14,11 +14,44 @@ class RoomList extends Component {
         }
         return true;
     }
+
+    renderCardFooter(roomId){
+        if(this.props.isAuthenticated){
+            return <NavLink disabled className="card-footer-item" to={`/rooms/${roomId}`} >Open</NavLink>;
+        }
+        else {
+            return <span></span>
+        }
+    }
+
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
-                var staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 400, 200);
-
+                var staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 300, 225);
+                return (
+                    <div key={room._id} className="column is-3">
+                        <div className="card">
+                            <header className="card-header">
+                               <p className="card-header-title">{room.name}</p>
+                            </header>
+                            <div className="card-image">
+                                <figure className="image is-4by3">
+                                    <img src={staticImageUrl} alt="" />
+                                </figure>
+                            </div>
+                            <div className="card-content">
+                                <div className="content">
+                                    <strong className="timestamp">Price: {room.pricePerDay}€</strong>
+                                    <br />
+                                    <span>Room capacity: {room.capacity}</span>
+                                </div>
+                            </div>
+                            <footer className="card-footer">
+                                {this.renderCardFooter(room._id)}
+                            </footer>
+                        </div>
+                    </div>
+                );
                 return (
                     <div key={room._id} className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <Card className="home-card">
@@ -62,20 +95,11 @@ class RoomList extends Component {
         }
     }
     render() {
-        if(this.props.loading){
-            return (
-                <div className="row middle-xs middle-sm middle-md middle-lg center-md center-sm center-xs center-lg">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <CircularProgress size={80} thickness={5} />
-                    </div>
-                </div>
-            );
-        }
 
         return (
             <div>
                 {this._loginMessage()}
-                <div className="row">
+                <div className="columns is-multiline">
                     {this._renderCards()}
                 </div>
             </div>);

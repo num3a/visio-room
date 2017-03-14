@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 const SearchBar = (props) => (
-    <div className="box">
-
         <nav className="level">
             <div className="level-left">
                 <div className="level-item">
@@ -12,7 +10,7 @@ const SearchBar = (props) => (
                 </div>
                 <div className="level-item">
                     <p className="control has-addons">
-                        <input className="input" type="text" placeholder="Find a post" />
+                        <input className="input" type="text" placeholder="Find a room" />
                         <button className="button">
                             Search
                         </button>
@@ -21,12 +19,10 @@ const SearchBar = (props) => (
             </div>
             <div className="level-right">
                 <p className="level-item"><strong>All</strong></p>
-                <p className="level-item"><a>Published</a></p>
-                <p className="level-item"><a>Drafts</a></p>
-                <p className="level-item"><a>Deleted</a></p>
+                <p className="level-item is-disabled"><a>Small rooms</a></p>
+                <p className="level-item is-disabled"><a>Conference rooms</a></p>
             </div>
         </nav>
-    </div>
 );
 
 

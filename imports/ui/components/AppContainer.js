@@ -30,12 +30,18 @@ class AppContainer extends Component {
                 <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
                     <div>
                         <NavBarContainer />
+                        <div className="section">
                             {this.props.children}
-                        <AuthenticationModal />
-                        <RoomBookingModal />
-                        <AddPaymentModal />
-                        <ForgotPasswordModal/>
-                        <ErrorMessageSnackBar />
+                            </div>
+                        <div className="section">
+                            <AuthenticationModal />
+                            <RoomBookingModal />
+                            <AddPaymentModal />
+                            <ForgotPasswordModal/>
+                        </div>
+                       <div className="className">
+                           <ErrorMessageSnackBar />
+                       </div>
                     </div>
                 </MuiThemeProvider>
             </Provider>
