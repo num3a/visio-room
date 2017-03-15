@@ -84,6 +84,7 @@ export default class BookingInternals {
                 bookedAt: moment().toDate(),
                 bookedBy: Meteor.userId(),
                 voucherUsed: voucherId,
+                //TODO: add price payed
             }
         };
 

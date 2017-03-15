@@ -50,32 +50,26 @@ class NavBar extends Component {
             },
             {
                 id: 3,
-                name: 'Booking History',
-                url: '/history',
-                disabled: false,
-            },
-            {
-                id: 4,
                 name: 'Payments',
                 url: '/payments',
                 disabled: false,
                 badge: '!',
             },
             {
-                id: 5,
+                id: 4,
                 name: 'Admin',
                 url: '/administration',
                 disabled: !isAdmin,
 
             },
             {
-                id: 6,
+                id: 5,
                 name: 'About',
                 url: '/about',
                 disabled: false,
             },
             {
-                id: 7,
+                id: 6,
                 name: 'Log Out',
                 url: '/logout',
                 disabled: false,
@@ -135,7 +129,7 @@ class NavBar extends Component {
                     className="nav-item"
                     to="/"
                 >
-                    VisioRoom
+                    VisioRoom Beta
                 </NavLink>
             </div>
 

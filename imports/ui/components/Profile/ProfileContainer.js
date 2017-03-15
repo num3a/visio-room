@@ -1,67 +1,108 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import { createContainer } from 'meteor/react-meteor-data';
-import Avatar from "material-ui/Avatar";
+
 import HistoryContainer from "../History/HistoryContainer";
+import ProfileInformations from './ProfileInformations';
+import History from './History';
+import { Bookings } from '../../../api/bookings/bookings';
+import { Rooms } from '../../../api/rooms/rooms';
+import _ from 'lodash';
 
 class Profile extends Component {
-    _renderProfileInfo(){
-        if(!this.props.currentUser){
-            return <div></div>;
+    getRoomById(roomId){
+
+        if(this.props.loadingRooms){
+            return {
+                name: ''
+            };
         }
-        else {
-            const headline = this.props.currentUser.profile.headline;
-            return (<div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <h5>Headline</h5>
-                <p>{headline}</p>
-            </div>);
-        }
+        let room = _.find(this.props.rooms, (room) => {
+            return room._id == roomId;
+        });
+
+        return room;
     }
-    _renderProfileHeader(){
-        if(!this.props.currentUser){
-            return <div></div>;
-        }
-        else {
-            let { currentUser } = this.props;
-            const profile = currentUser.profile;
+    getAvatarUrl(){
+        let { currentUser } = this.props;
 
-            const avatar = profile.pictureUrl ?
-                <Avatar src={profile.pictureUrl} /> :
-                <Avatar size={75}>{profile.firstName[0].toUpperCase()}{profile.lastName[0].toUpperCase()}</Avatar>;
-
-            return(
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    {avatar}
-                    <p>{profile.firstName} {profile.lastName}</p>
-                </div>
-            );
+        if(!currentUser){
+            return "";
         }
+
+        const profile = currentUser.profile;
+        const placeHolditUrl =  'http://placehold.it/75?text=' + profile.firstName[0].toUpperCase() + profile.lastName[0].toUpperCase();
+
+        const avatar = profile.pictureUrl ? profile.pictureUrl : placeHolditUrl;
+        return avatar;
+    }
+
+    getBookingsWithRooms(){
+       var data = [];
+
+       for(let booking of this.props.bookings){
+           let room = this.getRoomById(booking.roomId);
+           data.push({
+               ...booking,
+               room: {
+                   ...room
+               }
+           });
+       }
+       return data;
     }
 
     render(){
-        if(!this.props.isAuthenticated){
-            return <h1>Please login...</h1>;
+        if(!this.props.currentUser){
+            return <div />;
         }
-        else{
-            return (
-                <div>
-                    <div className="row">
-                        {this._renderProfileHeader()}
+        const avatar = this.getAvatarUrl();
+
+        return (
+            <div className="container">
+                <div className="columns">
+                    <div className="column is-3">
+                        <h1 className="title">Profile</h1>
+                        <ProfileInformations
+                            firstName={this.props.currentUser.profile.firstName}
+                            lastName={this.props.currentUser.profile.lastName}
+                            avatar={avatar}
+                        />
                     </div>
-                    <div className="row">
-                        <HistoryContainer />
+                    <div className="column is-8">
+                        <h1 className="title">Booking History </h1>
+                        <History enhancedBooking={this.getBookingsWithRooms()}/>
                     </div>
                 </div>
 
-            );
-        }
+            </div>
+
+        );
+
     }
 }
 
 const ProfileContainer = createContainer(() => {
+    let userId = Meteor.userId();
+    let bookingHandle = Meteor.subscribe('bookings.byUserId', userId);
+    let bookings = Bookings.find({ bookedBy: userId}, { limit: 30, sort: { bookingDate: -1}}).fetch() || [];
+
+    let roomIds = bookings.map((booking) => {
+        return booking.roomId;
+    });
+    roomIds = roomIds == null ? [] : roomIds;
+
+    let roomHandle = Meteor.subscribe('rooms.byIds', roomIds);
+
+    let rooms = Rooms.find( {_id : { $in: roomIds }}).fetch();
+
     return {
         isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
+        bookings: bookings || [],
+        loadingBookings : !bookingHandle.ready(),
+        loadingRooms: !roomHandle.ready(),
+        rooms:rooms || [],
     };
 }, Profile);
 

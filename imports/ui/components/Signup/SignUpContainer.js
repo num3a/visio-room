@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUp from './SignUp2';
+import SignUp from './SignUp';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Router, browerHistory } from 'react-router-dom';

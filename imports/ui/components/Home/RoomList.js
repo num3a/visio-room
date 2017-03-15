@@ -25,6 +25,7 @@ class RoomList extends Component {
     }
 
     _renderCards() {
+        const marginLeft = {marginLeft: '5px'};
         return(
             this.props.rooms.map((room) => {
                 var staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 300, 225);
@@ -32,7 +33,7 @@ class RoomList extends Component {
                     <div key={room._id} className="column is-3">
                         <div className="card">
                             <header className="card-header">
-                               <p className="card-header-title">{room.name}</p>
+                                <p className="card-header-title">{room.name}</p>
                             </header>
                             <div className="card-image">
                                 <figure className="image is-4by3">
@@ -44,6 +45,13 @@ class RoomList extends Component {
                                     <strong className="timestamp">Price: {room.pricePerDay}€</strong>
                                     <br />
                                     <span>Room capacity: {room.capacity}</span>
+                                    <br />
+                                    <div>
+                                        <span className="icon is-small" style={marginLeft}><i className="fa fa-wheelchair"/></span>
+                                        <span className="icon is-small" style={marginLeft}><i className="fa fa-wifi"/></span>
+                                        <span className="icon is-small" style={marginLeft}><i className="fa fa-snowflake-o"/></span>
+                                        <span className="icon is-small" style={marginLeft}><i className="fa fa-print"/></span>
+                                    </div>
                                 </div>
                             </div>
                             <footer className="card-footer">

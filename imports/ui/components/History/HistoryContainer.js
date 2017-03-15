@@ -11,17 +11,6 @@ import _ from 'lodash';
 import CircularProgress from 'material-ui/CircularProgress';
 
 class History extends Component {
-    _cancelBooking(bookingId){
-
-    }
-
-    _resendBooking(bookingId){
-
-    }
-
-    _sendBookingConfirmation(booking){
-
-    }
 
     _getRoomById(roomId){
 
