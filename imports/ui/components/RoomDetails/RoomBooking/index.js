@@ -7,27 +7,15 @@ import {selectedBookingChanged, selectedVoucherChanged } from '../../../actions/
 
 class RoomBooking extends Component {
     render(){
-
         if(!this.props.bookingId){
-            return <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div className="box">
-                        <BookingSelection
-                            roomId={this.props.roomId}/>
-                    </div>
-                </div>
-            </div>;
+            return <BookingSelection
+                roomId={this.props.roomId}/>;
         }
         else {
-            return <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div className="box">
-                        <BookingPayment
-                            roomId={this.props.roomId}
-                        />
-                    </div>
-                </div>
-            </div>
+            return <BookingPayment
+                roomId={this.props.roomId}
+            />
+
         }
     }
 

@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import { selectedBookingChanged } from '../../../actions/booking';
 import { Bookings } from '../../../../api/bookings/bookings';
 import { addDays } from "../../../../common/utils/dateUtils";
+import classnames from 'classnames';
+import BookingTable from './BookingTable';
 
 class BookingSelection extends Component {
     handleBookingSelection(booking){
@@ -15,6 +17,60 @@ class BookingSelection extends Component {
         dispatch(selectedBookingChanged(booking._id));
     }
 
+    renderCards(bookings){
+        return bookings.map((booking) => {
+            let isActive = !booking.isBooked && !booking.isBlocked;
+            let color = isActive ? green500 : red500;
+            let label = isActive ? 'Book': 'Booked';
+            if(booking.isBlocked){
+                label = 'Unavailable';
+                color = grey500;
+            }
+
+            return <div key={booking._id} className="column is-3">
+                <div className="card">
+                    <header className="card-header">
+                        <p className="card-header-title">
+                            {booking.bookingDate.toDateString()}
+                        </p>
+                        <a className="card-header-icon">
+                    <span className="icon">
+                    <i className="fa fa-angle-down"/>
+                    </span>
+                        </a>
+                    </header>
+
+                    <footer className="card-footer">
+                        { booking.isBlocked ?
+                            <a
+                                disabled={!isActive}
+                                className="button is-light"
+                            >{label}</a> :
+                            <a
+                                disabled={!isActive}
+                                className={classnames('button', isActive ? 'is-success' : 'is-danger')} >{label}</a>
+                        }
+                    </footer>
+                    <CardActions>
+                        <FlatButton
+                            label={label}
+                            disabled={!isActive}
+                            backgroundColor={color}
+                            style={{ color: 'white'}}
+                            onClick={() => this.handleBookingSelection(booking)}
+                        />
+                    </CardActions>
+                </div>
+            </div>;
+        });
+    }
+
+    renderBookings (bookings){
+        return <BookingTable
+            bookings={bookings}
+            onSelect={(booking) => this.handleBookingSelection(booking)}
+        />
+    }
     render(){
         let { bookings } = this.props;
         if(!bookings){
@@ -22,44 +78,13 @@ class BookingSelection extends Component {
         }
 
         return(
-            <div>
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div className="box">
-                            <h5>Select a booking date</h5>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    {
-                        bookings.map((booking) => {
-                            let isActive = !booking.isBooked && !booking.isBlocked;
-                            let color = isActive ? green500 : red500;
-                            let label = isActive ? 'Book': 'Booked';
-                            if(booking.isBlocked){
-                                label = 'Unavailable';
-                                color = grey500;
-                            }
-
-                            return <div key={booking._id} className="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                                <Card style={{margin:10, backgroundColor: grey500}}>
-                                    <CardHeader
-                                        titleColor="white"
-                                        title={booking.bookingDate.toDateString()}
-                                    />
-                                    <CardActions>
-                                        <FlatButton
-                                            label={label}
-                                            disabled={!isActive}
-                                            backgroundColor={color}
-                                            style={{ color: 'white'}}
-                                            onClick={() => this.handleBookingSelection(booking)}
-                                        />
-                                    </CardActions>
-                                </Card>
-                            </div>;
-                        })
-                    }
+            <div className="container">
+                <div className="subtitle is-3">Select a booking date</div>
+                <div className="box">
+                    {this.renderBookings(bookings)}
+                    {/*<div class="columns is-multiline">
+                        {this.renderCards(bookings)}
+                    </div> */}
                 </div>
             </div>
         );
@@ -69,13 +94,13 @@ class BookingSelection extends Component {
 
 const BookingSelectionContainer = createContainer(({roomId}) => {
     let now  = moment().toDate();
-    let maxDate = addDays(now, 20);
+    let maxDate = addDays(now, 30);
 
     let bookingHandle = Meteor.subscribe('bookings.byRoom', roomId, now, maxDate);
-
+    let bookings =  Bookings.find({ roomId: roomId }).fetch();
     return {
         isAuthenticated: Meteor.userId(),
-        bookings: Bookings.find({ roomId: roomId }).fetch(),
+        bookings:bookings || [],
         loadingBookings : !bookingHandle.ready(),
         roomId: roomId,
     };

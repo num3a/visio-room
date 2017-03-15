@@ -17,7 +17,7 @@ const History = (props) => (
                             <span> {booking.room.address} </span> <span style={floatRight}>Price: {booking.price}€</span>
                         </p>
                     </div>
-                    <nav className="level">
+                    <nav className="level is-hidden-mobile">
                         <div className="level-left">
                             <a className="level-item">
                                 <span className="icon is-small"><i className="fa fa-reply"/></span>
