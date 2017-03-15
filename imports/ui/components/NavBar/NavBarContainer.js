@@ -5,7 +5,7 @@ import {createContainer} from "meteor/react-meteor-data";
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
 import { Roles } from 'meteor/alanning:roles';
 import {closeDrawer} from "../../actions/drawer";
-import { toggleMobileNavBar } from '../../actions/navbar';
+import { toggleMobileNavBar, closeMobileNavBar } from '../../actions/navbar';
 import classNames from 'classnames';
 import './navbar.less';
 
@@ -95,6 +95,11 @@ class NavBar extends Component {
         dispatch(toggleMobileNavBar());
     }
 
+    closeMobileNavBar(){
+        const { dispatch } = this.props;
+        dispatch(closeMobileNavBar());
+    }
+
     renderMenuItems() {
         let menus = [];
 
@@ -114,6 +119,7 @@ class NavBar extends Component {
                     activeClassName="is-active"
                     to={menu.url}
                     key={menu.id}
+                    onClick={() => this.closeMobileNavBar() }
                 >
                     {menu.name}
                     {menu.badge ? this.renderBadge(menu.badge) : <span />}
@@ -126,6 +132,7 @@ class NavBar extends Component {
         return <nav className="nav has-shadow">
             <div className="nav-left">
                 <NavLink
+                    onClick={() => this.closeMobileNavBar() }
                     className="nav-item"
                     to="/"
                 >

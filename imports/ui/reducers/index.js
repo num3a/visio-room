@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import user from './user';
 import messaging from './messaging';
 import room from './room';
@@ -11,6 +12,7 @@ import snackbar from './snackbar';
 import admin from './admin';
 import accounts from './accounts';
 import navbar from './navbar';
+import notification from './notification';
 
 const VisioRoomReducers = combineReducers({
     login: login,
@@ -24,7 +26,8 @@ const VisioRoomReducers = combineReducers({
     snackbar: snackbar,
     admin: admin,
     accounts: accounts,
-    navbar: navbar
+    navbar: navbar,
+    notification: notification,
 });
 
 export default VisioRoomReducers;

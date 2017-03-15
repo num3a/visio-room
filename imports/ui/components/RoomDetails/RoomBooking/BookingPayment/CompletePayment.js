@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { green500 } from "material-ui/styles/colors";
 import { closeBookingModal, openBookingModal, selectedBookingChanged } from '../../../../actions/room';
 import { snackBarOpen, snackBarMessageChanged } from '../../../../actions/snackbar';
+import { notificationOpen, notificationMessageChanged } from '../../../../actions/notification';
 import { withRouter } from 'react-router-dom';
 
 
@@ -42,7 +43,7 @@ class CompletePayment extends Component {
             }
             else {
                 dispatch(closeBookingModal());
-                this.props.history.push('/history');
+                this.props.history.push('/profile');
             }
          });
 

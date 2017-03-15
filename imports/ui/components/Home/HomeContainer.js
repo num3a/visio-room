@@ -6,11 +6,12 @@ import { Rooms } from '../../../api/rooms/rooms';
 import {createContainer} from "meteor/react-meteor-data";
 
 class Home extends Component {
-
     render() {
         return(
             <div className="container">
-                <SearchBar count={this.props.rooms.length}/>
+                <SearchBar
+                    count={this.props.rooms.length}
+                />
                 <RoomList
                     isAuthenticated={this.props.isAuthenticated}
                     currentUser={this.props.currentUser}
