@@ -23,6 +23,7 @@ class Container extends Component {
             this.props.history.push('/');
         }
     }
+
     onLoginFormSubmit(event){
         event.preventDefault();
         const email = event.target.email.value;
@@ -45,7 +46,7 @@ class Container extends Component {
     }
 
     _handleOAuth() {
-        Meteor.loginWithLinkedin({
+        Meteor.loginWithLinkedIn({
         }, (error)=> {
             if(error){
                 console.log('oauth error', error);

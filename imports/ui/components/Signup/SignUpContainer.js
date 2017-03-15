@@ -19,56 +19,11 @@ class Container extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.currentUser){
+        if(nextProps.currentUser){
             this.props.history.push('/');
         }
     }
 
-    _onEmailChange(event){
-        this.setState({email: event.target.value});
-    }
-    _onPasswordChange(event){
-        this.setState({password: event.target.value});
-    }
-
-    _onConfirmPasswordChange(event){
-        this.setState({confirm: event.target.value});
-    }
-
-    _onFirstNameChange(event){
-        this.setState({ firstName: event.target.value});
-    }
-    _onLastNameChange(event){
-        this.setState({ lastName: event.target.value});
-    }
-
-    _handleSignUp() {
-        if(this.state.password !== this.state.confirm){
-            this.setState({errorMessage: 'Please confirm password.'});
-            return;
-        }
-
-        let canRedirect = false;
-        Accounts.createUser({ email: this.state.email, password: this.state.password, profile: {
-            lastName: this.state.lastName,
-            firstName: this.state.firstName
-        }}, (error) => {
-            if(error){
-                console.log('An error occured', error);
-                this.setState({errorMessage: error.reason});
-
-            }
-            else{
-                const { dispatch } = this.props;
-                dispatch(closeLoginModal());
-                canRedirect = true;
-            }
-
-            if(canRedirect){
-                this.props.history.push('/');
-            }
-        });
-    }
 
     onSignUpFormSubmit(event) {
         event.preventDefault();
@@ -104,8 +59,13 @@ class Container extends Component {
         });
     }
 
+    redirectToReferrer(){
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        this.props.history.push(from);
+    }
+
     _handleOAuth() {
-        Meteor.loginWithLinkedin({
+        Meteor.loginWithLinkedIn({
         }, (error)=> {
             if(error){
                 console.log('oauth error', error);
@@ -113,6 +73,8 @@ class Container extends Component {
             else {
                 const { dispatch } = this.props;
                 dispatch(closeLoginModal());
+
+                this.redirectToReferrer();
             }
         });
     }
