@@ -112,10 +112,12 @@ class NavBar extends Component {
 
         return(
             menus.map((menu) => {
+                if(menu.disabled){
+                    return null;
+                }
                 return(<NavLink
                     exact
                     className="nav-item is-tab"
-                    disabled={menu.disabled}
                     activeClassName="is-active"
                     to={menu.url}
                     key={menu.id}

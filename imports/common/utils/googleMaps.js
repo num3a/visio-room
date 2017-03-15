@@ -1,4 +1,4 @@
-const staticMarkerImage =  (latitude, longitude, width = 400, height = 400, zoom = 14, color = 'red')  => {
+const staticMarkerImage =  (latitude, longitude, width = 400, height = 400, zoom = 18, color = 'red')  => {
     if(!latitude || !longitude){
         return 'https://placeholdit.imgix.net/~text?txtsize=33&txt=Address%20Not%20Found&w=400&h=200';
     }

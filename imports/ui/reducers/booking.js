@@ -8,6 +8,7 @@ const initialSate = {
     voucherIsValid: false,
     cguAccepted: false,
     selectedCard: null,
+    toggleAvailability: false,
 };
 
 //TODO: expose method to reset state on route leave
@@ -44,7 +45,16 @@ const roomReducer = (state = initialSate, action = {}) => {
                 ...state,
                 selectedCard: action.card,
             };
-
+        case types.BOOKING_TOGGLE_AVAILABILITY:
+            return {
+                ...state,
+                toggleAvailability: !state.toggleAvailability
+            };
+        case types.BOOKING_RESET_AVAILABILITY:
+            return {
+                ...state,
+                toggleAvailability: false,
+            };
         default:
             return state;
     }

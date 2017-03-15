@@ -49,6 +49,18 @@ const selectedCardChanged = (card) => {
     };
 };
 
+const toggleAvailability = () => {
+    return {
+        type: types.BOOKING_TOGGLE_AVAILABILITY,
+    };
+};
+
+const resetAvailability = () => {
+    return {
+        type: types.BOOKING_RESET_AVAILABILITY,
+    }
+};
+
 export {
     openBookingModal,
     closeBookingModal,
@@ -56,5 +68,7 @@ export {
     selectedVoucherChanged,
     voucherIsValid,
     cguAccepted,
-    selectedCardChanged
+    selectedCardChanged,
+    toggleAvailability,
+    resetAvailability
 }

@@ -3,43 +3,14 @@ import {createContainer} from "meteor/react-meteor-data";
 import {Rooms} from "../../../api/rooms/rooms";
 import CircularProgress from "material-ui/CircularProgress";
 import {staticMarkerImage} from "../../../common/utils/googleMaps";
-
+import Details from './RoomDetails';
 import RoomBooking from './RoomBooking';
 import RoomDetailsInfo from './RoomInfo/RoomDetailsInfo';
+import RoomAdditionalInfos from './RoomAdditionalInfos';
+import { toggleAvailability, resetAvailability} from '../../actions/booking';
+import {connect} from "react-redux";
 
 class RoomDetails extends Component {
-    /*
-     shouldComponentUpdate(nextProps, nextState){
-     if(JSON.stringify(this.props.rooms) === JSON.stringify(nextProps.rooms)){
-     return false;
-     console.log('prevent component update');
-     debugger;
-     }
-     console.log('RoomDetails component update');
-     return true;
-     }*/
-
-    _renderRoomDetails() {
-        if(this.props.room) {
-            let room = this.props.room;
-            let staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 800, 400);
-
-            return (
-
-                <RoomDetailsInfo
-                    name={room.name}
-                    staticImageUrl={staticImageUrl}
-                    capacity={room.capacity}
-                    pricePerDay={room.pricePerDay}
-                    description={room.description}
-                />
-
-            );
-        }
-        else {
-            return (<CircularProgress size={80} thickness={5} />);
-        }
-    }
 
     renderBooking() {
         return(
@@ -50,28 +21,45 @@ class RoomDetails extends Component {
             </div>
         );
     }
+    componentWillUnmount(){
+        const { dispatch } = this.props;
+        dispatch(resetAvailability());
+    }
+    getBigPicture(){
+        if(!this.props.room || !this.props.room.location){
+            return '';
+        }
+
+        return staticMarkerImage(this.props.room.location[0], this.props.room.location[1], 1000, 1000);
+    }
+
+    toggleAvailability(){
+        const { dispatch } = this.props;
+        dispatch(toggleAvailability());
+    }
 
     render() {
-        return (<div className="row">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div className="box">
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                            <div className="box">
 
-                            {this._renderRoomDetails()}
-                            </div>
-                        </div>
-
-                        <div className="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                            <div className="box">
-                                {this.renderBooking()}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        let staticImageUrl = this.getBigPicture();
+        return (
+            <div>
+                { !this.props.availability ?
+                    <Details
+                        roomId={this.props.roomId}
+                        room={this.props.room}
+                        bigPicture={staticImageUrl}
+                        toggle={() => this.toggleAvailability()}
+                    />
+                    :
+                    <RoomBooking
+                        roomId={this.props.roomId}
+                    />}
+                <RoomAdditionalInfos
+                    roomId={this.props.roomId}
+                    room={this.props.room}
+                />
             </div>
-        </div>);
+        );
     }
 }
 
@@ -81,9 +69,14 @@ const RoomDetailsContainer = createContainer(({ match }) => {
 
     return {
         roomId: match.params.roomId,
-        room: room,
+        room: room || {},
         loadingRooms: !roomHandle.ready(),
     }
 }, RoomDetails);
+const mapStateToProps = (state) => {
+    return {
+        availability: state.booking.toggleAvailability,
+    };
+};
 
-export default RoomDetailsContainer;
+export default connect(mapStateToProps)(RoomDetailsContainer);
