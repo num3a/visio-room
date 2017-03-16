@@ -11,7 +11,7 @@ class SelectedBookingDetails extends Component {
             const date = moment(booking.bookingDate).format('DD/MM/YYYY');
 
             return(
-                <h5>Booking date: {date}</h5>
+                <div className="subtitle is-4">Booking date: {date}</div>
             );
         }
         else {

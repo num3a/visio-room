@@ -43,17 +43,20 @@ class RoomDetails extends Component {
         let staticImageUrl = this.getBigPicture();
         return (
             <div>
-                { !this.props.availability ?
+                { !this.props.availability && !this.props.bookingId?
                     <Details
                         roomId={this.props.roomId}
                         room={this.props.room}
                         bigPicture={staticImageUrl}
+                        bookingId={this.props.booking}
                         toggle={() => this.toggleAvailability()}
-                    />
+                    >
+                    </Details>
                     :
                     <RoomBooking
                         roomId={this.props.roomId}
-                    />}
+                    />
+                }
                 <RoomAdditionalInfos
                     roomId={this.props.roomId}
                     room={this.props.room}
@@ -76,6 +79,8 @@ const RoomDetailsContainer = createContainer(({ match }) => {
 const mapStateToProps = (state) => {
     return {
         availability: state.booking.toggleAvailability,
+        bookingId: state.booking.bookingId,
+
     };
 };
 

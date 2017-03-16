@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green500 } from "material-ui/styles/colors";
 import { closeBookingModal, openBookingModal, selectedBookingChanged } from '../../../../actions/room';
+import { resetAvailability } from '../../../../actions/booking'
 import { snackBarOpen, snackBarMessageChanged } from '../../../../actions/snackbar';
 import { notificationOpen, notificationMessageChanged } from '../../../../actions/notification';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,13 @@ class CompletePayment extends Component {
         const { dispatch } = this.props;
         dispatch(selectedBookingChanged(null));
     };
+
+    onCancel(){
+        const { dispatch } = this.props;
+        dispatch(cguAccepted(false));
+        dispatch(selectedBookingChanged(null));
+        dispatch(resetAvailability());
+    }
 
     onCGUChange(isInputChecked){
         const { dispatch } = this.props;
@@ -65,18 +73,13 @@ class CompletePayment extends Component {
                 />
 
                 <div style={{marginTop: 12}}>
-                    <FlatButton
-                        label="Back"
-                        onTouchTap={() => this.handlePrev()}
+                    <a className="button is-danger"  style={{marginRight: 12}} onClick={() => this.onCancel()}>Cancel</a>
+                    <a
                         style={{marginRight: 12}}
-                    />
-                    <RaisedButton
-                        label="Complete"
+                        className="button is-success"
                         disabled={this.props.cguAccepted == false || !this.props.selectedCard}
-                        color={green500 }
-                        primary={true}
-                        onTouchTap={() => this.completeBooking()}
-                    />
+                        onClick={() => this.completeBooking()}
+                    >Complete</a>
                 </div>
             </div>
         </div>

@@ -32,20 +32,22 @@ class Voucher extends Component {
     renderDiscountMessage(){
         if(this.props.voucher){
             const { code, percentage } = this.props.voucher;
-            return <h5>Discount: {percentage}%</h5>
+            return <p className="subtitle is-4">Discount: {percentage}%</p>
         }
     }
 
     render(){
-        return <div className="row">
-            <div className="col-sm-12">
-
-                <TextField
-                    hintText="Enter your voucher"
+        return <div >
+            <div>
+                <input
                     onChange={(event, value) => this.onVoucherChange(value)}
-                />
+                    name="voucher"
+                    className="input"
+                    type="text"
+                    placeholder="Enter your voucher" />
+
             </div>
-            <div className="col-lg-12">
+            <div>
                 {this.renderDiscountMessage()}
             </div>
         </div>;

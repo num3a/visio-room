@@ -51,7 +51,7 @@ class PaymentCardList extends Component {
 
             >
                 {paymentTokens.map((payment) => {
-                    const last4 = "**** **** **** " + payment.card.last4;
+                    const last4 = payment.card.brand + " **** " + payment.card.last4;
                     return    <RadioButton
                         key={payment._id}
                         value={payment.customerId}
@@ -59,15 +59,18 @@ class PaymentCardList extends Component {
                     />
                 })}
             </RadioButtonGroup>
+            <div>
+                <a className="button is-primary" onClick={() => this.onAddCardClick()}>Add a payment card</a>
+            </div>
         </div>;
     }
 
     render(){
-        return        <div>
-            <h4>Card list:</h4>
+        return        <div className="column is-4">
+            <div className="subtitle is-4">Card list:</div>
             {this.renderCardList()}
             <div>
-                <FlatButton color={red500} onClick={() => this.onAddCardClick()}>Add a payment card</FlatButton>
+                {this.props.children}
             </div>
         </div>;
     }
