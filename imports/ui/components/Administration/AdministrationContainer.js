@@ -4,22 +4,34 @@ import {createContainer} from "meteor/react-meteor-data";
 import { Roles } from 'meteor/alanning:roles';
 import RoomSelector from './RoomSelector';
 import BookingManager from './BookingManager';
+import AdminLeftMenu from "./AdminLeftMenu";
+import {BrowserRouter as Router , Route, Switch } from 'react-router-dom';
+import { PartnerCreation } from './components/Partners';
 
 class Administration extends Component {
+
+
     render(){
-        return <div className="row">
-            <div className="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-                <div className="box">
-                    <RoomSelector/>
+        const RoomManager = () =>(<div><RoomSelector/><BookingManager roomId={this.props.selectedRoomId} /></div>);
+        const MockParterns = () => (<div className="is-title is-3">Hello friend</div>);
+
+        return <Router
+            basename="/admin">
+            <div className="container">
+                <div className="columns">
+                    <div className="column is-3">
+                        <AdminLeftMenu/>
+                    </div>
+                    <div className="column is-9">
+                        <Switch>
+                            <Route path="/home" component={RoomManager} />
+                            <Route path="/partners" exact={true} component={MockParterns} />
+                            <Route path="/partners/creation" component={PartnerCreation} />
+                        </Switch>
+                    </div>
                 </div>
             </div>
-            <div className="col-xs-9 col-sm-9 col-md-10 col-lg-10">
-                <div className="box">
-                    <BookingManager
-                    roomId={this.props.selectedRoomId}/>
-                </div>
-            </div>
-        </div>;
+        </Router>;
     }
 }
 

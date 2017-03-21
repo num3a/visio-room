@@ -58,7 +58,7 @@ class NavBar extends Component {
             {
                 id: 4,
                 name: 'Admin',
-                url: '/administration',
+                url: '/admin',
                 disabled: !isAdmin,
 
             },

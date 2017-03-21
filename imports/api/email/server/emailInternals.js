@@ -36,11 +36,13 @@ export default class EmailInternals {
             emailContact: room.contactEmail
         };
 
-        Email.send({
-            to: user.profile.emailAddress,
-            from: 'noreply.bookings@visioroom.co',
-            subject: 'Booking confirmation',
-            html: SSR.render('userBookingConfirmation', emailData),
+        Meteor.defer(() => {
+            Email.send({
+                to: user.profile.emailAddress,
+                from: 'noreply.bookings@visioroom.co',
+                subject: 'Booking confirmation',
+                html: SSR.render('userBookingConfirmation', emailData),
+            });
         });
 
         let partnerEmail = {
@@ -51,13 +53,13 @@ export default class EmailInternals {
 
         };
 
-        Email.send({
-            to: room.contactEmail,
-            from: 'noreply.bookings@visioroom.co',
-            subject: 'Booking confirmation for ' + room.name,
-            html: SSR.render('partnerBookingConfirmation', partnerEmail),
+        Meteor.defer(() => {
+            Email.send({
+                to: room.contactEmail,
+                from: 'noreply.bookings@visioroom.co',
+                subject: 'Booking confirmation for ' + room.name,
+                html: SSR.render('partnerBookingConfirmation', partnerEmail),
+            });
         });
-
-
     }
 }
