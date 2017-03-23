@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import AddCard from '../Payments/AddCard';
-import Dialog from 'material-ui/Dialog';
+import AddPaymentCard from '../Payments/AddPaymentCardContainer';
 import {connect} from "react-redux";
-import { closeAddCardModal} from '../../actions/payments';
-import FlatButton from 'material-ui/FlatButton';
+import { closeAddCardModal, loadingAddCard } from '../../actions/payments';
+import classnames from 'classnames';
+
 
 class AddPaymentModal extends Component {
 
-    _handleCloseDialog(){
+    closeModal(){
         const { dispatch } = this.props;
         dispatch(closeAddCardModal());
     }
@@ -19,30 +19,26 @@ class AddPaymentModal extends Component {
             maxHeight: 'none',
         };
 
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={() => {this._handleCloseDialog()}}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={() => {this._handleCloseDialog()}}
-            />,
-        ];
 
         return (
-            <Dialog
-                title="Add a payment method"
-                modal={false}
-                open={openAddPaymentModal}
-                contentStyle={customContentStyle}
-                onRequestClose={() => {this._handleCloseDialog()}}
-            >
-                <AddCard/>
-            </Dialog>
+            <div className={classnames('modal', openAddPaymentModal ? 'is-active' : '')} >
+                <div className="modal-background"  onClick={() => this.closeModal()}/>
+                <div className="modal-card">
+                    <header className="modal-card-head">
+                        <p className="modal-card-title">Add payment card</p>
+                        <button className="delete" onClick={() => this.closeModal()} />
+                    </header>
+                    <section className="modal-card-body">
+                        <AddPaymentCard />
+                    </section>
+                    {/*
+                    <footer className="modal-card-foot">
+                        <a className="button is-success">Save changes</a>
+                        <a className="button" onClick={() => this.closeModal()}>Cancel</a>
+                    </footer>  */}
+                </div>
+            </div>
+
         );
     }
 }

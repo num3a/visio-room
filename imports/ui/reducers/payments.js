@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
     openAddPaymentModal: false,
+    loadingAddCard: false,
 };
 
 const payments = (state = initialState, action = {}) => {
@@ -10,6 +11,11 @@ const payments = (state = initialState, action = {}) => {
             return {
                 ...state,
                 openAddPaymentModal: action.openAddPaymentModal
+            };
+        case types.PAYMENTS_LOADING_ADD_CARD:
+            return {
+                ...state,
+                loadingAddCard: action.loading,
             };
         case types.PAYMENTS_CLOSE_ADD_CARD_MODAL:
             return {

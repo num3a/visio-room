@@ -7,6 +7,13 @@ const openAddCardModal = () => {
     };
 };
 
+const loadingAddCard  = (loadingAddCard) => {
+    return {
+        type: types.PAYMENTS_LOADING_ADD_CARD,
+        loadingAddCard: loadingAddCard,
+    }
+};
+
 const closeAddCardModal = () => {
     return {
         type: types.PAYMENTS_CLOSE_ADD_CARD_MODAL,
@@ -14,7 +21,9 @@ const closeAddCardModal = () => {
     };
 };
 
+
 export {
     openAddCardModal,
     closeAddCardModal,
+    loadingAddCard,
 };

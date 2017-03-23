@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import { createContainer } from 'meteor/react-meteor-data';
 
-import HistoryContainer from "../History/HistoryContainer";
 import ProfileInformations from './ProfileInformations';
 import History from './History';
 import { Bookings } from '../../../api/bookings/bookings';

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import { closeAddCardModal, openAddCardModal  } from '../../actions/payments';
-import {connect} from 'react-redux';
+import AddPaymentCard from './AddPaymentCard';
+import { closeAddCardModal, loadingAddCard } from '../../actions/payments';
+import { connect } from 'react-redux';
 
-//TODO: https://stripe.com/docs/quickstart#collecting-payment-information
-
-class AddCard extends Component {
-    _submitCard(event, data){
+class AddPaymentCardContainer extends Component {
+    submitCard(event, data){
         event.preventDefault();
         const { dispatch } = this.props;
+
+        dispatch(loadingAddCard(true));
 
         Stripe.setPublishableKey('pk_test_P5K1hZO06CiDNwcRdTGJrhzp');
         let form = event.target;
@@ -55,8 +53,14 @@ class AddCard extends Component {
                         console.log('payments.saveToken.result', result);
                         if(result.saved === true){
                             dispatch(closeAddCardModal());
+                            dispatch(loadingAddCard(false));
+
                         }
                     })
+                }
+                else {
+                    dispatch(loadingAddCard(true));
+
                 }
             });
 
@@ -69,56 +73,20 @@ class AddCard extends Component {
          }
          * */
     }
+
     render(){
-        return <div>
-            <form action="/your-charge-code" method="POST" id="payment-form" onSubmit={(event, data) => this._submitCard(event, data)}>
-                <span className="payment-errors"/>
-
-                <div className="form-row">
-                    <TextField
-                        hintText="Card Number"
-                        size="20"
-                        value="4000000000000077"
-                        data-stripe="number"/>
-                </div>
-
-                <div className="form-row">
-                    <TextField
-                        value={10}
-                        hintText="MM" size="2" data-stripe="exp_month"/>
-
-                    <span> / </span>
-                    <TextField hintText="YY"
-                               value={2018}
-
-                               size="2" data-stripe="exp_year"/>
-                </div>
-
-                <div className="form-row">
-
-                    <TextField
-                        value={133}
-
-                        hintText="CVC" size="4" data-stripe="cvc"/>
-                </div>
-
-                <div className="form-row">
-                    <TextField
-                        value={100023}
-                        hintText="Billing Postal Code" size="6" data-stripe="address_zip"/>
-                </div>
-                <FlatButton
-                    label="Submit"
-                    primary
-                    type="submit"
-                />
-
-            </form>
-        </div>;
+        return <AddPaymentCard
+            onSubmit={(event, data) => this.submitCard(event, data)}
+            loading={this.props.loadingAddCard}
+        />;
     }
 }
+
+
 const mapStateToProps = (state) => {
     return {
+        loadingAddCard: state.payments.loadingAddCard,
     };
 };
-export default connect(mapStateToProps)(AddCard);
+export default connect(mapStateToProps)(AddPaymentCardContainer);
+
