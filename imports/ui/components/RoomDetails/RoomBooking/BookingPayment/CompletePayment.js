@@ -7,8 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { green500 } from "material-ui/styles/colors";
 import { closeBookingModal, openBookingModal, selectedBookingChanged } from '../../../../actions/room';
 import { resetAvailability } from '../../../../actions/booking'
-import { snackBarOpen, snackBarMessageChanged } from '../../../../actions/snackbar';
-import { notificationOpen, notificationMessageChanged } from '../../../../actions/notification';
+import { notificationOpenError } from '../../../../actions/notification';
 import { withRouter } from 'react-router-dom';
 
 
@@ -46,8 +45,7 @@ class CompletePayment extends Component {
             console.log('bookings.err', err);
             console.log('bookings.data', charge);
             if(err){
-                dispatch(snackBarMessageChanged(err.message));
-                dispatch(snackBarOpen());
+                dispatch(notificationOpenError(err.message));
             }
             else {
                 dispatch(closeBookingModal());

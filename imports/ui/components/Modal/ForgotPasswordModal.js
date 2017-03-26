@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AddCard from '../Payments/AddCard';
 import Dialog from 'material-ui/Dialog';
 import {connect} from "react-redux";
 import { closeAddCardModal} from '../../actions/payments';

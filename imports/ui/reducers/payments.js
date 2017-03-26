@@ -15,7 +15,7 @@ const payments = (state = initialState, action = {}) => {
         case types.PAYMENTS_LOADING_ADD_CARD:
             return {
                 ...state,
-                loadingAddCard: action.loading,
+                loadingAddCard: action.loadingAddCard,
             };
         case types.PAYMENTS_CLOSE_ADD_CARD_MODAL:
             return {

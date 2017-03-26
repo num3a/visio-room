@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createContainer} from 'meteor/react-meteor-data';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import AddCard from './AddCard';
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
-
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
-
+import { notificationOpenError } from '../../actions/notification';
 import { closeAddCardModal, openAddCardModal  } from '../../actions/payments';
-const style = {
-    marginRight: 20,
-};
+import PaymentTable from "./PaymentTable";
 
 class Payments extends Component {
 
-    _openAddCardDialog(){
+    openAddCardModal(){
         const { dispatch } = this.props;
         dispatch(openAddCardModal());
     }
@@ -28,55 +18,17 @@ class Payments extends Component {
         dispatch(closeAddCardModal());
     }
 
-    _renderDialog(){
-        const { openAddPaymentModal, dispatch } = this.props;
-        const customContentStyle = {
-            height: '100%',
-            maxHeight: 'none',
-        };
+    onPaymentTokenDelete(paymentToken){
+        console.log('delete card', paymentToken);
 
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={() => {this._handleCloseDialog()}}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onTouchTap={() => {this._handleCloseDialog()}}
-            />,
-        ];
-
-        return (
-            <Dialog
-                title="Add a payment method"
-                modal={false}
-                open={openAddPaymentModal}
-                contentStyle={customContentStyle}
-                onRequestClose={() => {this._handleCloseDialog()}}
-            >
-                <AddCard/>
-            </Dialog>
-        );
-    }
-
-    _generateToken(){
-        const options = {
-            content: '',
-            data: {},
-            headers: {}
-        };
-
-        /*
-         HTTP.call('POST', url, (error, result) => {
-
-         }); */
-    }
-
-    _onDeleteClick(paymentToken){
-
+        const { dispatch } = this.props;
+        const tokenId = paymentToken._id;
+        Meteor.call('payments.revokeToken',tokenId, (err, result) => {
+            if(err){
+                dispatch(notificationOpenError(err.message));
+            }
+            console.log('payments.revokeToken', result);
+        });
     }
 
     _renderPayments(){
@@ -84,44 +36,20 @@ class Payments extends Component {
         if(loadingTokens){
             return <h3>Loading payments ..</h3>;
         }
-        return paymentTokens.map((paymentToken) => {
-            const { brand, expMonth, expYear, last4 } = paymentToken.card;
-
-            return  <div key={paymentToken._id}>
-                <Card>
-                    <CardText>
-                        Type: { brand }
-                    </CardText>
-                    <CardText>
-                        Expiration date: { expMonth } / { expYear }
-                    </CardText>
-                    <CardText>
-                        Number: **** **** **** {last4}
-                    </CardText>
-                    <CardActions>
-                        <FlatButton label="Delete"  onClick={(paymentToken) => this._onDeleteClick(paymentToken)}/>
-                    </CardActions>
-                </Card>
-            </div>;
-        });
+        return <PaymentTable
+            paymentTokens={paymentTokens}
+            onPaymentTokenDelete={(paymentToken) => this.onPaymentTokenDelete(paymentToken)}
+        />;
     }
 
     render(){
-        return(<div>
-            <div className="row">
-                <h4>Payments</h4>
-            </div>
-
-            <FloatingActionButton style={style} onClick={()=>{this._openAddCardDialog()}}>
-                <ContentAdd />
-            </FloatingActionButton>
-            <div className="row" >
+        return <div className="container">
+            <h1 className="title">Payments</h1>
+            <div className="box" >
                 {this._renderPayments()}
             </div>
-            <div className="row">
-                {this._renderDialog()}
-            </div>
-        </div>);
+            <a className="button is-success is-focused" onClick={() => this.openAddCardModal()}>Add a card</a>
+        </div>;
     }
 }
 
@@ -136,7 +64,7 @@ const PaymentsContainer = createContainer(() => {
         isAuthenticated: Meteor.userId(),
         currentUser: Meteor.user(),
         loadingTokens: loading,
-        paymentTokens: paymentTokens,
+        paymentTokens: paymentTokens || [],
     };
 }, Payments);
 

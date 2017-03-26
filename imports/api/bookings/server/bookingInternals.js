@@ -188,6 +188,7 @@ export default class BookingInternals {
             userId: { type: String, regEx: SimpleSchema.RegEx.Id },
             voucher: { type: String, optional: true},
             customerId: { type: String}
+            //TODO: add payment token infos to check tokens
         }).validate(bookingWithPayment);
 
         this.checkUser(bookingWithPayment.userId);

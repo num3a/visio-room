@@ -13,17 +13,8 @@ class AddPaymentCardContainer extends Component {
         Stripe.setPublishableKey('pk_test_P5K1hZO06CiDNwcRdTGJrhzp');
         let form = event.target;
         Stripe.card.createToken(form
-            /* {
-             card: {
-             number: '4973559980575725',
-             exp_month : 12,
-             exp_year: 2018,
-             cvc: '123',
-             name: 'toto'
-             }
-             }*/
+
             , (resultCode, result) =>{
-                // asynchronously called
                 console.log('err:', resultCode);
                 console.log('token', result);
 
@@ -48,7 +39,6 @@ class AddPaymentCardContainer extends Component {
 
                     Meteor.apply('payments.saveToken',[tokenToSave], { noRetry: true}, (error, result) => {
 
-//                    Meteor.call('payments.saveToken', tokenToSave, (error, result) => {
                         console.log('payments.saveToken.error', error);
                         console.log('payments.saveToken.result', result);
                         if(result.saved === true){
@@ -58,30 +48,19 @@ class AddPaymentCardContainer extends Component {
                         }
                     })
                 }
-                else {
-                    dispatch(loadingAddCard(true));
-
-                }
             });
 
-        /*
-         {
-         token: { type: String},
-         type: { type: String },
-         clientIp: { type: String },
-         created: { type: Number}
-         }
-         * */
     }
 
     render(){
+        const { loadingAddCard  } = this.props;
+
         return <AddPaymentCard
             onSubmit={(event, data) => this.submitCard(event, data)}
-            loading={this.props.loadingAddCard}
+            loading={loadingAddCard}
         />;
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {

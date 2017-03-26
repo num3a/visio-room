@@ -7,7 +7,7 @@ import Details from './RoomDetails';
 import RoomBooking from './RoomBooking';
 import RoomDetailsInfo from './RoomInfo/RoomDetailsInfo';
 import RoomAdditionalInfos from './RoomAdditionalInfos';
-import { toggleAvailability, resetAvailability} from '../../actions/booking';
+import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged} from '../../actions/booking';
 import {connect} from "react-redux";
 
 class RoomDetails extends Component {
@@ -24,6 +24,8 @@ class RoomDetails extends Component {
     componentWillUnmount(){
         const { dispatch } = this.props;
         dispatch(resetAvailability());
+        dispatch(selectedBookingChanged(null));
+        dispatch(selectedCardChanged(null));
     }
     getBigPicture(){
         if(!this.props.room || !this.props.room.location){

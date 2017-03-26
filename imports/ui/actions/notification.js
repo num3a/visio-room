@@ -4,6 +4,7 @@ const notificationOpen = () => {
     return {
         type: types.NOTIFICATION_OPEN,
         notificationType : 'is-info',
+        message: message,
     };
 };
 
@@ -11,13 +12,15 @@ const notificationOpenSuccess = () => {
     return {
         type: types.NOTIFICATION_OPEN_SUCCESS,
         notificationType : 'is-success',
+        message: message,
     };
 };
 
-const notificationOpenError = () => {
+const notificationOpenError = (message) => {
     return {
         type: types.NOTIFICATION_OPEN_ERROR,
         notificationType : 'is-danger',
+        message: message,
     };
 };
 
@@ -25,6 +28,7 @@ const notificationOpenWarning = () => {
     return {
         type: types.NOTIFICATION_OPEN_WARNING,
         notificationType : 'is-warning',
+        message: message,
     };
 };
 

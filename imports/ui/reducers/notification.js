@@ -21,6 +21,12 @@ const notificationReducer = (state = initialSate, action = {}) => {
             };
 
         case types.NOTIFICATION_OPEN_ERROR:
+            return {
+                ...state,
+                open: true,
+                notificationType: action.notificationType,
+                message: action.message,
+            };
         case types.NOTIFICATION_OPEN_WARNING:
         case types.NOTIFICATION_OPEN_SUCCESS:
             return {

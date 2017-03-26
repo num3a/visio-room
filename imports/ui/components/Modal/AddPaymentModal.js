@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddPaymentCard from '../Payments/AddPaymentCardContainer';
+import AddPaymentCardContainer from '../Payments/AddPaymentCardContainer';
 import {connect} from "react-redux";
 import { closeAddCardModal, loadingAddCard } from '../../actions/payments';
 import classnames from 'classnames';
@@ -29,7 +29,7 @@ class AddPaymentModal extends Component {
                         <button className="delete" onClick={() => this.closeModal()} />
                     </header>
                     <section className="modal-card-body">
-                        <AddPaymentCard />
+                        <AddPaymentCardContainer  />
                     </section>
                     {/*
                     <footer className="modal-card-foot">

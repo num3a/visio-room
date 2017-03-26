@@ -58,6 +58,8 @@ class PaymentInternals {
             throw new Meteor.Error('User is not authenticated');
         }
 
+        let userId = Meteor.userId();
+
         new SimpleSchema({
             tokenId: { type: String, regEx: SimpleSchema.RegEx.Id },
         }).validate({tokenId});
@@ -69,9 +71,16 @@ class PaymentInternals {
             }
         };
 
+        let tokenToUpdate = PaymentTokens.findOne({ _id: tokenId, userId: userId });
+
+        if(!tokenToUpdate){
+            throw new Meteor.Error(`No token found for tokenId: ${tokenId} and userId: ${userId}`);
+        }
+
+
         PaymentTokens.update({_id: tokenId }, revokeTokenQuery, (error, result) => {
             if(error){
-                throw new Meteor.Error('An error occured when updating booking');
+                throw new Meteor.Error('An error occured when updating payment tokens');
             }
             console.log('result', result);
 
