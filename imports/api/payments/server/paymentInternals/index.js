@@ -1,6 +1,7 @@
 import { Stripe } from "stripe";
 import { PaymentTokens } from '../../paymentTokens';
 import { Meteor } from 'meteor/meteor';
+import { getFirstEmail } from '../../../../common/emailHelper';
 
 //const stripe = require("stripe")("sk_test_XpBlmXOXgKrcpz0MBUVM4E13");
 
@@ -107,17 +108,21 @@ class PaymentInternals {
          });
         * */
 
-        let {  emailAddress }  = Meteor.user().profile;
-
+        let {  firstName, lastName }  = Meteor.user().profile;
+        let email = getFirstEmail(Meteor.user());
         let wrappedCustomerCreate = Meteor.wrapAsync(this.stripeInstance.customers.create, this.stripeInstance.customers);
 
         let customer = null;
 
         try {
             customer = wrappedCustomerCreate({
-                email: emailAddress,
-                description: 'Customer for ' + emailAddress,
-                metadata: {'userId': paymentToken.userId},
+                email: email,
+                description: 'Customer for ' + email,
+                metadata: {
+                    'userId': paymentToken.userId,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                },
                 source: token // obtained with Stripe.js
             });
         }

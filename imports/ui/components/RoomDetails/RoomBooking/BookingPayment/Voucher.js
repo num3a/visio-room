@@ -4,8 +4,9 @@ import { closeBookingModal, openBookingModal, selectedBookingChanged, selectedVo
 import {connect} from "react-redux";
 
 class Voucher extends Component {
-    onVoucherChange(voucher){
+    onVoucherChange(event){
         const { dispatch } = this.props;
+        const voucher = event.target.value;
 
         //TODO: encapsulate validation in async redux action
         Meteor.call('voucher.validate', voucher, (error, result) => {
@@ -40,7 +41,7 @@ class Voucher extends Component {
         return <div >
             <div>
                 <input
-                    onChange={(event, value) => this.onVoucherChange(value)}
+                    onChange={(event, value) => this.onVoucherChange(event)}
                     name="voucher"
                     className="input"
                     type="text"

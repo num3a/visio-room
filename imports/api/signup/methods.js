@@ -18,7 +18,9 @@ Meteor.methods({
                 firstName: authData.firstName,
                 lastName: authData.lastName,
                 emailAddress: authData.email,
-            }
+            },
+            firstName: authData.firstName,
+            lastName: authData.lastName,
         });
     }
 });

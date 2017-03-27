@@ -8,7 +8,8 @@ SSR.compileTemplate('htmlEmail', Assets.getText('templates/bookingConfirmation.h
 Meteor.methods({
     'email.bookings.confirmatdion'(booking, voucher) {
         let successful = false;
-        let currentUserId = Meteor.userId();
+        //let currentUserId = Meteor.userId();
+        let currentUserId = this.userId;
         if(!currentUserId){
             throw new Meteor.Error('User is not authenticated');
         }

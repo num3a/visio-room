@@ -41,6 +41,7 @@ class RoomDetails extends Component {
     }
 
     render() {
+        //TODO: display striked price when voucher is active
 
         let staticImageUrl = this.getBigPicture();
         return (

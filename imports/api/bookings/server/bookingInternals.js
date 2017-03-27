@@ -196,7 +196,7 @@ export default class BookingInternals {
         let booking = this.getBooking(bookingWithPayment.bookingId);
         let voucher = this.getVoucher(bookingWithPayment.voucher);
 
-        let amount = voucher == null ? booking.price :
+        let amount = voucher === null ? booking.price :
             this.applyDiscount(booking.price, voucher.percentage);
 
 

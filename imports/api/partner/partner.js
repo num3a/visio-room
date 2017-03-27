@@ -27,7 +27,7 @@ Partners.schema = new SimpleSchema({
     phoneNumber: { type: String },
 });
 
-Partners.attachSchema(Rooms.schema);
+Partners.attachSchema(Profiles.schema);
 
 
 Partners.helpers({
