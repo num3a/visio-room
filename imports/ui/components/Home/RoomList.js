@@ -6,22 +6,6 @@ import { Router, Route, Link, NavLink } from 'react-router-dom';
 import RoomCard from "./RoomCard";
 
 class RoomList extends Component {
-    _disableOpenRoom(){
-        if(this.props.isAuthenticated){
-            return false;
-        }
-        return true;
-    }
-
-    renderCardFooter(roomId){
-        if(this.props.isAuthenticated){
-            return <NavLink disabled className="card-footer-item" to={`/rooms/${roomId}`} >Open</NavLink>;
-        }
-        else {
-            return <span></span>
-        }
-    }
-
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
@@ -30,7 +14,6 @@ class RoomList extends Component {
                     <RoomCard
                         key={room._id}
                         room={room}
-                        isAuthenticated={this.props.isAuthenticated}
                         staticImageUrl={staticImageUrl}
 
                     />
@@ -39,19 +22,10 @@ class RoomList extends Component {
         );
     }
 
-    _loginMessage(){
-        if(!this.props.isAuthenticated){
-            return(<div className="content">
-                        <h5 className="is-subtitle is-5">Please login to book a room.</h5>
-                </div>
-            );
-        }
-    }
     render() {
 
         return (
             <div>
-                {this._loginMessage()}
                 <div className="columns is-multiline">
                     {this._renderCards()}
                 </div>

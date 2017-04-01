@@ -29,7 +29,7 @@ const RoomCard = (props) => (
                 </div>
             </div>
             <footer className="card-footer">
-                { props.isAuthenticated ? <NavLink disabled className="card-footer-item" to={`/rooms/${props.room._id}`} >Open</NavLink> : <span />}
+                <NavLink disabled className="card-footer-item" to={`/rooms/${props.room._id}`} >Open</NavLink>
             </footer>
         </div>
     </div>

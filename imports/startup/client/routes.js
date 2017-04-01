@@ -33,7 +33,7 @@ export const renderRoutes = () => (
                     <Route exact path="/" component={HomeContainer} />
                     <AdminRoute exact path="/admin" component={AdministrationContainer} />
 
-                    <PrivateRoute path="/rooms/:roomId" component={RoomDetailsContainer} />
+                    <Route path="/rooms/:roomId" component={RoomDetailsContainer} />
                     <PrivateRoute path="/profile" component={ProfileContainer} />
                     <PrivateRoute path="/payments" component={PaymentsContainer} />
 

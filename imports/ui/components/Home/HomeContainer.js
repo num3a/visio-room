@@ -13,7 +13,6 @@ class Home extends Component {
                     count={this.props.rooms.length}
                 />
                 <RoomList
-                    isAuthenticated={this.props.isAuthenticated}
                     currentUser={this.props.currentUser}
                     loading={this.props.loading}
                     rooms={this.props.rooms} />

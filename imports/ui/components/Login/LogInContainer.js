@@ -58,12 +58,16 @@ class Container extends Component {
     }
     render() {
         return(
-            <div>
+            <div className="container">
+                <div className="columns is-vcentered">
+                    <div className="column is-4 is-offset-4">
                 <LogIn
                     onLoginFormSubmit={(event) => this.onLoginFormSubmit(event)}
                     onOAuthClick={() => this._handleOAuth()}
                     errorMessage={this.state.errorMessage}
                 />
+                    </div>
+                </div>
             </div>
         );
     }

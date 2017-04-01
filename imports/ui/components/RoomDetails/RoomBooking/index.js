@@ -26,7 +26,6 @@ class RoomBooking extends Component {
     }
 }
 
-
 const RoomBookingContainer = createContainer(({roomId}) => {
     return {
         roomId: roomId,

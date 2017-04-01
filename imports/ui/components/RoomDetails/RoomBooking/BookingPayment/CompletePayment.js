@@ -75,7 +75,7 @@ class CompletePayment extends Component {
                     <a
                         style={{marginRight: 12}}
                         className="button is-success"
-                        disabled={this.props.cguAccepted == false || !this.props.selectedCard}
+                        disabled={this.props.cguAccepted === false || !this.props.selectedCard}
                         onClick={() => this.completeBooking()}
                     >Complete</a>
                 </div>
