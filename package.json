@@ -25,6 +25,8 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "simpl-schema": "^0.2.3",
-    "stripe": "^4.15.0"
+    "stripe": "^4.15.0",
+    "uniforms": "^1.16.0",
+    "uniforms-unstyled": "^1.16.0"
   }
 }

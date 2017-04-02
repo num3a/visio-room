@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Template } from 'meteor/templating';
-import { Blaze } from 'meteor/blaze';
-import './PartnerCreation.html';
+import AutoForm from 'uniforms-unstyled/AutoForm';
+import { Rooms } from '../../../../../api/rooms/rooms';
 
-export default class AutoFormPartnerCreation extends Component {
-    componentDidMount() {
-        // Use Meteor Blaze to render login buttons
-        this.view = Blaze.render(Template.insertRoomsForm,
-            ReactDOM.findDOMNode(this.refs.container));
+class AutoFormPartnerCreation extends Component {
+    constructor(model){
+        super();
     }
-    componentWillUnmount() {
-        // Clean up Blaze view
-        Blaze.remove(this.view);
+    saveModel(doc){
+        debugger;
     }
-    render() {
-        // Just render a placeholder container that will be filled in
-        return <div ref="container" />;
+    render(){
+        return (<AutoForm schema={Rooms.schema} onSubmit={doc => Rooms.insert(doc)} />);
     }
 }
+
+export default AutoFormPartnerCreation;

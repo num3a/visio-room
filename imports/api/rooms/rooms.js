@@ -21,7 +21,7 @@ Rooms.deny({
 });
 
 Rooms.schema = new SimpleSchema({
-    _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
+    _id: { type: String, regEx: SimpleSchema.RegEx.Id },
     pricePerDay: { type: Number},
     name: { type: String },
     address: { type: String },

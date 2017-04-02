@@ -40,4 +40,3 @@ service-configuration@1.0.11
 http@1.2.12
 alanning:roles
 aldeed:collection2-core
-aldeed:autoform@6.0.0

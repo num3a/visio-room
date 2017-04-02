@@ -6,7 +6,7 @@ import RoomSelector from './RoomSelector';
 import BookingManager from './BookingManager';
 import AdminLeftMenu from "./AdminLeftMenu";
 import {BrowserRouter as Router , Route, Switch } from 'react-router-dom';
-import { AutoFormPartnerCreation } from './components/Partners';
+import { AutoFormPartnerCreation, PartnerCreation } from './components/Partners';
 
 class Administration extends Component {
 
