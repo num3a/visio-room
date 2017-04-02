@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { LocationSchema } from '../common/schema/location';
 
 class RoomsCollection extends Mongo.Collection {
@@ -22,17 +22,19 @@ Rooms.deny({
 
 Rooms.schema = new SimpleSchema({
     _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
-    pricePerDay: { type: Number, decimal: true},
+    pricePerDay: { type: Number},
     name: { type: String },
     address: { type: String },
-    location: { type: [Number], decimal: true, optional: true },
+    location: { type: Array, optional: true },
+    'location.$' : { type: Number },
     capacity: { type: Number },
     description: { type: String },
     createdAt: { type: Date, defaultValue: new Date(), optional: false},
     contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false},
-    administrator: { type: [String], optional: false}
+    administrator: { type: Array },
+    'administrator.$': { type: String }
     //TODO: add phone number, equipments, access details
-});
+},{tracker: Tracker });
 
 Rooms.attachSchema(Rooms.schema);
 

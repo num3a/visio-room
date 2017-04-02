@@ -24,6 +24,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
+    "simpl-schema": "^0.2.3",
     "stripe": "^4.15.0"
   }
 }

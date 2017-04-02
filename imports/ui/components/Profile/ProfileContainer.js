@@ -83,7 +83,7 @@ class Profile extends Component {
 
 const ProfileContainer = createContainer(() => {
     let userId = Meteor.userId();
-    let bookingHandle = Meteor.subscribe('bookings.byUserId', userId);
+    let bookingHandle = Meteor.subscribe('bookings.byUserId');
     let bookings = Bookings.find({ bookedBy: userId}, { limit: 30, sort: { bookingDate: -1}}).fetch() || [];
 
     let roomIds = bookings.map((booking) => {

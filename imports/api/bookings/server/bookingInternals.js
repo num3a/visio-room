@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { Bookings } from '../bookings';
 import { Voucher } from '../../voucher/vouchers';
 import moment from 'moment';

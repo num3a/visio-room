@@ -144,7 +144,7 @@ class PaymentInternals {
 
     createCharge(charge){
         new SimpleSchema({
-            amount: { type: Number, decimal: true },
+            amount: { type: Number},
             currency: { type: String, allowedValues: ["eur"]},
             description: { type: String },
             customerId: { type: String }

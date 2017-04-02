@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 class VoucherCollection extends Mongo.Collection {
     insert(list, callback) {
@@ -23,12 +23,12 @@ Voucher.schema = new SimpleSchema({
     _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
     isValid: { type: Boolean},
     code: {type: String},
-    percentage: { type: Number, decimal: true},
+    percentage: { type: Number },
     createdAt: { type: Date, defaultValue: new Date(), optional: false},
     usedAt: { type: Date, optional: true },
     usedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
     usedFor: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-});
+},{tracker: Tracker });
 
 Voucher.attachSchema(Voucher.schema);
 

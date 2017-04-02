@@ -6,7 +6,7 @@ import RoomSelector from './RoomSelector';
 import BookingManager from './BookingManager';
 import AdminLeftMenu from "./AdminLeftMenu";
 import {BrowserRouter as Router , Route, Switch } from 'react-router-dom';
-import { PartnerCreation } from './components/Partners';
+import { AutoFormPartnerCreation } from './components/Partners';
 
 class Administration extends Component {
 
@@ -26,7 +26,7 @@ class Administration extends Component {
                         <Switch>
                             <Route path="/home" component={RoomManager} />
                             <Route path="/partners" exact={true} component={MockParterns} />
-                            <Route path="/partners/creation" component={PartnerCreation} />
+                            <Route path="/partners/creation" component={AutoFormPartnerCreation} />
                         </Switch>
                     </div>
                 </div>

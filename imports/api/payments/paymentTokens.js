@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { LocationSchema } from '../common/schema/location';
 
 class PaymentTokensCollection extends Mongo.Collection {
@@ -38,7 +38,7 @@ PaymentTokens.schema = new SimpleSchema({
     card: { type: CardSchema },
     customerId: { type: String },
     expired: { type: Boolean }
-});
+},{tracker: Tracker });
 
 PaymentTokens.attachSchema(PaymentTokens.schema);
 

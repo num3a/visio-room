@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 class BookingsCollection extends Mongo.Collection {
     insert(list, callback) {
@@ -29,9 +29,9 @@ Bookings.schema = new SimpleSchema({
     bookedAt: { type: Date, optional: true},
     attendeeCount: { type: Number, optional: true},
     createdAt: { type: Date, optional: false},
-    price: { type: Number, decimal: true, optional: false},
-    room: { type: Bookings.schema, optional: true}
-});
+    price: { type: Number, optional: false},
+    room: { type: Object, optional: true}
+},{tracker: Tracker });
 
 Bookings.attachSchema(Bookings.schema);
 

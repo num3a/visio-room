@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 class PartnersCollection extends Mongo.Collection {
     insert(list, callback) {
@@ -25,7 +25,7 @@ Partners.schema = new SimpleSchema({
     address: { type: String },
     email: { type:String, regEx: SimpleSchema.RegEx.Email},
     phoneNumber: { type: String },
-});
+},{tracker: Tracker });
 
 Partners.attachSchema(Profiles.schema);
 

@@ -1,5 +1,5 @@
-import PartnerCreation from './PartnerCreation';
+import AutoFormPartnerCreation from './AutoFormPartnerCreation';
 
 export {
-    PartnerCreation,
+    AutoFormPartnerCreation,
 };

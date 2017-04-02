@@ -1,4 +1,4 @@
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 
 const LocationSchema = new SimpleSchema({
@@ -13,7 +13,6 @@ const LocationSchema = new SimpleSchema({
     },
     "coordinates.$":{
         type: Number,
-        decimal: true,
         custom: function(){
             if(!(-90 <= this.value[0] <= 90))
                 return "lonOutOfRange" ;

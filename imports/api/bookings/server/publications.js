@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Bookings } from '../bookings.js';
 import { surroundingDates } from '../../../common/utils/dateUtils';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 Meteor.publish('bookings.all', () => {
     return Bookings.find({});
@@ -23,13 +23,11 @@ Meteor.publish('bookings.byRoom', (roomId, minDate, maxDate) => {
     return Bookings.find(query);
 });
 
-Meteor.publish('bookings.byUserId', (userId) => {
-    new SimpleSchema({
-        userId: { type: String, regEx: SimpleSchema.RegEx.Id},
-    }).validate({ userId });
+Meteor.publish('bookings.byUserId', () => {
+
 
     const query = {
-        bookedBy: userId
+        bookedBy: this.userId
     };
 
     const options = {
