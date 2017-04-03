@@ -20,14 +20,14 @@ Partners.deny({
 });
 
 Partners.schema = new SimpleSchema({
-    _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
+    _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
     name: { type: String },
     address: { type: String },
     email: { type:String, regEx: SimpleSchema.RegEx.Email},
     phoneNumber: { type: String },
 },{tracker: Tracker });
 
-Partners.attachSchema(Profiles.schema);
+Partners.attachSchema(Partners.schema);
 
 
 Partners.helpers({

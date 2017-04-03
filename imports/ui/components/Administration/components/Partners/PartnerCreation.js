@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 
 class PartnerCreation extends Component {
-    onSubmitForm(event){
+    onSubmitForm(e){
+        e.preventDefault();
+        let partner = {
+            name: e.target.name.value,
+            address: e.target.address.value,
+            email: e.target.email.value,
+            phoneNumber: e.target.phone.value,
+        };
         //TODO create partner
+        debugger;
+
+        Meteor.call('partners.createOrUpdate', partner, (err, result) => {
+            debugger;
+        });
     }
     render(){
         return <div className="container">
@@ -10,7 +22,7 @@ class PartnerCreation extends Component {
                 <div>
                     <h3 className="is-subtitle is-3">Partners creation</h3>
                 </div>
-                <form onSubmit={(event) => this.onSubmitForm()}>
+                <form onSubmit={(event) => this.onSubmitForm(event)}>
                     <div className="field">
                         <label className="label">Name</label>
                         <p className="control">
@@ -37,7 +49,7 @@ class PartnerCreation extends Component {
                     </div>
                     <hr />
                     <div className="field">
-                        <button className="button is-primary">Create</button>
+                        <button type="submit" className="button is-primary">Create</button>
                     </div>
                 </form>
             </div>

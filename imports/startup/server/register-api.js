@@ -19,3 +19,5 @@ import '../../api/payments/server/publications.js';
 
 import '../../api/admin/methods.js';
 
+import '../../api/partner/partners.js';
+import '../../api/partner/methods.js';

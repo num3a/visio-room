@@ -31,7 +31,7 @@ const generateBookings = (error, _id) => {
 };
 
 const generateVouchers = () => {
-    var voucherCount = Voucher.find({}).count();
+    let voucherCount = Voucher.find({}).count();
 
     if(voucherCount === 0){
         for(let i = 0; i < 500; i++) {

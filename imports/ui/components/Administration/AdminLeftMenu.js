@@ -15,13 +15,13 @@ class AdminLeftMenu extends Component {
                 </li>
                 <li>
                     <NavLink
-                        to="home"
+                        to="/admin/home"
                         activeClassName="is-active"
                     >Dashboard</NavLink>
                 </li>
                 <li>
                     <NavLink
-                        to="partners"
+                        to="/admin/partners"
                         activeClassName="is-active"
                     >Customers</NavLink>
                 </li>

@@ -26,7 +26,7 @@ class Administration extends Component {
                         <Switch>
                             <Route path="/home" component={RoomManager} />
                             <Route path="/partners" exact={true} component={MockParterns} />
-                            <Route path="/partners/creation" component={AutoFormPartnerCreation} />
+                            <Route path="/partners/creation" component={PartnerCreation} />
                         </Switch>
                     </div>
                 </div>
