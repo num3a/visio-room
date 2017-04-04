@@ -1,7 +1,7 @@
 import AutoFormPartnerCreation from './AutoFormPartnerCreation';
-import PartnerCreation from './PartnerCreation';
+import PartnerCreateOrUpdateForm from './PartnerCreateOrUpdateForm';
 
 export {
     AutoFormPartnerCreation,
-    PartnerCreation,
+    PartnerCreateOrUpdateForm,
 };

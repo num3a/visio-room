@@ -21,18 +21,18 @@ Rooms.deny({
 });
 
 Rooms.schema = new SimpleSchema({
-    _id: { type: String, regEx: SimpleSchema.RegEx.Id },
-    pricePerDay: { type: Number},
-    name: { type: String },
-    address: { type: String },
+    _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
+    pricePerDay: { type: Number, optional: false },
+    name: { type: String, optional: false },
+    address: { type: String, optional: false },
     location: { type: Array, optional: true },
     'location.$' : { type: Number },
-    capacity: { type: Number },
-    description: { type: String },
+    capacity: { type: Number, optional: false },
+    description: { type: String, optional: false },
     createdAt: { type: Date, defaultValue: new Date(), optional: false},
-    contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false},
-    administrator: { type: Array },
-    'administrator.$': { type: String }
+    contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false },
+    administrators: { type: Array, optional: false },
+    'administrators.$': { type: String }
     //TODO: add phone number, equipments, access details
 },{tracker: Tracker });
 

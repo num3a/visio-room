@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 class PartnerCreation extends Component {
     onSubmitForm(e){
         e.preventDefault();
+
         let partner = {
             name: e.target.name.value,
             address: e.target.address.value,
             email: e.target.email.value,
             phoneNumber: e.target.phone.value,
         };
-        //TODO create partner
-        debugger;
 
         Meteor.call('partners.createOrUpdate', partner, (err, result) => {
             debugger;

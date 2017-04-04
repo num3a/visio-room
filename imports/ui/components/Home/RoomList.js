@@ -6,10 +6,14 @@ import { Router, Route, Link, NavLink } from 'react-router-dom';
 import RoomCard from "./RoomCard";
 
 class RoomList extends Component {
+
     _renderCards() {
         return(
             this.props.rooms.map((room) => {
-                var staticImageUrl = staticMarkerImage(room.location[0], room.location[1], 300, 225);
+                let staticImageUrl =
+                    room.location ? staticMarkerImage(room.location[0], room.location[1], 300, 225)
+                    : 'http://placehold.it/350x225';
+
                 return (
                     <RoomCard
                         key={room._id}

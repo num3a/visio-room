@@ -11,17 +11,19 @@ class AdminLeftMenu extends Component {
             </p>
             <ul className="menu-list">
                 <li>
-                    <NavLink to="/partners/creation">Creation</NavLink>
+                    <NavLink to="/partners/creation"
+                             activeClassName="is-active"
+                    >Creation</NavLink>
                 </li>
                 <li>
                     <NavLink
-                        to="/admin/home"
+                        to="/home"
                         activeClassName="is-active"
                     >Dashboard</NavLink>
                 </li>
                 <li>
                     <NavLink
-                        to="/admin/partners"
+                        to="/partners"
                         activeClassName="is-active"
                     >Customers</NavLink>
                 </li>
@@ -34,7 +36,10 @@ class AdminLeftMenu extends Component {
                 <li>
                     <a className="is-active">Manage Your Team</a>
                     <ul>
-                        <li><a>Members</a></li>
+                        <NavLink
+                            to="/rooms/creation"
+                            activeClassName="is-active"
+                        >Room creation</NavLink>
                         <li><a>Plugins</a></li>
                         <li><a>Add a member</a></li>
                     </ul>

@@ -4,9 +4,10 @@ import {createContainer} from "meteor/react-meteor-data";
 import { Roles } from 'meteor/alanning:roles';
 import RoomSelector from './RoomSelector';
 import BookingManager from './BookingManager';
-import AdminLeftMenu from "./AdminLeftMenu";
+import AdminLeftMenu from './AdminLeftMenu';
 import {BrowserRouter as Router , Route, Switch } from 'react-router-dom';
-import { AutoFormPartnerCreation, PartnerCreation } from './components/Partners';
+import { AutoFormPartnerCreation, PartnerCreateOrUpdateForm } from './components/Partners';
+import { RoomCreateOrUpdateForm }from './components/Rooms';
 
 class Administration extends Component {
 
@@ -26,7 +27,8 @@ class Administration extends Component {
                         <Switch>
                             <Route path="/home" component={RoomManager} />
                             <Route path="/partners" exact={true} component={MockParterns} />
-                            <Route path="/partners/creation" component={PartnerCreation} />
+                            <Route path="/partners/creation" component={PartnerCreateOrUpdateForm} />
+                            <Route path="/rooms/creation" component={RoomCreateOrUpdateForm} />
                         </Switch>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 
 const PrivateRoute = ({ component, ...rest }) => (
     <Route {...rest} render={props => (
-        Meteor.userId() ? (
+        (!Meteor.loggingIn() && Meteor.userId())? (
                 React.createElement(component, props)
             ) : (
                 <Redirect to={{
