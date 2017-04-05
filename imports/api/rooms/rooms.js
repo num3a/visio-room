@@ -29,6 +29,7 @@ Rooms.schema = new SimpleSchema({
     'location.$' : { type: Number },
     capacity: { type: Number, optional: false },
     description: { type: String, optional: false },
+    partnerId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
     createdAt: { type: Date, defaultValue: new Date(), optional: false},
     contactEmail: { type: String,regEx: SimpleSchema.RegEx.Email, optional: false },
     administrators: { type: Array, optional: false },

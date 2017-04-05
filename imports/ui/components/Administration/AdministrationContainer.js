@@ -14,7 +14,6 @@ class Administration extends Component {
 
     render(){
         const RoomManager = () =>(<div><RoomSelector/><BookingManager roomId={this.props.selectedRoomId} /></div>);
-        const MockParterns = () => (<div className="is-title is-3">Hello friend</div>);
 
         return <Router
             basename="/admin">
@@ -26,7 +25,6 @@ class Administration extends Component {
                     <div className="column is-9">
                         <Switch>
                             <Route path="/home" component={RoomManager} />
-                            <Route path="/partners" exact={true} component={MockParterns} />
                             <Route path="/partners/creation" component={PartnerCreateOrUpdateForm} />
                             <Route path="/rooms/creation" component={RoomCreateOrUpdateForm} />
                         </Switch>

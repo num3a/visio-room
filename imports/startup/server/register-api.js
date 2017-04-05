@@ -21,5 +21,6 @@ import '../../api/payments/server/publications';
 
 import '../../api/admin/methods';
 
-import '../../api/partner/partners';
-import '../../api/partner/methods';
+import '../../api/partners/partners';
+import '../../api/partners/methods';
+import '../../api/partners/server/publications';

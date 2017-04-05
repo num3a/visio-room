@@ -4,15 +4,24 @@ const DropDown = (props) => (
     <div className="field">
         <label className="label">{props.label}</label>
         <p className="control">
-            <input name={props.name} className="input" type="text" placeholder={props.placeholder} required={props.required} />
+            <select  name={props.name} required={props.required}>
+                <option>{props.placeholder}</option>
+                { props.data.map((item, index) => <option key={index} value={item.value}>{item.text}</option>) }
+            </select>
         </p>
     </div>
 );
 
 DropDown.propTypes = {
     name: React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string,
-    type: React.PropTypes.string.isRequired,
     required: React.PropTypes.bool,
+    placeholder: React.PropTypes.string,
+    data: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+            text: React.PropTypes.string,
+            value: React.PropTypes.string,
+        })
+    ),
 };
+
 export default DropDown;
