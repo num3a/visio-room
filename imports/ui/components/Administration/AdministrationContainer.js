@@ -11,27 +11,26 @@ import { RoomCreateOrUpdateForm }from './components/Rooms';
 
 class Administration extends Component {
 
-
+/*
+*   <Switch>
+ <Route path="/home" component={RoomManager} />
+ <Route path="/partners/:partnerId" component={PartnerCreateOrUpdateForm} />
+ <Route path="/rooms/creation" component={RoomCreateOrUpdateForm} />
+ </Switch>
+ */
     render(){
         const RoomManager = () =>(<div><RoomSelector/><BookingManager roomId={this.props.selectedRoomId} /></div>);
 
-        return <Router
-            basename="/admin">
-            <div className="container">
+        return <div className="container">
                 <div className="columns">
                     <div className="column is-3">
                         <AdminLeftMenu/>
                     </div>
                     <div className="column is-9">
-                        <Switch>
-                            <Route path="/home" component={RoomManager} />
-                            <Route path="/partners/creation" component={PartnerCreateOrUpdateForm} />
-                            <Route path="/rooms/creation" component={RoomCreateOrUpdateForm} />
-                        </Switch>
+                        {this.props.children}
                     </div>
                 </div>
-            </div>
-        </Router>;
+            </div>;
     }
 }
 

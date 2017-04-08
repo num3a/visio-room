@@ -8,10 +8,6 @@ export default class PartnerInternals {
 
     }
 
-    callback(err, result){
-
-    }
-
     createOrUpdate(partner) {
         let isAdmin = Roles.userIsInRole(Meteor.userId(),'admin');
 
@@ -21,34 +17,27 @@ export default class PartnerInternals {
 
         let schema = Partners.schema;
         schema.validate(partner);
-        /**
-         *
-         *  let updateBookingQuery = {
-            $set: {
-                isBooked: true,
-                bookedAt: moment().toDate(),
-                bookedBy: Meteor.userId(),
-                voucherUsed: voucherId,
-                //TODO: add price payed
-            }
-        };
 
-         Bookings.update({_id: bookingId}, updateBookingQuery, (error, result) => {
-            if(error){
-                throw new Meteor.Error('An error occured when updating booking');
-            }
-            console.log('result', result);
-        });
-
-         * */
-        if(partner._id){
+        if(partner._id !== '' && partner._id !== null && partner._id !== undefined){
             let updatePartnerQuery = {
-                ...partner,
+                $set: {
+                    ...partner,
+                }
             };
-            Partners.update({ _id: partner._id}, updatePartnerQuery);
+
+           Partners.update({ _id: partner._id}, updatePartnerQuery);
+            return {
+                id: partner._id,
+                success: true
+            };
         }
         else {
-            Partners.insert(partner);
+            let partnerId = Partners.insert(partner);
+
+            return {
+                id: partnerId,
+                success: true
+            };
         }
     }
 }

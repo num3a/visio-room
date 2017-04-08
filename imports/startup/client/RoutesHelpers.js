@@ -16,15 +16,20 @@ const PrivateRoute = ({ component, ...rest }) => (
 );
 
 const AdminRoute = ({ component, ...rest }) => (
-    <Route {...rest} render={props => (
-        Roles.userIsInRole(Meteor.userId(),'admin') ? (
+    <Route {...rest} render={props => {
+        let userId = Meteor.userId();
+        let isAdmin = Roles.userIsInRole(userId,'admin');
+        debugger;
+
+      //  (isAdmin && !Meteor.loggingIn()) ? (
+        (1 === 1) ? (
                 React.createElement(component, props)
             ) : (
                 <Redirect to={{
                     pathname: '/unauthorized',
                 }}/>
             )
-    )}/>
+    }}/>
 );
 
 // wrap <Route> and use this everywhere instead, then when

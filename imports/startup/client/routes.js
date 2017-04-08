@@ -6,7 +6,6 @@ import ScrollToTop from "../../common/ScrollToTop";
 // route components
 import ProfileContainer from "../../ui/components/Profile";
 import AppContainer from "../../ui/components/AppContainer";
-import AdministrationContainer from "../../ui/components/Administration";
 import HomeContainer from "../../ui/components/Home/HomeContainer";
 import RoomDetailsContainer from "../../ui/components/RoomDetails";
 import DiscoverContainer from "../../ui/components/Discover";
@@ -14,6 +13,12 @@ import PaymentsContainer from "../../ui/components/Payments";
 import SignUpContainer from "../../ui/components/Signup";
 import LogInContainer from "../../ui/components/Login";
 import LogOutContainer from "../../ui/components/Logout";
+
+// ADMIN
+import AdministrationContainer from "../../ui/components/Administration";
+import { PartnerCreateOrUpdateForm } from '../../ui/components/Administration/components/Partners';
+import { RoomCreateOrUpdateForm } from '../../ui/components/Administration/components/Rooms';
+
 //Import pages
 import NotFoundPage from "../../ui/pages/NotFoundPage";
 import NotAuthorized from "../../ui/pages/NotAuthorized";
@@ -24,6 +29,7 @@ import About from "../../ui/pages/About";
 const history = createHistory();
 const AppContainerWithRouter = withRouter(AppContainer);
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
+const AdminContainerWithRouter = withRouter(AdministrationContainer);
 
 export const renderRoutes = () => (
     <Router history={history}>
@@ -31,8 +37,10 @@ export const renderRoutes = () => (
             <ScrollToTopWithRouter>
                 <Switch>
                     <Route exact path="/" component={HomeContainer} />
-                    <AdminRoute exact path="/admin" component={AdministrationContainer} />
-
+                    <AdminContainerWithRouter>
+                        <Route path="/admin/partners/:partnerId?" match component={PartnerCreateOrUpdateForm}  />
+                        <Route path="/admin/rooms/:roomId?" component={RoomCreateOrUpdateForm} />
+                    </AdminContainerWithRouter>
                     <Route path="/rooms/:roomId" component={RoomDetailsContainer} />
                     <PrivateRoute path="/profile" component={ProfileContainer} />
                     <PrivateRoute path="/payments" component={PaymentsContainer} />

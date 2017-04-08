@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { DropDown, Input, Hidden } from "../../../common/Form";
+import {createContainer} from "meteor/react-meteor-data";
+import { Partners } from '../../../../../api/partners/partners';
+import { getProp } from "../../../common/Form/Helpers";
 
 class PartnerCreation extends Component {
     onSubmitForm(e){
@@ -8,52 +12,65 @@ class PartnerCreation extends Component {
             name: e.target.name.value,
             address: e.target.address.value,
             email: e.target.email.value,
-            phoneNumber: e.target.phone.value,
+            phoneNumber: e.target.phoneNumber.value,
         };
 
+        const id = e.target._id.value;
+        if(id !== '' && id !== null && id !== undefined){
+            partner._id = id;
+        }
+
         Meteor.call('partners.createOrUpdate', partner, (err, result) => {
-            debugger;
+            if(err){
+
+            }  else {
+                this.props.history.push(`/admin/partners/${result.id}`);
+            }
         });
     }
+
     render(){
+        if(this.props.loading && this.props.partnerId){
+            return <div><p className="is-subtitle is-4">Loading ...</p></div>;
+        }
+
+        let partner = this.props.partner;
+
         return <div className="container">
             <div className="box">
                 <div>
                     <h3 className="is-subtitle is-3">Partners creation</h3>
                 </div>
                 <form onSubmit={(event) => this.onSubmitForm(event)}>
-                    <div className="field">
-                        <label className="label">Name</label>
-                        <p className="control">
-                            <input name="name" className="input" type="text" placeholder="Partner name" required />
-                        </p>
-                    </div>
-                    <div className="field">
-                        <label className="label">Address</label>
-                        <p className="control">
-                            <textarea name="address" className="input" type="textarea" placeholder="Address" />
-                        </p>
-                    </div>
-                    <div className="field">
-                        <label className="label">Email</label>
-                        <p className="control">
-                            <input name="email" className="input" type="email" placeholder="Email" />
-                        </p>
-                    </div>
-                    <div className="field">
-                        <label className="label">Phone</label>
-                        <p className="control">
-                            <input name="phone" className="input" type="text" placeholder="Phone" />
-                        </p>
-                    </div>
+                    <Hidden name="_id" value={getProp(partner, '_id')}/>
+                    <Input name="name" placeholder="Partner Name" defaultValue={getProp(partner,'name')}/>
+                    <Input name="address" placeholder="Address" defaultValue={getProp(partner,'address')}/>
+                    <Input name="email" placeholder="Email" defaultValue={getProp(partner,'email')}/>
+                    <Input name="phoneNumber" placeholder="Phone" defaultValue={getProp(partner,'phoneNumber')}/>
                     <hr />
                     <div className="field">
-                        <button type="submit" className="button is-primary">Create</button>
+                        { partner ?
+                            <button type="submit" className="button is-primary">Update</button>
+                            :
+                            <button type="submit" className="button is-primary">Create</button>
+                        }
                     </div>
                 </form>
             </div>
         </div>;
+
     }
 }
+const PartnerCreationContainer = createContainer(({ match }) => {
+    let partnerId = match.params.partnerId;
+    let partnerHandle = Meteor.subscribe('partners.byId', partnerId);
+    let partner = Partners.findOne({_id: partnerId});
 
-export default PartnerCreation;
+    return {
+        loading: !partnerHandle.ready(),
+        partner: partner,
+        partnerId: partnerId,
+    };
+}, PartnerCreation);
+
+export default PartnerCreationContainer;

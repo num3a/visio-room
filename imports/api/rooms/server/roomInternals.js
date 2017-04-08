@@ -15,38 +15,28 @@ export default class PartnerInternals {
         if(!isAdmin){
             throw new Meteor.Error('User is not admin');
         }
+
         room.createdAt = moment.utc().toDate();
 
         let schema = Rooms.schema;
         schema.validate(room);
-        /**
-         *
-         *  let updateBookingQuery = {
-            $set: {
-                isBooked: true,
-                bookedAt: moment().toDate(),
-                bookedBy: Meteor.userId(),
-                voucherUsed: voucherId,
-                //TODO: add price payed
-            }
-        };
 
-         Bookings.update({_id: bookingId}, updateBookingQuery, (error, result) => {
-            if(error){
-                throw new Meteor.Error('An error occured when updating booking');
-            }
-            console.log('result', result);
-        });
-
-         * */
-        if(room._id){
+        if(room._id !== '' && room._id !== null && room._id !== undefined){
             let updateRoomQuery = {
                 ...room,
             };
             Rooms.update({ _id: room._id}, updateRoomQuery);
+            return {
+                id: room._id,
+                success: true
+            };
         }
         else {
-            Rooms.insert(room);
+            let roomId = Rooms.insert(room);
+            return {
+                id: roomId,
+                success: true,
+            };
         }
     }
 }

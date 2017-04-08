@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { getFirstEmail } from '../../../../../common/emailHelper';
-import { DropDown, Input } from "../../../common/Form";
-import {createContainer} from "meteor/react-meteor-data";
+import { DropDown, Input, Hidden} from "../../../common/Form";
+import { getProp } from "../../../common/Form/Helpers";
+
+import {createContainer} from 'meteor/react-meteor-data';
 import { Partners } from '../../../../../api/partners/partners';
+import { Rooms } from '../../../../../api/rooms/rooms';
+
 class RoomCreateOrUpdateForm extends Component {
     onSubmitForm(e){
         e.preventDefault();
@@ -19,11 +23,18 @@ class RoomCreateOrUpdateForm extends Component {
             contactEmail: e.target.contactEmail.value,
             administrators:  [email],
         };
-        //TODO:
-        debugger;
+
+        const id = e.target._id.value;
+        if(id !== '' && id !== null && id !== undefined){
+            room._id = id;
+        }
 
         Meteor.call('rooms.createOrUpdate', room, (err, result) => {
-            debugger;
+            if(err){
+
+            }  else {
+                this.props.history.push(`/admin/rooms/${result.id}`);
+            }
         });
     }
 
@@ -37,19 +48,26 @@ class RoomCreateOrUpdateForm extends Component {
     }
 
     render(){
+        if(this.props.loadingRoom && this.props.roomId){
+            return <div><p className="is-subtitle is-4">Loading ...</p></div>;
+        }
+
+        let room = this.props.room;
+
         return <div className="container">
             <div className="box">
                 <div>
                     <h3 className="is-subtitle is-3">Partners creation</h3>
                 </div>
                 <form onSubmit={(event) => this.onSubmitForm(event)}>
-                    <Input  name="name" placeholder="Name" required/>
-                    <Input name="address" placeholder="Address" required/>
-                    <Input name="pricePerDay" type="number" placeholder="Price per day" required/>
-                    <Input name="capacity" type="number" placeholder="Capacity" required/>
-                    <Input name="description" placeholder="Description" required/>
-                    <DropDown name="partnerId" placeholder="Partner " data={this.mapToDropDown(this.props.partners)} required/>
-                    <Input name="contactEmail" type="email" placeholder="Email Contact" required/>
+                    <Hidden name="_id" value={getProp(room, '_id')}/>
+                    <Input  name="name" placeholder="Name" required defaultValue={getProp(room,'name')} />
+                    <Input name="address" placeholder="Address" required defaultValue={getProp(room,'address')} />
+                    <Input name="pricePerDay" type="number" placeholder="Price per day" required defaultValue={getProp(room,'pricePerDay')} />
+                    <Input name="capacity" type="number" placeholder="Capacity" required defaultValue={getProp(room,'capacity')}/>
+                    <Input name="description" placeholder="Description" required defaultValue={getProp(room,'description')}/>
+                    <DropDown name="partnerId" placeholder="Partner " data={this.mapToDropDown(this.props.partners)} required defaultValue={getProp(room,'partnerId')}/>
+                    <Input name="contactEmail" type="email" placeholder="Email Contact" required defaultValue={getProp(room,'contactEmail')}/>
                     <hr />
                     <div className="field">
                         <button type="submit" className="button is-primary">Create</button>
@@ -60,13 +78,20 @@ class RoomCreateOrUpdateForm extends Component {
     }
 }
 
-const RoomCreateOrUpdateFormContainer = createContainer(() => {
-    const partnerIdsHandle = Meteor.subscribe('partners.getIdWithName');
+const RoomCreateOrUpdateFormContainer = createContainer(({match}) => {
+    let roomId = match.params.roomId;
+
+    let roomHandle = Meteor.subscribe('rooms.byId',roomId);
+    let partnerIdsHandle = Meteor.subscribe('partners.getIdWithName');
+
     let partners = Partners.find({},{field: { _id: 1, name: 1 }, reactive: false}).fetch();
+    let room = Rooms.findOne({_id: roomId});
 
     return {
         loadingIds : !partnerIdsHandle.ready(),
         partners: partners || [],
+        loadingRoom: !roomHandle.ready(),
+        room: room,
     };
 }, RoomCreateOrUpdateForm);
 
