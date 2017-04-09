@@ -11,7 +11,7 @@ class AdminLeftMenu extends Component {
             </p>
             <ul className="menu-list">
                 <li>
-                    <NavLink to="/partners/creation"
+                    <NavLink to="/admin/partners/"
                              activeClassName="is-active"
                     >Creation</NavLink>
                 </li>
@@ -28,7 +28,7 @@ class AdminLeftMenu extends Component {
             <ul className="menu-list">
                 <li>
                     <NavLink
-                        to="/rooms/creation"
+                        to="/admin/rooms"
                         activeClassName="is-active"
                     >Creation</NavLink>
                 </li>

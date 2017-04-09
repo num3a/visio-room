@@ -7,7 +7,7 @@ const DropDown = (props) => (
             <select  name={props.name} required={props.required}>
                 <option>{props.placeholder}</option>
                 { props.data.map((item, index) =>
-                    <option key={index} value={item.value} selected={props.defaultValue == props.item.value ? 'selected' : ''}>
+                    <option key={index} value={item.value} selected={props.defaultValue === props.item.value ? 'selected' : ''}>
                         {item.text}
                     </option>)
                 }
