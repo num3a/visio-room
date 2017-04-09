@@ -5,22 +5,10 @@ import { Roles } from 'meteor/alanning:roles';
 import RoomSelector from './RoomSelector';
 import BookingManager from './BookingManager';
 import AdminLeftMenu from './AdminLeftMenu';
-import {BrowserRouter as Router , Route, Switch } from 'react-router-dom';
-import { AutoFormPartnerCreation, PartnerCreateOrUpdateForm } from './components/Partners';
-import { RoomCreateOrUpdateForm }from './components/Rooms';
 
 class Administration extends Component {
 
-/*
-*   <Switch>
- <Route path="/home" component={RoomManager} />
- <Route path="/partners/:partnerId" component={PartnerCreateOrUpdateForm} />
- <Route path="/rooms/creation" component={RoomCreateOrUpdateForm} />
- </Switch>
- */
     render(){
-        const RoomManager = () =>(<div><RoomSelector/><BookingManager roomId={this.props.selectedRoomId} /></div>);
-
         return <div className="container">
                 <div className="columns">
                     <div className="column is-3">

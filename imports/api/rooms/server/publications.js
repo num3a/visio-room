@@ -11,7 +11,7 @@ Meteor.publish('rooms.all', () => {
 
 Meteor.publish('rooms.byId', (roomId) => {
     new SimpleSchema({
-        roomId: { type: String, regEx: SimpleSchema.RegEx.Id},
+        roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional:true},
     }).validate({roomId});
 
     return Rooms.find({_id: roomId});

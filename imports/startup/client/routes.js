@@ -1,7 +1,9 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch, withRouter} from "react-router-dom";
-import createHistory from "history/createBrowserHistory";
-import {AdminRoute, PrivateRoute} from "./RoutesHelpers";
+import ReactGA from 'react-ga';
+
+import createHistory from 'history/createBrowserHistory';
+import { AdminRoute, PrivateRoute, LogPageView} from './RoutesHelpers';
 import ScrollToTop from "../../common/ScrollToTop";
 // route components
 import ProfileContainer from "../../ui/components/Profile";
@@ -26,21 +28,29 @@ import CGU from "../../ui/pages/CGU";
 import Legal from "../../ui/pages/Legal";
 import About from "../../ui/pages/About";
 
+ReactGA.initialize('UA-97018244-1');
+
 const history = createHistory();
 const AppContainerWithRouter = withRouter(AppContainer);
 const ScrollToTopWithRouter = withRouter(ScrollToTop);
 const AdminContainerWithRouter = withRouter(AdministrationContainer);
 
+// Get the current location.
+const location = history.location
+
+// Listen for changes to the current location.
+history.listen((location, action) => {
+    // location is an object like window.location
+    console.log(action, location.pathname, location.state)
+});
+
 export const renderRoutes = () => (
-    <Router history={history}>
+    <Router history={history} onUpdate={LogPageView} >
         <AppContainerWithRouter>
             <ScrollToTopWithRouter>
                 <Switch>
                     <Route exact path="/" component={HomeContainer} />
-                    <AdminContainerWithRouter>
-                        <Route path="/admin/partners/:partnerId?" match component={PartnerCreateOrUpdateForm}  />
-                        <Route path="/admin/rooms/:roomId?" component={RoomCreateOrUpdateForm} />
-                    </AdminContainerWithRouter>
+
                     <Route path="/rooms/:roomId" component={RoomDetailsContainer} />
                     <PrivateRoute path="/profile" component={ProfileContainer} />
                     <PrivateRoute path="/payments" component={PaymentsContainer} />
@@ -54,6 +64,10 @@ export const renderRoutes = () => (
                     <Route path="/discover" component={DiscoverContainer} />
                     <Route path="/logout" component={LogOutContainer} />
                     <Route path="/unauthorized" component={NotAuthorized} />
+                    <AdminContainerWithRouter>
+                        <Route path="/admin/partners/:partnerId?" match component={PartnerCreateOrUpdateForm}  />
+                        <Route path="/admin/rooms/:roomId?" component={RoomCreateOrUpdateForm} />
+                    </AdminContainerWithRouter>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </ScrollToTopWithRouter>
