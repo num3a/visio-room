@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run"
+    "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json"
   },
   "dependencies": {
     "babel-polyfill": "^6.20.0",
