@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+//defaultValue={props.defaultValue === item.value ? item.value : ''}
 
 const DropDown = (props) => (
     <div className="field">
         <label className="label">{props.label}</label>
         <p className="control">
-            <select  name={props.name} required={props.required}>
-                <option>{props.placeholder}</option>
-                { props.data.map((item, index) =>
-                    <option key={index} value={item.value} selected={props.defaultValue === props.item.value ? 'selected' : ''}>
-                        {item.text}
-                    </option>)
+            <select  name={props.name} required={props.required} value={props.defaultValue}>
+                <option value="">{props.placeholder}</option>
+                { props.data ?
+                    props.data.map((item, index) =>
+                        <option key={index} value={item.value} >
+                            {item.text}
+                        </option>
+                    )
+                    : null
                 }
             </select>
         </p>

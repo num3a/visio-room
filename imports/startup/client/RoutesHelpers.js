@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
+import ReactGA from 'react-ga';
 
 const PrivateRoute = ({ component, ...rest }) => (
     <Route {...rest} render={props => (
@@ -41,10 +42,15 @@ const RouteWithSubRoutes = (route) => (
     )}/>
 );
 
-
+const LogPageView = (location) => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+    debugger;
+};
 
 export {
     PrivateRoute,
     AdminRoute,
     RouteWithSubRoutes,
+    LogPageView
 }

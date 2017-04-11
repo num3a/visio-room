@@ -8,7 +8,7 @@ Meteor.publish('partners.getIdWithName', () => {
 
 Meteor.publish('partners.byId', (partnerId) => {
     new SimpleSchema({
-        partnerId: { type: String, regEx: SimpleSchema.RegEx.Id},
+        partnerId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
     }).validate({partnerId});
 
     return Partners.find({_id: partnerId});

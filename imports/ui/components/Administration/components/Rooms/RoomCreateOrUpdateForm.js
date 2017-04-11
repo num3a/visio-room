@@ -33,6 +33,7 @@ class RoomCreateOrUpdateForm extends Component {
             if(err){
 
             }  else {
+                debugger;
                 this.props.history.push(`/admin/rooms/${result.id}`);
             }
         });
@@ -57,7 +58,7 @@ class RoomCreateOrUpdateForm extends Component {
         return <div className="container">
             <div className="box">
                 <div>
-                    <h3 className="is-subtitle is-3">Partners creation</h3>
+                    <h3 className="is-subtitle is-3">Rooms creation</h3>
                 </div>
                 <form onSubmit={(event) => this.onSubmitForm(event)}>
                     <Hidden name="_id" value={getProp(room, '_id')}/>
@@ -70,7 +71,11 @@ class RoomCreateOrUpdateForm extends Component {
                     <Input name="contactEmail" type="email" placeholder="Email Contact" required defaultValue={getProp(room,'contactEmail')}/>
                     <hr />
                     <div className="field">
-                        <button type="submit" className="button is-primary">Create</button>
+                        { room ?
+                            <button type="submit" className="button is-primary">Update</button>
+                            :
+                            <button type="submit" className="button is-primary">Create</button>
+                        }
                     </div>
                 </form>
             </div>
@@ -86,12 +91,14 @@ const RoomCreateOrUpdateFormContainer = createContainer(({match}) => {
 
     let partners = Partners.find({},{field: { _id: 1, name: 1 }, reactive: false}).fetch();
     let room = Rooms.findOne({_id: roomId});
+    debugger;
 
     return {
         loadingIds : !partnerIdsHandle.ready(),
         partners: partners || [],
         loadingRoom: !roomHandle.ready(),
         room: room,
+        roomId: roomId,
     };
 }, RoomCreateOrUpdateForm);
 
