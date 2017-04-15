@@ -9,63 +9,63 @@ import { closeLoginModal } from '../../actions/login';
 import { openForgotPasswordModal } from '../../actions/accounts';
 
 class AuthenticationModal extends Component {
-    _onRequestClose(){
-        const { dispatch } = this.props;
-        dispatch(closeLoginModal());
-    }
+  _onRequestClose(){
+    const { dispatch } = this.props;
+    dispatch(closeLoginModal());
+  }
 
-    onForgotPasswordClick(){
-        const { dispatch } = this.props;
-        dispatch(closeLoginModal());
-        dispatch( openForgotPasswordModal());
-    }
+  onForgotPasswordClick(){
+    const { dispatch } = this.props;
+    dispatch(closeLoginModal());
+    dispatch( openForgotPasswordModal());
+  }
 
-    render() {
+  render() {
 
-        const actions = [
-            <FlatButton
-                label="Close"
-                primary={true}
-                onTouchTap={() => this._onRequestClose()}
-            />
-        ];
+    const actions = [
+        <FlatButton
+          label="Close"
+          primary={true}
+          onTouchTap={() => this._onRequestClose()}
+        />
+    ];
 
-        return (
-            <Dialog
-                actions={actions}
-                modal={true}
-                open={this.props.openLoginModal}
-                style={{height: 400}}
-                autoDetectWindowHeight
-                onRequestClose={() => this._onRequestClose()}
-            >
+    return (
+      <Dialog
+        actions={actions}
+        modal={true}
+        open={this.props.openLoginModal}
+        style={{height: 400}}
+        autoDetectWindowHeight
+        onRequestClose={() => this._onRequestClose()}
+      >
 
-                <Tabs>
-                    <Tab label="Login">
-                        <LoginContainer/>
-                    </Tab>
-                    <Tab label="Sign Up">
-                        <SignUpContainer/>
-                    </Tab>
-                </Tabs>
-                <div className="row" >
-                    <div className="box">
-                        <FlatButton
-                            onClick={() => this.onForgotPasswordClick()}
-                            label="Forgot password" primary/>
-                    </div>
-                </div>
+          <Tabs>
+              <Tab label="Login">
+                  <LoginContainer/>
+              </Tab>
+              <Tab label="Sign Up">
+                  <SignUpContainer/>
+              </Tab>
+          </Tabs>
+          <div className="row" >
+              <div className="box">
+                  <FlatButton
+                    onClick={() => this.onForgotPasswordClick()}
+                    label="Forgot password" primary/>
+              </div>
+          </div>
 
-            </Dialog>
+      </Dialog>
 
-        );
+    );
 
-    }
+  }
 }
 const mapStateToProps = (state) => {
-    return {
-        openLoginModal: state.login.openLoginModal,
-    };
+  return {
+    openLoginModal: state.login.openLoginModal,
+  };
 };
 
 export default connect(mapStateToProps)(AuthenticationModal);

@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {createContainer} from "meteor/react-meteor-data";
-import Landing from "./Landing";
+import { createContainer } from 'meteor/react-meteor-data';
+import Landing from './Landing';
 
 class Land extends Component {
-    render(){
-        return <Landing/>;
-    }
+  render() {
+    return <Landing />;
+  }
 }
 
-const LandingContainer = createContainer(() => {
-    return {
+const LandingContainer = createContainer(() => ({
 
-    };
-}, Land);
+}), Land);
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = state => ({
 
-    };
-};
+});
 
 export default connect(mapStateToProps)(LandingContainer);

@@ -12,98 +12,98 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 class History extends Component {
 
-    _getRoomById(roomId){
+  _getRoomById(roomId){
 
-        if(this.props.loadingRooms){
-            return {
-                name: ''
-            };
-        }
-        let room = _.find(this.props.rooms, (room) => {
-            return room._id == roomId;
-        });
-
-        return room;
+    if(this.props.loadingRooms){
+      return {
+        name: ''
+      };
     }
+    let room = _.find(this.props.rooms, (room) => {
+      return room._id == roomId;
+    });
 
-    _renderCard(booking){
+    return room;
+  }
 
-        const { isAuthenticated } = this.props;
-        let bookingDate = moment(booking.bookingDate).format('DD/MM/YYYY');
-        let room = this._getRoomById(booking.roomId);
+  _renderCard(booking){
 
-        let lastCancelDate = moment().add('days', 1);
-        let cancelIsActive = booking.bookingDate > lastCancelDate;
-        cancelIsActive = false;
+    const { isAuthenticated } = this.props;
+    let bookingDate = moment(booking.bookingDate).format('DD/MM/YYYY');
+    let room = this._getRoomById(booking.roomId);
 
-        return (
-            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" style={{marginTop: 10}}>
-                <Card>
-                    <CardHeader
-                        title={room.name}
-                        subtitle={bookingDate}
-                        actAsExpander={false}
-                        showExpandableButton={false}
-                    />
-                    <CardText>
-                        {room.address}
-                    </CardText>
-                    <CardActions>
-                        <FlatButton disabled={!cancelIsActive} label="Cancel booking" onClick={() => this._cancelBooking()} secondary />
-                    </CardActions>
-                </Card>
-            </div>
-        );
+    let lastCancelDate = moment().add('days', 1);
+    let cancelIsActive = booking.bookingDate > lastCancelDate;
+    cancelIsActive = false;
+
+    return (
+      <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" style={{marginTop: 10}}>
+          <Card>
+              <CardHeader
+                title={room.name}
+                subtitle={bookingDate}
+                actAsExpander={false}
+                showExpandableButton={false}
+              />
+              <CardText>
+                {room.address}
+              </CardText>
+              <CardActions>
+                  <FlatButton disabled={!cancelIsActive} label="Cancel booking" onClick={() => this._cancelBooking()} secondary />
+              </CardActions>
+          </Card>
+      </div>
+    );
+  }
+
+  _renderBookingList(){
+    if(!this.props.loadingBookings){
+      return (
+        <div className="row">
+          {this.props.bookings.map((booking) => {
+            return this._renderCard(booking);
+          })}
+        </div>
+      );
     }
-
-    _renderBookingList(){
-        if(!this.props.loadingBookings){
-            return (
-                <div className="row">
-                    {this.props.bookings.map((booking) => {
-                        return this._renderCard(booking);
-                    })}
-                </div>
-            );
-        }
-        else {
-            return <CircularProgress />;
-        }
+    else {
+      return <CircularProgress />;
     }
+  }
 
-    render(){
-        return (<div>
-            {this._renderBookingList()}
-        </div>);
-    }
+  render(){
+    return (<div>
+      {this._renderBookingList()}
+    </div>);
+  }
 }
 
 const HistoryContainer = createContainer(() => {
-    let userId = Meteor.userId();
-    let bookingHandle = Meteor.subscribe('bookings.byUserId');
-    let bookings = Bookings.find({ bookedBy: userId}, { limit: 30, sort: { bookingDate: -1}}).fetch() || [];
+  let userId = Meteor.userId();
+  let bookingHandle = Meteor.subscribe('bookings.byUserId');
+  let bookings = Bookings.find({ bookedBy: userId}, { limit: 30, sort: { bookingDate: -1}}).fetch() || [];
 
-    let roomIds = bookings.map((booking) => {
-        return booking.roomId;
-    });
-    roomIds = roomIds == null ? [] : roomIds;
+  let roomIds = bookings.map((booking) => {
+    return booking.roomId;
+  });
+  roomIds = roomIds == null ? [] : roomIds;
 
-    let roomHandle = Meteor.subscribe('rooms.byIds', roomIds);
+  let roomHandle = Meteor.subscribe('rooms.byIds', roomIds);
 
-    let rooms = Rooms.find( {_id : { $in: roomIds }}).fetch();
+  let rooms = Rooms.find( {_id : { $in: roomIds }}).fetch();
 
-    return {
-        isAuthenticated: Meteor.userId(),
-        bookings: bookings,
-        loadingBookings : !bookingHandle.ready(),
-        loadingRooms: !roomHandle.ready(),
-        rooms:rooms,
-    };
+  return {
+    isAuthenticated: Meteor.userId(),
+    bookings: bookings,
+    loadingBookings : !bookingHandle.ready(),
+    loadingRooms: !roomHandle.ready(),
+    rooms:rooms,
+  };
 }, History);
 
 const mapStateToProps = (state) => {
-    return {
-    };
+  return {
+  };
 };
 
 export default connect(mapStateToProps)(HistoryContainer);

@@ -1,19 +1,19 @@
 import * as types from '../actions/actionTypes';
 
 const initialSate = {
-    username: '',
+  username: '',
 };
 
 const usernameReducer = (state = initialSate, action = {}) => {
-    switch (action.type){
-        case types.USER_NAME_CHANGED:
-            return {
-                ...state,
-                username: action.username,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case types.USER_NAME_CHANGED:
+      return {
+        ...state,
+        username: action.username,
+      };
+    default:
+      return state;
+  }
 };
 
 export default usernameReducer;

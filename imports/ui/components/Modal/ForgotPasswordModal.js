@@ -8,37 +8,37 @@ import ForgotPasswordContainer from "../Password/ForgotPasswordContainer";
 
 class ForgotPasswordModal extends Component {
 
-    _handleCloseDialog(){
-        const { dispatch } = this.props;
-        dispatch(closeForgotPasswordModal());
-    }
+  _handleCloseDialog(){
+    const { dispatch } = this.props;
+    dispatch(closeForgotPasswordModal());
+  }
 
-    render(){
-        const { openForgotPasswordModal, dispatch } = this.props;
-        const customContentStyle = {
-            height: '100%',
-            maxHeight: 'none',
-        };
+  render(){
+    const { openForgotPasswordModal, dispatch } = this.props;
+    const customContentStyle = {
+      height: '100%',
+      maxHeight: 'none',
+    };
 
-        return (
-            <Dialog
-                title="Enter a email"
-                modal={false}
-                open={openForgotPasswordModal}
-                contentStyle={customContentStyle}
-                onRequestClose={() => {this._handleCloseDialog()}}
-            >
-                <ForgotPasswordContainer/>
-            </Dialog>
-        );
-    }
+    return (
+      <Dialog
+        title="Enter a email"
+        modal={false}
+        open={openForgotPasswordModal}
+        contentStyle={customContentStyle}
+        onRequestClose={() => {this._handleCloseDialog()}}
+      >
+          <ForgotPasswordContainer/>
+      </Dialog>
+    );
+  }
 }
 
 
 const mapStateToProps = (state) => {
-    return {
-        openForgotPasswordModal: state.accounts.openForgotPasswordModal,
-    };
+  return {
+    openForgotPasswordModal: state.accounts.openForgotPasswordModal,
+  };
 };
 
 export default connect(mapStateToProps)(ForgotPasswordModal);

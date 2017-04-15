@@ -6,38 +6,38 @@ import { Rooms } from '../../../api/rooms/rooms';
 import {createContainer} from "meteor/react-meteor-data";
 
 class Home extends Component {
-    render() {
-        return(
-            <div className="container">
-                <SearchBar
-                    count={this.props.rooms.length}
-                />
-                <RoomList
-                    currentUser={this.props.currentUser}
-                    loading={this.props.loading}
-                    rooms={this.props.rooms} />
-            </div>
-        );
-    }
+  render() {
+    return(
+      <div className="container">
+          <SearchBar
+            count={this.props.rooms.length}
+          />
+          <RoomList
+            currentUser={this.props.currentUser}
+            loading={this.props.loading}
+            rooms={this.props.rooms} />
+      </div>
+    );
+  }
 }
 
 const HomeContainer = createContainer(() => {
-    const roomsHandle = Meteor.subscribe('rooms.all');
-    const loading = !roomsHandle.ready();
-    let rooms = Rooms.find({}).fetch();
+  const roomsHandle = Meteor.subscribe('rooms.all');
+  const loading = !roomsHandle.ready();
+  let rooms = Rooms.find({}).fetch();
 
-    return {
-        isAuthenticated: Meteor.userId(),
-        currentUser: Meteor.user(),
-        rooms: rooms || [],
-        loading: loading,
-    };
+  return {
+    isAuthenticated: Meteor.userId(),
+    currentUser: Meteor.user(),
+    rooms: rooms || [],
+    loading: loading,
+  };
 }, Home);
 
 
 const mapStateToProps = (state) => {
-    return {
-    };
+  return {
+  };
 };
 
 export default connect(mapStateToProps)(HomeContainer);

@@ -6,5 +6,5 @@ import { render } from 'react-dom';
 import { renderRoutes } from './routes.js';
 
 Meteor.startup(() => {
-    render(renderRoutes(), document.getElementById('app'));
+  render(renderRoutes(), document.getElementById('app'));
 });

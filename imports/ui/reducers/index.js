@@ -15,19 +15,19 @@ import navbar from './navbar';
 import notification from './notification';
 
 const VisioRoomReducers = combineReducers({
-    login: login,
-    user: user,
-    messaging: messaging,
-    room: room,
-    drawer: drawer,
-    search: search,
-    payments: payments,
-    booking: booking,
-    snackbar: snackbar,
-    admin: admin,
-    accounts: accounts,
-    navbar: navbar,
-    notification: notification,
+  login,
+  user,
+  messaging,
+  room,
+  drawer,
+  search,
+  payments,
+  booking,
+  snackbar,
+  admin,
+  accounts,
+  navbar,
+  notification,
 });
 
 export default VisioRoomReducers;

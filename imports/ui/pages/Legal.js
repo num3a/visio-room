@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-const Legal = (props) => (
-    <div className="container">
-        <div className="content">
-                <p>
-                    <h1> Mentions Légales </h1>
+const Legal = props => (
+  <div className="container">
+    <div className="content">
+      <p>
+        <h1> Mentions Légales </h1>
 
-                    <p>Tous droits de reproduction et de représentation réservés. Les textes présentés sur ce site sont couverts par le droit de la propriété intellectuelle.
+        <p>Tous droits de reproduction et de représentation réservés. Les textes présentés sur ce site sont couverts par le droit de la propriété intellectuelle.
                         Toutefois, VisioRoom ne garantit ni l’exactitude ni le caractère exhaustif des informations diffusées sur ce site.
                         En conséquence, VisioRoom décline toute responsabilité :</p>
                     pour les inexactitudes qui pourraient affecter les informations disponibles sur ce site, ou leur caractère incomplet ;
@@ -17,15 +17,15 @@ const Legal = (props) => (
 
                     <p>Droits de propriété intellectuelle, droits sur la marque, dessins et modèles. Les documents, les dessins et modèles diffusés sur ce site sont la propriété exclusive de VisioRoom. La reproduction en est expressément interdite. Le seul droit conféré à toute personne accédant au site est celui de le consulter.</p>
 
-                    <strong>Forme Juridique</strong> <br />
+        <strong>Forme Juridique</strong> <br />
                     GUETATZE SARL SIRET: 823 363 965<br />
-                    <strong>Informations légales</strong><br />
-                    <a href="mailto://emmanuel.ernest@visi-room.com">admin@visiroom.com</a> <br />
+        <strong>Informations légales</strong><br />
+        <a href="mailto://emmanuel.ernest@visi-room.com">admin@visiroom.com</a> <br />
                     VisioRoom, 99 Avenue Achille Perreti 92200 Neuilly-sur-Seine<br />
 
-                </p>
-        </div>
+      </p>
     </div>
+  </div>
 );
 
 export default Legal;

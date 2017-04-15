@@ -1,19 +1,19 @@
 import * as types from '../actions/actionTypes';
 
 const initialSate = {
-    message: '',
+  message: '',
 };
 
 const messageReducer = (state = initialSate, action = {}) => {
-    switch (action.type){
-        case types.MESSAGE_CHANGED:
-            return {
-                ...state,
-                message: action.message,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case types.MESSAGE_CHANGED:
+      return {
+        ...state,
+        message: action.message,
+      };
+    default:
+      return state;
+  }
 };
 
 export default messageReducer;

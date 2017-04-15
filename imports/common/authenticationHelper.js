@@ -1,10 +1,10 @@
 const isLogged = () => {
-    if(Meteor.user()) {
-        return true;
-    }
-    return false;
+  if(Meteor.user()) {
+    return true;
+  }
+  return false;
 };
 
 export {
-    isLogged,
+  isLogged,
 }

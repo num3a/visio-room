@@ -6,10 +6,10 @@ import Hidden from './Hidden';
 import Helpers from './Helpers';
 
 export {
-    DropDown,
-    Input,
-    RadioSet,
-    LongText,
-    Hidden,
-    Helpers
+  DropDown,
+  Input,
+  RadioSet,
+  LongText,
+  Hidden,
+  Helpers
 };

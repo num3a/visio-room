@@ -11,7 +11,7 @@ const userRoles = ()  => {
 };
 
 export {
-    isRoomAdmin,
-    isAdmin,
-    userRoles
+  isRoomAdmin,
+  isAdmin,
+  userRoles
 };
