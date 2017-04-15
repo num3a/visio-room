@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Parallax } from 'react-parallax';
 import { grey700, white } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import createHistory from 'history/createBrowserHistory';

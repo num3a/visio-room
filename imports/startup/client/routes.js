@@ -22,11 +22,12 @@ import { PartnerCreateOrUpdateForm } from '../../ui/components/Administration/co
 import { RoomCreateOrUpdateForm } from '../../ui/components/Administration/components/Rooms';
 
 //Import pages
-import NotFoundPage from "../../ui/pages/NotFoundPage";
-import NotAuthorized from "../../ui/pages/NotAuthorized";
-import CGU from "../../ui/pages/CGU";
-import Legal from "../../ui/pages/Legal";
-import About from "../../ui/pages/About";
+import NotFoundPage from '../../ui/pages/NotFoundPage';
+import NotAuthorized from '../../ui/pages/NotAuthorized';
+import CGU from '../../ui/pages/CGU';
+import Legal from '../../ui/pages/Legal';
+import About from '../../ui/pages/About';
+import Landing from '../../ui/pages/Landing';
 
 ReactGA.initialize('UA-97018244-1');
 
@@ -61,6 +62,7 @@ export const renderRoutes = () => (
                     <Route path="/cgu" component={CGU} />
                     <Route path="/legal" component={Legal} />
                     <Route path="/about" component={About} />
+                    <Route path="/landing" component={Landing} />
                     <Route path="/discover" component={DiscoverContainer} />
                     <Route path="/logout" component={LogOutContainer} />
                     <Route path="/unauthorized" component={NotAuthorized} />

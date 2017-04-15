@@ -11,10 +11,13 @@ const SearchBar = (props) => (
                 <div className="level-item">
                     <p className="control has-addons">
                         <input className="input" type="text" placeholder="Find a room" />
-                        <button className="button">
-                            Search
-                        </button>
+
                     </p>
+                </div>
+                <div className="level-item">
+                    <button className="button">
+                        Search
+                    </button>
                 </div>
             </div>
             <div className="level-right">

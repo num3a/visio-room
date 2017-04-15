@@ -2,7 +2,7 @@
   "name": "visio-room",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json"
   },
   "dependencies": {
@@ -17,9 +17,10 @@
     "material-ui": "^0.16.7",
     "meteor-node-stubs": "~0.2.0",
     "moment": "^2.15.2",
-    "react": "^15.4.2",
-    "react-addons-pure-render-mixin": "^15.4.0",
-    "react-dom": "^15.4.2",
+    "prop-types": "^15.5.7",
+    "react": "^15.5.4",
+    "react-addons-pure-render-mixin": "^15.5.2",
+    "react-dom": "^15.5.4",
     "react-ga": "^2.1.2",
     "react-redux": "^4.4.6",
     "react-router-dom": "^4.0.0",

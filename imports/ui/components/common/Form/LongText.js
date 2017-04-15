@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const LongText = (props) => (
     <div className="field">
@@ -10,9 +11,9 @@ const LongText = (props) => (
 );
 
 LongText.propTypes = {
-    name: React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string,
-    type: React.PropTypes.string.isRequired,
-    required: React.PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    required: PropTypes.bool,
 };
 export default LongText;

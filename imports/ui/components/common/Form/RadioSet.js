@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const RadioSet = (props) => (
     <div className="field">
@@ -10,8 +11,8 @@ const RadioSet = (props) => (
 );
 
 RadioSet.propTypes = {
-    name: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string.isRequired,
-    required: React.PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    required: PropTypes.bool,
 };
 export default RadioSet;

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 //defaultValue={props.defaultValue === item.value ? item.value : ''}
 
 const DropDown = (props) => (
@@ -21,14 +23,14 @@ const DropDown = (props) => (
 );
 
 DropDown.propTypes = {
-    name: React.PropTypes.string.isRequired,
-    required: React.PropTypes.bool,
-    placeholder: React.PropTypes.string,
-    defaultValue: React.PropTypes.any,
-    data: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-            text: React.PropTypes.string,
-            value: React.PropTypes.string,
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool,
+    placeholder: PropTypes.string,
+    defaultValue: PropTypes.any,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            text: PropTypes.string,
+            value: PropTypes.string,
         })
     ),
 };

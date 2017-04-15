@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const Input = (props) => (
     <div className="field">
@@ -18,10 +19,10 @@ const Input = (props) => (
 );
 
 Input.propTypes = {
-    name: React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string,
-    type: React.PropTypes.string,
-    required: React.PropTypes.bool,
-    defaultValue: React.PropTypes.any,
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    required: PropTypes.bool,
+    defaultValue: PropTypes.any,
 };
 export default Input;
