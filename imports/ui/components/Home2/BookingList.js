@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { staticMarkerImage } from '../../../common/utils/googleMaps';
 import RoomCard from './RoomCard';
 
-class RoomList extends Component {
+class BookingList extends Component {
 
   renderCards() {
     return (
-      this.props.rooms.map((room) => {
+      this.props.bookings.map((booking) => {
+        const room = booking.room;
         const staticImageUrl =
           room.location ? staticMarkerImage(room.location[0], room.location[1], 300, 225)
             : 'http://placehold.it/350x225';
@@ -17,7 +18,6 @@ class RoomList extends Component {
             key={room._id}
             room={room}
             staticImageUrl={staticImageUrl}
-
           />
         );
       })
@@ -37,4 +37,4 @@ class RoomList extends Component {
 const mapStateToProps = state => ({
 });
 
-export default connect(mapStateToProps)(RoomList);
+export default connect(mapStateToProps)(BookingList);

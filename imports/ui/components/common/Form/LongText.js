@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const LongText = (props) => (
   <div className="field">
-    <label className="label">{props.label}</label>
+    <label className="label">{props.name}</label>
     <p className="control">
       <textarea name={props.name} className="input" type="text" placeholder={props.placeholder} required={props.required} />
     </p>
@@ -12,8 +12,8 @@ const LongText = (props) => (
 
 LongText.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  required: PropTypes.bool,
+  placeholder: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
 };
+
 export default LongText;

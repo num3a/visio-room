@@ -2,22 +2,31 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
+import BookingList from './BookingList';
 
-import RoomList from './RoomList';
 import SearchBar from './SearchBar';
-import { Rooms } from '../../../api/rooms/rooms';
+import { Bookings } from '../../../api/bookings/bookings';
 
 class Home extends Component {
+  constructor() {
+    super();
+    this.state = { selectedDate: new Date() };
+  }
+
+  selectedDateChanged(newSelectedDate) {
+    this.setState({ selectedDate: newSelectedDate });
+  }
+
   render() {
     return (
       <div className="container">
         <SearchBar
-          count={this.props.rooms.length}
+          count={this.props.bookings.length}
         />
-        <RoomList
+        <BookingList
           currentUser={this.props.currentUser}
           loading={this.props.loading}
-          rooms={this.props.rooms}
+          bookings={this.props.bookings}
         />
       </div>
     );
@@ -25,14 +34,14 @@ class Home extends Component {
 }
 
 const HomeContainer = createContainer(() => {
-  const roomsHandle = Meteor.subscribe('rooms.all');
-  const loading = !roomsHandle.ready();
-  const rooms = Rooms.find({}).fetch();
+  const bookingsHandle = Meteor.subscribe('bookings.byDate', new Date());
+  const loading = !bookingsHandle.ready();
+  const bookings = Bookings.find({}).fetch();
 
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
-    rooms: rooms || [],
+    bookings: bookings || [],
     loading,
   };
 }, Home);

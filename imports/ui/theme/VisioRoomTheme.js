@@ -1,8 +1,7 @@
 import {
-    blueGrey50, blueGrey100, blueGrey200, blueGrey300, blueGrey400, blueGrey500, blueGrey600, blueGrey700,
-    cyan500, cyan700,
+    cyan500,
     pinkA200,
-    grey100, grey300, grey400, grey500, grey600, grey700, grey800, grey900,
+    grey100, grey300, grey400, grey500, grey600, grey700,
     white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';

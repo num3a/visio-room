@@ -8,18 +8,18 @@ import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 
-//TODO: add meteor data system
+// TODO: add meteor data system
 
 class Container extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       errorMessage: '',
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.currentUser){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser) {
       this.props.history.push('/');
     }
   }
@@ -34,43 +34,43 @@ class Container extends Component {
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
 
-    if(password !== confirm){
-      this.setState({errorMessage: 'Please confirm password.'});
+    if (password !== confirm) {
+      this.setState({ errorMessage: 'Please confirm password.' });
       return;
     }
 
     let canRedirect = false;
-    Accounts.createUser({ email: email, password: password, profile: {
-      lastName: lastName,
-      firstName: firstName,
-    }}, (error) => {
-      if(error){
+    Accounts.createUser({ email,
+      password,
+      profile: {
+        lastName,
+        firstName,
+      } }, (error) => {
+      if (error) {
         console.log('An error occured', error);
-        this.setState({errorMessage: error.reason});
-      }
-      else{
+        this.setState({ errorMessage: error.reason });
+      } else {
         const { dispatch } = this.props;
         canRedirect = true;
       }
 
-      if(canRedirect){
+      if (canRedirect) {
         this.props.history.push('/');
       }
     });
   }
 
-  redirectToReferrer(){
+  redirectToReferrer() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     this.props.history.push(from);
   }
 
   _handleOAuth() {
     Meteor.loginWithLinkedIn({
-    }, (error)=> {
-      if(error){
+    }, (error) => {
+      if (error) {
         console.log('oauth error', error);
-      }
-      else {
+      } else {
         const { dispatch } = this.props;
         dispatch(closeLoginModal());
 
@@ -80,28 +80,24 @@ class Container extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
-          <SignUp
-            onOAuthClick={() => this._handleOAuth()}
-            errorMessage={this.state.errorMessage}
-            onSignUpFormSubmit={(event) => this.onSignUpFormSubmit(event)}
-          />
+        <SignUp
+          onOAuthClick={() => this._handleOAuth()}
+          errorMessage={this.state.errorMessage}
+          onSignUpFormSubmit={event => this.onSignUpFormSubmit(event)}
+        />
       </div>
     );
   }
 }
 
-const SignUpContainer = createContainer(() => {
-  return {
-    currentUser: Meteor.user()
-  };
-}, Container);
+const SignUpContainer = createContainer(() => ({
+  currentUser: Meteor.user(),
+}), Container);
 
 
-const mapStateToProps = (state) => {
-  return {
-  };
-};
+const mapStateToProps = state => ({
+});
 
 export default connect(mapStateToProps)(SignUpContainer);

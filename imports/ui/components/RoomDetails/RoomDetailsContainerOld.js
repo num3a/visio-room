@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Rooms } from '../../../api/rooms/rooms';
 import CircularProgress from 'material-ui/CircularProgress';
+import PropTypes from 'prop-types';
+
+import { Rooms } from '../../../api/rooms/rooms';
 import { staticMarkerImage } from '../../../common/utils/googleMaps';
 
 import RoomBooking from './RoomBooking';
@@ -63,6 +65,10 @@ class RoomDetails extends Component {
     </div>);
   }
 }
+
+RoomDetails.propTypes = {
+
+};
 
 const RoomDetailsContainer = createContainer(({ match }) => {
   const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);

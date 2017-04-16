@@ -8,7 +8,7 @@ import ScrollToTop from '../../common/ScrollToTop';
 // route components
 import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';
-import HomeContainer from '../../ui/components/Home/HomeContainer';
+import HomeContainer from '../../ui/components/Home2/HomeContainer';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import DiscoverContainer from '../../ui/components/Discover';
 import PaymentsContainer from '../../ui/components/Payments';
