@@ -84,7 +84,7 @@ Meteor.publish('bookings.search', (search) => {
   const surround = surroundingDates(search.bookingDate);
   const query = {
     bookingDate: { $gt: surround.minDate, $lt: surround.maxDate },
-    capacity: { $lt: search.capacity + 1 },
+    capacity: { $gt: search.capacity - 1 },
   };
 
   return Bookings.find(query);

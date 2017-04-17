@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import {connect} from "react-redux";
-import {createContainer} from "meteor/react-meteor-data";
-import { PaymentTokens } from '../../../api/payments/paymentTokens';
+import { connect } from 'react-redux';
+import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import {closeDrawer} from "../../actions/drawer";
-import { toggleMobileNavBar, closeMobileNavBar } from '../../actions/navbar';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
+import { createContainer } from 'meteor/react-meteor-data';
+
+import { PaymentTokens } from '../../../api/payments/paymentTokens';
+import { closeDrawer } from '../../actions/drawer';
+import { toggleMobileNavBar, closeMobileNavBar } from '../../actions/navbar';
 import './navbar.less';
 
 class NavBar extends Component {
-  getNoAuthMenuItems(){
+  getNoAuthMenuItems() {
     const menus = [
       {
         id: 1,
@@ -32,7 +34,7 @@ class NavBar extends Component {
   }
 
   getMenuItems() {
-    let isAdmin = Roles.userIsInRole(Meteor.userId(),'admin');
+    const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
 
     const menus = [
       {
@@ -80,22 +82,22 @@ class NavBar extends Component {
     return menus;
   }
 
-  renderBadge(badgeContent){
+  renderBadge(badgeContent) {
     const { paymentsCount } = this.props;
-    if(paymentsCount === 0){
-      return    <span className="tag is-danger">!</span>;
+    if (paymentsCount === 0) {
+      return <span className="tag is-danger">!</span>;
     }
 
-    return <div></div>;
+    return <div />;
   }
 
 
-  toggleMobileNavBar(){
+  toggleMobileNavBar() {
     const { dispatch } = this.props;
     dispatch(toggleMobileNavBar());
   }
 
-  closeMobileNavBar(){
+  closeMobileNavBar() {
     const { dispatch } = this.props;
     dispatch(closeMobileNavBar());
   }
@@ -103,25 +105,24 @@ class NavBar extends Component {
   renderMenuItems() {
     let menus = [];
 
-    if(!this.props.isAuthenticated) {
+    if (!this.props.isAuthenticated) {
       menus = this.getNoAuthMenuItems();
-    }
-    else {
+    } else {
       menus = this.getMenuItems();
     }
 
-    return(
+    return (
       menus.map((menu) => {
-        if(menu.disabled){
+        if (menu.disabled) {
           return null;
         }
-        return(<NavLink
+        return (<NavLink
           exact
           className="nav-item is-tab"
           activeClassName="is-active"
           to={menu.url}
           key={menu.id}
-          onClick={() => this.closeMobileNavBar() }
+          onClick={() => this.closeMobileNavBar()}
         >
           {menu.name}
           {menu.badge ? this.renderBadge(menu.badge) : <span />}
@@ -130,59 +131,57 @@ class NavBar extends Component {
     );
   }
 
-  render(){
-    return <nav className="nav has-shadow">
-        <div className="nav-left">
-            <NavLink
-              onClick={() => this.closeMobileNavBar() }
-              className="nav-item"
-              to="/"
-            >
-                VisioRoom Beta
-            </NavLink>
-        </div>
+  render() {
+    return (<nav className="nav has-shadow">
+      <div className="nav-left">
+        <NavLink
+          onClick={() => this.closeMobileNavBar()}
+          className="nav-item"
+          to="/"
+        >
+          VisioRoom Beta
+        </NavLink>
+      </div>
 
       {/*
        <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
        <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
        */}
-        <span className={classNames('nav-toggle', {'is-active': this.props.openMobileNavBar})}  onClick={() => this.toggleMobileNavBar() }>
-    <span />
-    <span />
-    <span />
-  </span>
+      <span className={classNames('nav-toggle', { 'is-active': this.props.openMobileNavBar })} onClick={() => this.toggleMobileNavBar()}>
+        <span />
+        <span />
+        <span />
+      </span>
       {/*
        <!-- This "nav-menu" is hidden on mobile -->
        <!-- Add the modifier "is-active" to display it on mobile -->
        */}
 
-        <div className={classNames('nav-right', 'nav-menu',{'is-active': this.props.openMobileNavBar})}>
-          {this.renderMenuItems()}
-        </div>
-    </nav>;
+      <div className={classNames('nav-right', 'nav-menu', { 'is-active': this.props.openMobileNavBar })}>
+        {this.renderMenuItems()}
+      </div>
+    </nav>);
   }
 }
 
 
 const NavBarContainer = createContainer(() => {
-  const tokenHandle = Meteor.subscribe('payments.tokenByUser');
+  const tokenHandle = Meteor.subscribe('payments.tokenByUser', Meteor.userId());
 
   const loadingPayments = !tokenHandle.ready();
-  const paymentsCount = PaymentTokens.find({ userId: Meteor.userId(), expired: false}).count();
+  const paymentsCount = PaymentTokens.find({ userId: Meteor.userId(), expired: false }).count();
 
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
-    loadingPayments: loadingPayments,
-    paymentsCount: paymentsCount
+    loadingPayments,
+    paymentsCount,
   };
 }, NavBar);
 
-const mapStateToProps = (state) => {
-  return {
-    openMobileNavBar : state.navbar.openMobileNavBar,
+const mapStateToProps = state => ({
+  openMobileNavBar: state.navbar.openMobileNavBar,
     //TODO: map payment token exists to display badge warning
-  };
-};
+});
 
 export default withRouter(connect(mapStateToProps)(NavBarContainer));

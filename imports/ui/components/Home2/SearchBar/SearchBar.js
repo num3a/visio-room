@@ -39,7 +39,7 @@ const SearchBar = props => (
         </p>
       </div>
       <div className="level-item">
-        <input type="range" min={5} max={15} step={5} onChange={props.onCapacityChange} defaultValue={5} />
+        <input type="range" min={1} max={15} step={1} onChange={props.onCapacityChange} defaultValue={1} />
       </div>
       <p className="level-item is-active">{props.capacity} persons</p>
     </div>

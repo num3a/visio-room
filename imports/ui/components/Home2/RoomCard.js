@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
-const marginLeft = {marginLeft: '5px'};
+const marginLeft = { marginLeft: '5px' };
 
-const RoomCard = (props) => (
+const RoomCard = props => (
   <div className="column is-3">
     <div className="card">
       <header className="card-header">
@@ -21,10 +21,10 @@ const RoomCard = (props) => (
           <span>Room capacity: {props.room.capacity}</span>
           <br />
           <div>
-            <span className="icon is-small" style={marginLeft}><i className="fa fa-wheelchair"/></span>
-            <span className="icon is-small" style={marginLeft}><i className="fa fa-wifi"/></span>
-            <span className="icon is-small" style={marginLeft}><i className="fa fa-snowflake-o"/></span>
-            <span className="icon is-small" style={marginLeft}><i className="fa fa-print"/></span>
+            <span className="icon is-small" style={marginLeft}><i className="fa fa-wheelchair" /></span>
+            <span className="icon is-small" style={marginLeft}><i className="fa fa-wifi" /></span>
+            <span className="icon is-small" style={marginLeft}><i className="fa fa-snowflake-o" /></span>
+            <span className="icon is-small" style={marginLeft}><i className="fa fa-print" /></span>
           </div>
         </div>
       </div>

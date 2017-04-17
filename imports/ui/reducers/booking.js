@@ -11,7 +11,7 @@ const initialSate = {
   selectedCard: null,
   toggleAvailability: false,
   selectedDate: moment(),
-  capacity: 5,
+  capacity: 1,
 };
 
 // TODO: expose method to reset state on route leave
