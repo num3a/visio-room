@@ -12,8 +12,8 @@ import '../../api/voucher/methods';
 
 import '../../api/signup/methods';
 
-import '../../api/email/methods'
-import '../../api/email/methods/bookings'
+import '../../api/email/methods';
+import '../../api/email/methods/bookings';
 
 import '../../api/payments/methods';
 import '../../api/payments/paymentTokens';
