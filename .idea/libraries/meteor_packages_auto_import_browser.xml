@@ -31,12 +31,8 @@
         <item url="file://$USER_HOME$/.meteor/packages/msavin_jetsetter/2.0.0/web.browser/client/_component/component.js" />
         <item url="file://$USER_HOME$/.meteor/packages/react-meteor-data/0.2.9/web.browser/createContainer.jsx" />
         <item url="file://$USER_HOME$/.meteor/packages/react-meteor-data/0.2.9/web.browser/react-meteor-data.jsx" />
-        <item url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/security.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/cache.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/options.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/client.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/meteor-install.js" />
         <item url="file://$USER_HOME$/.meteor/packages/msavin_jetsetter/2.0.0/web.browser/client/row_dict/main.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/client.js" />
@@ -375,12 +371,8 @@
       <root url="file://$USER_HOME$/.meteor/packages/msavin_jetsetter/2.0.0/web.browser/client/_component/component.js" />
       <root url="file://$USER_HOME$/.meteor/packages/react-meteor-data/0.2.9/web.browser/createContainer.jsx" />
       <root url="file://$USER_HOME$/.meteor/packages/react-meteor-data/0.2.9/web.browser/react-meteor-data.jsx" />
-      <root url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/security.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/cache.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/options.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/client.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/dynamic-import/0.1.0-beta.14/web.browser/server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/meteor-install.js" />
       <root url="file://$USER_HOME$/.meteor/packages/msavin_jetsetter/2.0.0/web.browser/client/row_dict/main.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.8.0-beta.14/web.browser/client.js" />

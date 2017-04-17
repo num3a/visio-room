@@ -29,7 +29,7 @@ const RoomCard = (props) => (
         </div>
       </div>
       <footer className="card-footer">
-        <NavLink disabled className="card-footer-item" to={`/rooms/${props.room._id}`} >Open</NavLink>
+        <NavLink disabled className="card-footer-item" to={`/bookings/${props.bookingId}`} >Open</NavLink>
       </footer>
     </div>
   </div>
