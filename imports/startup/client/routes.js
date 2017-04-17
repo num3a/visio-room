@@ -32,18 +32,18 @@ import Landing from '../../ui/pages/Landing';
 ReactGA.initialize('UA-97018244-1');
 
 const history = createHistory();
-const AppContainerWithRouter = withRouter(AppContainer);
-const ScrollToTopWithRouter = withRouter(ScrollToTop);
-const AdminContainerWithRouter = withRouter(AdministrationContainer);
-
-// Get the current location.
-const location = history.location;
-
 // Listen for changes to the current location.
 history.listen((location, action) => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
   // location is an object like window.location
   console.log(action, location.pathname, location.state);
 });
+
+
+const AppContainerWithRouter = withRouter(AppContainer);
+const ScrollToTopWithRouter = withRouter(ScrollToTop);
+const AdminContainerWithRouter = withRouter(AdministrationContainer);
 
 export const renderRoutes = () => (
   <Router history={history} onUpdate={LogPageView} >
@@ -55,6 +55,7 @@ export const renderRoutes = () => (
           <Route path="/landing" component={Landing} />
 
           <Route path="/rooms/:roomId" component={RoomDetailsContainer} />
+          <Route path="/bookings/:bookingId" component={RoomDetailsContainer} />
           <PrivateRoute path="/profile" component={ProfileContainer} />
           <PrivateRoute path="/payments" component={PaymentsContainer} />
 

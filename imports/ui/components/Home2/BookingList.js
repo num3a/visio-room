@@ -15,7 +15,7 @@ class BookingList extends Component {
 
         return (
           <RoomCard
-            key={room._id}
+            key={booking._id}
             room={room}
             staticImageUrl={staticImageUrl}
           />
