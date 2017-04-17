@@ -1,66 +1,52 @@
 import * as types from './actionTypes';
 
-const openBookingModal = () => {
-  return {
-    type: types.BOOKING_OPEN_BOOKING_MODAL,
-    openBookingModal: true
-  };
-};
+const openBookingModal = () => ({
+  type: types.BOOKING_OPEN_BOOKING_MODAL,
+  openBookingModal: true,
+});
 
-const closeBookingModal = () => {
-  return {
-    type: types.BOOKING_OPEN_BOOKING_MODAL,
-    openBookingModal: false
-  };
-};
+const closeBookingModal = () => ({
+  type: types.BOOKING_OPEN_BOOKING_MODAL,
+  openBookingModal: false,
+});
 
-const selectedBookingChanged = (bookingId) => {
-  return {
-    type: types.BOOKING_SELECTED_BOOKING_CHANGED,
-    bookingId:bookingId,
-  };
-};
+const selectedBookingChanged = bookingId => ({
+  type: types.BOOKING_SELECTED_BOOKING_CHANGED,
+  bookingId,
+});
 
-const selectedVoucherChanged = (voucher) => {
-  return {
-    type: types.BOOKING_SELECTED_VOUCHER_CHANGED,
-    voucher: voucher,
-  };
-};
+const selectedVoucherChanged = voucher => ({
+  type: types.BOOKING_SELECTED_VOUCHER_CHANGED,
+  voucher,
+});
 
-const voucherIsValid = (isValid) => {
-  return {
-    type: types.BOOKING_VOUCHER_IS_VALID,
-    isValid: isValid,
-  };
-};
+const voucherIsValid = isValid => ({
+  type: types.BOOKING_VOUCHER_IS_VALID,
+  isValid,
+});
 
-const cguAccepted = (accepted) => {
-  return {
-    type: types.BOOKING_CGU_ACCEPTED,
-    accepted: accepted,
-  };
-};
+const cguAccepted = accepted => ({
+  type: types.BOOKING_CGU_ACCEPTED,
+  accepted,
+});
 
-const selectedCardChanged = (card) => {
-  return {
-    type: types.BOOKING_SELECTED_CARD_CHANGED,
-    card: card,
-  };
-};
+const selectedCardChanged = card => ({
+  type: types.BOOKING_SELECTED_CARD_CHANGED,
+  card,
+});
 
-const toggleAvailability = () => {
-  return {
-    type: types.BOOKING_TOGGLE_AVAILABILITY,
-  };
-};
+const toggleAvailability = () => ({
+  type: types.BOOKING_TOGGLE_AVAILABILITY,
+});
 
-const resetAvailability = () => {
-  return {
-    type: types.BOOKING_RESET_AVAILABILITY,
-  }
-};
+const resetAvailability = () => ({
+  type: types.BOOKING_RESET_AVAILABILITY,
+});
 
+const selectedDateChanged = date => ({
+  type: types.BOOKING_SELECTED_DATE_CHANGED,
+  date,
+});
 export {
   openBookingModal,
   closeBookingModal,
@@ -70,5 +56,6 @@ export {
   cguAccepted,
   selectedCardChanged,
   toggleAvailability,
-  resetAvailability
-}
+  resetAvailability,
+  selectedDateChanged,
+};

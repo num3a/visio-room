@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import BookingList from './BookingList';
 
-import SearchBar from './SearchBar';
+import SearchBarContainer from './SearchBar';
 import { Bookings } from '../../../api/bookings/bookings';
 
 class Home extends Component {
@@ -20,7 +20,7 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <SearchBar
+        <SearchBarContainer
           count={this.props.bookings.length}
         />
         <BookingList
@@ -33,8 +33,11 @@ class Home extends Component {
   }
 }
 
-const HomeContainer = createContainer(() => {
-  const bookingsHandle = Meteor.subscribe('bookings.byDate', new Date());
+const HomeContainer = createContainer((props) => {
+
+  const selectedDate = props.selectedDate.toDate();
+
+  const bookingsHandle = Meteor.subscribe('bookings.byDate', selectedDate);
   const loading = !bookingsHandle.ready();
   const bookings = Bookings.find({}).fetch();
 
@@ -48,6 +51,7 @@ const HomeContainer = createContainer(() => {
 
 
 const mapStateToProps = state => ({
+  selectedDate: state.booking.selectedDate,
 });
 
 export default connect(mapStateToProps)(HomeContainer);

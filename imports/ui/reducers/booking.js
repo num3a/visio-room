@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as types from '../actions/actionTypes';
 
 const initialSate = {
@@ -9,6 +10,7 @@ const initialSate = {
   cguAccepted: false,
   selectedCard: null,
   toggleAvailability: false,
+  selectedDate: moment(),
 };
 
 // TODO: expose method to reset state on route leave
@@ -54,6 +56,11 @@ const roomReducer = (state = initialSate, action = {}) => {
       return {
         ...state,
         toggleAvailability: false,
+      };
+    case types.BOOKING_SELECTED_DATE_CHANGED:
+      return {
+        ...state,
+        selectedDate: action.date,
       };
     default:
       return state;

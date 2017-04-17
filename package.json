@@ -18,12 +18,14 @@
     "lodash": "^4.16.6",
     "material-ui": "^0.16.7",
     "meteor-node-stubs": "~0.2.0",
-    "moment": "^2.15.2",
+    "moment": "^2.15.1",
     "prop-types": "^15.5.7",
     "react": "^15.5.4",
     "react-addons-pure-render-mixin": "^15.5.2",
+    "react-dates": "^10.1.1",
     "react-dom": "^15.5.4",
     "react-ga": "^2.1.2",
+    "react-moment-proptypes": "^1.4.0",
     "react-redux": "^4.4.6",
     "react-router-dom": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
@@ -41,7 +43,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-meteor": "^4.0.1",
-    "eslint-plugin-react": "^6.10.3"
+    "eslint-plugin-react": "^6.10.3",
+    "react-addons-shallow-compare": "^15.5.2"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
