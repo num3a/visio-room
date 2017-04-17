@@ -26,6 +26,7 @@ const generateBookings = (error, _id) => {
         attendeeCount: 0,
         createdAt: new Date(),
         price: room.pricePerDay,
+        capacity: room.capacity,
         room,
       });
     }

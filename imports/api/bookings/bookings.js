@@ -31,6 +31,7 @@ Bookings.schema = new SimpleSchema({
   attendeeCount: { type: Number, optional: true },
   createdAt: { type: Date, optional: false },
   price: { type: Number, optional: false },
+  capacity: { type: Number, optional: false },
   room: { type: Rooms.schema, optional: true },
 }, { tracker: Tracker });
 

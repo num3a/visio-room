@@ -74,3 +74,18 @@ Meteor.publish('bookings.byDate', (bookingDate) => {
 
   return Bookings.find(query);
 });
+
+Meteor.publish('bookings.search', (search) => {
+  new SimpleSchema({
+    bookingDate: { type: Date },
+    capacity: { type: Number },
+  }).validate(search);
+
+  const surround = surroundingDates(search.bookingDate);
+  const query = {
+    bookingDate: { $gt: surround.minDate, $lt: surround.maxDate },
+    capacity: { $lt: search.capacity + 1 },
+  };
+
+  return Bookings.find(query);
+});

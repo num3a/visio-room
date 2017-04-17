@@ -5,27 +5,21 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 
 
-
 const SearchBar = props => (
-  <nav className="level">
+  <nav className="level box">
     <div className="level-left">
       <div className="level-item">
         <p className="subtitle is-5">
-          <strong>{props.count}</strong> rooms
+          <strong>{props.count}</strong> rooms available
         </p>
       </div>
       <div className="level-item">
-        <p className="control has-addons">
-          <input className="input" type="text" placeholder="Find a room" />
+        <p className="subtitle is-5">
+          Booking date:
         </p>
       </div>
       <div className="level-item">
         <p className="control has-addons" />
-      </div>
-      <div className="level-item">
-        <button className="button">
-          Search
-        </button>
       </div>
       <div className="level-item">
         <div className="control has-addons">
@@ -39,9 +33,15 @@ const SearchBar = props => (
       </div>
     </div>
     <div className="level-right">
-      <p className="level-item"><strong>All</strong></p>
-      <p className="level-item is-disabled"><a>Small rooms</a></p>
-      <p className="level-item is-disabled"><a>Conference rooms</a></p>
+      <div className="level-item">
+        <p className="subtitle is-5">
+          Capacity:
+        </p>
+      </div>
+      <div className="level-item">
+        <input type="range" min={5} max={15} step={5} onChange={props.onCapacityChange} defaultValue={5} />
+      </div>
+      <p className="level-item is-active">{props.capacity} persons</p>
     </div>
   </nav>
 );
@@ -54,6 +54,8 @@ SearchBar.defaultProps = {
 
 SearchBar.propTypes = {
   count: PropTypes.number.isRequired,
+  capacity: PropTypes.number.isRequired,
+  onCapacityChange: PropTypes.func.isRequired,
   date: momentPropTypes.momentObj,
   onDateChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,

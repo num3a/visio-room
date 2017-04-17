@@ -47,6 +47,12 @@ const selectedDateChanged = date => ({
   type: types.BOOKING_SELECTED_DATE_CHANGED,
   date,
 });
+
+const selectedCapacityChanged = capacity => ({
+  type: types.BOOKING_SELECTED_CAPACITY_CHANGED,
+  capacity,
+});
+
 export {
   openBookingModal,
   closeBookingModal,
@@ -58,4 +64,5 @@ export {
   toggleAvailability,
   resetAvailability,
   selectedDateChanged,
+  selectedCapacityChanged,
 };

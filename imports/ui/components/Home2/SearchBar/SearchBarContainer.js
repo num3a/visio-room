@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import SearchBar from './SearchBar';
-import { selectedDateChanged } from '../../../actions/booking';
+import { selectedDateChanged, selectedCapacityChanged } from '../../../actions/booking';
 
 class SearchBarContainer extends Component {
   constructor() {
@@ -15,16 +15,25 @@ class SearchBarContainer extends Component {
   }
 
   onDateChange(date) {
-    debugger;
     const { dispatch } = this.props;
     dispatch(selectedDateChanged(date));
   }
+
+  onCapacityChange(event) {
+    const capacity = parseInt(event.target.value, 10);
+    const { dispatch } = this.props;
+
+    dispatch(selectedCapacityChanged(capacity));
+  }
+
   render() {
     return (
       <SearchBar
         count={this.props.count}
         date={this.props.selectedDate} // momentPropTypes.momentObj or null
-        onDateChange={date => this.onDateChange(date)} // PropTypes.func.isRequired
+        capacity={this.props.capacity}
+        onCapacityChange={capacity => this.onCapacityChange(capacity)}
+        onDateChange={event => this.onDateChange(event)} // PropTypes.func.isRequired
         focused={this.state.focused} // PropTypes.bool
         onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
       />
@@ -43,6 +52,7 @@ SearchBarContainer.propTypes = {
 const mapStateToProps = state => ({
   selectedRoomId: state.admin.roomId,
   selectedDate: state.booking.selectedDate,
+  capacity: state.booking.capacity,
 });
 
 export default connect(mapStateToProps)(SearchBarContainer);

@@ -11,6 +11,7 @@ const initialSate = {
   selectedCard: null,
   toggleAvailability: false,
   selectedDate: moment(),
+  capacity: 5,
 };
 
 // TODO: expose method to reset state on route leave
@@ -61,6 +62,11 @@ const roomReducer = (state = initialSate, action = {}) => {
       return {
         ...state,
         selectedDate: action.date,
+      };
+    case types.BOOKING_SELECTED_CAPACITY_CHANGED:
+      return {
+        ...state,
+        capacity: action.capacity,
       };
     default:
       return state;

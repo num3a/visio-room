@@ -35,9 +35,12 @@ class Home extends Component {
 
 const HomeContainer = createContainer((props) => {
 
-  const selectedDate = props.selectedDate.toDate();
+  const search = {
+    bookingDate: props.selectedDate.toDate(),
+    capacity: props.capacity,
+  };
 
-  const bookingsHandle = Meteor.subscribe('bookings.byDate', selectedDate);
+  const bookingsHandle = Meteor.subscribe('bookings.search', search);
   const loading = !bookingsHandle.ready();
   const bookings = Bookings.find({}).fetch();
 
@@ -52,6 +55,7 @@ const HomeContainer = createContainer((props) => {
 
 const mapStateToProps = state => ({
   selectedDate: state.booking.selectedDate,
+  capacity: state.booking.capacity,
 });
 
 export default connect(mapStateToProps)(HomeContainer);
