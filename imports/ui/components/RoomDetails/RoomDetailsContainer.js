@@ -7,6 +7,7 @@ import { staticMarkerImage } from '../../../common/utils/googleMaps';
 import Details from './RoomDetails';
 import RoomBooking from './RoomBooking';
 import RoomAdditionalInfos from './RoomAdditionalInfos';
+import AdditionalInfos from './AdditionalInformations';
 import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged } from '../../actions/booking';
 import { Bookings } from '../../../api/bookings/bookings';
 import { Rooms } from '../../../api/rooms/rooms';
@@ -52,9 +53,8 @@ class RoomDetails extends Component {
             roomId={this.props.roomId}
           />
         }
-        <RoomAdditionalInfos
-          description={this.props.room.description}
-        />
+        <AdditionalInfos
+          roomId={this.props.room._id} />
       </div>
     );
   }
