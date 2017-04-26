@@ -32,7 +32,7 @@ const SearchBar = props => (
 );
 
 SearchBar.propTypes = {
-  count: PropTypes.number,
+  count: PropTypes.number.isRequired,
 };
 export default SearchBar;
 

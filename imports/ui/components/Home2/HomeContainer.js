@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
-import BookingList from './BookingList';
+import moment from 'moment';
+import _ from 'lodash';
+import RoomList from './RoomList';
 
 import SearchBarContainer from './SearchBar';
 import { Bookings } from '../../../api/bookings/bookings';
+import { Rooms } from '../../../api/rooms/rooms';
 
 class Home extends Component {
   constructor() {
@@ -23,10 +26,10 @@ class Home extends Component {
         <SearchBarContainer
           count={this.props.bookings.length}
         />
-        <BookingList
+        <RoomList
           currentUser={this.props.currentUser}
           loading={this.props.loading}
-          bookings={this.props.bookings}
+          rooms={this.props.rooms}
         />
       </div>
     );
@@ -34,27 +37,38 @@ class Home extends Component {
 }
 
 const HomeContainer = createContainer((props) => {
-
+  const startDate = props.selectedStartDate ? props.selectedStartDate.toDate() : moment().toDate();
+  const endDate = props.selectedEndDate ? props.selectedEndDate.toDate() : null;
   const search = {
-    bookingDate: props.selectedDate.toDate(),
+    startDate,
+    endDate,
     capacity: props.capacity,
   };
 
-  const bookingsHandle = Meteor.subscribe('bookings.search', search);
-  const loading = !bookingsHandle.ready();
+  const bookingsHandle = Meteor.subscribe('bookings.searchWithDates', search);
+  const roomHandle = Meteor.subscribe('bookings.availableRoomIds', search);
+
+  const loadingBooking = !bookingsHandle.ready();
+  const loadingRooms = !roomHandle.ready();
+
   const bookings = Bookings.find({}).fetch();
+  // const rooms = _.uniqBy(bookings.map(booking => booking.room), '_id');
+  const rooms = Rooms.find({}).fetch();
 
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
     bookings: bookings || [],
-    loading,
+    loadingBooking,
+    loadingRooms,
+    rooms: rooms || [],
   };
 }, Home);
 
 
 const mapStateToProps = state => ({
-  selectedDate: state.booking.selectedDate,
+  selectedStartDate: state.booking.selectedStartDate,
+  selectedEndDate: state.booking.selectedEndDate,
   capacity: state.booking.capacity,
 });
 

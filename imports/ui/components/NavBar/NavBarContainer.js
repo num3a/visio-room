@@ -166,7 +166,7 @@ class NavBar extends Component {
 
 
 const NavBarContainer = createContainer(() => {
-  const tokenHandle = Meteor.subscribe('payments.tokenByUser', Meteor.userId());
+  const tokenHandle = Meteor.subscribe('payments.tokenByUser'); //, Meteor.userId());
 
   const loadingPayments = !tokenHandle.ready();
   const paymentsCount = PaymentTokens.find({ userId: Meteor.userId(), expired: false }).count();

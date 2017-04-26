@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as momentPropTypes from 'react-moment-proptypes';
 import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-
+import { DateRangePicker } from 'react-dates';
 
 const SearchBar = props => (
   <nav className="level box">
@@ -23,11 +22,13 @@ const SearchBar = props => (
       </div>
       <div className="level-item">
         <div className="control has-addons">
-          <SingleDatePicker
-            date={props.date}
-            onDateChange={props.onDateChange}
-            focused={props.focused}
+          <DateRangePicker
+            startDate={props.startDate}
+            endDate={props.endDate}
+            onDatesChange={props.onDatesChange}
+            focusedInput={props.focusedInput}
             onFocusChange={props.onFocusChange}
+            minimumNights={0}
           />
         </div>
       </div>
@@ -56,9 +57,10 @@ SearchBar.propTypes = {
   count: PropTypes.number.isRequired,
   capacity: PropTypes.number.isRequired,
   onCapacityChange: PropTypes.func.isRequired,
-  date: momentPropTypes.momentObj,
-  onDateChange: PropTypes.func.isRequired,
-  focused: PropTypes.bool,
+  startDate: momentPropTypes.momentObj,
+  endDate: momentPropTypes.momentObj,
+  onDatesChange: PropTypes.func.isRequired,
+  focusedInput: PropTypes.oneOf(['startDate', 'endDate']),
   onFocusChange: PropTypes.func.isRequired,
 };
 

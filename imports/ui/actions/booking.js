@@ -43,8 +43,13 @@ const resetAvailability = () => ({
   type: types.BOOKING_RESET_AVAILABILITY,
 });
 
-const selectedDateChanged = date => ({
-  type: types.BOOKING_SELECTED_DATE_CHANGED,
+const selectedStartDateChanged = date => ({
+  type: types.BOOKING_SELECTED_START_DATE_CHANGED,
+  date,
+});
+
+const selectedEndDateChanged = date => ({
+  type: types.BOOKING_SELECTED_END_DATE_CHANGED,
   date,
 });
 
@@ -63,6 +68,7 @@ export {
   selectedCardChanged,
   toggleAvailability,
   resetAvailability,
-  selectedDateChanged,
+  selectedStartDateChanged,
+  selectedEndDateChanged,
   selectedCapacityChanged,
 };

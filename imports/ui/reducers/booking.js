@@ -10,7 +10,8 @@ const initialSate = {
   cguAccepted: false,
   selectedCard: null,
   toggleAvailability: false,
-  selectedDate: moment(),
+  selectedStartDate: moment().add(1, 'days').set({ hour: 0, minutes: 0, second: 0, millisecond: 0 }),
+  selectedEndDate: moment().add(1, 'days').set({ hour: 0, minutes: 0, second: 0, millisecond: 0 }),
   capacity: 1,
 };
 
@@ -58,10 +59,15 @@ const roomReducer = (state = initialSate, action = {}) => {
         ...state,
         toggleAvailability: false,
       };
-    case types.BOOKING_SELECTED_DATE_CHANGED:
+    case types.BOOKING_SELECTED_START_DATE_CHANGED:
       return {
         ...state,
-        selectedDate: action.date,
+        selectedStartDate: action.date,
+      };
+    case types.BOOKING_SELECTED_END_DATE_CHANGED:
+      return {
+        ...state,
+        selectedEndDate: action.date,
       };
     case types.BOOKING_SELECTED_CAPACITY_CHANGED:
       return {

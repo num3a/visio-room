@@ -3,6 +3,9 @@ import SimpleSchema from 'simpl-schema';
 
 import { Bookings } from '../bookings.js';
 import { surroundingDates } from '../../../common/utils/dateUtils';
+import moment from 'moment';
+import { getAvailableRoomsIds } from './bookingSearch';
+import { Rooms } from '../../rooms/rooms';
 
 Meteor.publish('bookings.all', () => Bookings.find({}));
 
@@ -21,7 +24,7 @@ Meteor.publish('bookings.byRoom', (roomId, minDate, maxDate) => {
   return Bookings.find(query);
 });
 
-Meteor.publish('bookings.byUserId', () => {
+Meteor.publish('bookings.byUserId', function() {
   const query = {
     bookedBy: this.userId,
   };
@@ -84,8 +87,62 @@ Meteor.publish('bookings.search', (search) => {
   const surround = surroundingDates(search.bookingDate);
   const query = {
     bookingDate: { $gt: surround.minDate, $lt: surround.maxDate },
+    isBlocked: false,
+    isBooked: false,
     capacity: { $gt: search.capacity - 1 },
   };
 
   return Bookings.find(query);
+});
+
+Meteor.publish('bookings.searchWithDates', (search) => {
+  new SimpleSchema({
+    startDate: { type: Date },
+    endDate: { type: Date, optional: true },
+    capacity: { type: Number },
+  }).validate(search);
+
+  let bookingDate = {};
+
+  if (search.endDate === null || search.endDate === undefined ||
+    (moment(search.startDate).format('DD-MM-YYYY') === moment(search.endDate).format('DD-MM-YYYY'))) {
+    const surround = surroundingDates(search.startDate);
+    bookingDate = { $gt: surround.minDate, $lt: surround.maxDate };
+  } else {
+    bookingDate = {
+      $gt: search.bookingDateBegin,
+      $lt: search.bookingDateEnd,
+    };
+  }
+
+  const query = {
+    bookingDate,
+    isBlocked: false,
+    isBooked: false,
+    capacity: { $gt: search.capacity - 1 },
+  };
+
+  return Bookings.find(query);
+});
+
+
+Meteor.publish('bookings.availableRoomIds', (search) => {
+  new SimpleSchema({
+    startDate: { type: Date },
+    endDate: { type: Date, optional: true },
+    capacity: { type: Number },
+  }).validate(search);
+  // TODO: test that the correct list of room is returned
+
+  if (search.endDate === null || search.endDate === undefined ||
+    (moment(search.startDate).format('DD-MM-YYYY') === moment(search.endDate).format('DD-MM-YYYY'))
+    || (moment(search.endDate).isBefore(search.startDate))) {
+    const surround = surroundingDates(search.startDate);
+    search.startDate = surround.minDate;
+    search.endDate = surround.maxDate;
+  }
+
+  const ids = getAvailableRoomsIds(search.startDate, search.endDate, search.capacity);
+
+  return Rooms.find({ _id: { $in: ids } });
 });

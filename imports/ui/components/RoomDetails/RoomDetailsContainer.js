@@ -9,6 +9,7 @@ import RoomBooking from './RoomBooking';
 import RoomAdditionalInfos from './RoomAdditionalInfos';
 import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged } from '../../actions/booking';
 import { Bookings } from '../../../api/bookings/bookings';
+import { Rooms } from '../../../api/rooms/rooms';
 
 class RoomDetails extends Component {
 
@@ -32,17 +33,18 @@ class RoomDetails extends Component {
   }
 
   render() {
-    // TODO: display striked price when voucher is active
-
+    if (!this.props.room) {
+      return <div />;
+    }
     const staticImageUrl = this.getBigPicture();
     return (
       <div>
         { !this.props.availability && !this.props.bookingId ?
           <Details
-            roomId={this.props.roomId}
-            room={this.props.room}
             bigPicture={staticImageUrl}
-            bookingId={this.props.booking}
+            description={this.props.room.description}
+            name={this.props.room.name}
+            pricePerDay={this.props.room.pricePerDay}
             toggle={() => this.toggleAvailability()}
           />
           :
@@ -51,8 +53,7 @@ class RoomDetails extends Component {
           />
         }
         <RoomAdditionalInfos
-          roomId={this.props.roomId}
-          room={this.props.room}
+          description={this.props.room.description}
         />
       </div>
     );
@@ -60,20 +61,19 @@ class RoomDetails extends Component {
 }
 
 const RoomDetailsContainer = createContainer(({ match }) => {
-  // const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
-  // const room = Rooms.findOne(match.params.roomId);
+  const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
+  const room = Rooms.findOne(match.params.roomId);
 
-  const bookingHandle = Meteor.subscribe('bookings.byId', match.params.bookingId);
+  const bookingHandle = Meteor.subscribe('bookings.byId', match.params.roomId);
   const booking = Bookings.findOne(match.params.bookingId);
-  const room = booking ? booking.room : {};
-  const roomId = room ? room._id : null;
-  const loading = !bookingHandle.ready();
+  const bookingLoading = !bookingHandle.ready();
+  const roomLoading = !roomHandle.ready();
 
   return {
     booking,
-    roomId,
     room,
-    loading,
+    bookingLoading,
+    roomLoading,
   };
 }, RoomDetails);
 const mapStateToProps = state => ({

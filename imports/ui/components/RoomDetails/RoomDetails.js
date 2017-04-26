@@ -1,10 +1,11 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
+import PropTypes from 'prop-types';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 const width = { width: '40px' };
 const starColor = { color: '#ed6c63' };
 const marginBottom = { marginBottom: '15px' };
-import 'react-image-gallery/styles/css/image-gallery.css';
 
 const images = [
   {
@@ -35,8 +36,8 @@ const RoomDetails = props => (
         </div>
       </div>
       <div className="column is-5 is-offset-1">
-        <div className="title is-2">{props.room.name}</div>
-        <p className="title is-3 has-text-muted">{props.room.pricePerDay} €</p>
+        <div className="title is-2">{props.name}</div>
+        <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
         <hr />
         <br />
         <div className="image is-2by2 is-hidden-tablet" style={marginBottom}>
@@ -60,11 +61,11 @@ const RoomDetails = props => (
         </p>
         <br />
         <p>
-          {props.room.description}
+          {props.description}
         </p>
         <br />
         <br />
-        <p className="has-text-centered	">
+        <p className="has-text-centered">
           <a className="button is-primary is-medium" onClick={props.toggle}>See availability</a>
         </p>
       </div>
@@ -72,5 +73,12 @@ const RoomDetails = props => (
   </div>
 );
 
+RoomDetails.propType = {
+  description: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  pricePerDay: PropTypes.number.isRequired,
+  bigPicture: PropTypes.string,
+  toggle: PropTypes.func.isRequired,
+};
 
 export default RoomDetails;

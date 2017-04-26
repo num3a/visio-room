@@ -4,19 +4,28 @@ import PropTypes from 'prop-types';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import SearchBar from './SearchBar';
-import { selectedDateChanged, selectedCapacityChanged } from '../../../actions/booking';
+import { selectedStartDateChanged, selectedEndDateChanged, selectedCapacityChanged } from '../../../actions/booking';
 
 class SearchBarContainer extends Component {
   constructor() {
     super();
     this.state = {
-      focused: false,
+      focusedInput: null,
     };
   }
 
-  onDateChange(date) {
+  onStartDateChange(date) {
     const { dispatch } = this.props;
-    dispatch(selectedDateChanged(date));
+    dispatch(selectedStartDateChanged(date));
+  }
+
+  onDatesChanged(dates) {
+    const { dispatch } = this.props;
+
+    const startDate = dates.startDate;
+    const endDate = dates.endDate;
+    dispatch(selectedStartDateChanged(startDate));
+    dispatch(selectedEndDateChanged(endDate));
   }
 
   onCapacityChange(event) {
@@ -29,13 +38,15 @@ class SearchBarContainer extends Component {
   render() {
     return (
       <SearchBar
-        count={this.props.count}
-        date={this.props.selectedDate} // momentPropTypes.momentObj or null
         capacity={this.props.capacity}
+        count={this.props.count}
         onCapacityChange={capacity => this.onCapacityChange(capacity)}
-        onDateChange={event => this.onDateChange(event)} // PropTypes.func.isRequired
-        focused={this.state.focused} // PropTypes.bool
-        onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+        initialStartDate={moment().add(1, 'days')}
+        startDate={this.props.selectedStartDate} // momentPropTypes.momentObj or null,
+        endDate={this.props.selectedEndDate} // momentPropTypes.momentObj or null,
+        onDatesChange={({ startDate, endDate }) => this.onDatesChanged({ startDate, endDate })} // PropTypes.func.isRequired,
+        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
       />
     );
   }
@@ -51,7 +62,8 @@ SearchBarContainer.propTypes = {
 
 const mapStateToProps = state => ({
   selectedRoomId: state.admin.roomId,
-  selectedDate: state.booking.selectedDate,
+  selectedStartDate: state.booking.selectedStartDate,
+  selectedEndDate: state.booking.selectedEndDate,
   capacity: state.booking.capacity,
 });
 
