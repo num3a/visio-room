@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
-import RoomSelector from './RoomSelector';
-import BookingManager from './BookingManager';
 import AdminLeftMenu from './AdminLeftMenu';
 
 class Administration extends Component {

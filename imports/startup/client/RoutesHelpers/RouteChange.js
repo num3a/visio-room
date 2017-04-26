@@ -19,7 +19,6 @@ class RouteChange extends Component {
 
     actions.forEach((action) => {
       action(location, { push, replace });
-      debugger;
     });
   }
 

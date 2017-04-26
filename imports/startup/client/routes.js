@@ -19,7 +19,7 @@ import LogOutContainer from '../../ui/components/Logout';
 // ADMIN
 import AdministrationContainer from '../../ui/components/Administration';
 import { PartnerCreateOrUpdateForm } from '../../ui/components/Administration/components/Partners';
-import { RoomCreateOrUpdateForm } from '../../ui/components/Administration/components/Rooms';
+import { RoomCreateOrUpdateForm, BookingPanel } from '../../ui/components/Administration/components/Rooms';
 
 // Import pages
 import NotFoundPage from '../../ui/pages/NotFoundPage';
@@ -71,6 +71,7 @@ export const renderRoutes = () => (
           <AdminContainerWithRouter>
             <Route path="/admin/partners/:partnerId?" exact match component={PartnerCreateOrUpdateForm} />
             <Route path="/admin/rooms/:roomId?" exact component={RoomCreateOrUpdateForm} />
+            <Route path="/admin/manage-bookings" exact component={BookingPanel} />
           </AdminContainerWithRouter>
           <Route path="*" component={NotFoundPage} />
         </Switch>

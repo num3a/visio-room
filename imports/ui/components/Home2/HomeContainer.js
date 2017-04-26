@@ -24,7 +24,7 @@ class Home extends Component {
     return (
       <div className="container">
         <SearchBarContainer
-          count={this.props.bookings.length}
+          count={this.props.rooms.length}
         />
         <RoomList
           currentUser={this.props.currentUser}
