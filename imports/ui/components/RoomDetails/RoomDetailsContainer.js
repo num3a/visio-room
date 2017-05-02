@@ -11,6 +11,7 @@ import AdditionalInfos from './AdditionalInformations';
 import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged } from '../../actions/booking';
 import { Bookings } from '../../../api/bookings/bookings';
 import { Rooms } from '../../../api/rooms/rooms';
+import RoomDetailsGallery from './RoomDetailsGallery';
 
 class RoomDetails extends Component {
 
@@ -33,6 +34,14 @@ class RoomDetails extends Component {
     dispatch(toggleAvailability());
   }
 
+  renderDetails() {
+    return (
+      <div className="container">
+        <div className="columns">
+          <RoomDetailsGallery />
+        </div>
+      </div>);
+  }
   render() {
     if (!this.props.room) {
       return <div />;
