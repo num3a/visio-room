@@ -5,13 +5,16 @@ import { Roles } from 'meteor/alanning:roles';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import { createContainer } from 'meteor/react-meteor-data';
+import { translate } from 'react-i18next';
+import NavBar from './NavBar';
 
 import { PaymentTokens } from '../../../api/payments/paymentTokens';
 import { closeDrawer } from '../../actions/drawer';
 import { toggleMobileNavBar, closeMobileNavBar } from '../../actions/navbar';
 import './navbar.less';
 
-class NavBar extends Component {
+class Nav extends Component {
+
   getNoAuthMenuItems() {
     const menus = [
       {
@@ -101,7 +104,16 @@ class NavBar extends Component {
     const { dispatch } = this.props;
     dispatch(closeMobileNavBar());
   }
+  getMenus() {
+    let menus = [];
 
+    if (!this.props.isAuthenticated) {
+      menus = this.getNoAuthMenuItems();
+    } else {
+      menus = this.getMenuItems();
+    }
+    return menus;
+  }
   renderMenuItems() {
     let menus = [];
 
@@ -131,7 +143,8 @@ class NavBar extends Component {
     );
   }
 
-  render() {
+  renderr() {
+    const { t } = this.props;
     return (<nav className="nav has-shadow">
       <div className="nav-left">
         <NavLink
@@ -162,11 +175,25 @@ class NavBar extends Component {
       </div>
     </nav>);
   }
+
+  render() {
+    const menus = this.getMenus();
+    const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+
+    const { openMobileNavBar, isAuthenticated } = this.props;
+    return (<NavBar
+      openMobileNavBar={openMobileNavBar}
+      toggleMobileNavBar={() => this.toggleMobileNavBar()}
+      closeMobileNavBar={() => this.closeMobileNavBar()}
+      isAdmin={isAdmin}
+      isAuthenticated={isAuthenticated}
+    />);
+  }
 }
 
 
 const NavBarContainer = createContainer(() => {
-  const tokenHandle = Meteor.subscribe('payments.tokenByUser'); //, Meteor.userId());
+  const tokenHandle = Meteor.subscribe('payments.tokenByUser'); // , Meteor.userId());
 
   const loadingPayments = !tokenHandle.ready();
   const paymentsCount = PaymentTokens.find({ userId: Meteor.userId(), expired: false }).count();
@@ -177,11 +204,11 @@ const NavBarContainer = createContainer(() => {
     loadingPayments,
     paymentsCount,
   };
-}, NavBar);
+}, Nav);
 
 const mapStateToProps = state => ({
   openMobileNavBar: state.navbar.openMobileNavBar,
-    //TODO: map payment token exists to display badge warning
+  //TODO: map payment token exists to display badge warning
 });
 
 export default withRouter(connect(mapStateToProps)(NavBarContainer));
