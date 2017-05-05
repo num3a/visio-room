@@ -1,50 +1,57 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { translate } from 'react-i18next';
 
-const Login = (props) =>  (
-  <div>
+const Login = (props) => {
+  const { t } = props;
+  return (<div>
     <h1 className="title">
-      Login
+      {t('login_title')}
     </h1>
     <div className="box">
-      <form onSubmit={(event) => props.onLoginFormSubmit(event)}>
-        <label className="label">Email</label>
+      <form onSubmit={event => props.onLoginFormSubmit(event)}>
+        <label className="label">
+          {t('email')}
+        </label>
         <p className="control">
           <input name="email" className="input" type="email" placeholder="jsmith@example.org" required />
         </p>
-        <label className="label">Password</label>
+        <label className="label">
+          {t('password')}
+        </label>
         <p className="control">
           <input name="password" className="input" type="password" placeholder="●●●●●●●" required />
         </p>
         <hr />
         <p className="control">
-          <button type="submit" className="button is-primary">Login</button>
+          <button type="submit" className="button is-primary">
+            {t('login')}
+          </button>
         </p>
       </form>
       <hr />
-      <label className="label">Continue with LinkedIn</label>
+      <label className="label">{t('continue_linkedin')}</label>
       <p className="control">
         <button className="button is-medium" onClick={props.onOAuthClick}>
-                                <span className="icon">
-                                  <i className="fa fa-linkedin" />
-                                </span>
+          <span className="icon">
+            <i className="fa fa-linkedin" />
+          </span>
           <span>Linkedin</span>
         </button>
       </p>
       <div className="content is-danger">
-        <p className="is-danger" style={{color: 'red'}}>
+        <p className="is-danger" style={{ color: 'red' }}>
           {props.errorMessage}
         </p>
       </div>
 
     </div>
     <p className="has-text-centered">
-      <NavLink to="/signup">Register an Account</NavLink>
+      <NavLink to="/signup">{t('register_link')}</NavLink>
       |
-      <a href="#">Forgot password</a>
+      <a href="#">{t('forgot_password')}</a>
     </p>
-  </div>
+  </div>);
+};
 
-);
-
-export default Login;
+export default translate(['login'], { wait: true })(Login);

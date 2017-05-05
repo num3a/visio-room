@@ -1,5 +1,12 @@
 {
-  "price": "Price",
-  "room_capacity": "Room capacity",
-  "card_open": "Open"
+  "card_price": "Prix",
+  "card_room_capacity": "Capacité",
+  "card_open": "Ouvrir",
+  "search_booking_date": "Date de réservation",
+  "search_room": "salle",
+  "search_room_plural": "salles",
+  "search_available": "disponible",
+  "search_room_capacity": "Capacité",
+  "places": "place",
+  "places_plural": "places"
 }

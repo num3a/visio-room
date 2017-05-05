@@ -1,0 +1,12 @@
+{
+  "card_price": "Price",
+  "card_room_capacity": "Room capacity",
+  "card_open": "Open",
+  "search_booking_date": "Booking date",
+  "search_room": "room",
+  "search_room_plural": "rooms",
+  "search_available": "available",
+  "search_room_capacity": "Capacity",
+  "places": "place",
+  "places_plural": "places"
+}

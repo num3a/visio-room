@@ -1,0 +1,8 @@
+{
+  "title": "Payments",
+  "card": "Card",
+  "expiration_date": "Expiration Date",
+  "action": "Action",
+  "action_delete": "Delete",
+  "add_card": "Add card"
+}

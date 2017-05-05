@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 
 const ProfileInformations = (props) => (
   <div className="card is-fullwidth">
@@ -18,4 +19,5 @@ const ProfileInformations = (props) => (
   </div>
 );
 
-export default ProfileInformations;
+export default translate(['profile'], { wait: true })(ProfileInformations);
+

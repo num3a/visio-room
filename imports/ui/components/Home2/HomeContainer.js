@@ -72,4 +72,4 @@ const mapStateToProps = state => ({
   capacity: state.booking.capacity,
 });
 
-export default connect(mapStateToProps)(HomeContainer);
+export default  connect(mapStateToProps)(HomeContainer);

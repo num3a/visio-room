@@ -1,0 +1,14 @@
+{
+  "register_account": "Inscription",
+  "first_name": "Prénom",
+  "first_name_placeholder": "John",
+  "last_name": "Nom",
+  "last_name_placeholder": "Smith",
+  "email": "Email",
+  "email_placeholder": "jsmith@example.co",
+  "password": "Mot de passe",
+  "confirm_password": "Confirmer le mot de passe",
+  "continue_linkedin": "Continuer avec LinkedIn",
+  "go_to_login": "Se connecter",
+  "register": "Inscription"
+}

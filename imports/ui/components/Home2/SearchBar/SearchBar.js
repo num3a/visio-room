@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import * as momentPropTypes from 'react-moment-proptypes';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
+import { translate } from 'react-i18next';
 
 const SearchBar = props => (
   <nav className="level box">
     <div className="level-left">
       <div className="level-item">
         <p className="subtitle is-5">
-          <strong>{props.count}</strong> rooms available
+          <strong>{props.count}</strong> {props.t('search_room', { count: props.count })} {props.t('search_available')}
         </p>
       </div>
       <div className="level-item">
         <p className="subtitle is-5">
-          Booking date:
+          {props.t('search_booking_date')}:
         </p>
       </div>
       <div className="level-item">
@@ -36,13 +37,16 @@ const SearchBar = props => (
     <div className="level-right">
       <div className="level-item">
         <p className="subtitle is-5">
-          Capacity:
+          {props.t('search_room_capacity')}:
         </p>
       </div>
       <div className="level-item">
         <input type="range" min={1} max={15} step={1} onChange={props.onCapacityChange} defaultValue={1} />
       </div>
-      <p className="level-item is-active">{props.capacity} persons</p>
+      <p className="level-item is-active">
+        <span>{props.capacity}</span>
+        <span>&nbsp;</span>
+        <span>{props.t('places', { count: props.capacity })}</span></p>
     </div>
   </nav>
 );
@@ -64,5 +68,5 @@ SearchBar.propTypes = {
   onFocusChange: PropTypes.func.isRequired,
 };
 
-export default SearchBar;
+export default translate(['home'], { wait: true })(SearchBar);
 

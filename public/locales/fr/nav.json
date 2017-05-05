@@ -5,5 +5,7 @@
   "payments": "Paiement",
   "admin": "Administration",
   "about": "A Propos",
-  "log_out": "Déconnexion"
+  "log_out": "Déconnexion",
+  "log_in": "Connexion",
+  "sign_up": "Inscription"
 }

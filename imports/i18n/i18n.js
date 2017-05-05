@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
 // import Cache from 'i18next-localstorage-cache';
 import LanguageDetector from 'i18next-browser-languagedetector';
+//TODO: implement http://i18next.com/docs/api/#change-language
 
 
 i18n
@@ -23,7 +24,7 @@ i18n
     // },
 
     interpolation: {
-      escapeValue: false, // not needed for react!!
+     // escapeValue: false, // not needed for react!!
       formatSeparator: ',',
       format(value, format, lng) {
         if (format === 'uppercase') return value.toUpperCase();

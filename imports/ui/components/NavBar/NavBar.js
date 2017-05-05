@@ -15,13 +15,13 @@ const renderBadge = (paymentCounts) => {
 const disconnectedMenus = () => ([
   {
     id: 1,
-    name: 'Login',
+    name: 'log_in',
     url: '/login',
     disabled: false,
   },
   {
     id: 2,
-    name: 'Sign Up',
+    name: 'sign_up',
     url: '/signup',
     disabled: false,
 
@@ -119,7 +119,6 @@ NavBar.propsType = {
   toggleMobileNavBar: PropTypes.func.isRequired,
   closeMobileNavBar: PropTypes.func.closeMobileNavBar,
   isAdmin: PropTypes.bool.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
-
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 export default translate(['nav'], { wait: true })(NavBar);

@@ -6,6 +6,8 @@ import { PaymentTokens } from '../../../api/payments/paymentTokens';
 import { notificationOpenError } from '../../actions/notification';
 import { closeAddCardModal, openAddCardModal } from '../../actions/payments';
 import PaymentTable from './PaymentTable';
+import PaymentsControl from './PaymentsControl';
+import { translate } from 'react-i18next';
 
 class Payments extends Component {
   handleCloseDialog() {
@@ -32,9 +34,9 @@ class Payments extends Component {
   }
 
   _renderPayments() {
-    const { loadingTokens, paymentTokens } = this.props;
+    const { loadingTokens, paymentTokens, t } = this.props;
     if (loadingTokens) {
-      return <h3>Loading payments ..</h3>;
+      return <h3>{t('loading')} {t('title')} ..</h3>;
     }
     return (<PaymentTable
       paymentTokens={paymentTokens}
@@ -44,11 +46,13 @@ class Payments extends Component {
 
   render() {
     return (<div className="container">
-      <h1 className="title">Payments</h1>
+      <h1 className="title">{this.props.t('title')}</h1>
       <div className="box" >
         {this._renderPayments()}
       </div>
-      <a className="button is-success is-focused" onClick={() => this.openAddCardModal()}>Add a card</a>
+      <PaymentsControl
+        openAddCardModal={() => this.openAddCardModal()}
+        />
     </div>);
   }
 }
@@ -73,4 +77,4 @@ const mapStateToProps = state => ({
   openAddPaymentModal: state.payments.openAddPaymentModal,
 });
 
-export default connect(mapStateToProps)(PaymentsContainer);
+export default translate(['payment'], { wait: true })(connect(mapStateToProps)(PaymentsContainer));

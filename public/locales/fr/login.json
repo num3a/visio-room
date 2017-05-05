@@ -1,0 +1,9 @@
+{
+  "login_title": "Login",
+  "login_button": "Login",
+  "email": "Email",
+  "email_placeholder": "jsmith@example.co",
+  "password": "Mot de passe",
+  "continue_linkedin": "Continue with LinkedIn",
+  "forgot_password": "Forgot password",
+}

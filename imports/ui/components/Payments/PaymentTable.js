@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { translate } from 'react-i18next';
 
 const PaymentTable = props => (
   <table className="table">
     <thead>
       <tr>
         <th>#</th>
-        <th>Card</th>
-        <th>Expiration Date</th>
-        <th>Action</th>
+        <th>{props.t('card')}</th>
+        <th>{props.t('expiration_date')}</th>
+        <th>{props.t('action')}</th>
       </tr>
     </thead>
     <tbody>
@@ -27,8 +28,8 @@ const PaymentTable = props => (
               onClick={() => props.onPaymentTokenDelete(paymentToken)}
               className={classnames('button', 'is-danger')}
             >
-            Delete
-          </button>
+              {props.t('action_delete')}
+            </button>
           </td>
         </tr>);
       })}
@@ -38,4 +39,5 @@ const PaymentTable = props => (
   </table>
 );
 
-export default PaymentTable;
+export default translate(['payment'], { wait: true })(PaymentTable);
+

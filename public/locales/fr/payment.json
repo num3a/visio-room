@@ -1,6 +1,8 @@
 {
-  "card": "Card",
-  "expiration_date": "Expiration Date",
+  "title": "Moyens de paiement",
+  "card": "Carte",
+  "expiration_date": "Date d'expiration",
   "action": "Action",
-  "action_delete": "Delete"
+  "action_delete": "Supprimer",
+  "add_card": "Ajouter une carte"
 }

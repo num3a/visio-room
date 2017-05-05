@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-
+import { translate } from 'react-i18next';
 const marginLeft = { marginLeft: '5px' };
 
 const RoomCard = props => (
@@ -17,9 +17,9 @@ const RoomCard = props => (
       </div>
       <div className="card-content">
         <div className="content">
-          <strong className="timestamp">Price: {props.pricePerDay}€</strong>
+          <strong className="timestamp">{props.t('card_price')}: {props.pricePerDay}€</strong>
           <br />
-          <span>Room capacity: {props.capacity}</span>
+          <span>{props.t('card_room_capacity')}: {props.capacity}</span>
           <br />
           <div>
             <span className="icon is-small" style={marginLeft}><i className="fa fa-wheelchair" /></span>
@@ -30,7 +30,7 @@ const RoomCard = props => (
         </div>
       </div>
       <footer className="card-footer">
-        <NavLink disabled className="card-footer-item" to={`/rooms/${props.roomId}`} >Open</NavLink>
+        <NavLink disabled className="card-footer-item" to={`/rooms/${props.roomId}`} >{props.t('card_open')}</NavLink>
       </footer>
     </div>
   </div>
@@ -52,4 +52,4 @@ RoomCard.defaultProps = {
   staticImageUrl: '',
 };
 
-export default RoomCard;
+export default translate(['home'], { wait: true })(RoomCard);

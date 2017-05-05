@@ -1,0 +1,14 @@
+{
+  "register_account": "Register an account",
+  "first_name": "Firstname",
+  "first_name_placeholder": "John",
+  "last_name": "Lastname",
+  "last_name_placeholder": "Smith",
+  "email": "Email",
+  "email_placeholder": "jsmith@example.co",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "continue_linkedin": "Continue with LinkedIn",
+  "go_to_login": "Go to login",
+  "register": "Register"
+}
