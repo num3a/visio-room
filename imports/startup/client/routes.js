@@ -15,6 +15,7 @@ import PaymentsContainer from '../../ui/components/Payments';
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
 import LogOutContainer from '../../ui/components/Logout';
+import ChangeLanguage from '../../ui/components/ChangeLanguage';
 
 // ADMIN
 import AdministrationContainer from '../../ui/components/Administration';

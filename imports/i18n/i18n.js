@@ -1,13 +1,13 @@
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
-// import Cache from 'i18next-localstorage-cache';
+import Cache from 'i18next-localstorage-cache';
 import LanguageDetector from 'i18next-browser-languagedetector';
 //TODO: implement http://i18next.com/docs/api/#change-language
 
 
 i18n
   .use(XHR)
-  // .use(Cache)
+  .use(Cache)
   .use(LanguageDetector)
   .init({
     fallbackLng: 'en',
@@ -19,12 +19,16 @@ i18n
 
     debug: true,
 
-    // cache: {
-    //   enabled: true
-    // },
+    cache: {
+      enabled: false,
+      prefix: 'i18next_res_',
+      expirationTime: 7*24*60*60*1000,
+
+      versions: {},
+    },
 
     interpolation: {
-     // escapeValue: false, // not needed for react!!
+      // escapeValue: false, // not needed for react!!
       formatSeparator: ',',
       format(value, format, lng) {
         if (format === 'uppercase') return value.toUpperCase();

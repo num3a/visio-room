@@ -1,5 +1,8 @@
 {
   "link_legal" : "Legal",
   "link_about_us": "About Us",
-  "link_CGU": "CGU"
+  "link_CGU": "CGU",
+  "chang_lang": "Language",
+  "link_lang_en": "English",
+  "link_lang_fr": "French"
 }

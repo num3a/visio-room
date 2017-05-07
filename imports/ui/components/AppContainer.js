@@ -13,7 +13,7 @@ import ForgotPasswordModal from './Modal/ForgotPasswordModal';
 import NavBarContainer from './NavBar/NavBarContainer';
 import NotificationContainer from './Notification/NotificationContainer';
 import ErrorMessageSnackBar from './SnackBar/ErrorMessageSnackBar';
-import Footer from './Footer/Footer';
+import FooterContainer from './Footer';
 
 import VisioRoomTheme from '../theme/VisioRoomTheme';
 import VisioRoomReducers from '../reducers';
@@ -41,7 +41,7 @@ class AppContainer extends Component {
               <ForgotPasswordModal />
               <ErrorMessageSnackBar />
             </div>
-            <Footer />
+            <FooterContainer />
           </div>
         </MuiThemeProvider>
       </Provider>
