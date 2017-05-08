@@ -4,7 +4,7 @@ import * as types from '../actions/actionTypes';
 const initialSate = {
   roomId: '',
   bookingId: null,
-  bookings: [],
+  bookingList: [],
   openBookingModal: false,
   voucher: null,
   voucherIsValid: false,
@@ -74,6 +74,21 @@ const roomReducer = (state = initialSate, action = {}) => {
       return {
         ...state,
         capacity: action.capacity,
+      };
+    case types.BOOKING_ADD_TO_BOOKING_LIST:
+      return {
+        ...state,
+        bookingList: [...state.bookingList, action.bookingId],
+      };
+    case types.BOOKING_UPDATE_BOOKING_LIST:
+      return {
+        ...state,
+        bookingList: [...action.bookingList],
+      };
+    case types.BOOKING_REMOVE_FROM_BOOKING_LIST:
+      return {
+        ...state,
+        bookingList: [],
       };
     default:
       return state;

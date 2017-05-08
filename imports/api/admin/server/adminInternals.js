@@ -25,7 +25,7 @@ export default class AdminInternals {
         let room = this.getRoom(booking.roomId);
         let {  emailAddress }  = Meteor.user().profile;
 
-        let admin = room.administrator.indexOf(emailAddress);
+        let admin = room.administrators.indexOf(emailAddress);
 
         if(admin === -1){
             throw new Meteor.Error('Current user is not admin of the selected room');

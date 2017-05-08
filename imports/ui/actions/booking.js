@@ -15,6 +15,21 @@ const selectedBookingChanged = bookingId => ({
   bookingId,
 });
 
+const addToBookingList = bookingId => ({
+  type: types.BOOKING_ADD_TO_BOOKING_LIST,
+  bookingId,
+});
+
+const updateBookingList = bookingList => ({
+    type: types.BOOKING_UPDATE_BOOKING_LIST,
+    bookingList,
+});
+
+const removeFromBookingList = bookingId => ({
+  type: types.BOOKING_REMOVE_FROM_BOOKING_LIST,
+  bookingId,
+});
+
 const selectedVoucherChanged = voucher => ({
   type: types.BOOKING_SELECTED_VOUCHER_CHANGED,
   voucher,
@@ -71,4 +86,8 @@ export {
   selectedStartDateChanged,
   selectedEndDateChanged,
   selectedCapacityChanged,
+  addToBookingList,
+  removeFromBookingList,
+  updateBookingList,
+
 };

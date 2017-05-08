@@ -5,8 +5,10 @@ import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { Bookings } from '../../../../../api/bookings/bookings';
 import Selector from './BookingSelector';
-import { selectedStartDateChanged, selectedEndDateChanged } from '../../../../actions/booking';
+import { selectedStartDateChanged, selectedEndDateChanged, addToBookingList, removeFromBookingList, updateBookingList } from '../../../../actions/booking';
+import { notificationOpenError } from '../../../../actions/notification';
 import BookingTable from './BookingTable';
+import SelectorValidateControl from './SelectorValidateControl';
 
 
 class BookingSelector extends Component {
@@ -46,22 +48,85 @@ class BookingSelector extends Component {
     return bookingDays.indexOf(currentDay) !== -1;
   }
 
+  addBooking(bookingId) {
+    const { dispatch } = this.props;
+    dispatch(addToBookingList(bookingId));
+  }
+
+  calculateTotal(bookings) {
+    let total = 0;
+
+    if (bookings && bookings.length > 0) {
+      debugger;
+      total = bookings
+        .filter(booking => !booking.isBooked && !booking.isBlocked)
+        .map(booking => booking.price)
+        .reduce((acc, price) => acc + price);
+    }
+    return total.toFixed(2);
+  }
+
+  calculateBookingValidity(bookings) {
+    let active = false;
+
+    if (bookings && bookings.length > 0) {
+      active = bookings
+        .map(booking => !booking.isBooked && !booking.isBlocked)
+        .reduce((acc, available) => acc && available);
+    }
+    return active;
+  }
+
+  validateSelection() {
+    const { bookings, dispatch } = this.props;
+    const isValid = this.calculateBookingValidity(bookings);
+
+    if (!isValid) {
+      dispatch(notificationOpenError('Cannot validate bookings'));
+    }
+
+    const bookingList = bookings.map((booking) => {
+      const { _id, roomId, price, capacity, bookingDate } = booking;
+      return {
+        _id,
+        roomId,
+        price,
+        capacity,
+        bookingDate,
+      };
+    });
+    dispatch(updateBookingList(bookingList));
+  }
+
+  removeBooking(bookingId) {
+    const { dispatch } = this.props;
+    dispatch(removeFromBookingList(bookingId));
+  }
+
   render() {
     const { bookings } = this.props;
+    const total = this.calculateTotal(bookings);
+    const validateIsActive = this.calculateBookingValidity(bookings);
+
     return (
-      <div>
+      <div className="is-centered">
         <Selector
           initialStartDate={moment().add(1, 'days')}
           startDate={this.props.selectedStartDate}
           endDate={this.props.selectedEndDate}
           onDatesChange={({ startDate, endDate }) => this.onDatesChanged({ startDate, endDate })}
-          focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-          onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+          focusedInput={this.state.focusedInput}
+          onFocusChange={focusedInput => this.setState({ focusedInput })}
           bookings={bookings}
           dayIsBlocked={day => this.dayIsBlocked(day)}
         />
         <BookingTable
           bookings={bookings}
+          totalPrice={total}
+        />
+        <SelectorValidateControl
+          isActive={validateIsActive}
+          validate={() => this.validateSelection()}
         />
       </div>);
   }

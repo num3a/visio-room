@@ -30,7 +30,7 @@ Meteor.publish('bookings.byRoom', (search) => {
   const query = {
     roomId,
     bookingDate: {
-      $gt: toDayBegin(minDate),
+      $gt: minDate,
       $lt: toDayEnd(maxDate),
     },
   };

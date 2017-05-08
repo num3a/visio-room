@@ -17,7 +17,6 @@ class BookingPayment extends Component {
   render() {
     return (<div className="container">
       <div className="columns  is-multiline">
-        <BookingPaymentRoomDetails room={this.props.room} />
         { this.props.isAuthenticated ?
           <PaymentCardList >
             <SelectedBookingDetails bookingId={this.props.bookingId} />

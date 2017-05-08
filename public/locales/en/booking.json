@@ -1,3 +1,15 @@
 {
+  "selection_table_header_date": "Date",
+  "selection_table_header_price": "Price",
+  "selection_table_header_action": "Action",
+  "selection_table_header_availability": "Availability",
+
+  "selection_table_header_total": "Total",
+  "selection_validate": "Validate",
+  "selection_table_button_book": "Book",
+  "selection_table_button_booked": "Booked",
+
+  "selection_table_button_unavailable": "Unavailable",
+  "selection_table_button_available": "Available"
 
 }

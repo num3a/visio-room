@@ -7,7 +7,7 @@ import { staticMarkerImage } from '../../../common/utils/googleMaps';
 import Details from './RoomDetails';
 import RoomBooking from './RoomBooking';
 import AdditionalInfos from './AdditionalInformations';
-import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged } from '../../actions/booking';
+import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged, updateBookingList } from '../../actions/booking';
 import { Bookings } from '../../../api/bookings/bookings';
 import { Rooms } from '../../../api/rooms/rooms';
 import RoomDetailsGallery from './RoomDetailsGallery';
@@ -19,6 +19,7 @@ class RoomDetails extends Component {
     dispatch(resetAvailability());
     dispatch(selectedBookingChanged(null));
     dispatch(selectedCardChanged(null));
+    dispatch(updateBookingList([]));
   }
   getBigPicture() {
     if (!this.props.room || !this.props.room.location) {

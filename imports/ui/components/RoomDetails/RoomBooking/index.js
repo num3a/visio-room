@@ -8,15 +8,21 @@ import { selectedBookingChanged, selectedVoucherChanged } from '../../../actions
 
 class RoomBooking extends Component {
   render() {
-    if (!this.props.bookingId) {
-      return (<BookingSelector
-        roomId={this.props.roomId}
-      />);
+    if (!this.props.bookingList) {
+      return (
+        <div className="column is-6">
+          <BookingSelector
+            roomId={this.props.roomId}
+          />
+        </div>);
     }
 
-    return (<BookingPayment
-      roomId={this.props.roomId}
-    />);
+    return (
+      <div className="column is-6">
+        <BookingPayment
+          roomId={this.props.roomId}
+        />
+      </div>);
   }
 
   componentWillUnmount() {
@@ -35,6 +41,7 @@ const RoomBookingContainer = createContainer((props) => {
 
 const mapStateToProps = state => ({
   bookingId: state.booking.bookingId,
+  bookingList: state.booking.bookingList,
 });
 
 export default connect(mapStateToProps)(RoomBookingContainer);

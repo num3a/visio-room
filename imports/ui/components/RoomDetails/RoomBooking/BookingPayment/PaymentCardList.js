@@ -67,6 +67,7 @@ class PaymentCardList extends Component {
 
   render(){
     return        <div className="column is-4">
+      <div className="subtitle is-4">Bookings:</div>
         <div className="subtitle is-4">Card list:</div>
       {this.renderCardList()}
         <div>
