@@ -8,7 +8,7 @@ import { selectedBookingChanged, selectedVoucherChanged } from '../../../actions
 
 class RoomBooking extends Component {
   render() {
-    if (!this.props.bookingList) {
+    if (!this.props.bookingList || this.props.bookingList.length === 0) {
       return (
         <div className="column is-6">
           <BookingSelector
@@ -40,7 +40,6 @@ const RoomBookingContainer = createContainer((props) => {
 }, RoomBooking);
 
 const mapStateToProps = state => ({
-  bookingId: state.booking.bookingId,
   bookingList: state.booking.bookingList,
 });
 

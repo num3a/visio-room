@@ -17,22 +17,24 @@ class BookingPayment extends Component {
   render() {
     return (<div className="container">
       <div className="columns  is-multiline">
-        { this.props.isAuthenticated ?
-          <PaymentCardList >
-            <SelectedBookingDetails bookingId={this.props.bookingId} />
-            <Voucher
+
+        <PaymentCardList >
+          <SelectedBookingDetails
+            bookingList={this.props.bookingList}
+            bookingId={this.props.bookingId} />
+          {this.props.isAuthenticated ?
+            <div>  <Voucher
               data={this.props.voucher}
             />
-            <CompletePayment
-              roomId={this.props.roomId}
-            />
-          </PaymentCardList>
+              <CompletePayment
+                roomId={this.props.roomId}
+              />
+            </div>
             :
-          <div className="column is-6">
-            <a className="button is-primary is-medium" onClick={() => this.onLogin()}>Login</a>
-            {/* <LoginContainer/> */}
-          </div>
+            <div>PLEASE LOGIN</div>
           }
+        </PaymentCardList>
+
       </div>
     </div>);
   }
@@ -54,6 +56,8 @@ const BookingPaymentContainer = createContainer(({ roomId }) => {
 
 const mapStateToProps = state => ({
   bookingId: state.booking.bookingId,
+  bookingList: state.booking.bookingList,
+
   voucher: state.booking.voucher,
 });
 

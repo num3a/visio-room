@@ -57,7 +57,6 @@ class BookingSelector extends Component {
     let total = 0;
 
     if (bookings && bookings.length > 0) {
-      debugger;
       total = bookings
         .filter(booking => !booking.isBooked && !booking.isBlocked)
         .map(booking => booking.price)

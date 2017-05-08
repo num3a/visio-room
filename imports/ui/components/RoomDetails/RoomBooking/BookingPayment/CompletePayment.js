@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Checkbox from 'material-ui/Checkbox';
 
 import { closeBookingModal, openBookingModal, selectedBookingChanged, cguAccepted } from '../../../../actions/room';
-import { resetAvailability } from '../../../../actions/booking';
+import { resetAvailability, updateBookingList } from '../../../../actions/booking';
 import { notificationOpenError } from '../../../../actions/notification';
 
 
@@ -18,7 +18,7 @@ class CompletePayment extends Component {
   onCancel() {
     const { dispatch } = this.props;
     dispatch(cguAccepted(false));
-    dispatch(selectedBookingChanged(null));
+    dispatch(updateBookingList([]));
     dispatch(resetAvailability());
   }
 
