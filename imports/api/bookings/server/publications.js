@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import moment from 'moment';
 
 import { Bookings } from '../bookings.js';
 import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
-import moment from 'moment';
 import { getAvailableRoomsIds } from './bookingSearch';
 import { Rooms } from '../../rooms/rooms';
 

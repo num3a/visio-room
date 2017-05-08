@@ -46,7 +46,7 @@ const HomeContainer = createContainer((props) => {
   };
 
   const bookingsHandle = Meteor.subscribe('bookings.searchWithDates', search);
-  const roomHandle = Meteor.subscribe('bookings.  availableRoomIds', search);
+  const roomHandle = Meteor.subscribe('bookings.availableRoomIds', search);
 
   const loadingBooking = !bookingsHandle.ready();
   const loadingRooms = !roomHandle.ready();
