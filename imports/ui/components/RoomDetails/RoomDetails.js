@@ -24,20 +24,20 @@ const images = [
 
 const RoomDetails = props => (
 
-      <div className="column is-6">
-        <div className="title is-2">{props.name}</div>
-        <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
-        <hr />
-        <br />
-        <div className="image is-2by2" style={marginBottom}>
-          {/* <img src={props.bigPicture} />*/}
-          <ImageGallery
-            items={images}
-            slideInterval={5000}
-            showBullets
-          />
-        </div>
-      </div>
+  <div className="column is-6">
+    <div className="title is-2">{props.name}</div>
+    <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
+    <hr />
+    <br />
+    <div className="image is-2by2" style={marginBottom}>
+      {/* <img src={props.bigPicture} />*/}
+      <ImageGallery
+        items={images}
+        slideInterval={5000}
+        showBullets
+      />
+    </div>
+  </div>
 );
 
 RoomDetails.propType = {

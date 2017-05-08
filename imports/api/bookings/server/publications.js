@@ -2,23 +2,37 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 
 import { Bookings } from '../bookings.js';
-import { surroundingDates } from '../../../common/utils/dateUtils';
+import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
 import moment from 'moment';
 import { getAvailableRoomsIds } from './bookingSearch';
 import { Rooms } from '../../rooms/rooms';
 
 Meteor.publish('bookings.all', () => Bookings.find({}));
 
-Meteor.publish('bookings.byRoom', (roomId, minDate, maxDate) => {
+Meteor.publish('bookings.byRoom', (search) => {
   new SimpleSchema({
     roomId: { type: String, regEx: SimpleSchema.RegEx.Id },
     minDate: { type: Date },
     maxDate: { type: Date },
-  }).validate({ roomId, minDate, maxDate });
+  }).validate(search);
+
+  const { roomId } = search;
+  let { minDate, maxDate } = search;
+
+  if (maxDate === null || maxDate === undefined ||
+    (moment(minDate).format('DD-MM-YYYY') === moment(maxDate).format('DD-MM-YYYY'))
+    || (moment(maxDate).isBefore(minDate))) {
+    const surround = surroundingDates(minDate);
+    minDate = surround.minDate;
+    maxDate = surround.maxDate;
+  }
 
   const query = {
     roomId,
-    bookingDate: { $gt: minDate, $lt: maxDate },
+    bookingDate: {
+      $gt: toDayBegin(minDate),
+      $lt: toDayEnd(maxDate),
+    },
   };
 
   return Bookings.find(query);
@@ -78,6 +92,8 @@ Meteor.publish('bookings.byDate', (bookingDate) => {
   return Bookings.find(query);
 });
 
+
+// OBSOLETE => bookings.search
 Meteor.publish('bookings.search', (search) => {
   new SimpleSchema({
     bookingDate: { type: Date },

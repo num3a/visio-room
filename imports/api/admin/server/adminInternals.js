@@ -58,7 +58,7 @@ export default class AdminInternals {
         let room = Rooms.findOne({ _id: roomId});
         //TODO: check data
         if(room == null){
-            throw new Meteor.Error('No bookings available for booking id: ' + roomId);
+            throw new Meteor.Error('No bookings available for booking.json id: ' + roomId);
         }
 
         return room;
@@ -68,7 +68,7 @@ export default class AdminInternals {
         let booking = Bookings.findOne({ _id: bookingId});
         //TODO: check data
         if(booking == null){
-            throw new Meteor.Error('No bookings available for booking id: ' + bookingId);
+            throw new Meteor.Error('No bookings available for booking.json id: ' + bookingId);
         }
 
         return booking;
@@ -83,7 +83,7 @@ export default class AdminInternals {
 
         Bookings.update({_id: bookingId}, updateBookingQuery, (error, result) => {
             if(error){
-                throw new Meteor.Error('An error occured when updating booking');
+                throw new Meteor.Error('An error occured when updating booking.json');
             }
             console.log('result', result);
         });

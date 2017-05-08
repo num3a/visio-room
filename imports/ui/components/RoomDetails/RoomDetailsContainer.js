@@ -57,7 +57,7 @@ class RoomDetails extends Component {
             toggle={() => this.toggleAvailability()}
           />
           <RoomBooking
-            roomId={this.props.roomId}
+            roomId={this.props.room._id}
           />
         </div>
         <AdditionalInfos

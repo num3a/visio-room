@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import BookingPayment from './BookingPayment';
-import BookingSelection from './BookingSelection';
+import BookingSelector from './BookingSelector';
+
 import { selectedBookingChanged, selectedVoucherChanged } from '../../../actions/booking';
 
 class RoomBooking extends Component {
   render() {
     if (!this.props.bookingId) {
-      return (<BookingSelection
+      return (<BookingSelector
         roomId={this.props.roomId}
       />);
     }
@@ -25,9 +26,12 @@ class RoomBooking extends Component {
   }
 }
 
-const RoomBookingContainer = createContainer(({ roomId }) => ({
-  roomId,
-}), RoomBooking);
+const RoomBookingContainer = createContainer((props) => {
+  const { roomId } = props;
+  return {
+    roomId,
+  };
+}, RoomBooking);
 
 const mapStateToProps = state => ({
   bookingId: state.booking.bookingId,

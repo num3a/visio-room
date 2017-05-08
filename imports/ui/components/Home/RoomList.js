@@ -8,6 +8,7 @@ class RoomList extends Component {
   renderCards() {
     return (
       this.props.rooms.map((room) => {
+
         const staticImageUrl =
           room.location ? staticMarkerImage(room.location[0], room.location[1], 300, 225)
             : 'http://placehold.it/350x225';

@@ -46,13 +46,12 @@ const HomeContainer = createContainer((props) => {
   };
 
   const bookingsHandle = Meteor.subscribe('bookings.searchWithDates', search);
-  const roomHandle = Meteor.subscribe('bookings.availableRoomIds', search);
+  const roomHandle = Meteor.subscribe('bookings.  availableRoomIds', search);
 
   const loadingBooking = !bookingsHandle.ready();
   const loadingRooms = !roomHandle.ready();
 
   const bookings = Bookings.find({}).fetch();
-  // const rooms = _.uniqBy(bookings.map(booking => booking.room), '_id');
   const rooms = Rooms.find({}).fetch();
 
   return {

@@ -89,7 +89,7 @@ export default class BookingInternals {
 
     Bookings.update({ _id: bookingId }, updateBookingQuery, (error, result) => {
       if (error) {
-        throw new Meteor.Error('An error occured when updating booking');
+        throw new Meteor.Error('An error occured when updating booking.json');
       }
       console.log('result', result);
     });
@@ -152,7 +152,7 @@ export default class BookingInternals {
 
     Bookings.update({ _id: booking._id }, updateBookingQuery, (error, result) => {
       if (error) {
-        throw new Meteor.Error('An error occured when updating booking');
+        throw new Meteor.Error('An error occured when updating booking.json');
       }
       console.log('result', result);
     });

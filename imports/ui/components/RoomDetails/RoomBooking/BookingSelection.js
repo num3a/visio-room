@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { selectedBookingChanged } from '../../../actions/booking';
 import { Bookings } from '../../../../api/bookings/bookings';
-import { addDays } from '../../../../common/utils/dateUtils';
+import BookingSelector from './BookingSelector';
+
 import BookingTable from './BookingTable';
 
 class BookingSelection extends Component {
@@ -13,6 +15,7 @@ class BookingSelection extends Component {
     dispatch(selectedBookingChanged(booking._id));
   }
 
+  // TODO: block
   renderBookings (bookings) {
     return (<BookingTable
       bookings={bookings}
@@ -26,7 +29,7 @@ class BookingSelection extends Component {
     }
 
     return (
-      <div className="container">
+      <div className="column is-6">
         <div className="subtitle is-3">Select a booking date</div>
         <div className="box">
           {this.renderBookings(bookings)}
@@ -37,24 +40,35 @@ class BookingSelection extends Component {
 }
 
 
-const BookingSelectionContainer = createContainer(({ roomId }) => {
+const BookingSelectionContainer = createContainer((props) => {
+  const { roomId } = props;
+  const minDate = props.selectedStartDate ? props.selectedStartDate.toDate() : moment().toDate();
+  const maxDate = props.selectedEndDate ? props.selectedEndDate.toDate() : null;
 
-  const now = moment().toDate();
-  const maxDate = addDays(now, 30);
+  const search = {
+    roomId,
+    minDate,
+    maxDate,
+  };
 
-  // TODO: get booking by date range
-  const bookingHandle = Meteor.subscribe('bookings.byRoom', roomId, now, maxDate);
-  const bookings = Bookings.find({ roomId }).fetch();
+  const bookingsHandle = Meteor.subscribe('bookings.byRoom', search);
+  const loadingBooking = !bookingsHandle.ready();
+  const bookings = Bookings.find({}).fetch();
+
+
   return {
     isAuthenticated: Meteor.userId(),
+    currentUser: Meteor.user(),
     bookings: bookings || [],
-    loadingBookings: !bookingHandle.ready(),
-    roomId,
+    loadingBooking,
   };
 }, BookingSelection);
 
 
 const mapStateToProps = state => ({
+  selectedStartDate: state.booking.selectedStartDate,
+  selectedEndDate: state.booking.selectedEndDate,
+  capacity: state.booking.capacity,
 });
 
 export default connect(mapStateToProps)(BookingSelectionContainer);

@@ -82,7 +82,13 @@ const BookingManagerContainer = createContainer(({ selectedRoomId }) => {
   const now = moment().toDate();
   const maxDate = addDays(now, 31);
 
-  const bookingHandle = Meteor.subscribe('bookings.byRoom', selectedRoomId, now, maxDate);
+  const search = {
+    roomId: selectedRoomId,
+    minDate: now,
+    maxDate,
+  };
+
+  const bookingHandle = Meteor.subscribe('bookings.byRoom', search);
 
   return {
     isAuthenticated: Meteor.userId(),
