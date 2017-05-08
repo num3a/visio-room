@@ -7,6 +7,9 @@ const AddPaymentCard = (props) => (
     <form onSubmit={props.onSubmit}>
       <div className="field">
         <p className="control">
+          <label className="label">
+            {props.t('form_code')}
+          </label>
           <input
             className="input"
             type="text"
@@ -18,6 +21,9 @@ const AddPaymentCard = (props) => (
       </div>
       <div className="field">
         <p className="control">
+          <label className="label">
+            {props.t('form_month')}
+          </label>
           <input className="input" type="text" placeholder="Month"
                  size={2}
                  defaultValue="10"
@@ -26,6 +32,9 @@ const AddPaymentCard = (props) => (
       </div>
       <div className="field">
         <p className="control">
+          <label className="label">
+            {props.t('form_year')}
+          </label>
           <input className="input" type="text" placeholder="Year"
                  defaultValue={2018}
                  size="2" data-stripe="exp_year"/>
@@ -33,6 +42,9 @@ const AddPaymentCard = (props) => (
       </div>
       <div className="field">
         <p className="control">
+          <label className="label">
+            {props.t('form_cvc')}
+          </label>
           <input className="input"
                  defaultValue={133}
                  type="text"
@@ -45,12 +57,12 @@ const AddPaymentCard = (props) => (
           <button
             type="submit"
             className={classnames('button', 'is-primary', props.loading ? 'is-loading': '')}
-          >Submit</button>
+          >{props.t('form_submit')}</button>
         </p>
       </div>
     </form>
   </div>
 );
 
-export default translate(['nav'], { wait: true })(AddPaymentCard);
+export default translate(['payment'], { wait: true })(AddPaymentCard);
 

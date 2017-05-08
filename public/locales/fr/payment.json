@@ -4,5 +4,11 @@
   "expiration_date": "Date d'expiration",
   "action": "Action",
   "action_delete": "Supprimer",
-  "add_card": "Ajouter une carte"
+  "add_card": "Ajouter une carte",
+  "add_payment_card": "Ajouter un moyen de paiement",
+  "form_code": "Code",
+  "form_month": "Mois",
+  "form_year": "Année",
+  "form_cvc": "CVC",
+  "form_submit": "Valider"
 }

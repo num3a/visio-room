@@ -23,8 +23,7 @@ const images = [
 ];
 
 const RoomDetails = props => (
-  <div className="container">
-    <div className="columns">
+
       <div className="column is-6">
         <div className="title is-2">{props.name}</div>
         <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
@@ -39,8 +38,6 @@ const RoomDetails = props => (
           />
         </div>
       </div>
-    </div>
-  </div>
 );
 
 RoomDetails.propType = {

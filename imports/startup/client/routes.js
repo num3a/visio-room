@@ -8,14 +8,13 @@ import ScrollToTop from '../../common/ScrollToTop';
 // route components
 import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';
-import HomeContainer from '../../ui/components/Home2/HomeContainer';
+import HomeContainer from '../../ui/components/Home';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import DiscoverContainer from '../../ui/components/Discover';
 import PaymentsContainer from '../../ui/components/Payments';
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
 import LogOutContainer from '../../ui/components/Logout';
-import ChangeLanguage from '../../ui/components/ChangeLanguage';
 
 // ADMIN
 import AdministrationContainer from '../../ui/components/Administration';

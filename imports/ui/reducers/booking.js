@@ -4,6 +4,7 @@ import * as types from '../actions/actionTypes';
 const initialSate = {
   roomId: '',
   bookingId: null,
+  bookings: [],
   openBookingModal: false,
   voucher: null,
   voucherIsValid: false,

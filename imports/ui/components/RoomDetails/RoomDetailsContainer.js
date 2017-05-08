@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { staticMarkerImage } from '../../../common/utils/googleMaps';
 import Details from './RoomDetails';
 import RoomBooking from './RoomBooking';
-import RoomAdditionalInfos from './RoomAdditionalInfos';
 import AdditionalInfos from './AdditionalInformations';
 import { toggleAvailability, resetAvailability, selectedBookingChanged, selectedCardChanged } from '../../actions/booking';
 import { Bookings } from '../../../api/bookings/bookings';
@@ -48,8 +47,8 @@ class RoomDetails extends Component {
     }
     const staticImageUrl = this.getBigPicture();
     return (
-      <div>
-        { !this.props.availability && !this.props.bookingId ?
+      <div className="container">
+        <div className="columns">
           <Details
             bigPicture={staticImageUrl}
             description={this.props.room.description}
@@ -57,11 +56,10 @@ class RoomDetails extends Component {
             pricePerDay={this.props.room.pricePerDay}
             toggle={() => this.toggleAvailability()}
           />
-          :
           <RoomBooking
             roomId={this.props.roomId}
           />
-        }
+        </div>
         <AdditionalInfos
           roomId={this.props.room._id} />
       </div>

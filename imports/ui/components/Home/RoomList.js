@@ -15,9 +15,11 @@ class RoomList extends Component {
         return (
           <RoomCard
             key={room._id}
-            room={room}
+            roomId={room._id}
             staticImageUrl={staticImageUrl}
-
+            name={room.name}
+            pricePerDay={room.pricePerDay}
+            capacity={room.capacity}
           />
         );
       })
