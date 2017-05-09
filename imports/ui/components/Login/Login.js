@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { translate } from 'react-i18next';
+import { PropTypes } from 'prop-types';
 
 const Login = (props) => {
-  const { t } = props;
+  const { t, isModal } = props;
+
   return (<div>
-    <h1 className="title">
-      {t('login_title')}
-    </h1>
+    { !isModal ?
+      <h1 className="title">
+        {t('login_title')}
+      </h1>
+      : <span/>
+    }
     <div className="box">
       <form onSubmit={event => props.onLoginFormSubmit(event)}>
         <label className="label">
@@ -25,7 +30,7 @@ const Login = (props) => {
         <hr />
         <p className="control">
           <button type="submit" className="button is-primary">
-            {t('login')}
+            {t('login_button')}
           </button>
         </p>
       </form>
@@ -52,6 +57,10 @@ const Login = (props) => {
       <a href="#">{t('forgot_password')}</a>
     </p>
   </div>);
+};
+
+Login.propsType = {
+  isModal: PropTypes.bool.isRequired,
 };
 
 export default translate(['login'], { wait: true })(Login);

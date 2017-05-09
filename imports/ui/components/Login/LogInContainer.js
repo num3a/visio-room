@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import LogIn from './Login';
 import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Router, browserHistory } from 'react-router-dom';
-import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-
-import { createContainer } from 'meteor/react-meteor-data';
+import { closeLoginModal } from '../../actions/login';
+import LogIn from './Login';
 // TODO: add meteor data system
 
 class Container extends Component {
@@ -33,6 +32,9 @@ class Container extends Component {
       if (error) {
         console.log(error.reason);
         this.setState({ errorMessage: error.reason });
+      }  else if (this.props.isModal) {
+        const { dispatch } = this.props;
+        dispatch(closeLoginModal());
       } else {
         this.redirectToReferrer();
       }
@@ -49,17 +51,31 @@ class Container extends Component {
     }, (error) => {
       if (error) {
         console.log('oauth error', error);
+      } else if (this.props.isModal) {
+        const { dispatch } = this.props;
+        dispatch(closeLoginModal());
       } else {
         this.redirectToReferrer();
       }
     });
   }
   render() {
+    if (this.props.isModal) {
+      return (<div>
+        <LogIn
+          onLoginFormSubmit={event => this.onLoginFormSubmit(event)}
+          onOAuthClick={() => this._handleOAuth()}
+          errorMessage={this.state.errorMessage}
+        />
+      </div>);
+    }
+
     return (
       <div className="container">
         <div className="columns is-vcentered">
           <div className="column is-6 is-offset-3">
             <LogIn
+              isModal={this.props.isModal}
               onLoginFormSubmit={event => this.onLoginFormSubmit(event)}
               onOAuthClick={() => this._handleOAuth()}
               errorMessage={this.state.errorMessage}

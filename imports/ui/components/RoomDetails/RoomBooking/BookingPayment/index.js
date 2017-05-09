@@ -8,10 +8,13 @@ import SelectedBookingDetails from '../SelectedBookingDetails';
 import Voucher from './Voucher';
 import PaymentCardList from './PaymentCardList';
 import BookingPaymentRoomDetails from './BookingPaymentRoomDetails';
+import { openLoginModal, closeLoginModal } from '../../../../actions/login';
 
 class BookingPayment extends Component {
   onLogin() {
-    this.props.history.push('/login');
+    const { dispatch } = this.props;
+    dispatch(openLoginModal());
+
   }
   // TODO: open login modal
   render() {
@@ -31,7 +34,9 @@ class BookingPayment extends Component {
               />
             </div>
             :
-            <div>PLEASE LOGIN</div>
+            <div>
+              <button className="button is-primary" onClick={() => this.onLogin()} >Log In</button>
+            </div>
           }
         </PaymentCardList>
 

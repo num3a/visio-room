@@ -80,15 +80,29 @@ class Container extends Component {
   }
 
   render() {
-    return (
-      <div>
+
+    if (this.props.isModal) {
+      return (<div>
         <SignUp
           onOAuthClick={() => this._handleOAuth()}
           errorMessage={this.state.errorMessage}
           onSignUpFormSubmit={event => this.onSignUpFormSubmit(event)}
         />
-      </div>
-    );
+      </div>);
+    }
+
+    return (
+      <div className="container">
+        <div className="columns is-vcentered">
+          <div className="column is-6 is-offset-3">
+            <SignUp
+              onOAuthClick={() => this._handleOAuth()}
+              errorMessage={this.state.errorMessage}
+              onSignUpFormSubmit={event => this.onSignUpFormSubmit(event)}
+            />
+          </div>
+        </div>
+      </div>);
   }
 }
 
