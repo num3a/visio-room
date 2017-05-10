@@ -3,6 +3,10 @@ import ImageGallery from 'react-image-gallery';
 
 const images = [
   {
+    original: 'http://cdn-s3.bureauspot.com/uploads/photo/image/488/meero_photographe_immobilier-18.jpg',
+    thumbnail: 'http://cdn-s3.bureauspot.com/uploads/photo/image/488/meero_photographe_immobilier-18.jpg',
+  },
+  {
     original: 'http://lorempixel.com/1000/600/nature/1/',
     thumbnail: 'http://lorempixel.com/250/150/nature/1/',
   },

@@ -6,7 +6,7 @@ const ProfileInformations = (props) => (
     <header className="card-header">
     </header>
     <div className="card-content">
-      <a className="card-avatar">
+      <a className="image is-128x128 avatar">
         <img src={props.avatar} className="card-avatar-img" />
       </a>
 

@@ -3,7 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import { Bookings } from '../bookings';
 import _ from 'lodash';
-
+import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
 const getAvailableRoomsIds = (startDate, endDate, capacity) => {
   new SimpleSchema({
     startDate: { type: Date },
@@ -21,7 +21,7 @@ const getAvailableRoomsIds = (startDate, endDate, capacity) => {
     isBooked: false,
     isBlocked: false,
     capacity: { $gt: capacity - 1 },
-    bookingDate: { $gt: from.toDate(), $lte: to.toDate() },
+    bookingDate: { $gt: from.toDate(), $lt: to.toDate() },
   };
   const bookings = Bookings.find(dateQuery, { disableOplog: true, }).fetch();
 

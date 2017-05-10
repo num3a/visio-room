@@ -21,6 +21,13 @@ class SelectedBookingDetails extends Component {
 }
 
 const SelectedBookingDetailsContainer = createContainer(({ bookingId }) => {
+  if (!bookingId) {
+    return {
+      isAuthenticated: Meteor.userId(),
+      booking: [],
+      loadingBookings: false,
+    };
+  }
   const bookingHandle = Meteor.subscribe('bookings.byId', bookingId);
   return {
     isAuthenticated: Meteor.userId(),

@@ -9,7 +9,7 @@ import { selectedStartDateChanged, selectedEndDateChanged, addToBookingList, rem
 import { notificationOpenError } from '../../../../actions/notification';
 import BookingTable from './BookingTable';
 import SelectorValidateControl from './SelectorValidateControl';
-
+import SelectorHeader from './SelectorHeader';
 
 class BookingSelector extends Component {
   constructor() {
@@ -109,6 +109,7 @@ class BookingSelector extends Component {
 
     return (
       <div className="is-centered">
+        <SelectorHeader />
         <Selector
           initialStartDate={moment().add(1, 'days')}
           startDate={this.props.selectedStartDate}

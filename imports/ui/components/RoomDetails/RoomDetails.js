@@ -9,16 +9,20 @@ const marginBottom = { marginBottom: '15px' };
 
 const images = [
   {
-    original: 'http://lorempixel.com/1000/600/nature/1/',
-    thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+    original: 'http://cdn-s3.bureauspot.com/uploads/photo/image/488/meero_photographe_immobilier-18.jpg',
+    thumbnail: 'http://cdn-s3.bureauspot.com/uploads/photo/image/488/meero_photographe_immobilier-18.jpg',
   },
   {
-    original: 'http://lorempixel.com/1000/600/nature/2/',
-    thumbnail: 'http://lorempixel.com/250/150/nature/2/',
+    original: 'http://cdn-s3.bureauspot.com/uploads/photo/image/486/meero_photographe_immobilier-26.jpg',
+    thumbnail: 'http://cdn-s3.bureauspot.com/uploads/photo/image/486/meero_photographe_immobilier-26.jpg',
   },
   {
-    original: 'http://lorempixel.com/1000/600/nature/3/',
-    thumbnail: 'http://lorempixel.com/250/150/nature/3/',
+    original: 'http://cdn-s3.bureauspot.com/uploads/photo/image/487/meero_photographe_immobilier-23.jpg',
+    thumbnail: 'http://cdn-s3.bureauspot.com/uploads/photo/image/487/meero_photographe_immobilier-23.jpg',
+  },
+  {
+    original: 'http://cdn-s3.bureauspot.com/uploads/photo/image/749/photo1-94952.jpg',
+    thumbnail: 'http://cdn-s3.bureauspot.com/uploads/photo/image/749/photo1-94952.jpg',
   },
 ];
 
@@ -26,7 +30,9 @@ const RoomDetails = props => (
 
   <div className="column is-6">
     <div className="title is-2">{props.name}</div>
-    <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
+    {/*
+     <p className="title is-3 has-text-muted">{props.pricePerDay} €</p>
+    */}
     <hr />
     <br />
     <div className="image is-2by2" style={marginBottom}>

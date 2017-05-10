@@ -6,17 +6,23 @@ import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 
 
-const BookingSelector = (props) => (
-  <div>
-    <DateRangePicker
-      startDate={props.startDate}
-      endDate={props.endDate}
-      onDatesChange={props.onDatesChange}
-      focusedInput={props.focusedInput}
-      onFocusChange={props.onFocusChange}
-      minimumNights={0}
-      isDayBlocked={props.dayIsBlocked}
-    />
+const BookingSelector = props => (
+  <div className="is-inline-flex" >
+    <div className="subtitle is-3">
+      {props.t('selection_table_header_date')}:
+    </div>
+    <div style={{ marginLeft: 10 }}>
+      <DateRangePicker
+        startDate={props.startDate}
+        endDate={props.endDate}
+        onDatesChange={props.onDatesChange}
+        focusedInput={props.focusedInput}
+        onFocusChange={props.onFocusChange}
+        minimumNights={0}
+        isDayBlocked={props.dayIsBlocked}
+      />
+    </div>
+    <hr />
   </div>
 );
 

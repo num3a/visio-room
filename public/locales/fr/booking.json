@@ -8,6 +8,7 @@
   "selection_table_button_book": "Réserver",
   "selection_table_button_booked": "Déjà réservé",
   "selection_table_button_unavailable": "Non disponible",
-  "selection_table_button_available": "Disponible"
+  "selection_table_button_available": "Disponible",
+  "booking_title": "Votre réservation",
 
 }

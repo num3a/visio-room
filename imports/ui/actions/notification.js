@@ -51,5 +51,5 @@ export {
   notificationOpenError,
   notificationOpenSuccess,
   notificationClose,
-  notificationMessageChanged
-}
+  notificationMessageChanged,
+};

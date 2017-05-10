@@ -10,6 +10,7 @@
   "selection_table_button_booked": "Booked",
 
   "selection_table_button_unavailable": "Unavailable",
-  "selection_table_button_available": "Available"
+  "selection_table_button_available": "Available",
 
+  "booking_title": "Your booking"
 }

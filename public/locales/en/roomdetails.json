@@ -2,6 +2,13 @@
   "info_tab_overview": "Overview",
   "info_tab_equipments": "Equipments",
   "info_tab_access_details": "Access Details",
-  "info_tab_reviews": "Reviews"
+  "info_tab_reviews": "Reviews",
+  "no_reviews": "No reviews",
+
+  "equipment_wifi": "Wi-Fi",
+  "equipment_disabled_people": "Accessibility",
+  "equipment_ac": "A/C",
+  "equipment_printer": "Printer",
+  "equipment_coffee": "Coffee"
 
 }
