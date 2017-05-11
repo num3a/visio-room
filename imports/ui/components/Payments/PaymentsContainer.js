@@ -46,6 +46,9 @@ class Payments extends Component {
 
   render() {
     return (<div className="container">
+      <div className="box">
+
+
       <h1 className="title">{this.props.t('title')}</h1>
       <div className="box" >
         {this._renderPayments()}
@@ -53,6 +56,7 @@ class Payments extends Component {
       <PaymentsControl
         openAddCardModal={() => this.openAddCardModal()}
         />
+      </div>
     </div>);
   }
 }

@@ -83,8 +83,11 @@ const NavBar = (props) => {
         className="nav-item"
         to="/"
       >
-        {t('app_title')}
+        {t('app_title')} <span style={{ fontSize:12, marginLeft: 5, color: 'grey' }}>with</span>
       </NavLink>
+      <a className="nav-item is-brand" target="_blank" href="https://www.lacompagnie.com">
+        <img src="/assets/lacompagnie/logos/logo_blanc/LOGO_LC_WHITE_112_17.png" width={112} height={17} />
+      </a>
     </div>
     <span className={classNames('nav-toggle', { 'is-active': props.openMobileNavBar })} onClick={props.toggleMobileNavBar}>
       <span />

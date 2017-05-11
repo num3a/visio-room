@@ -8,9 +8,12 @@ class Administration extends Component {
 
   render() {
     return (<div className="container">
+
       <div className="columns">
         <div className="column is-3">
-          <AdminLeftMenu />
+          <div className="box">
+            <AdminLeftMenu />
+          </div>
         </div>
         <div className="column is-9">
           {this.props.children}

@@ -143,39 +143,6 @@ class Nav extends Component {
     );
   }
 
-  renderr() {
-    const { t } = this.props;
-    return (<nav className="nav has-shadow">
-      <div className="nav-left">
-        <NavLink
-          onClick={() => this.closeMobileNavBar()}
-          className="nav-item"
-          to="/"
-        >
-          VisioRoom Beta
-        </NavLink>
-      </div>
-
-      {/*
-       <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-       <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-       */}
-      <span className={classNames('nav-toggle', { 'is-active': this.props.openMobileNavBar })} onClick={() => this.toggleMobileNavBar()}>
-        <span />
-        <span />
-        <span />
-      </span>
-      {/*
-       <!-- This "nav-menu" is hidden on mobile -->
-       <!-- Add the modifier "is-active" to display it on mobile -->
-       */}
-
-      <div className={classNames('nav-right', 'nav-menu', { 'is-active': this.props.openMobileNavBar })}>
-        {this.renderMenuItems()}
-      </div>
-    </nav>);
-  }
-
   render() {
     const menus = this.getMenus();
     const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');

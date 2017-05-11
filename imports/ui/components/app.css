@@ -6,6 +6,13 @@
     bottom: 0;
 }
 .main {
-    background-color: #f5f8fa;
+    /*background-color: #f5f8fa;
+    background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.6)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('/assets/lacompagnie/visuels/avion_diag_exterieur.jpg');
+    */
+    background: url('/assets/lacompagnie/visuels/avion_diag_exterieur_2048.jpg')  no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     min-height: 100%;
 }

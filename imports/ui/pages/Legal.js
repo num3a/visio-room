@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 const Legal = props => (
   <div className="container">
+    <div className="box">
+
     <div className="content">
       <p>
         <h1> Mentions Légales </h1>
@@ -25,6 +27,8 @@ const Legal = props => (
 
       </p>
     </div>
+    </div>
+
   </div>
 );
 

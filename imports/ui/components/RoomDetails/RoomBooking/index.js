@@ -6,24 +6,56 @@ import BookingSelector from './BookingSelector';
 
 import { selectedBookingChanged, selectedVoucherChanged } from '../../../actions/booking';
 
+
 class RoomBooking extends Component {
-  render() {
+  renderBookingSelector() {
+    return   <BookingSelector
+      roomId={this.props.roomId}
+    />;
+  }
+
+  renderBookingPayment() {
+    return (<BookingPayment
+      roomId={this.props.roomId}
+    />);
+  }
+
+  render(){
+    return(
+      <div className="column is-6">
+        <div className="box">
+          {this.renderBookingSelector()}
+          {this.renderBookingPayment()}
+        </div>
+      </div>
+    );
+  }
+  /*
+  oldRender() {
     if (!this.props.bookingList || this.props.bookingList.length === 0) {
       return (
         <div className="column is-6">
-          <BookingSelector
-            roomId={this.props.roomId}
-          />
+          <div className="box">
+            <BookingSelector
+              roomId={this.props.roomId}
+            />
+          </div>
+
         </div>);
     }
 
     return (
       <div className="column is-6">
-        <BookingPayment
-          roomId={this.props.roomId}
-        />
+        <div className="box">
+          <BookingPayment
+            roomId={this.props.roomId}
+          />
+        </div>
+
       </div>);
   }
+
+  */
 
   componentWillUnmount() {
     const { dispatch } = this.props;
