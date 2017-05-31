@@ -79,7 +79,6 @@ class PaymentInternals {
       throw new Meteor.Error(`No token found for tokenId: ${tokenId} and userId: ${userId}`);
     }
 
-
     PaymentTokens.update({ _id: tokenId }, revokeTokenQuery, (error, result) => {
       if (error) {
         throw new Meteor.Error('An error occured when updating payment tokens');
@@ -91,26 +90,10 @@ class PaymentInternals {
   }
 
   createCustomer(token, paymentToken) {
-    /*
-
-     this.stripeInstance.customers.create({
-     email: emailAddress,
-     description: 'Customer for ' + emailAddress,
-     metadata: {'userId': Meteor.userId()},
-     source: token // obtained with Stripe.js
-     }, function(err, customer) {
-     if(err){
-     throw new Meteor.Error(err.message);
-     }
-     else {
-
-     }
-     });
-     * */
-
     const { firstName, lastName } = Meteor.user().profile;
     const email = getFirstEmail(Meteor.user());
-    const wrappedCustomerCreate = Meteor.wrapAsync(this.stripeInstance.customers.create, this.stripeInstance.customers);
+    const wrappedCustomerCreate =
+      Meteor.wrapAsync(this.stripeInstance.customers.create, this.stripeInstance.customers);
 
     let customer = null;
 
@@ -147,9 +130,7 @@ class PaymentInternals {
       customerId: { type: String },
     }).validate(charge);
 
-    // var token = request.body.stripeToken; // Using Express
     const { amount, currency, description, customerId } = charge;
-
     const newCharge = this.stripeInstance.charges.create({
       amount: amount * 100,
       currency,
@@ -160,8 +141,6 @@ class PaymentInternals {
         throw new Meteor.Error(err.message);
       } else {
         return charge;
-
-        //
       }
     });
 
@@ -177,10 +156,7 @@ class PaymentInternals {
   }
 }
 
-
 /*
- *
- *
  *        return PaymentInternals.createCustomer(customer);
  },
  'payments.getCustomer'(email){

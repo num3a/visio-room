@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { createContainer } from 'meteor/react-meteor-data';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { PaymentTokens } from '../../../../../api/payments/paymentTokens';
-import FlatButton from 'material-ui/FlatButton';
 import { openAddCardModal } from '../../../../actions/payments';
 import { selectedCardChanged } from '../../../../actions/booking';
-import _ from 'lodash';
-import { grey500, green500, red500 } from 'material-ui/styles/colors';
 
 class PaymentCardList extends Component {
   componentWillMount() {
@@ -33,17 +32,14 @@ class PaymentCardList extends Component {
   }
 
   renderCardList() {
-    // TODO: change to SelectField
     if (this.props.paymentTokens.length == 0) {
       return <div />;
     }
 
     const { paymentTokens, loadingTokens } = this.props;
-
     const firstCard = paymentTokens[0];
 
     return (<div>
-
       <RadioButtonGroup
         name="payments" defaultSelected={firstCard.customerId}
         onChange={(event, value) => this.onSelectedCardChange(value)}
@@ -73,7 +69,6 @@ class PaymentCardList extends Component {
     </div>);
   }
 }
-
 
 const PaymentCardListContainer = createContainer(() => {
   const userId = Meteor.userId();

@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
 import { LocationSchema } from '../common/schema/location';
 
 class PaymentTokensCollection extends Mongo.Collection {
