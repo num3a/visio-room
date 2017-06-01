@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
+import { translate } from 'react-i18next';
 import moment from 'moment';
 import { Bookings } from '../../../../../api/bookings/bookings';
 import Selector from './BookingSelector';
 import { selectedStartDateChanged, selectedEndDateChanged, addToBookingList, removeFromBookingList, updateBookingList } from '../../../../actions/booking';
 import { notificationOpenError } from '../../../../actions/notification';
 import BookingTable from './BookingTable';
-import SelectorValidateControl from './SelectorValidateControl';
 import SelectorHeader from './SelectorHeader';
 
 class BookingSelector extends Component {
@@ -124,10 +124,6 @@ class BookingSelector extends Component {
           bookings={bookings}
           totalPrice={total}
         />
-        <SelectorValidateControl
-          isActive={validateIsActive}
-          validate={() => this.validateSelection()}
-        />
       </div>);
   }
 }
@@ -164,4 +160,5 @@ const mapStateToProps = state => ({
   capacity: state.booking.capacity,
 });
 
-export default connect(mapStateToProps)(BookingSelectorContainer);
+export default translate(['booking'], { wait: true })(connect(mapStateToProps)(BookingSelectorContainer));
+

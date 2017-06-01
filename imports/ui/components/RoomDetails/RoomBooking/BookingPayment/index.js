@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import CompletePayment from './CompletePayment';
 import { Rooms } from '../../../../../api/rooms/rooms';
-import SelectedBookingDetails from '../SelectedBookingDetails';
 import Voucher from './Voucher';
 import PaymentCardList from './PaymentCardList';
-import BookingPaymentRoomDetails from './BookingPaymentRoomDetails';
 import { openLoginModal, closeLoginModal } from '../../../../actions/login';
 
 class BookingPayment extends Component {
@@ -22,9 +20,6 @@ class BookingPayment extends Component {
       <div className="columns  is-multiline">
 
         <PaymentCardList >
-          <SelectedBookingDetails
-            bookingList={this.props.bookingList}
-            bookingId={this.props.bookingId} />
           {this.props.isAuthenticated ?
             <div>  <Voucher
               data={this.props.voucher}

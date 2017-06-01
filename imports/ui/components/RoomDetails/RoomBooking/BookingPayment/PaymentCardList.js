@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { translate } from 'react-i18next';
+
 import { createContainer } from 'meteor/react-meteor-data';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { PaymentTokens } from '../../../../../api/payments/paymentTokens';
@@ -36,7 +38,7 @@ class PaymentCardList extends Component {
       return <div />;
     }
 
-    const { paymentTokens, loadingTokens } = this.props;
+    const { paymentTokens, loadingTokens, t} = this.props;
     const firstCard = paymentTokens[0];
 
     return (<div>
@@ -53,15 +55,16 @@ class PaymentCardList extends Component {
           />);
         })}
       </RadioButtonGroup>
-      <div>
-        <a className="button is-primary" onClick={() => this.onAddCardClick()}>Add a payment card</a>
+      <div style={{marginTop: 10, marginBottom: 10}}>
+        <a className="button is-primary" onClick={() => this.onAddCardClick()}>{t('booking_payment_add')}</a>
       </div>
     </div>);
   }
 
   render() {
+    const { t } = this.props;
     return (<div className="column is-4">
-      <div className="subtitle is-4">Card list:</div>
+      <div className="subtitle is-4">{t('booking_payment_methods')}</div>
       {this.renderCardList()}
       <div>
         {this.props.children}
@@ -88,5 +91,5 @@ const PaymentCardListContainer = createContainer(() => {
 const mapStateToProps = state => ({
 });
 
-export default connect(mapStateToProps)(PaymentCardListContainer);
+export default translate(['booking'], { wait: true })(connect(mapStateToProps)(PaymentCardListContainer));
 

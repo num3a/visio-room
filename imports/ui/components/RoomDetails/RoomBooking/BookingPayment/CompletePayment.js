@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Checkbox from 'material-ui/Checkbox';
-
+import { translate } from 'react-i18next';
 import { closeBookingModal, openBookingModal, selectedBookingChanged, cguAccepted } from '../../../../actions/room';
 import { resetAvailability, updateBookingList } from '../../../../actions/booking';
 import { notificationOpenError } from '../../../../actions/notification';
@@ -22,9 +22,11 @@ class CompletePayment extends Component {
     dispatch(resetAvailability());
   }
 
-  onCGUChange(isInputChecked) {
+  onCGUChange(event) {
     const { dispatch } = this.props;
-    dispatch(cguAccepted(isInputChecked));
+    const cgu = event.target.value === 'on';
+
+    dispatch(cguAccepted(cgu));
   }
   completeBooking() {
     const code = this.props.voucher !== null && this.props.voucher.code !== null ? this.props.voucher.code : '';
@@ -32,7 +34,7 @@ class CompletePayment extends Component {
     const bookingData = {
       customerId: this.props.selectedCard.customerId,
       voucher: code,
-      bookingId: this.props.bookingId,
+      bookingList: this.props.bookingList,
       userId: Meteor.userId(),
     };
 
@@ -41,42 +43,41 @@ class CompletePayment extends Component {
     Meteor.apply('bookings.bookWithPayment', [bookingData], { noRetry: true }, (err, charge) => {
       console.log('bookings.err', err);
       console.log('bookings.data', charge);
-      if (err) {
+      //TODO: re plug errors
+     /* if (err) {
         dispatch(notificationOpenError(err.message));
       } else {
+      */
         dispatch(closeBookingModal());
         this.props.history.push('/profile');
-      }
+      /*}*/
     });
   }
 
   render() {
-    return (<div className="row">
-      <div className="col-sm-12">
+    const { t } = this.props;
+
+    return (
+      <div >
         <p>
 
-          <span>By using the service, I accepts the <a target="_blank" href="/cgu">CGU</a></span>
+          <input
+          onChange={(event, value) => this.onCGUChange(event)}
+          name="cgu"
+          type="checkbox"
+          />
+          <span style={{marginLeft: 5}}>{t('booking_payment_cgu_message')} <a target="_blank" href="/cgu">CGU</a></span>
         </p>
 
-        <Checkbox
-          label="I accept"
-          onCheck={(event, isInputChecked) => {
-            this.onCGUChange(isInputChecked);
-          }
-              }
-        />
-
         <div style={{ marginTop: 12 }}>
-          <a className="button is-danger" style={{ marginRight: 12 }} onClick={() => this.onCancel()}>Cancel</a>
-          <a
+          <button
             style={{ marginRight: 12 }}
             className="button is-success"
             disabled={this.props.cguAccepted === false || !this.props.selectedCard}
             onClick={() => this.completeBooking()}
-          >Complete</a>
+          >Complete</button>
         </div>
-      </div>
-    </div>);
+      </div>);
   }
 }
 
@@ -85,7 +86,8 @@ const mapStateToProps = state => ({
   selectedCard: state.booking.selectedCard,
   voucher: state.booking.voucher,
   bookingId: state.booking.bookingId,
+  bookingList: state.booking.bookingList,
 
 });
 
-export default withRouter(connect(mapStateToProps)(CompletePayment));
+export default translate(['booking'], { wait: true })(withRouter(connect(mapStateToProps)(CompletePayment)));

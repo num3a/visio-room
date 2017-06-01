@@ -12,5 +12,12 @@
   "selection_table_button_unavailable": "Unavailable",
   "selection_table_button_available": "Available",
 
-  "booking_title": "Your booking"
+  "booking_title": "Your booking",
+  "booking_payment_methods": "Payments cards",
+  "booking_payment_add": "Add a card",
+  "booking_payment_voucher": "Enter a voucher",
+  "booking_payment_cgu_message": "By using the service, I accepts the ",
+  "booking_payment_button_complete": "Complete"
+
+
 }

@@ -33,7 +33,6 @@ const SelectedBookingDetailsContainer = createContainer(({ bookingId }) => {
     isAuthenticated: Meteor.userId(),
     booking: Bookings.findOne({ _id: bookingId }),
     loadingBookings: !bookingHandle.ready(),
-
   };
 }, SelectedBookingDetails);
 

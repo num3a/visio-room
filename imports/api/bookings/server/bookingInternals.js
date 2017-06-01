@@ -32,8 +32,8 @@ export default class BookingInternals {
     return voucher;
   }
 
-  getBooking(bookingId) {
-    const booking = Bookings.findOne({ _id: bookingId, isBooked: false, isBlocked: false });
+  getBookings(bookingList) {
+    const booking = Bookings.find({ _id: { $in:  bookingList}, isBooked: false, isBlocked: false });
     // TODO: check data
     if (booking == null) {
       throw new Meteor.Error(`No bookings available for booking id: ${bookingId}`);
@@ -73,6 +73,10 @@ export default class BookingInternals {
       }
       console.log('result', result);
     });
+  }
+
+  updateBookingList(bookingList){
+
   }
 
   updateBooking(bookingId, voucher) {
@@ -176,13 +180,17 @@ export default class BookingInternals {
   }
 
   bookWithPayment(bookingWithPayment) {
+    //TODO: refactor app with multiple bookings
+
     let successful = false;
     let internalError = null;
     let chargeResult = null;
     // TODO: check has not been booked
 
     new SimpleSchema({
-      bookingId: { type: String, regEx: SimpleSchema.RegEx.Id },
+      bookingList: { type: Array, optional: true },
+      'bookingList.$': { type: String, regEx: SimpleSchema.RegEx.Id },
+     // bookingId: { type: A, regEx: SimpleSchema.RegEx.Id },
       userId: { type: String, regEx: SimpleSchema.RegEx.Id },
       voucher: { type: String, optional: true },
       customerId: { type: String },
@@ -191,12 +199,14 @@ export default class BookingInternals {
 
     this.checkUser(bookingWithPayment.userId);
 
-    const booking = this.getBooking(bookingWithPayment.bookingId);
+    const bookings = this.getBookings(bookingWithPayment.bookingId);
     const voucher = this.getVoucher(bookingWithPayment.voucher);
 
-    const amount = voucher === null ? booking.price :
-      this.applyDiscount(booking.price, voucher.percentage);
 
+    //TODO: bypass voucher
+    /*const amount = voucher === null ? booking.price :
+      this.applyDiscount(booking.price, voucher.percentage);*/
+    const amount = bookings.map((booking) => booking.pricePerDay).reduce((acc, price) => acc + price);
 
     const chargeData = {
       amount,
@@ -215,13 +225,19 @@ export default class BookingInternals {
         chargeResult = charge;
         successful = true;
 
-        const bookingId = booking._id;
-        this.updateBooking(bookingId, voucher);
+        //const bookingId = booking._id;
+        const bookingIds = bookings.map((booking) => booking._id);
+
+        bookingIds.forEach((item) => {
+          this.updateBooking(bookingId, voucher);
+        });
+
         if (voucher != null) {
           this.invalidateVoucher(voucher._id, bookingId);
         }
 
-        this.sendMailToUser(booking, voucher, chargeData);
+        //TODO: fix
+        this.sendMailToUser(bookings[0], voucher, chargeData);
       }
     });
 
