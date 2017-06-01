@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import _ from 'lodash';
-import RoomList from './RoomList';
 
+import RoomList from './RoomList';
 import SearchBarContainer from './SearchBar';
 import { Bookings } from '../../../api/bookings/bookings';
 import { Rooms } from '../../../api/rooms/rooms';
@@ -20,7 +20,11 @@ class Home extends Component {
     this.setState({ selectedDate: newSelectedDate });
   }
 
+  //async
   render() {
+   // const SearchBarContainer = await import('./SearchBar');
+    //const RoomList = await import('./RoomList');
+
     return (
       <div className="container">
         <SearchBarContainer
