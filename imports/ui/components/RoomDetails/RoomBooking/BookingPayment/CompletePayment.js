@@ -75,7 +75,7 @@ class CompletePayment extends Component {
             className="button is-success"
             disabled={this.props.cguAccepted === false || !this.props.selectedCard}
             onClick={() => this.completeBooking()}
-          >Complete</button>
+          >{t('booking_payment_button_complete')}</button>
         </div>
       </div>);
   }

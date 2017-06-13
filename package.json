@@ -2,7 +2,8 @@
   "name": "visio-room",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor run ",
+    "start-mlab": "meteor run --settings private/settings.json",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json",
     "lint": "eslint .",
     "pretest": "npm run lint --silent"

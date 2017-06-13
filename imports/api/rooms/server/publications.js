@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
+import SimpleSchema from 'simpl-schema';
 import { Rooms } from '../rooms.js';
 import { Bookings } from '../../bookings/bookings';
-import SimpleSchema from 'simpl-schema';
 
 import { surroundingDates } from '../../../common/utils/dateUtils';
 

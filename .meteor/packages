@@ -42,3 +42,4 @@ alanning:roles
 aldeed:collection2-core
 # dynamic-import
 mdg:meteor-apm-agent
+practicalmeteor:mocha
