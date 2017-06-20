@@ -33,13 +33,13 @@ export default class BookingInternals {
   }
 
   getBookings(bookingList) {
-    const booking = Bookings.find({ _id: { $in:  bookingList}, isBooked: false, isBlocked: false });
+    const bookings = Bookings.find({ _id: { $in:  bookingList}, isBooked: false, isBlocked: false });
     // TODO: check data
-    if (booking == null) {
+    if (bookings == null) {
       throw new Meteor.Error(`No bookings available for booking id: ${bookingId}`);
     }
 
-    return booking;
+    return bookings;
   }
 
   applyDiscount(price, percentage) {
@@ -103,7 +103,11 @@ export default class BookingInternals {
     const emailSender = new EmailInternals();
     emailSender.sendBookingConfirmation(booking, voucher, chargeData);
   }
-
+  
+  saveTransaction(bookings, chargeData){
+    
+  }
+  
   bookWithVoucher(bookWithVoucher) {
     const successful = false;
     let sent = false;
@@ -227,7 +231,9 @@ export default class BookingInternals {
 
         //const bookingId = booking._id;
         const bookingIds = bookings.map((booking) => booking._id);
-
+        
+        this.saveTransaction(bookings, chargeData);
+        
         bookingIds.forEach((item) => {
           this.updateBooking(bookingId, voucher);
         });
@@ -235,7 +241,7 @@ export default class BookingInternals {
         if (voucher != null) {
           this.invalidateVoucher(voucher._id, bookingId);
         }
-
+        
         //TODO: fix
         this.sendMailToUser(bookings[0], voucher, chargeData);
       }
