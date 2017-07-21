@@ -4,7 +4,7 @@ import PartnerInternals from './server/partnerInternals';
 const partnerInternals = new PartnerInternals();
 
 Meteor.methods({
-    'partners.createOrUpdate'(partner){
-        return partnerInternals.createOrUpdate(partner);
-    },
+  'partners.createOrUpdate'(partner){
+    return partnerInternals.createOrUpdate(partner);
+  },
 });
