@@ -26,10 +26,10 @@
     "meteor-node-stubs": "~0.2.0",
     "moment": "^2.15.1",
     "prop-types": "^15.5.7",
-    "react": "^15.5.4",
+    "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.5.2",
     "react-dates": "^10.1.1",
-    "react-dom": "^15.5.4",
+    "react-dom": "^15.6.1",
     "react-ga": "^2.1.2",
     "react-i18next": "^3.1.0",
     "react-image-gallery": "^0.7.15",
@@ -40,7 +40,9 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "simpl-schema": "^0.2.3",
-    "stripe": "^4.15.0"
+    "stripe": "^4.15.0",
+    "uniforms": "^1.19.1",
+    "uniforms-unstyled": "^1.19.1"
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",

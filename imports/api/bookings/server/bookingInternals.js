@@ -1,10 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
-
+import _ from 'lodash';
 import { Bookings } from '../bookings';
 import { Voucher } from '../../voucher/vouchers';
 import EmailInternals from '../../email/server/emailInternals';
+import PaymentInternals from '../../payments/server/paymentInternals';
+
+const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
 
 export default class BookingInternals {
   constructor() {
@@ -32,8 +35,8 @@ export default class BookingInternals {
     return voucher;
   }
 
-  getBookings(bookingList) {
-    const bookings = Bookings.find({ _id: { $in:  bookingList}, isBooked: false, isBlocked: false });
+  getBookings(bookingIds) {
+    const bookings = Bookings.find({ _id: { $in:  bookingIds}, isBooked: false, isBlocked: false });
     // TODO: check data
     if (bookings == null) {
       throw new Meteor.Error(`No bookings available for booking id: ${bookingId}`);
@@ -43,7 +46,8 @@ export default class BookingInternals {
   }
 
   applyDiscount(price, percentage) {
-    if (percentage == null) {
+
+    if (_.isNil(percentage)) {
       return price;
     }
 
@@ -54,7 +58,8 @@ export default class BookingInternals {
       return price;
     }
 
-    return price * percentage / 100;
+    const discountRatio = percentage / 100;
+    return price * discountRatio;
   }
 
   invalidateVoucher(voucherId, currentUserId, bookingId) {
@@ -75,12 +80,15 @@ export default class BookingInternals {
     });
   }
 
-  updateBookingList(bookingList){
-
+  updateBookingList(bookingList) {
+    if(bookingList == null){
+      throw new Meteor.Error('Booking list cannot be empty');
+    }
   }
 
+
   updateBooking(bookingId, voucher) {
-    const voucherId = voucher == null ? null : voucher._id;
+    const voucherId = _.isNil(voucher) ? null : voucher._id;
     const updateBookingQuery = {
       $set: {
         isBooked: true,
@@ -100,14 +108,15 @@ export default class BookingInternals {
   }
 
   sendMailToUser(booking, voucher, chargeData) {
+    // TODO: send booking list
     const emailSender = new EmailInternals();
     emailSender.sendBookingConfirmation(booking, voucher, chargeData);
   }
-  
+
   saveTransaction(bookings, chargeData){
-    
+    // TODO: save transaction in booking-transaction collection
   }
-  
+
   bookWithVoucher(bookWithVoucher) {
     const successful = false;
     let sent = false;
@@ -184,33 +193,48 @@ export default class BookingInternals {
   }
 
   bookWithPayment(bookingWithPayment) {
-    //TODO: refactor app with multiple bookings
-
-    let successful = false;
-    let internalError = null;
-    let chargeResult = null;
-    // TODO: check has not been booked
-
     new SimpleSchema({
       bookingList: { type: Array, optional: true },
       'bookingList.$': { type: String, regEx: SimpleSchema.RegEx.Id },
-     // bookingId: { type: A, regEx: SimpleSchema.RegEx.Id },
+      // bookingId: { type: A, regEx: SimpleSchema.RegEx.Id },
       userId: { type: String, regEx: SimpleSchema.RegEx.Id },
       voucher: { type: String, optional: true },
       customerId: { type: String },
       // TODO: add payment token infos to check tokens
     }).validate(bookingWithPayment);
 
+    // TODO: refactor app with multiple bookings
+
+    let successful = false;
+    let internalError = null;
+    let chargeResult = null;
+    // TODO: check has not been booked
+
+
+    // Check user validity
     this.checkUser(bookingWithPayment.userId);
 
-    const bookings = this.getBookings(bookingWithPayment.bookingId);
-    const voucher = this.getVoucher(bookingWithPayment.voucher);
+    // Get the booking list ids
+    const bookingIds = bookingWithPayment.bookingList
+      .map((item) => item._id);
+    const bookings = this.getBookings(bookingIds);
 
+    // Get the voucher object
+    const voucher = this.getVoucher(bookingWithPayment.voucher);
 
     //TODO: bypass voucher
     /*const amount = voucher === null ? booking.price :
       this.applyDiscount(booking.price, voucher.percentage);*/
-    const amount = bookings.map((booking) => booking.pricePerDay).reduce((acc, price) => acc + price);
+
+    // Calculate discount on first booking of the list
+    const amountToPay = bookings
+      .map((booking) => booking.pricePerDay)
+      .reduce((acc, price, index) => {
+        if(index === 0){
+          return acc + this.applyDiscount(price, voucher.percentage);
+        }
+        return acc + price;
+      });
 
     const chargeData = {
       amount,
@@ -219,6 +243,9 @@ export default class BookingInternals {
       customerId: bookingWithPayment.customerId,
     };
 
+    const paymentInstance = new PaymentInternals(stripeApiKey);
+
+    //TODO: remove call method, use paymentsInternals directly
     Meteor.call('payments.createCharge', chargeData, (err, charge) => {
       if (err) {
         console.log('payments.charge.err', err);
@@ -231,9 +258,9 @@ export default class BookingInternals {
 
         //const bookingId = booking._id;
         const bookingIds = bookings.map((booking) => booking._id);
-        
+
         this.saveTransaction(bookings, chargeData);
-        
+
         bookingIds.forEach((item) => {
           this.updateBooking(bookingId, voucher);
         });
@@ -241,7 +268,7 @@ export default class BookingInternals {
         if (voucher != null) {
           this.invalidateVoucher(voucher._id, bookingId);
         }
-        
+
         //TODO: fix
         this.sendMailToUser(bookings[0], voucher, chargeData);
       }
