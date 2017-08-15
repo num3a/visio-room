@@ -8,7 +8,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { translate } from 'react-i18next';
 import NavBar from './NavBar';
 
-import { PaymentTokens } from '../../../api/payments/paymentTokens';
+import { PaymentTokens } from '../../../api/payments/payment-token';
 import { closeDrawer } from '../../actions/drawer';
 import { toggleMobileNavBar, closeMobileNavBar } from '../../actions/navbar';
 import './navbar.less';

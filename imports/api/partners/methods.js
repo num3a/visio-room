@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import PartnerInternals from './server/partnerInternals';
+import PartnerInternals from './server/partner-internals';
 
 const partnerInternals = new PartnerInternals();
 

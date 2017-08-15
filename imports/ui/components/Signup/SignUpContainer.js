@@ -8,8 +8,6 @@ import { closeLoginModal } from '../../actions/login';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 
-// TODO: add meteor data system
-
 class Container extends Component {
   constructor() {
     super();
@@ -80,7 +78,6 @@ class Container extends Component {
   }
 
   render() {
-
     if (this.props.isModal) {
       return (<div>
         <SignUp

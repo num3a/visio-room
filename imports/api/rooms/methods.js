@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import RoomInternals from './server/roomInternals';
+import RoomInternals from './server/room-internals';
 
 const roomInternals = new RoomInternals();
 

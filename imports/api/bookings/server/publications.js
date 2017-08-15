@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { Bookings } from '../bookings.js';
 import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
-import { getAvailableRoomsIds } from './bookingSearch';
+import { getAvailableRoomsIds } from './booking-search';
 import { Rooms } from '../../rooms/rooms';
 
 Meteor.publish('bookings.all', () => Bookings.find({}));
@@ -40,9 +40,9 @@ Meteor.publish('bookings.byRoom', (search) => {
   return Bookings.find(query);
 });
 
-Meteor.publish('bookings.byUserId', function() {
+Meteor.publish('bookings.byUserId', () => {
   const query = {
-    bookedBy: this.userId,
+    bookedBy: Meteor.userId(),
   };
 
   const options = {

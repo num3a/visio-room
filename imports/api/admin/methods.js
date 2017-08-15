@@ -4,7 +4,7 @@ import { Bookings } from '../bookings/bookings';
 import { Voucher } from '../voucher/vouchers';
 import moment from 'moment';
 
-import AdminInternals from './server/adminInternals';
+import AdminInternals from './server/admin-internals';
 
 const adminInternals = new AdminInternals();
 

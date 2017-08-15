@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Profiles } from '../profile.js';
 
-Meteor.publish('profile.byConnectedUser', function () {
-  return Profiles.findOne(this.userId);
+Meteor.publish('profile.byConnectedUser',() => {
+  return Profiles.findOne(Meteor.userId());
 });

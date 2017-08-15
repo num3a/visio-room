@@ -16,7 +16,7 @@ import '../../api/email/methods';
 import '../../api/email/methods/bookings';
 
 import '../../api/payments/methods';
-import '../../api/payments/paymentTokens';
+import '../../api/payments/payment-token';
 import '../../api/payments/server/publications';
 
 import '../../api/admin/methods';

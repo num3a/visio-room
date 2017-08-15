@@ -1,7 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { PaymentTokens } from '../paymentTokens';
+import { PaymentTokens } from '../payment-token';
 import SimpleSchema from 'simpl-schema';
 
-Meteor.publish('payments.tokenByUser', function () {
-  return PaymentTokens.find({ userId: this.userId, expired: false });
-});
+Meteor.publish('payments.tokenByUser', () => PaymentTokens.find({ userId: Meteor.userId(), expired: false }));

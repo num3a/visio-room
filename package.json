@@ -6,6 +6,7 @@
     "start-c9-mlab": "meteor run --port $IP:$PORT --settings private/settings-c9.json",
     "start-mlab": "meteor run --settings private/settings.json",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json",
+    "test": "meteor test --driver-package practicalmeteor:mocha",
     "lint": "eslint .",
     "pretest": "npm run lint --silent"
   },
@@ -14,6 +15,7 @@
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "classnames": "^2.2.5",
+    "enzyme": "^2.9.1",
     "from": "^0.1.3",
     "history": "^4.6.1",
     "i18next": "^8.1.0",

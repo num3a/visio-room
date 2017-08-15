@@ -4,41 +4,32 @@ import moment from 'moment';
 import _ from 'lodash';
 import { Bookings } from '../bookings';
 import { Voucher } from '../../voucher/vouchers';
-import EmailInternals from '../../email/server/emailInternals';
-import PaymentInternals from '../../payments/server/paymentInternals';
+import EmailInternals from '../../email/server/email-internals';
+import PaymentInternals from '../../payments/server/payment-internals';
+// import BookingTransactionInternals from '../../bookings-transactions/bookings-transactions';
+import { checkByUserId } from '../../common/user';
 
 const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
 
 export default class BookingInternals {
-  constructor() {
 
-  }
-
-  checkUser(userId) {
-    const currentUserId = Meteor.userId();
-    if (!currentUserId) {
-      throw new Meteor.Error('User is not authenticated');
-    }
-
-    if (userId !== currentUserId) {
-      throw new Meteor.Error('Connected user does not match sended data.');
-    }
-  }
-
+  //
   getVoucher(code) {
     const voucher = Voucher.findOne({ isValid: true, code }, {});
 
-    if (voucher == null) {
+    if (_.isNil(voucher)) {
       console.log(`Cannot find a valid voucher with code${code}`);
       return null;
     }
     return voucher;
   }
 
+  // TODO: add booking service
   getBookings(bookingIds) {
     const bookings = Bookings.find({ _id: { $in:  bookingIds}, isBooked: false, isBlocked: false });
+
     // TODO: check data
-    if (bookings == null) {
+    if (_.isNil(bookings)) {
       throw new Meteor.Error(`No bookings available for booking id: ${bookingId}`);
     }
 
@@ -86,7 +77,6 @@ export default class BookingInternals {
     }
   }
 
-
   updateBooking(bookingId, voucher) {
     const voucherId = _.isNil(voucher) ? null : voucher._id;
     const updateBookingQuery = {
@@ -113,83 +103,10 @@ export default class BookingInternals {
     emailSender.sendBookingConfirmation(booking, voucher, chargeData);
   }
 
-  saveTransaction(bookings, chargeData){
+  saveTransaction() {
     // TODO: save transaction in booking-transaction collection
-  }
-
-  bookWithVoucher(bookWithVoucher) {
-    const successful = false;
-    let sent = false;
-
-    const currentUserId = Meteor.userId();
-    if (!currentUserId) {
-      throw new Meteor.Error('User is not authenticated');
-    }
-
-    new SimpleSchema({
-      bookingId: { type: String, regEx: SimpleSchema.RegEx.Id },
-      userId: { type: String, regEx: SimpleSchema.RegEx.Id },
-      code: { type: String },
-    }).validate(bookWithVoucher);
-
-    if (bookWithVoucher.userId !== currentUserId) {
-      throw new Meteor.Error('Connected user does not match sended data.');
-    }
-
-    const voucher = Voucher.findOne({ isValid: true, code: bookWithVoucher.code }, {});
-
-    if (voucher == null) {
-      throw new Meteor.Error(`Cannot find a valid voucher with code${bookWithVoucher.code}`);
-    }
-
-    const booking = Bookings.findOne({ _id: bookWithVoucher.bookingId, isBooked: false, isBlocked: false });
-    // TODO: check data
-    if (booking == null) {
-      throw new Meteor.Error(`No bookings available for booking id: ${bookWithVoucher.bookingId}`);
-    }
-    // doc ? Collection.update({_id: doc._id}, {$set: {field: value}})  : Collection.insert({owner: Meteor.userId(), field: value});
-    const updateBookingQuery = {
-      $set: {
-        isBooked: true,
-        bookedAt: moment().toDate(),
-        bookedBy: currentUserId,
-        voucherUsed: voucher._id,
-      },
-    };
-
-    const updateVoucherQuery = {
-      $set: {
-        isValid: false,
-        usedAt: moment().toDate(),
-        usedBy: currentUserId,
-        usedFor: bookWithVoucher.bookingId,
-      },
-    };
-
-
-    Bookings.update({ _id: booking._id }, updateBookingQuery, (error, result) => {
-      if (error) {
-        throw new Meteor.Error('An error occured when updating booking.json');
-      }
-      console.log('result', result);
-    });
-    Voucher.update({ _id: voucher._id }, updateVoucherQuery, (error, result) => {
-      if (error) {
-        throw new Meteor.Error('An error occured when updating voucher');
-      }
-      console.log('result', result);
-    });
-
-    Meteor.call('email.bookings.confirmation', booking, voucher, (error, result) => {
-      if (!error) {
-        sent = true;
-      }
-    });
-
-    return {
-      success: successful,
-      mailSent: sent,
-    };
+    // const bookingTransaction = new BookingTransactionInternals();
+    // bookingTransaction.saveTransaction();
   }
 
   bookWithPayment(bookingWithPayment) {
@@ -212,7 +129,8 @@ export default class BookingInternals {
 
 
     // Check user validity
-    this.checkUser(bookingWithPayment.userId);
+    checkByUserId(bookingWithPayment.userId);
+    // this.checkUser(bookingWithPayment.userId);
 
     // Get the booking list ids
     const bookingIds = bookingWithPayment.bookingList
@@ -223,7 +141,8 @@ export default class BookingInternals {
     const voucher = this.getVoucher(bookingWithPayment.voucher);
 
     //TODO: bypass voucher
-    /*const amount = voucher === null ? booking.price :
+    /*
+    const amount = voucher === null ? booking.price :
       this.applyDiscount(booking.price, voucher.percentage);*/
 
     // Calculate discount on first booking of the list

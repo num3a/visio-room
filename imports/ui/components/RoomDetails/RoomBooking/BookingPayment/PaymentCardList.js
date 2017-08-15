@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 
 import { createContainer } from 'meteor/react-meteor-data';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { PaymentTokens } from '../../../../../api/payments/paymentTokens';
+import { PaymentTokens } from '../../../../../api/payments/payment-token';
 import { openAddCardModal } from '../../../../actions/payments';
 import { selectedCardChanged } from '../../../../actions/booking';
 
