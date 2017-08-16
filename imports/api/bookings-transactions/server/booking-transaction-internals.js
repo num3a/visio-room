@@ -5,7 +5,7 @@ import { Bookings } from '../../bookings/bookings';
 import { Rooms } from '../../rooms/rooms';
 
 export default class BookingTransactionInternals {
-  saveTransaction(){
+  saveTransaction() {
     return null;
   }
 }

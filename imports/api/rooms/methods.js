@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import RoomInternals from './server/room-internals';
+import RoomInternals from './server/rooms-internals';
 
 const roomInternals = new RoomInternals();
 
 Meteor.methods({
-    'rooms.createOrUpdate'(room){
-        return roomInternals.createOrUpdate(room);
-    },
+  'rooms.createOrUpdate'(room) {
+    return roomInternals.createOrUpdate(room);
+  },
 });

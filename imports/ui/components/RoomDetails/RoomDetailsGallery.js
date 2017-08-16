@@ -20,7 +20,7 @@ const images = [
   },
 ];
 
-const RoomDetailsGallery = (props) => (
+const RoomDetailsGallery = props => (
   <div className="column is-6 is-hidden-mobile">
     <div className="image is-2by2">
       {/* <img src={props.bigPicture} />*/}

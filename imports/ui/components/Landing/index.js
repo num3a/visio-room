@@ -3,7 +3,7 @@ import Landing from './Landing';
 
 export {
     Landing,
-    LandingContainer
+    LandingContainer,
 };
 
 export default LandingContaier;

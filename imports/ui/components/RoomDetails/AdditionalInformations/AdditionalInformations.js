@@ -30,7 +30,7 @@ const AdditionalInfos = (props) => {
   }
   return (<div className="section main">
     <div className="container">
-      <div className="box" style={{minHeight: 400}}>
+      <div className="box" style={{ minHeight: 400 }}>
         <div className="tabs">
           <ul>
             <li

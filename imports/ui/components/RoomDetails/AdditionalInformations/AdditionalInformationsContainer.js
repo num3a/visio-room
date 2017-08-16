@@ -6,12 +6,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 
 import AdditionalInformations from './AdditionalInformations';
-import {staticMarkerImage} from '../../../../common/utils/googleMaps';
+import { staticMarkerImage } from '../../../../common/utils/googleMaps';
 
 class Informations extends Component {
 
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       activeTab: 'overview',

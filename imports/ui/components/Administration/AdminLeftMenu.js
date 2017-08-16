@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+
 class AdminLeftMenu extends Component {
   render() {
     return (<aside className="menu">
@@ -33,7 +34,7 @@ class AdminLeftMenu extends Component {
             activeClassName="is-active"
           >Creation</NavLink>
         </li>
-          <li><NavLink to="/admin/manage-bookings" activeClassName="is-active">Manage</NavLink></li>
+        <li><NavLink to="/admin/manage-bookings" activeClassName="is-active">Manage</NavLink></li>
         <li><a>Cloud Storage Environment Settings</a></li>
         <li><a>Authentication</a></li>
       </ul>

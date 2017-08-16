@@ -6,12 +6,12 @@ const isAdmin = () => {
 
 };
 
-const userRoles = ()  => {
+const userRoles = () => {
 
 };
 
 export {
   isRoomAdmin,
   isAdmin,
-  userRoles
+  userRoles,
 };

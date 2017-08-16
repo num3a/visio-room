@@ -70,8 +70,8 @@ export const renderRoutes = () => (
           <Route path="/unauthorized" component={NotAuthorized} />
           <AdminContainerWithRouter>
             <Route path="/admin/partners/:partnerId?" exact match component={PartnerCreateOrUpdateForm} />
-            <Route path="/admin/rooms/:roomId?" exact component={RoomCreateOrUpdateForm} />
-            <Route path="/admin/manage-bookings" exact component={BookingPanel} />
+            <Route path="/admin/rooms/:roomId?" exact match component={RoomCreateOrUpdateForm} />
+            <Route path="/admin/manage-bookings" exact match component={BookingPanel} />
           </AdminContainerWithRouter>
           <Route path="*" component={NotFoundPage} />
         </Switch>

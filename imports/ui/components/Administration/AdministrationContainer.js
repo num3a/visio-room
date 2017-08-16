@@ -1,4 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
@@ -23,6 +25,10 @@ class Administration extends Component {
   }
 }
 
+Administration.propsType = {
+  children: PropTypes.object.required,
+};
+
 const AdministrationContainer = createContainer(() => {
   const admin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
   const superAdmin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
@@ -30,6 +36,8 @@ const AdministrationContainer = createContainer(() => {
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
+    isAdmin: admin,
+    isSuperAdmin: superAdmin,
   };
 }, Administration);
 

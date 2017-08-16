@@ -62,7 +62,8 @@ class RoomDetails extends Component {
           />
         </div>
         <AdditionalInfos
-          roomId={this.props.room._id} />
+          roomId={this.props.room._id}
+        />
       </div>
     );
   }

@@ -1,53 +1,39 @@
 import * as types from './actionTypes';
 
-const selectedRoomChanged = (roomId) => {
-  return {
-    type: types.SELECTED_ROOM_CHANGED,
-    roomId: roomId
-  };
-};
+const selectedRoomChanged = roomId => ({
+  type: types.SELECTED_ROOM_CHANGED,
+  roomId,
+});
 
-const openBookingModal = () => {
-  return {
-    type: types.ROOM_OPEN_BOOKING_MODAL,
-    openBookingModal: true
-  };
-};
+const openBookingModal = () => ({
+  type: types.ROOM_OPEN_BOOKING_MODAL,
+  openBookingModal: true,
+});
 
-const closeBookingModal = () => {
-  return {
-    type: types.ROOM_OPEN_BOOKING_MODAL,
-    openBookingModal: false
-  };
-};
+const closeBookingModal = () => ({
+  type: types.ROOM_OPEN_BOOKING_MODAL,
+  openBookingModal: false,
+});
 
-const selectedBookingChanged = (bookingId) => {
-  return {
-    type: types.ROOM_SELECTED_BOOKING_CHANGED,
-    bookingId:bookingId,
-  };
-};
+const selectedBookingChanged = bookingId => ({
+  type: types.ROOM_SELECTED_BOOKING_CHANGED,
+  bookingId,
+});
 
-const selectedVoucherChanged = (voucher) => {
-  return {
-    type: types.ROOM_SELECTED_VOUCHER_CHANGED,
-    voucher: voucher,
-  };
-};
+const selectedVoucherChanged = voucher => ({
+  type: types.ROOM_SELECTED_VOUCHER_CHANGED,
+  voucher,
+});
 
-const voucherIsValid = (isValid) => {
-  return {
-    type: types.ROOM_VOUCHER_IS_VALID,
-    isValid: isValid,
-  };
-};
+const voucherIsValid = isValid => ({
+  type: types.ROOM_VOUCHER_IS_VALID,
+  isValid,
+});
 
-const cguAccepted = (accepted) => {
-  return {
-    type: types.ROOM_CGU_ACCEPTED,
-    accepted: accepted,
-  };
-};
+const cguAccepted = accepted => ({
+  type: types.ROOM_CGU_ACCEPTED,
+  accepted,
+});
 
 export {
   selectedRoomChanged,
@@ -57,4 +43,4 @@ export {
   selectedVoucherChanged,
   voucherIsValid,
   cguAccepted,
-}
+};

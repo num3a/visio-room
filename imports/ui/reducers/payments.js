@@ -10,7 +10,7 @@ const payments = (state = initialState, action = {}) => {
     case types.PAYMENTS_OPEN_ADD_CARD_MODAL:
       return {
         ...state,
-        openAddPaymentModal: action.openAddPaymentModal
+        openAddPaymentModal: action.openAddPaymentModal,
       };
     case types.PAYMENTS_LOADING_ADD_CARD:
       return {

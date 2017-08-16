@@ -40,9 +40,9 @@ const SignUp = (props) => {
       <label className="label">{t('continue_linkedin')}</label>
       <p className="control">
         <button className="button is-medium" onClick={props.onOAuthClick}>
-              <span className="icon">
-                <i className="fa fa-linkedin" />
-              </span>
+          <span className="icon">
+            <i className="fa fa-linkedin" />
+          </span>
           <span>Linkedin</span>
         </button>
       </p>

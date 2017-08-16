@@ -5,7 +5,7 @@ const initialSate = {
 };
 
 const searchReducer = (state = initialSate, action = {}) => {
-  switch (action.type){
+  switch (action.type) {
     case types.HOME_SEARCH_DATE_CHANGE:
       return {
         ...state,

@@ -21,8 +21,8 @@ const addToBookingList = bookingId => ({
 });
 
 const updateBookingList = bookingList => ({
-    type: types.BOOKING_UPDATE_BOOKING_LIST,
-    bookingList,
+  type: types.BOOKING_UPDATE_BOOKING_LIST,
+  bookingList,
 });
 
 const removeFromBookingList = bookingId => ({

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NotFoundPage = props => (
+const NotFoundPage = () => (
   <div className="container">
     <div className="box">
       <div className="content">

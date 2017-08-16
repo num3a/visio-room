@@ -6,7 +6,7 @@
     "start-c9-mlab": "meteor run --port $IP:$PORT --settings private/settings-c9.json",
     "start-mlab": "meteor run --settings private/settings.json",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json",
-    "test": "meteor test --driver-package practicalmeteor:mocha",
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 3002",
     "lint": "eslint .",
     "pretest": "npm run lint --silent"
   },

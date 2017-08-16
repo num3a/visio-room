@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Meteor }  from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import AutoForm from 'uniforms-unstyled/AutoForm';
 import { createContainer } from 'meteor/react-meteor-data';
 import { DropDown, Input, Hidden } from '../../../common/Form';
@@ -13,7 +13,7 @@ const onSubmitForm = (doc) => {
   console.log(JSON.stringify(doc));
 
 
-  //TODO: check id
+  // TODO: check id
   /*
   const id = doc._id.value;
   if (id !== '' && id !== null && id !== undefined) {

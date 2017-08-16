@@ -9,9 +9,9 @@ import { selectedBookingChanged, selectedVoucherChanged } from '../../../actions
 
 class RoomBooking extends Component {
   renderBookingSelector() {
-    return   <BookingSelector
+    return (<BookingSelector
       roomId={this.props.roomId}
-    />;
+    />);
   }
 
   renderBookingPayment() {
@@ -20,8 +20,8 @@ class RoomBooking extends Component {
     />);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="column is-6">
         <div className="box">
           {this.renderBookingSelector()}

@@ -11,7 +11,7 @@ const Login = (props) => {
       <h1 className="title">
         {t('login_title')}
       </h1>
-      : <span/>
+      : <span />
     }
     <div className="box">
       <form onSubmit={event => props.onLoginFormSubmit(event)}>

@@ -38,7 +38,7 @@ class PaymentCardList extends Component {
       return <div />;
     }
 
-    const { paymentTokens, loadingTokens, t} = this.props;
+    const { paymentTokens, loadingTokens, t } = this.props;
     const firstCard = paymentTokens[0];
 
     return (<div>
@@ -55,7 +55,7 @@ class PaymentCardList extends Component {
           />);
         })}
       </RadioButtonGroup>
-      <div style={{marginTop: 10, marginBottom: 10}}>
+      <div style={{ marginTop: 10, marginBottom: 10 }}>
         <a className="button is-primary" onClick={() => this.onAddCardClick()}>{t('booking_payment_add')}</a>
       </div>
     </div>);

@@ -118,8 +118,8 @@ class PaymentInternals {
     PaymentTokens.insert(paymentToken);
   }
 
-  createCard(data){
-    //TODO: create card on add card, create customer if customer does not exists
+  createCard(data) {
+    // TODO: create card on add card, create customer if customer does not exists
 
   }
   getCustomer(email) {

@@ -32,7 +32,7 @@ class Container extends Component {
       if (error) {
         console.log(error.reason);
         this.setState({ errorMessage: error.reason });
-      }  else if (this.props.isModal) {
+      } else if (this.props.isModal) {
         const { dispatch } = this.props;
         dispatch(closeLoginModal());
       } else {

@@ -6,7 +6,7 @@ const initialSate = {
 };
 
 const snackBarReducer = (state = initialSate, action = {}) => {
-  switch (action.type){
+  switch (action.type) {
     case types.SNACKBAR_ERROR_MESSAGE_CHANGED:
       return {
         ...state,

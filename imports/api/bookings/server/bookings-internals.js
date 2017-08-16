@@ -6,6 +6,8 @@ import { Bookings } from '../bookings';
 import { Voucher } from '../../voucher/vouchers';
 import EmailInternals from '../../email/server/email-internals';
 import PaymentInternals from '../../payments/server/payment-internals';
+import VoucherInternals from '../../voucher/server/voucher-internals';
+
 // import BookingTransactionInternals from '../../bookings-transactions/bookings-transactions';
 import { checkByUserId } from '../../common/user';
 
@@ -13,9 +15,10 @@ const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
 
 export default class BookingInternals {
 
-  //
+
   getVoucher(code) {
-    const voucher = Voucher.findOne({ isValid: true, code }, {});
+    const voucherInternals = new VoucherInternals();
+    const voucher = voucherInternals.getVoucherByCode(code);
 
     if (_.isNil(voucher)) {
       console.log(`Cannot find a valid voucher with code${code}`);
@@ -26,7 +29,7 @@ export default class BookingInternals {
 
   // TODO: add booking service
   getBookings(bookingIds) {
-    const bookings = Bookings.find({ _id: { $in:  bookingIds}, isBooked: false, isBlocked: false });
+    const bookings = Bookings.find({ _id: { $in: bookingIds }, isBooked: false, isBlocked: false });
 
     // TODO: check data
     if (_.isNil(bookings)) {
@@ -37,7 +40,6 @@ export default class BookingInternals {
   }
 
   applyDiscount(price, percentage) {
-
     if (_.isNil(percentage)) {
       return price;
     }
@@ -53,26 +55,8 @@ export default class BookingInternals {
     return price * discountRatio;
   }
 
-  invalidateVoucher(voucherId, currentUserId, bookingId) {
-    const updateVoucherQuery = {
-      $set: {
-        isValid: false,
-        usedAt: moment().toDate(),
-        usedBy: currentUserId,
-        usedFor: bookingId,
-      },
-    };
-
-    Voucher.update({ _id: voucherId }, updateVoucherQuery, (error, result) => {
-      if (error) {
-        throw new Meteor.Error('An error occured when updating voucher');
-      }
-      console.log('result', result);
-    });
-  }
-
   updateBookingList(bookingList) {
-    if(bookingList == null){
+    if (bookingList == null) {
       throw new Meteor.Error('Booking list cannot be empty');
     }
   }
@@ -85,7 +69,7 @@ export default class BookingInternals {
         bookedAt: moment().toDate(),
         bookedBy: Meteor.userId(),
         voucherUsed: voucherId,
-        //TODO: add price payed
+        // TODO: add price payed
       },
     };
 
@@ -134,22 +118,22 @@ export default class BookingInternals {
 
     // Get the booking list ids
     const bookingIds = bookingWithPayment.bookingList
-      .map((item) => item._id);
+      .map(item => item._id);
     const bookings = this.getBookings(bookingIds);
 
     // Get the voucher object
     const voucher = this.getVoucher(bookingWithPayment.voucher);
 
-    //TODO: bypass voucher
+    // TODO: bypass voucher
     /*
     const amount = voucher === null ? booking.price :
       this.applyDiscount(booking.price, voucher.percentage);*/
 
     // Calculate discount on first booking of the list
     const amountToPay = bookings
-      .map((booking) => booking.pricePerDay)
+      .map(booking => booking.pricePerDay)
       .reduce((acc, price, index) => {
-        if(index === 0){
+        if (index === 0) {
           return acc + this.applyDiscount(price, voucher.percentage);
         }
         return acc + price;
@@ -164,7 +148,7 @@ export default class BookingInternals {
 
     const paymentInstance = new PaymentInternals(stripeApiKey);
 
-    //TODO: remove call method, use paymentsInternals directly
+    // TODO: remove call method, use paymentsInternals directly
     Meteor.call('payments.createCharge', chargeData, (err, charge) => {
       if (err) {
         console.log('payments.charge.err', err);
@@ -175,8 +159,8 @@ export default class BookingInternals {
         chargeResult = charge;
         successful = true;
 
-        //const bookingId = booking._id;
-        const bookingIds = bookings.map((booking) => booking._id);
+        // const bookingId = booking._id;
+        const bookingIds = bookings.map(booking => booking._id);
 
         this.saveTransaction(bookings, chargeData);
 
@@ -185,10 +169,12 @@ export default class BookingInternals {
         });
 
         if (voucher != null) {
-          this.invalidateVoucher(voucher._id, bookingId);
+          const voucherInternals = new VoucherInternals();
+          voucherInternals.invalidateVoucher(voucher.id, bookingWithPayment.userId, bookingIds);
+          //this.invalidateVoucher(voucher._id, bookingId);
         }
 
-        //TODO: fix
+        // TODO: fix
         this.sendMailToUser(bookings[0], voucher, chargeData);
       }
     });

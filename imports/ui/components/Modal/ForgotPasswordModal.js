@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
-import {connect} from "react-redux";
-import { closeAddCardModal} from '../../actions/payments';
+import { connect } from 'react-redux';
+import { closeAddCardModal } from '../../actions/payments';
 import FlatButton from 'material-ui/FlatButton';
 import { closeForgotPasswordModal } from '../../actions/accounts';
-import ForgotPasswordContainer from "../Password/ForgotPasswordContainer";
+import ForgotPasswordContainer from '../Password/ForgotPasswordContainer';
 
 class ForgotPasswordModal extends Component {
 
-  _handleCloseDialog(){
+  _handleCloseDialog() {
     const { dispatch } = this.props;
     dispatch(closeForgotPasswordModal());
   }
 
-  render(){
+  render() {
     const { openForgotPasswordModal, dispatch } = this.props;
     const customContentStyle = {
       height: '100%',
@@ -26,19 +26,17 @@ class ForgotPasswordModal extends Component {
         modal={false}
         open={openForgotPasswordModal}
         contentStyle={customContentStyle}
-        onRequestClose={() => {this._handleCloseDialog()}}
+        onRequestClose={() => { this._handleCloseDialog(); }}
       >
-          <ForgotPasswordContainer/>
+        <ForgotPasswordContainer />
       </Dialog>
     );
   }
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    openForgotPasswordModal: state.accounts.openForgotPasswordModal,
-  };
-};
+const mapStateToProps = state => ({
+  openForgotPasswordModal: state.accounts.openForgotPasswordModal,
+});
 
 export default connect(mapStateToProps)(ForgotPasswordModal);

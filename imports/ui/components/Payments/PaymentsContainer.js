@@ -49,12 +49,12 @@ class Payments extends Component {
       <div className="box">
 
 
-      <h1 className="title">{this.props.t('title')}</h1>
-      <div className="box" >
-        {this._renderPayments()}
-      </div>
-      <PaymentsControl
-        openAddCardModal={() => this.openAddCardModal()}
+        <h1 className="title">{this.props.t('title')}</h1>
+        <div className="box" >
+          {this._renderPayments()}
+        </div>
+        <PaymentsControl
+          openAddCardModal={() => this.openAddCardModal()}
         />
       </div>
     </div>);
@@ -64,7 +64,7 @@ class Payments extends Component {
 
 const PaymentsContainer = createContainer(() => {
   const userId = Meteor.userId();
-  const tokenHandle = Meteor.subscribe('payments.tokenByUser') //, userId);
+  const tokenHandle = Meteor.subscribe('payments.tokenByUser'); // , userId);
   const loading = !tokenHandle.ready();
   const paymentTokens = PaymentTokens.find({ userId }).fetch();
 

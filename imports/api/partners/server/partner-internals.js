@@ -1,43 +1,37 @@
 import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
-import { Partners } from '../partners';
 import { Roles } from 'meteor/alanning:roles';
+import { Partners } from '../partners';
 
 export default class PartnerInternals {
-    constructor(){
+  createOrUpdate(partner) {
+    const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
 
+    if (!isAdmin) {
+      throw new Meteor.Error('User is not admin');
     }
 
-    createOrUpdate(partner) {
-        let isAdmin = Roles.userIsInRole(Meteor.userId(),'admin');
+    const schema = Partners.schema;
+    schema.validate(partner);
 
-        if(!isAdmin){
-            throw new Meteor.Error('User is not admin');
-        }
+    if (partner._id !== '' && partner._id !== null && partner._id !== undefined) {
+      const updatePartnerQuery = {
+        $set: {
+          ...partner,
+        },
+      };
 
-        let schema = Partners.schema;
-        schema.validate(partner);
-
-        if(partner._id !== '' && partner._id !== null && partner._id !== undefined){
-            let updatePartnerQuery = {
-                $set: {
-                    ...partner,
-                }
-            };
-
-           Partners.update({ _id: partner._id}, updatePartnerQuery);
-            return {
-                id: partner._id,
-                success: true
-            };
-        }
-        else {
-            let partnerId = Partners.insert(partner);
-
-            return {
-                id: partnerId,
-                success: true
-            };
-        }
+      Partners.update({ _id: partner._id }, updatePartnerQuery);
+      return {
+        id: partner._id,
+        success: true,
+      };
     }
+
+    const partnerId = Partners.insert(partner);
+
+    return {
+      id: partnerId,
+      success: true,
+    };
+  }
 }

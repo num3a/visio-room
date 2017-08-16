@@ -30,17 +30,17 @@ Rooms.schema = new SimpleSchema({
   capacity: { type: Number, optional: false },
   description: { type: String, optional: false },
   partnerId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-  createdAt: { type: Date, defaultValue: new Date(), optional: false},
+  createdAt: { type: Date, defaultValue: new Date(), optional: false },
   contactEmail: { type: String, regEx: SimpleSchema.RegEx.Email, optional: false },
   administrators: { type: Array, optional: true },
   'administrators.$': { type: String },
-  //TODO: add phone number, equipments, access details
+  // TODO: add phone number, equipments, access details
 }, { tracker: Tracker });
 
 Rooms.attachSchema(Rooms.schema);
 
-if(Meteor.isServer){
-  Rooms._ensureIndex({ "location": "2dsphere"});
+if (Meteor.isServer) {
+  Rooms._ensureIndex({ location: '2dsphere' });
 }
 
 // This represents the keys from YachtieProfiles objects that should be published

@@ -12,7 +12,6 @@ class BookingPayment extends Component {
   onLogin() {
     const { dispatch } = this.props;
     dispatch(openLoginModal());
-
   }
   // TODO: open login modal
   render() {
@@ -21,7 +20,7 @@ class BookingPayment extends Component {
 
         <PaymentCardList >
           {this.props.isAuthenticated ?
-            <div>  <Voucher
+            <div>            <Voucher
               data={this.props.voucher}
             />
               <CompletePayment

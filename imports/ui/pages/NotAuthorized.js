@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const NotAuthorized = (props) => (
+const NotAuthorized = props => (
   <div className="container">
     <div className="box">
       <div className="content">

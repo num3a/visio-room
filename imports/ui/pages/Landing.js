@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Landing = (props) => (
+const Landing = props => (
   <section className="hero is-fullheight is-dark">
     <div className="hero-head">
       <div className="container">/
@@ -13,9 +13,9 @@ const Landing = (props) => (
               </a>
             </div>
             <span className="nav-toggle">
-              <span/>
-              <span/>
-              <span/>
+              <span />
+              <span />
+              <span />
             </span>
             <div className="nav-right nav-menu">
               <a className="nav-item">
@@ -46,8 +46,10 @@ const Landing = (props) => (
         <div className="columns is-vcentered">
           <div className="column is-5">
             <figure className="image is-4by3">
-              <img src="https://images.unsplash.com/photo-1461669802687-84a1aee43a29?dpr=1&amp;auto=format&amp;crop=entropy&amp;fit=crop&amp;w=800&amp;h=600&amp;q=80"
-                   className="promo-img" alt="Description" />
+              <img
+                src="https://images.unsplash.com/photo-1461669802687-84a1aee43a29?dpr=1&amp;auto=format&amp;crop=entropy&amp;fit=crop&amp;w=800&amp;h=600&amp;q=80"
+                className="promo-img" alt="Description"
+              />
             </figure>
           </div>
           <div className="column is-6 is-offset-1">

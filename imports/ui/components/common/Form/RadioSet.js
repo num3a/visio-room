@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const RadioSet = (props) => (
+const RadioSet = props => (
   <div className="field">
     <label className="label">{props.label}</label>
     <p className="control">

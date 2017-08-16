@@ -1,12 +1,10 @@
 import * as types from './actionTypes';
 
-const messageChanged = (message) => {
-  return {
-    type: types.MESSAGE_CHANGED,
-    message: message
-  };
-};
+const messageChanged = message => ({
+  type: types.MESSAGE_CHANGED,
+  message,
+});
 
 export {
   messageChanged,
-}
+};

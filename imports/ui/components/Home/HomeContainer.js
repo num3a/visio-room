@@ -20,10 +20,10 @@ class Home extends Component {
     this.setState({ selectedDate: newSelectedDate });
   }
 
-  //async
+  // async
   render() {
    // const SearchBarContainer = await import('./SearchBar');
-    //const RoomList = await import('./RoomList');
+    // const RoomList = await import('./RoomList');
 
     return (
       <div className="container">
@@ -75,4 +75,4 @@ const mapStateToProps = state => ({
   capacity: state.booking.capacity,
 });
 
-export default  connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps)(HomeContainer);

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-const Footer = (props) => (
+const Footer = props => (
   <footer className="footer">
     <div className="container">
       <div className="has-text-centered">

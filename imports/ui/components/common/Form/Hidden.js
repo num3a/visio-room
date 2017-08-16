@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const Hidden = (props) => (
-  <input type="hidden" name={props.name} value={props.value} required={props.required}/>
+const Hidden = props => (
+  <input type="hidden" name={props.name} value={props.value} required={props.required} />
 );
 
 Hidden.propTypes = {

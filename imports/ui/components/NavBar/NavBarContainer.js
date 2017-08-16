@@ -94,7 +94,6 @@ class Nav extends Component {
     return <div />;
   }
 
-
   toggleMobileNavBar() {
     const { dispatch } = this.props;
     dispatch(toggleMobileNavBar());
@@ -175,7 +174,7 @@ const NavBarContainer = createContainer(() => {
 
 const mapStateToProps = state => ({
   openMobileNavBar: state.navbar.openMobileNavBar,
-  //TODO: map payment token exists to display badge warning
+  // TODO: map payment token exists to display badge warning
 });
 
 export default withRouter(connect(mapStateToProps)(NavBarContainer));

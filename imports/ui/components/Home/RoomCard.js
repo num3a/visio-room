@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { translate } from 'react-i18next';
+
 const marginLeft = { marginLeft: '5px' };
 
 const RoomCard = props => (

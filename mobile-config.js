@@ -1,12 +1,12 @@
-
-    App.info({
-        id: 'com.visio.room.app',
-        name: 'VisioRoom',
-        description: '',
-        author: 'Emmanuel ERNEST',
-        email: 'contact@example.com',
-        website: 'http://example.com'
-    });
+/* eslint-disable no-undef */
+App.info({
+  id: 'com.visio.room.app',
+  name: 'VisioRoom',
+  description: '',
+  author: 'Emmanuel ERNEST',
+  email: 'contact@example.com',
+  website: 'http://example.com',
+});
 // Set up resources such as icons and launch screens.
 
     /*
@@ -22,7 +22,7 @@ App.launchScreens({
 });
 */
 
-    App.accessRule('https://*.stripe.com/*');
+App.accessRule('https://*.stripe.com/*');
 
     // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0xff0000ff');

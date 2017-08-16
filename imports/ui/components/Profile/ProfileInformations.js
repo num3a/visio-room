@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 
-const ProfileInformations = (props) => (
+const ProfileInformations = props => (
   <div className="card is-fullwidth">
-    <header className="card-header">
-    </header>
+    <header className="card-header" />
     <div className="card-content">
       <a className="image is-128x128 avatar">
         <img src={props.avatar} className="card-avatar-img" />

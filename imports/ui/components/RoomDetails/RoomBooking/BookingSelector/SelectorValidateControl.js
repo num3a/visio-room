@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import classnames from 'classnames';
 import { PropTypes } from 'prop-types';
 
-const SelectorValidateControl = (props) => (
+const SelectorValidateControl = props => (
   <div>
     <button className={classnames('button', 'is-primary', props.isActive ? '' : 'is-disabled')} onClick={props.validate}>
       {props.t('selection_validate')}

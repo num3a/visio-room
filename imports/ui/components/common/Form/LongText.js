@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const LongText = (props) => (
+const LongText = props => (
   <div className="field">
     <label className="label">{props.name}</label>
     <p className="control">

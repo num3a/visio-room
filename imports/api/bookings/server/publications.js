@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { Bookings } from '../bookings.js';
 import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
-import { getAvailableRoomsIds } from './booking-search';
+import { getAvailableRoomsIds } from './bookings-search';
 import { Rooms } from '../../rooms/rooms';
 
 Meteor.publish('bookings.all', () => Bookings.find({}));
@@ -25,8 +25,7 @@ Meteor.publish('bookings.byRoom', (search) => {
     const surround = surroundingDates(minDate);
     minDate = surround.minDate;
     maxDate = surround.maxDate;
-  }
-  else {
+  } else {
     maxDate = toDayEnd(maxDate);
   }
   const query = {

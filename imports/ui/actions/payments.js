@@ -1,25 +1,19 @@
 import * as types from './actionTypes';
 
-const openAddCardModal = () => {
-  return {
-    type: types.PAYMENTS_OPEN_ADD_CARD_MODAL,
-    openAddPaymentModal: true
-  };
-};
+const openAddCardModal = () => ({
+  type: types.PAYMENTS_OPEN_ADD_CARD_MODAL,
+  openAddPaymentModal: true,
+});
 
-const loadingAddCard  = (loadingAddCard) => {
-  return {
-    type: types.PAYMENTS_LOADING_ADD_CARD,
-    loadingAddCard: loadingAddCard,
-  }
-};
+const loadingAddCard = loadingAddCard => ({
+  type: types.PAYMENTS_LOADING_ADD_CARD,
+  loadingAddCard,
+});
 
-const closeAddCardModal = () => {
-  return {
-    type: types.PAYMENTS_CLOSE_ADD_CARD_MODAL,
-    openAddPaymentModal: false
-  };
-};
+const closeAddCardModal = () => ({
+  type: types.PAYMENTS_CLOSE_ADD_CARD_MODAL,
+  openAddPaymentModal: false,
+});
 
 
 export {

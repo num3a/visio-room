@@ -29,7 +29,7 @@ const disconnectedMenus = () => ([
 
 ]);
 
-const connectedMenus = (isAdmin) => ([
+const connectedMenus = isAdmin => ([
   {
     id: 1,
     name: 'home',
@@ -83,7 +83,7 @@ const NavBar = (props) => {
         className="nav-item"
         to="/"
       >
-        {t('app_title')} <span style={{ fontSize:12, marginLeft: 5, color: 'grey' }}>with</span>
+        {t('app_title')} <span style={{ fontSize: 12, marginLeft: 5, color: 'grey' }}>with</span>
       </NavLink>
       <a className="nav-item is-brand" target="_blank" href="https://www.lacompagnie.com">
         <img src="/assets/lacompagnie/logos/logo_blanc/LOGO_LC_WHITE_112_17.png" width={112} height={17} />

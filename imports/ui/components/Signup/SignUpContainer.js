@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import SignUp from './SignUp';
+import { connect } from 'react-redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
-import { Router, browerHistory } from 'react-router-dom';
 import { createContainer } from 'meteor/react-meteor-data';
+
 import { closeLoginModal } from '../../actions/login';
-import { connect } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
+import SignUp from './SignUp';
 
 class Container extends Component {
   constructor() {

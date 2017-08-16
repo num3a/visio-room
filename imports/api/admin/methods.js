@@ -9,7 +9,7 @@ import AdminInternals from './server/admin-internals';
 const adminInternals = new AdminInternals();
 
 Meteor.methods({
-    'admin.toggleBooking'(toggleBooking){
-        return adminInternals.toggleBooking(toggleBooking);
-    },
+  'admin.toggleBooking'(toggleBooking) {
+    return adminInternals.toggleBooking(toggleBooking);
+  },
 });
