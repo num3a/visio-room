@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import BookingInternals from './server/bookings-internals';
+import BookingInternals from './server/bookings-service';
 
 const bookingInternals = new BookingInternals();
 

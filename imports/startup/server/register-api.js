@@ -1,25 +1,16 @@
-import '../../api/bookings/bookings';
-import '../../api/bookings/server/publications';
-import '../../api/bookings/methods';
+import '../../api/bookings';
 
-import '../../api/rooms/rooms';
-import '../../api/rooms/server/publications';
-import '../../api/rooms/methods';
+import '../../api/rooms';
 
-import '../../api/voucher/vouchers';
-import '../../api/voucher/server/publications';
-import '../../api/voucher/methods';
+import '../../api/voucher';
 
-import '../../api/signup/methods';
+import '../../api/signup';
 
-import '../../api/email/methods';
-import '../../api/email/methods/bookings';
+import '../../api/email';
 
-import '../../api/payments/methods';
-import '../../api/payments/payment-token';
-import '../../api/payments/server/publications';
+import '../../api/payments';
 
-import '../../api/admin/methods';
+import '../../api/admin';
 
 import '../../api/partners/partners';
 import '../../api/partners/methods';

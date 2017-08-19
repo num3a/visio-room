@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import PaymentInternals from './server/payment-internals';
+import PaymentInternals from './server/payment-service';
 
 const stripeKey = 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 

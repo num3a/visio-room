@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Stripe } from 'stripe';
 import SimpleSchema from 'simpl-schema';
 
-import { PaymentTokens } from '../../payment-token';
-import { getFirstEmail } from '../../../../common/emailHelper';
+import { PaymentTokens } from '../payment-token';
+import { getFirstEmail } from '../../../common/emailHelper';
 
 // const stripe = require("stripe")("sk_test_XpBlmXOXgKrcpz0MBUVM4E13");
 

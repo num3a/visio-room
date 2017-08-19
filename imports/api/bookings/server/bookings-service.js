@@ -3,9 +3,8 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import _ from 'lodash';
 import { Bookings } from '../bookings';
-import { Voucher } from '../../voucher/vouchers';
 import EmailInternals from '../../email/server/email-internals';
-import PaymentInternals from '../../payments/server/payment-internals';
+import PaymentInternals from '../../payments/server/payment-service';
 import VoucherInternals from '../../voucher/server/voucher-internals';
 
 // import BookingTransactionInternals from '../../bookings-transactions/bookings-transactions';
@@ -13,7 +12,7 @@ import { checkByUserId } from '../../common/user';
 
 const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
 
-export default class BookingInternals {
+export default class BookingService {
 
 
   getVoucher(code) {
