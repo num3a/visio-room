@@ -5,7 +5,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Rooms } from '../../../../../api/rooms/rooms';
+import { Rooms } from '../../../../../api/rooms/rooms-collection';
 import { selectedRoomChanged } from '../../../../actions/admin';
 
 class RoomSelector extends Component {

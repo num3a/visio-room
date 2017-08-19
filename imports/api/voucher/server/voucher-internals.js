@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import _ from 'lodash';
-import { Voucher } from '../vouchers';
+import { Voucher } from '../vouchers-collection';
 import { checkByUserId } from '../../common/user';
 
 export default class VoucherInternals {

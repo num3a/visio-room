@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
 import { SSR } from 'meteor/meteorhacks:ssr';
-import { Rooms } from '../rooms/rooms';
+import { Rooms } from '../rooms/rooms-collection';
 
 SSR.compileTemplate('htmlEmail', Assets.getText('templates/bookingConfirmation.html'));
 /*

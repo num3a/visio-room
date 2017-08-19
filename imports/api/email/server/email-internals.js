@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Bookings } from '../../bookings/bookings';
-import { Voucher } from '../../voucher/vouchers';
-import { Rooms } from '../../rooms/rooms';
+import { Bookings } from '../../bookings/bookings-collection';
+import { Voucher } from '../../voucher/vouchers-collection';
+import { Rooms } from '../../rooms/rooms-collection';
 import { SSR } from 'meteor/meteorhacks:ssr';
 
 import moment from 'moment';

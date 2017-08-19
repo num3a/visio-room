@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Bookings } from '../../../../../api/bookings/bookings';
+import { Bookings } from '../../../../../api/bookings/bookings-collection';
 
 import { addDays } from '../../../../../common/utils/dateUtils';
 import moment from 'moment';

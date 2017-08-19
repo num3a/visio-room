@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Rooms } from '../../../../api/rooms/rooms';
+import { Rooms } from '../../../../api/rooms/rooms-collection';
 
 import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';

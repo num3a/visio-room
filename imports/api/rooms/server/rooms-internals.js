@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import moment from 'moment';
-import { Rooms } from '../rooms';
+import { Rooms } from '../rooms-collection';
 
 export default class PartnerInternals {
 

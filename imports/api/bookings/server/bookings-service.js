@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import _ from 'lodash';
-import { Bookings } from '../bookings';
+import { Bookings } from '../bookings-collection';
 import EmailInternals from '../../email/server/email-internals';
 import PaymentInternals from '../../payments/server/payment-service';
 import VoucherInternals from '../../voucher/server/voucher-internals';

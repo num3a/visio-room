@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { translate } from 'react-i18next';
 import moment from 'moment';
-import { Bookings } from '../../../../../api/bookings/bookings';
+import { Bookings } from '../../../../../api/bookings/bookings-collection';
 import Selector from './BookingSelector';
 import { selectedStartDateChanged, selectedEndDateChanged, addToBookingList, removeFromBookingList, updateBookingList } from '../../../../actions/booking';
 import { notificationOpenError } from '../../../../actions/notification';

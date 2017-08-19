@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import CompletePayment from './CompletePayment';
-import { Rooms } from '../../../../../api/rooms/rooms';
+import { Rooms } from '../../../../../api/rooms/rooms-collection';
 import Voucher from './Voucher';
 import PaymentCardList from './PaymentCardList';
 import { openLoginModal, closeLoginModal } from '../../../../actions/login';

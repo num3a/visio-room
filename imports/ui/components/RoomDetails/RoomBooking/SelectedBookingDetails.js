@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
-import { Bookings } from '../../../../api/bookings/bookings';
+import { Bookings } from '../../../../api/bookings/bookings-collection';
 
 class SelectedBookingDetails extends Component {
   render() {

@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 
-import { Bookings } from '../bookings.js';
+import { Bookings } from '../bookings-collection.js';
 import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
 import { getAvailableRoomsIds } from './bookings-search';
-import { Rooms } from '../../rooms/rooms';
+import { Rooms } from '../../rooms/rooms-collection';
 
 Meteor.publish('bookings.all', () => Bookings.find({}));
 

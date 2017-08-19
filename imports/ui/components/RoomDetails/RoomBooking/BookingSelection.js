@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import { selectedBookingChanged } from '../../../actions/booking';
-import { Bookings } from '../../../../api/bookings/bookings';
+import { Bookings } from '../../../../api/bookings/bookings-collection';
 import BookingSelector from './BookingSelector';
 
 import BookingTable from './BookingTable';

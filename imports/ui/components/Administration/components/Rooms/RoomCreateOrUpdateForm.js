@@ -4,8 +4,8 @@ import { DropDown, Input, Hidden } from '../../../common/Form';
 import { getProp } from '../../../common/Form/Helpers';
 
 import { createContainer } from 'meteor/react-meteor-data';
-import { Partners } from '../../../../../api/partners/partners';
-import { Rooms } from '../../../../../api/rooms/rooms';
+import { Partners } from '../../../../../api/partners/partners-collection';
+import { Rooms } from '../../../../../api/rooms/rooms-collection';
 
 class RoomCreateOrUpdateForm extends Component {
   onSubmitForm(e) {

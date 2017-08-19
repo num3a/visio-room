@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
-import { Bookings } from '../bookings';
+import { Bookings } from '../bookings-collection';
 import _ from 'lodash';
 import { surroundingDates, toDayBegin, toDayEnd } from '../../../common/utils/dateUtils';
 

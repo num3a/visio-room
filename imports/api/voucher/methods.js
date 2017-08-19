@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Voucher } from './vouchers';
+import { Voucher } from './vouchers-collection';
 
 Meteor.methods({
   'voucher.validate'(code) {

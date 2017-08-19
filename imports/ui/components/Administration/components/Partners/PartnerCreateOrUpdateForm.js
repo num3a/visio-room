@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import AutoForm from 'uniforms-unstyled/AutoForm';
 import { createContainer } from 'meteor/react-meteor-data';
 import { DropDown, Input, Hidden } from '../../../common/Form';
-import { Partners } from '../../../../../api/partners/partners';
+import { Partners } from '../../../../../api/partners/partners-collection';
 import { getProp } from '../../../common/Form/Helpers';
 
 const PartnerSchema = Partners.schema;

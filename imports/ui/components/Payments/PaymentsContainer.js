@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
-import { PaymentTokens } from '../../../api/payments/payment-token';
+import { PaymentTokens } from '../../../api/payments/payment-token-collection';
 import { notificationOpenError } from '../../actions/notification';
 import { closeAddCardModal, openAddCardModal } from '../../actions/payments';
 import PaymentTable from './PaymentTable';

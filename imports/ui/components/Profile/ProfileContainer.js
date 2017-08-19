@@ -6,8 +6,8 @@ import _ from 'lodash';
 import { translate } from 'react-i18next';
 import ProfileInformations from './ProfileInformations';
 import History from './History';
-import { Bookings } from '../../../api/bookings/bookings';
-import { Rooms } from '../../../api/rooms/rooms';
+import { Bookings } from '../../../api/bookings/bookings-collection';
+import { Rooms } from '../../../api/rooms/rooms-collection';
 
 class Profile extends Component {
   getRoomById(roomId) {

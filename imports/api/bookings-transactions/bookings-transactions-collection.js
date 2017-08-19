@@ -1,8 +1,8 @@
 import { Mongo } from 'meteor/mongo';
 import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
-import { Rooms } from '../rooms/rooms';
-import { Booking } from '../bookings/bookings';
+import { Rooms } from '../rooms/rooms-collection';
+import { Booking } from '../bookings/bookings-collection';
 
 class BookingsTransactionsCollection extends Mongo.Collection {
   insert(list, callback) {

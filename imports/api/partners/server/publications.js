@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Partners } from '../partners';
+import { Partners } from '../partners-collection';
 import SimpleSchema from 'simpl-schema';
 
 Meteor.publish('partners.getIdWithName', () => Partners.find({}, { fields: { _id: 1, name: 1 } }));

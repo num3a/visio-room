@@ -7,8 +7,8 @@ import _ from 'lodash';
 
 import RoomList from './RoomList';
 import SearchBarContainer from './SearchBar';
-import { Bookings } from '../../../api/bookings/bookings';
-import { Rooms } from '../../../api/rooms/rooms';
+import { Bookings } from '../../../api/bookings/bookings-collection';
+import { Rooms } from '../../../api/rooms/rooms-collection';
 
 class Home extends Component {
   constructor() {

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Bookings } from '../../bookings/bookings';
-import { Rooms } from '../../rooms/rooms';
+import { Bookings } from '../../bookings/bookings-collection';
+import { Rooms } from '../../rooms/rooms-collection';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
 

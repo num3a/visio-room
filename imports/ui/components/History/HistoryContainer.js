@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Bookings } from '../../../api/bookings/bookings';
-import { Rooms } from '../../../api/rooms/rooms';
+import { Bookings } from '../../../api/bookings/bookings-collection';
+import { Rooms } from '../../../api/rooms/rooms-collection';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { surroundingDates, addDays } from '../../../common/utils/dateUtils';

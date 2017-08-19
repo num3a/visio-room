@@ -1,3 +1,3 @@
 import './methods';
-import './payment-token';
+import './payment-token-collection';
 import './server/publications';

@@ -1,3 +1,3 @@
-import './bookings';
+import './bookings-collection';
 import './server/publications';
 import './methods';

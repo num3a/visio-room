@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import { Partners } from '../partners';
+import { Partners } from '../partners-collection';
 
 export default class PartnerInternals {
   createOrUpdate(partner) {

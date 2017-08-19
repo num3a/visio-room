@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 
-import { Rooms } from '../../api/rooms/rooms';
-import { Bookings } from '../../api/bookings/bookings';
-import { Voucher } from '../../api/voucher/vouchers';
+import { Rooms } from '../../api/rooms/rooms-collection';
+import { Bookings } from '../../api/bookings/bookings-collection';
+import { Voucher } from '../../api/voucher/vouchers-collection';
 
 const generateBookings = (error, _id) => {
   if (error) {
