@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
-import { LocationSchema } from '../common/schema/location';
 
 class RoomsCollection extends Mongo.Collection {
   insert(list, callback) {

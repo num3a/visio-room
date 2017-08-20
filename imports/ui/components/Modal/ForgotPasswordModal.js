@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { connect } from 'react-redux';
-import { closeAddCardModal } from '../../actions/payments';
-import FlatButton from 'material-ui/FlatButton';
 import { closeForgotPasswordModal } from '../../actions/accounts';
 import ForgotPasswordContainer from '../Password/ForgotPasswordContainer';
 

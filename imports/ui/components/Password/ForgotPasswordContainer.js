@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { closeForgotPasswordModal } from '../../actions/accounts';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
-
 import { Accounts } from 'meteor/accounts-base';
-import { getFirstEmail } from '../../../common/emailHelper';
+import { PropTypes } from 'prop-types';
+import ForgotPassword from './ForgotPassword';
+import { closeForgotPasswordModal } from '../../actions/accounts';
+import { notificationOpenError } from '../../actions/notification';
 
 class ForgotPasswordContainer extends Component {
   onSubmitEmail(event) {
@@ -19,36 +17,33 @@ class ForgotPasswordContainer extends Component {
     };
 
     Accounts.forgotPassword(options, (error) => {
-      // TODO: wrap Accounts UI with bulma https://www.meteor.com/tutorials/react/adding-user-accounts
+      const { dispatch } = this.props;
 
+      // TODO: wrap Accounts UI with bulma https://www.meteor.com/tutorials/react/adding-user-accounts
       if (error) {
         console.log('An error occurs', err);
+        dispatch(notificationOpenError(err.message));
       } else {
-        const { dispatch } = this.props;
         dispatch(closeForgotPasswordModal());
       }
     });
   }
 
   render() {
-    return (<div className="row">
-      <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <form onSubmit={event => this.onSubmitEmail(event)}>
-          <TextField
-            name="email"
-            hintText="Email"
-            floatingLabelText="Email"
-            type="email"
-          />
-
-          <RaisedButton type="submit" label="Submit" secondary />
-        </form>
-      </div>
-    </div>);
+    return (
+      <ForgotPassword
+        onSubmitEmail={event => this.onSubmitEmail(event)}
+      />
+    );
   }
 }
 
+ForgotPasswordContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
 });
+
 
 export default connect(mapStateToProps)(ForgotPasswordContainer);

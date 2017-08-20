@@ -33,7 +33,7 @@ react-meteor-data
 less@2.7.9
 meteorhacks:kadira
 kadira:debug
-reywood:publish-composite
+# reywood:publish-composite
 email@1.2.3
 meteorhacks:ssr
 service-configuration@1.0.11

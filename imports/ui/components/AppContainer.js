@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { PropTypes } from 'prop-types';
 
 import AuthenticationModal from './Modal/AuthenticationModal';
 import RoomBookingModal from './Modal/RoomBookingModal';
@@ -12,8 +13,7 @@ import AddPaymentModal from './Modal/AddPaymentModal';
 import ForgotPasswordModal from './Modal/ForgotPasswordModal';
 import NavBarContainer from './NavBar/NavBarContainer';
 import NotificationContainer from './Notification/NotificationContainer';
-import ErrorMessageSnackBar from './SnackBar/ErrorMessageSnackBar';
-import FooterContainer from './Footer';
+import { FooterContainer } from './Footer';
 
 import VisioRoomTheme from '../theme/VisioRoomTheme';
 import VisioRoomReducers from '../reducers';
@@ -25,28 +25,27 @@ const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(logger)(createStore);
 const store = createStoreWithMiddleware(VisioRoomReducers);
 
-class AppContainer extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
-          <div style={{ height: '100%' }}>
-            <NavBarContainer />
-            <div className="section main">
-              <NotificationContainer />
-              {this.props.children}
-              <AuthenticationModal />
-              <RoomBookingModal />
-              <AddPaymentModal />
-              <ForgotPasswordModal />
-              <ErrorMessageSnackBar />
-            </div>
-            <FooterContainer />
-          </div>
-        </MuiThemeProvider>
-      </Provider>
-    );
-  }
-}
+const AppContainer = props => (
+  <Provider store={store}>
+    <MuiThemeProvider muiTheme={getMuiTheme(VisioRoomTheme)}>
+      <div style={{ height: '100%' }}>
+        <NavBarContainer />
+        <div className="section main">
+          <NotificationContainer />
+          {props.children}
+          <AuthenticationModal />
+          <RoomBookingModal />
+          <AddPaymentModal />
+          <ForgotPasswordModal />
+        </div>
+        <FooterContainer />
+      </div>
+    </MuiThemeProvider>
+  </Provider>
+);
+
+AppContainer.propTypes = {
+  children: PropTypes.func.isRequired,
+};
 
 export default AppContainer;

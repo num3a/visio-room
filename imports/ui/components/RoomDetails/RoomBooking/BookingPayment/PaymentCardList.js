@@ -5,10 +5,10 @@ import _ from 'lodash';
 import { translate } from 'react-i18next';
 
 import { createContainer } from 'meteor/react-meteor-data';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { PaymentTokens } from '../../../../../api/payments/payment-token-collection';
 import { openAddCardModal } from '../../../../actions/payments';
 import { selectedCardChanged } from '../../../../actions/booking';
+import { RadioSet } from '../../../common/Form';
 
 class PaymentCardList extends Component {
   componentWillMount() {
@@ -18,12 +18,19 @@ class PaymentCardList extends Component {
       this.dispatchSelectedCard(firstCard);
     }
   }
+
   onAddCardClick() {
     const { dispatch } = this.props;
     dispatch(openAddCardModal());
   }
 
+  onRadioChange(event) {
+    const customerId = event.target.value;
+    const selectedPaymentToken = _.find(this.props.paymentTokens, { customerId });
+    this.dispatchSelectedCard(selectedPaymentToken);
+  }
   onSelectedCardChange(customerId) {
+    debugger;
     const selectedPaymentToken = _.find(this.props.paymentTokens, { customerId });
     this.dispatchSelectedCard(selectedPaymentToken);
   }
@@ -40,21 +47,28 @@ class PaymentCardList extends Component {
 
     const { paymentTokens, loadingTokens, t } = this.props;
     const firstCard = paymentTokens[0];
+    const selectedCard = this.props.selectedCard;
+    let customerID = '';
+    if(selectedCard != null){
+      customerID = selectedCard.customerId;
+    }
 
     return (<div>
-      <RadioButtonGroup
-        name="payments" defaultSelected={firstCard.customerId}
-        onChange={(event, value) => this.onSelectedCardChange(value)}
+      <form
+        onChange={(event) => this.onRadioChange(event)}
       >
         {paymentTokens.map((payment) => {
           const last4 = `${payment.card.brand} **** ${payment.card.last4}`;
-          return (<RadioButton
+          return (<RadioSet
             key={payment._id}
+            name="card_list"
             value={payment.customerId}
             label={last4}
+            onChange={(event) => this.onRadioChange(event)}
+            checked={customerID === payment.customerId}
           />);
         })}
-      </RadioButtonGroup>
+        </form>
       <div style={{ marginTop: 10, marginBottom: 10 }}>
         <a className="button is-primary" onClick={() => this.onAddCardClick()}>{t('booking_payment_add')}</a>
       </div>
@@ -89,6 +103,7 @@ const PaymentCardListContainer = createContainer(() => {
 
 
 const mapStateToProps = state => ({
+  selectedCard: state.booking.selectedCard,
 });
 
 export default translate(['booking'], { wait: true })(connect(mapStateToProps)(PaymentCardListContainer));

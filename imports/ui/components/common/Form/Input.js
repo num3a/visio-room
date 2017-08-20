@@ -20,9 +20,9 @@ const Input = props => (
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  type: PropTypes.string,
-  required: PropTypes.bool,
-  defaultValue: PropTypes.any,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.string,
 };
 export default Input;

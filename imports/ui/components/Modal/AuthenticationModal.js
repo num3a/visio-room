@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import classnames from 'classnames';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import { PropTypes } from 'prop-types';
+
 import LoginContainer from '../Login/LogInContainer';
 import SignUpContainer from '../Signup/SignUpContainer';
-import { Tabs, Tab } from 'material-ui/Tabs';
 import { closeLoginModal } from '../../actions/login';
 import { openForgotPasswordModal } from '../../actions/accounts';
 
@@ -76,6 +75,11 @@ class AuthenticationModal extends Component {
     </div>);
   }
 }
+
+AuthenticationModal.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+};
 const mapStateToProps = state => ({
   openLoginModal: state.login.openLoginModal,
 });

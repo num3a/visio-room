@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import { createContainer } from 'meteor/react-meteor-data';
 import { PaymentTokens } from '../../../api/payments/payment-token-collection';
 import { notificationOpenError } from '../../actions/notification';
 import { closeAddCardModal, openAddCardModal } from '../../actions/payments';
 import PaymentTable from './PaymentTable';
 import PaymentsControl from './PaymentsControl';
-import { translate } from 'react-i18next';
 
 class Payments extends Component {
   handleCloseDialog() {

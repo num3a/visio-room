@@ -43,14 +43,14 @@ class CompletePayment extends Component {
     Meteor.apply('bookings.bookWithPayment', [bookingData], { noRetry: true }, (err, charge) => {
       console.log('bookings.err', err);
       console.log('bookings.data', charge);
-      // TODO: re plug errors
-     /* if (err) {
+
+      if (err) {
         dispatch(notificationOpenError(err.message));
       } else {
-      */
-      dispatch(closeBookingModal());
-      this.props.history.push('/profile');
-      /* }*/
+
+        dispatch(closeBookingModal());
+        this.props.history.push('/profile');
+      }
     });
   }
 

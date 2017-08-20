@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+
 import Notification from './Notification';
 import { notificationMessageChanged, notificationClose } from '../../actions/notification';
 
@@ -18,6 +20,13 @@ class NotificationContainer extends Component {
     />);
   }
 }
+
+NotificationContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = state => ({
   message: state.notification.message,

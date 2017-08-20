@@ -30,7 +30,7 @@ Meteor.publish('rooms.byIds', (roomIds) => {
   }).validate({ roomIds });
   return Rooms.find({ _id: { $in: roomIds } });
 });
-
+/*
 Meteor.publishComposite('rooms.bookingsAvailable.byDate', (bookingDate) => {
   new SimpleSchema({
     bookingDate: { type: Date },
@@ -58,3 +58,4 @@ Meteor.publishComposite('rooms.bookingsAvailable.byDate', (bookingDate) => {
     }],
   };
 });
+*/
