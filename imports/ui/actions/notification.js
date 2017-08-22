@@ -1,12 +1,12 @@
 import * as types from './actionTypes';
 
-const notificationOpen = () => ({
+const notificationOpen = message => ({
   type: types.NOTIFICATION_OPEN,
   notificationType: 'is-info',
   message,
 });
 
-const notificationOpenSuccess = () => ({
+const notificationOpenSuccess = message => ({
   type: types.NOTIFICATION_OPEN_SUCCESS,
   notificationType: 'is-success',
   message,
@@ -18,7 +18,7 @@ const notificationOpenError = message => ({
   message,
 });
 
-const notificationOpenWarning = () => ({
+const notificationOpenWarning = message => ({
   type: types.NOTIFICATION_OPEN_WARNING,
   notificationType: 'is-warning',
   message,

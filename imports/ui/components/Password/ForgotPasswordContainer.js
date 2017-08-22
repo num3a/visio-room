@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Accounts } from 'meteor/accounts-base';
 import { PropTypes } from 'prop-types';
+
 import ForgotPassword from './ForgotPassword';
 import { closeForgotPasswordModal } from '../../actions/accounts';
 import { notificationOpenError } from '../../actions/notification';

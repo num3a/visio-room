@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Bookings } from '../../../../../api/bookings/bookings-collection';
-
-import { addDays } from '../../../../../common/utils/dateUtils';
+import classnames from 'classnames';
 import moment from 'moment';
-import Toggle from 'material-ui/Toggle';
-import { Card, CardText } from 'material-ui/Card';
+
+import { Bookings } from '../../../../../api/bookings/bookings-collection';
+import { addDays } from '../../../../../common/utils/dateUtils';
 import { snackBarOpen, snackBarClose, snackBarMessageChanged } from '../../../../actions/snackbar';
 
 class BookingManager extends Component {
@@ -36,14 +35,6 @@ class BookingManager extends Component {
       return <h5>No bookings</h5>;
     }
 
-      /*
-       *  <List>
-       <Subheader>Priority Interruptions</Subheader>
-       <ListItem primaryText="Events and reminders" rightToggle={<Toggle />} />
-       <ListItem primaryText="Calls" rightToggle={<Toggle />} />
-       <ListItem primaryText="Messages" rightToggle={<Toggle />} />
-       </List>
-       */
     return (<div className="row">
 
       {this.props.bookings.map((booking) => {
@@ -51,17 +42,19 @@ class BookingManager extends Component {
         const cardLabel = booking.isBlocked ? 'Room blocked' : 'Room available';
 
         return (<div key={booking._id} className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <Card>
-            <CardText>{formattedDate}</CardText>
-            <CardText>
-              <Toggle
-                toggled={!booking.isBlocked}
-                onToggle={() => this.handleBlock(booking._id, !booking.isBlocked)}
-                labelPosition="right"
-                label={cardLabel}
-              />
-            </CardText>
-          </Card>
+          <div className="card">
+            <div className="header">
+              <span className="card-header-title">{formattedDate}</span>
+            </div>
+            <div className="card-content">
+              <a
+                className={classnames('button', {'is-danger': booking.isBlocked })}
+                onClick={() => this.handleBlock(booking._id, !booking.isBlocked)}
+              >
+                {cardLabel}
+              </a>
+            </div>
+          </div>
         </div>);
       })}
     </div>);

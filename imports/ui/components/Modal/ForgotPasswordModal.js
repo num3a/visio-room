@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { translate } from 'react-i18next';
+
 import { closeForgotPasswordModal } from '../../actions/accounts';
 import ForgotPasswordContainer from '../Password/ForgotPasswordContainer';
 
 class ForgotPasswordModal extends Component {
 
-  _handleCloseDialog() {
+  closeModal() {
     const { dispatch } = this.props;
     dispatch(closeForgotPasswordModal());
   }
 
   render() {
-    const { openForgotPasswordModal, dispatch } = this.props;
-    const customContentStyle = {
-      height: '100%',
-      maxHeight: 'none',
-    };
+    const { openForgotPasswordModal, t } = this.props;
 
     return (
-      <Dialog
-        title="Enter a email"
-        modal={false}
-        open={openForgotPasswordModal}
-        contentStyle={customContentStyle}
-        onRequestClose={() => { this._handleCloseDialog(); }}
-      >
-        <ForgotPasswordContainer />
-      </Dialog>
+      <div className={classnames('modal', openForgotPasswordModal ? 'is-active' : '')} >
+        <div className="modal-background" onClick={() => this.closeModal()} />
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">{t('header')}</p>
+            <button className="delete" onClick={() => this.closeModal()} />
+          </header>
+          <section className="modal-card-body">
+            <ForgotPasswordContainer />
+          </section>
+        </div>
+      </div>
     );
   }
 }
@@ -37,4 +38,4 @@ const mapStateToProps = state => ({
   openForgotPasswordModal: state.accounts.openForgotPasswordModal,
 });
 
-export default connect(mapStateToProps)(ForgotPasswordModal);
+export default translate(['password'], { wait: true })(connect(mapStateToProps)(ForgotPasswordModal));

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { Roles } from 'meteor/alanning:roles';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
+
 import { Rooms } from '../../../../../api/rooms/rooms-collection';
 import { selectedRoomChanged } from '../../../../actions/admin';
+import { getFirstEmail } from '../../../../../common/emailHelper';
 
 class RoomSelector extends Component {
 
@@ -19,13 +19,13 @@ class RoomSelector extends Component {
       return <h5>No rooms</h5>;
     }
     const selectedRoom = this.props.selectedRoomId == '' ? 1 : this.props.selectedRoomId;
-    return (<SelectField
+    return (<select
       value={selectedRoom}
       onChange={(event, index, value) => this.handleChange(event, index, value)}
     >
-      <MenuItem value={1} primaryText="RoomList" />
-      {this.props.rooms.map(room => <MenuItem key={room._id} value={room._id} primaryText={room.name} />)}
-    </SelectField>);
+      <option>Room List</option>
+      {this.props.rooms.map(room => <option key={room._id} value={room._id}>{room.name}</option>)}
+    </select>);
   }
   render() {
     return (<div className="row">
@@ -45,18 +45,21 @@ const RoomSelectorContainer = createContainer(() => {
   const admin = Roles.userIsInRole(Meteor.userId(), 'admin');
   const superAdmin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
   let roomsHandle = null;
+  //const email = getFirstEmail(Meteor.user());
+
 
   if (superAdmin) {
     roomsHandle = Meteor.subscribe('rooms.all');
   } else {
+    // TODO: remove hardcoded email
     roomsHandle = Meteor.subscribe('rooms.byAdmin', 'eernest.pro@gmail.com');
   }
-
+  const rooms = Rooms.find({}).fetch();
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
     loading: !roomsHandle.ready(),
-    rooms: Rooms.find({}).fetch() || [],
+    rooms: rooms || [],
   };
 }, RoomSelector);
 

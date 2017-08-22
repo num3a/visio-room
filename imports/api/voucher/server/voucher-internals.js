@@ -3,7 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import _ from 'lodash';
 import { Voucher } from '../vouchers-collection';
-import { checkByUserId } from '../../common/user';
+import { checkByUserId } from '../../../common/userUtils';
 
 export default class VoucherInternals {
   getVoucherByCode(code) {

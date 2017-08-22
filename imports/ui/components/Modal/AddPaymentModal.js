@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { translate } from 'react-i18next';
 import AddPaymentCardContainer from '../Payments/AddPaymentCardContainer';
-import { closeAddCardModal, loadingAddCard } from '../../actions/payments';
+import { closeAddCardModal } from '../../actions/payments';
 
 class AddPaymentModal extends Component {
 

@@ -17,7 +17,8 @@
   "booking_payment_add": "Add a card",
   "booking_payment_voucher": "Enter a voucher",
   "booking_payment_cgu_message": "By using the service, I accepts the ",
-  "booking_payment_button_complete": "Complete"
+  "booking_payment_button_complete": "Complete",
 
+  "booking_payment_complete": "Booking complete, you will receive a confirmation email shortly."
 
 }

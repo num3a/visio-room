@@ -14,6 +14,7 @@
   "booking_payment_add": "Ajouter une carte",
   "booking_payment_voucher": "Code de réduction",
   "booking_payment_cgu_message": "En cochant cette case, j'accepte les ",
-  "booking_payment_button_complete": "Réserver"
+  "booking_payment_button_complete": "Réserver",
+  "booking_payment_complete": "Vous allez reçevoir un email de confirmation."
 
 }

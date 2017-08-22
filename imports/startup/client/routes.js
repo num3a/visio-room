@@ -10,7 +10,6 @@ import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';
 import HomeContainer from '../../ui/components/Home';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
-import DiscoverContainer from '../../ui/components/Discover';
 import PaymentsContainer from '../../ui/components/Payments';
 import SignUpContainer from '../../ui/components/Signup';
 import LogInContainer from '../../ui/components/Login';
@@ -65,7 +64,6 @@ export const renderRoutes = () => (
           <Route path="/cgu" component={CGU} />
           <Route path="/legal" component={Legal} />
           <Route path="/about" component={About} />
-          <Route path="/discover" component={DiscoverContainer} />
           <Route path="/logout" component={LogOutContainer} />
           <Route path="/unauthorized" component={NotAuthorized} />
           <AdminContainerWithRouter>

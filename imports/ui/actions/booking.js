@@ -73,6 +73,11 @@ const selectedCapacityChanged = capacity => ({
   capacity,
 });
 
+const loadingCompleteBooking = loading => ({
+  type: types.BOOKING_COMPLETE_LOADING,
+  loading,
+});
+
 export {
   openBookingModal,
   closeBookingModal,
@@ -89,5 +94,5 @@ export {
   addToBookingList,
   removeFromBookingList,
   updateBookingList,
-
+  loadingCompleteBooking,
 };

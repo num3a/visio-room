@@ -8,7 +8,7 @@ import PaymentInternals from '../../payments/server/payment-service';
 import VoucherInternals from '../../voucher/server/voucher-internals';
 
 // import BookingTransactionInternals from '../../bookings-transactions/bookings-transactions';
-import { checkByUserId } from '../../common/user';
+import { checkByUserId } from '../../../common/userUtils';
 
 const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
 

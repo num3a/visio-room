@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run ",
+    "start-visualizer": "meteor run --extra-packages bundle-visualizer --production",
     "start-c9-mlab": "meteor run --port $IP:$PORT --settings private/settings-c9.json",
     "start-mlab": "meteor run --settings private/settings.json",
     "deploy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json",
