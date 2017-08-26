@@ -103,10 +103,13 @@ class BookingSelector extends Component {
   }
 
   render() {
-    const { bookings } = this.props;
+    const { bookings, loadingBookings } = this.props;
+    if(loadingBookings && bookings.length === 0){
+      return(<div></div>);
+    }
     const total = this.calculateTotal(bookings);
-    const validateIsActive = this.calculateBookingValidity(bookings);
-
+    //const validateIsActive = this.calculateBookingValidity(bookings);
+    this.validateSelection();
     return (
       <div className="is-centered">
         <SelectorHeader />
@@ -141,7 +144,7 @@ const BookingSelectorContainer = createContainer((props) => {
   };
 
   const bookingsHandle = Meteor.subscribe('bookings.byRoom', search);
-  const loadingBooking = !bookingsHandle.ready();
+  const loadingBookings = !bookingsHandle.ready();
   const bookings = Bookings.find({}).fetch();
 
 
@@ -149,7 +152,7 @@ const BookingSelectorContainer = createContainer((props) => {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
     bookings: bookings || [],
-    loadingBooking,
+    loadingBookings,
   };
 }, BookingSelector);
 

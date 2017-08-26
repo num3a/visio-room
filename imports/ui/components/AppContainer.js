@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -17,9 +17,18 @@ import VisioRoomReducers from '../reducers';
 import './app.css';
 
 injectTapEventPlugin();
+
 const logger = createLogger();
-const createStoreWithMiddleware = applyMiddleware(logger)(createStore);
-const store = createStoreWithMiddleware(VisioRoomReducers);
+const middleware = [logger];
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(VisioRoomReducers, /* preloadedState, */ composeEnhancers(
+  applyMiddleware(...middleware),
+));
+
+
+// const createStoreWithMiddleware = applyMiddleware(logger)(createStore);
+// Òconst store = createStoreWithMiddleware(VisioRoomReducers);
 
 const AppContainer = props => (
   <Provider store={store}>

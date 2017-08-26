@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import classnames from 'classnames';
+import _ from 'lodash';
 
 import { selectedBookingChanged, cguAccepted } from '../../../../actions/room';
 import { resetAvailability, updateBookingList, loadingCompleteBooking } from '../../../../actions/booking';
@@ -30,13 +31,25 @@ class CompletePayment extends Component {
 
     dispatch(cguAccepted(cgu));
   }
+
+  canCompleteBooking(cguAccepted, selectedCard) {
+    if (cguAccepted === true
+      && !_.isNil(selectedCard)
+      && !_.isNil(selectedCard._id)) {
+      return false;
+    }
+    return true;
+  }
   completeBooking() {
-    const code = this.props.voucher !== null && this.props.voucher.code !== null ? this.props.voucher.code : '';
+    const { bookingList, voucher, selectedCard } = this.props;
+
+    const code = voucher !== null && voucher.code !== null ? voucher.code : '';
+    const bookingIds = bookingList.map(booking => booking._id);
 
     const bookingData = {
-      customerId: this.props.selectedCard.customerId,
+      customerId: selectedCard.customerId,
       voucher: code,
-      bookingList: this.props.bookingList,
+      bookingIds,
       userId: Meteor.userId(),
     };
 
@@ -58,7 +71,7 @@ class CompletePayment extends Component {
   }
 
   render() {
-    const { t } = this.props;
+    const { t, cguAccepted, selectedCard, loadingCompleteBooking } = this.props;
 
     return (
       <div >
@@ -75,8 +88,8 @@ class CompletePayment extends Component {
         <div style={{ marginTop: 12 }}>
           <button
             style={{ marginRight: 12 }}
-            className={classnames('button', 'is-success', { 'is-loading': this.props.loadingCompleteBooking })}
-            disabled={this.props.cguAccepted === false || !this.props.selectedCard}
+            className={classnames('button', 'is-success', { 'is-loading': loadingCompleteBooking })}
+            disabled={this.canCompleteBooking(cguAccepted, selectedCard)}
             onClick={() => this.completeBooking()}
           >{t('booking_payment_button_complete')}</button>
         </div>

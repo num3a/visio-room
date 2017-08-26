@@ -15,16 +15,12 @@ export default class VoucherInternals {
   }
 
   invalidateVoucher(voucherId, currentUserId, bookingIds) {
-
-    // TODO: handle booking list or transaction booking
-
-    const bookingId = bookingIds[0];
     const updateVoucherQuery = {
       $set: {
         isValid: false,
         usedAt: moment().toDate(),
         usedBy: currentUserId,
-        usedFor: bookingId,
+        usedFor: bookingIds,
       },
     };
 

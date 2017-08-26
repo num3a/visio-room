@@ -10,7 +10,7 @@ const CGU = props => (
           <h2>1. Champ d'application</h2>
                   Les CGU suivantes s'appliquent à la réservation de salles de travail au travers de la plateforme VisioRoom et à leur utilisation.<br />
           <h2> 2. Dénomination </h2>
-                  La société GUETATZE SARL, 36 rue de Billancourt, 92100 Boulogne Billancourt, ci-après nommée VisioRoom, vend et commercialise des espaces de travail gérés et exploités par des Sociétés Partenaires. La liste de ces Sociétés Partenaires est consultable dans la section http://app.visioroom.com/partners<br /><br />
+                  La société VisioRoom, vend et commercialise des espaces de travail gérés et exploités par des Sociétés Partenaires. La liste de ces Sociétés Partenaires est consultable dans la section http://app.visioroom.com/partners<br /><br />
           <h2>   3. Utilisation des Salles </h2>
                   3.1 Les partenaires VisioRoom assurent la prise en charge,  l’orientation et l’installation du Client dans la salle de travail.<br />
                   3.2.1 La réservation porte sur la totalité de l’espace de travail tel qu’il est décrit dans la confirmation de réservation. Le Client peut inviter autant de personnes qu’il y a de places disponibles dans la salle.<br />

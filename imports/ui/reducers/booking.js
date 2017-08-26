@@ -79,7 +79,7 @@ const roomReducer = (state = initialSate, action = {}) => {
     case types.BOOKING_ADD_TO_BOOKING_LIST:
       return {
         ...state,
-        bookingList: [...state.bookingList, action.bookingId],
+        bookingIds: [...state.bookingList, action.bookingList],
       };
     case types.BOOKING_UPDATE_BOOKING_LIST:
       return {
