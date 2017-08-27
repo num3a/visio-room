@@ -122,8 +122,8 @@ class PaymentInternals {
     // TODO: create card on add card, create customer if customer does not exists
 
   }
-  getCustomer(email) {
 
+  getCustomer(email) {
   }
 
   createCharge(charge) {
@@ -135,21 +135,41 @@ class PaymentInternals {
     }).validate(charge);
 
     const { amount, currency, description, customerId } = charge;
-    const newCharge = this.stripeInstance.charges.create({
-      amount: amount * 100,
-      currency,
-      description,
-      customer: customerId,
-    }, (err, charge) => {
-      if (err) {
-        throw new Meteor.Error(err.message);
-      } else {
-        return charge;
-      }
-    });
+
+    const wrappedNewCharge = Meteor.wrapAsync(this.stripeInstance.charges.create, this.stripeInstance.charges);
+
+    let newCharge = null;
+
+    try {
+      newCharge = wrappedNewCharge({
+        amount: amount * 100,
+        currency,
+        description,
+        customer: customerId,
+      });
+    } catch(e){
+      console.log('Cannot charge', e);
+      throw new Meteor.Error(e.message);
+    }
 
     return newCharge;
   }
+  /*
+  const newCharge = this.stripeInstance.charges.create({
+    amount: amount * 100,
+    currency,
+    description,
+    customer: customerId,
+  }, (err, charge) => {
+    if (err) {
+      throw new Meteor.Error(err.message);
+    } else {
+      return charge;
+    }
+  });
+
+  return newCharge;
+  */
 
   captureCharge(charge) {
 

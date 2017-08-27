@@ -86,6 +86,7 @@ const ProfileContainer = createContainer(() => {
   let roomIds = bookings.map(booking => booking.roomId);
   roomIds = roomIds == null ? [] : roomIds;
 
+  debugger;
   const roomHandle = Meteor.subscribe('rooms.byIds', roomIds);
 
   const rooms = Rooms.find({ _id: { $in: roomIds } }).fetch();

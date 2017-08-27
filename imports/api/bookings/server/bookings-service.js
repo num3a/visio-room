@@ -10,7 +10,7 @@ import VoucherInternals from '../../voucher/server/voucher-internals';
 import BookingTransactionInternals from '../../bookings-transactions/server/booking-transaction-internals';
 import { checkByUserId } from '../../../common/userUtils';
 
-const stripeApiKey = Meteor.settings.STRIPE_API_KEY;
+const STRIPE_API_KEY = Meteor.settings.STRIPE_API_KEY || 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 
 export default class BookingService {
 
@@ -28,7 +28,7 @@ export default class BookingService {
   invalidateVoucher(voucher, userId, bookingIds) {
     if (voucher != null) {
       const voucherInternals = new VoucherInternals();
-      voucherInternals.invalidateVoucher(voucher.id, userId, bookingIds);
+      voucherInternals.invalidateVoucher(voucher._id, userId, bookingIds);
     }
   }
 
@@ -65,9 +65,9 @@ export default class BookingService {
 
     bookings.forEach((booking, index) => {
       if (index === 0) {
-        this.updateBooking(booking, voucher);
+        this.updateBooking(booking._id, voucher);
       } else {
-        this.updateBooking(booking, null);
+        this.updateBooking(booking._id, null);
       }
     });
   }
@@ -124,18 +124,17 @@ export default class BookingService {
         }
         return acc + price;
       });
-    return amount;
+    return amount.toFixed(2);
   }
 
   checkBookingsAvailability(bookings) {
-    const validity = bookings.every((booking => booking.isBooked === false && booking.isBlocked === false));
-    return validity;
+    return bookings
+      .every(booking =>
+          booking.isBooked === false
+          && booking.isBlocked === false);
   }
 
   bookWithPayment(bookingWithPayment) {
-    let successful = false;
-    let internalError = null;
-    let chargeResult = null;
 
     this.validateInputs(bookingWithPayment); // Validate inputs
     checkByUserId(bookingWithPayment.userId); // Check user
@@ -147,16 +146,31 @@ export default class BookingService {
     }
 
     // Get the voucher object
-    const voucher = bookingWithPayment.voucher != null ?  this.getVoucher(bookingWithPayment.voucher) : null;
-    const amount = this.calculatePrice(bookings, voucher);
+    const voucher = _.isNil(bookingWithPayment.voucher) ?
+      null : this.getVoucher(bookingWithPayment.voucher);
+    const price = this.calculatePrice(bookings, voucher);
 
     const chargeData = {
-      amount,
+      amount: parseFloat(price),
       currency: 'eur',
       description: 'Example charge',
       customerId: bookingWithPayment.customerId,
     };
 
+    const paymentService = new PaymentInternals(STRIPE_API_KEY);
+    const chargeResult = paymentService.createCharge(chargeData);
+
+    if(_.isNil(chargeResult)) {
+      throw new Meteor.Error('An error occured during payment.');
+    }
+
+    this.invalidateVoucher(voucher, bookingWithPayment.userId, bookingIds);
+    this.updateBookingList(bookings, voucher);
+    // this.saveTransaction(bookings, chargeData);
+    // this.sendMailToUser(bookings[0], voucher, chargeData);
+
+    return chargeResult;
+/*
     Meteor.call('payments.createCharge', chargeData, (err, charge) => {
       if (err) {
         console.log('payments.charge.err', err);
@@ -168,18 +182,14 @@ export default class BookingService {
         successful = true;
 
         // TODO: ensure that updateBookingList and invalidate voucher works
-       // this.saveTransaction(bookings, chargeData);
-        this.updateBookingList(bookings, voucher);
         this.invalidateVoucher(voucher.id, bookingWithPayment.userId, bookingIds);
+        this.updateBookingList(bookings, voucher);
+       // this.saveTransaction(bookings, chargeData);
         // this.sendMailToUser(bookings[0], voucher, chargeData);
       }
     });
 
-    return {
-      successful,
-      internalError,
-      chargeResult,
-    };
+*/
   }
 
 }

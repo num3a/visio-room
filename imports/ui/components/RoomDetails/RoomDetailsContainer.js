@@ -70,18 +70,19 @@ class RoomDetails extends Component {
 }
 
 const RoomDetailsContainer = createContainer(({ match }) => {
+  debugger;
   const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
   const room = Rooms.findOne(match.params.roomId);
 
-  const bookingHandle = Meteor.subscribe('bookings.byId', match.params.roomId);
-  const booking = Bookings.findOne(match.params.bookingId);
-  const bookingLoading = !bookingHandle.ready();
+  // const bookingHandle = Meteor.subscribe('bookings.byId', match.params.roomId);
+  // const booking = Bookings.findOne(match.params.bookingId);
+  // const bookingLoading = !bookingHandle.ready();
   const roomLoading = !roomHandle.ready();
 
   return {
-    booking,
+    //booking,
     room,
-    bookingLoading,
+    //bookingLoading,
     roomLoading,
   };
 }, RoomDetails);

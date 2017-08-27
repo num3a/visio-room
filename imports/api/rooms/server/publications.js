@@ -24,7 +24,9 @@ Meteor.publish('rooms.byAdmin', (email) => {
 });
 
 Meteor.publish('rooms.byIds', (roomIds) => {
-
+  if(roomIds == null || roomIds === []){
+    return this.ready();
+  }
   new SimpleSchema({
     roomIds: { type: [String], regEx: SimpleSchema.RegEx.Id },
   }).validate({ roomIds });
