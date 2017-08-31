@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
 import { SSR } from 'meteor/meteorhacks:ssr';
-import EmailInternals from './server/email-internals';
+import EmailInternals from './server/email-service';
 
 SSR.compileTemplate('htmlEmail', Assets.getText('templates/template.html'));
 const emailInternals = new EmailInternals();

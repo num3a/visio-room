@@ -289,6 +289,11 @@
                                         <p>Dear {{name}},</p>
                                         <p>Please see below your booking confirmation:</p>
                                         <p>Booking date: {{bookingDate}}</p>
+                                        <p>
+                                            {{#each bookingDates}}
+                                                <span>{{this}}</span>
+                                            {{/each}}
+                                        </p>
                                         <p>Room name: {{roomName}}</p>
                                         <p>Booking address: {{bookingAddress}}</p>
                                         <p>Price: <strong>{{price}} €</strong></p>

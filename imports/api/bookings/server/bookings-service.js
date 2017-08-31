@@ -4,7 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import { Bookings } from '../bookings-collection';
-import EmailInternals from '../../email/server/email-internals';
+import EmailInternals from '../../email/server/email-service';
 import PaymentInternals from '../../payments/server/payment-service';
 import VoucherInternals from '../../voucher/server/voucher-internals';
 import BookingTransactionInternals from '../../bookings-transactions/server/booking-transaction-internals';
@@ -12,7 +12,7 @@ import { checkByUserId } from '../../../common/userUtils';
 
 const STRIPE_API_KEY = Meteor.settings.STRIPE_API_KEY || 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 
-export default class BookingService {
+export default class  BookingService {
 
   getVoucher(code: string) {
     const voucherInternals = new VoucherInternals();
@@ -92,10 +92,10 @@ export default class BookingService {
     });
   }
 
-  sendMailToUser(booking, voucher, chargeData) {
+  sendMailToUser(bookings, voucher, chargeData) {
     // TODO: send booking list
     const emailSender = new EmailInternals();
-    emailSender.sendBookingConfirmation(booking, voucher, chargeData);
+    emailSender.sendBookingConfirmation(bookings, voucher, chargeData);
   }
 
   saveTransaction(bookings, voucher, chargeData) {
@@ -167,7 +167,7 @@ export default class BookingService {
     this.invalidateVoucher(voucher, bookingWithPayment.userId, bookingIds);
     this.updateBookingList(bookings, voucher);
     // this.saveTransaction(bookings, chargeData);
-    // this.sendMailToUser(bookings[0], voucher, chargeData);
+    this.sendMailToUser(bookings, voucher, chargeData);
 
     return chargeResult;
 /*
