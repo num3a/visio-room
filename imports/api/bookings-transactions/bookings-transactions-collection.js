@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 import { Rooms } from '../rooms/rooms-collection';
-import { Booking } from '../bookings/bookings-collection';
+import { Bookings } from '../bookings/bookings-collection';
 
 class BookingsTransactionsCollection extends Mongo.Collection {
   insert(list, callback) {
@@ -23,11 +23,13 @@ BookingsTransactions.deny({
 });
 
 BookingsTransactions.schema = new SimpleSchema({
+  _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
   roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
   bookedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
   voucherUsed: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-  booking: { type: Booking.schema, optional: true },
-  room: { type: Rooms.schema, optional: true },
+  amount: { type: Number },
+  bookings: { type: Array, optional: true },
+  'bookings.$': { type: Bookings.schema },
 }, { tracker: Tracker });
 
 BookingsTransactions.attachSchema(BookingsTransactions.schema);

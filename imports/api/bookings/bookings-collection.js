@@ -21,6 +21,7 @@ Bookings.deny({
 });
 
 Bookings.schema = new SimpleSchema({
+  _id: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
   roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
   bookedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
   voucherUsed: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
