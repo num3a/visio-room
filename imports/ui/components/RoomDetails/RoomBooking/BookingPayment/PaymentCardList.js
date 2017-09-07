@@ -30,7 +30,6 @@ class PaymentCardList extends Component {
     this.dispatchSelectedCard(selectedPaymentToken);
   }
   onSelectedCardChange(customerId) {
-    debugger;
     const selectedPaymentToken = _.find(this.props.paymentTokens, { customerId });
     this.dispatchSelectedCard(selectedPaymentToken);
   }

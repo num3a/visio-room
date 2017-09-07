@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Meteor } from 'meteor/meteor';
+import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 import ProfileInformations from './ProfileInformations';
 import History from './History';
-import { Bookings } from '../../../api/bookings/bookings-collection';
-import { Rooms } from '../../../api/rooms/rooms-collection';
+import { BookingsTransactions } from  '../../../api/bookings-transactions/bookings-transactions-collection';
 
 class Profile extends Component {
-  getRoomById(roomId) {
-    if (this.props.loadingRooms) {
-      return {
-        name: '',
-      };
-    }
-    const room = _.find(this.props.rooms, room => room._id == roomId);
 
-    return room;
-  }
   getAvatarUrl() {
     const { currentUser } = this.props;
 
@@ -34,41 +24,26 @@ class Profile extends Component {
     return avatar;
   }
 
-  getBookingsWithRooms() {
-    const data = [];
-
-    for (const booking of this.props.bookings) {
-      const room = this.getRoomById(booking.roomId);
-      data.push({
-        ...booking,
-        room: {
-          ...room,
-        },
-      });
-    }
-    return data;
-  }
-
   render() {
     if (!this.props.currentUser) {
       return <div />;
     }
     const avatar = this.getAvatarUrl();
-    const { t } = this.props;
+    const { t, currentUser } = this.props;
     return (
       <div className="container">
         <div className="columns">
           <div className="column is-3">
             <h1 className="title">{t('title')}</h1>
             <ProfileInformations
-              firstName={this.props.currentUser.profile.firstName}
-              lastName={this.props.currentUser.profile.lastName}
+              firstName={currentUser.profile.firstName}
+              lastName={currentUser.profile.lastName}
               avatar={avatar}
             />
           </div>
           <div className="column is-8">
             <h1 className="title">{t('history')}</h1>
-            <History enhancedBooking={this.getBookingsWithRooms()} />
+            <History transactions={this.props.transactions} />
           </div>
         </div>
 
@@ -79,25 +54,14 @@ class Profile extends Component {
 }
 
 const ProfileContainer = createContainer(() => {
-  const userId = Meteor.userId();
-  const bookingHandle = Meteor.subscribe('bookings.byUserId');
-  const bookings = Bookings.find({ bookedBy: userId }, { limit: 30, sort: { bookingDate: -1 } }).fetch() || [];
-
-  let roomIds = bookings.map(booking => booking.roomId);
-  roomIds = roomIds == null ? [] : roomIds;
-
-  debugger;
-  const roomHandle = Meteor.subscribe('rooms.byIds', roomIds);
-
-  const rooms = Rooms.find({ _id: { $in: roomIds } }).fetch();
+  const transactionsHandle = Meteor.subscribe('bookings-transactions.byUserId');
+  const transactions = BookingsTransactions.find({}).fetch();
 
   return {
     isAuthenticated: Meteor.userId(),
     currentUser: Meteor.user(),
-    bookings: bookings || [],
-    loadingBookings: !bookingHandle.ready(),
-    loadingRooms: !roomHandle.ready(),
-    rooms: rooms || [],
+    loadingTransactions: !transactionsHandle.ready(),
+    transactions: transactions || [],
   };
 }, Profile);
 

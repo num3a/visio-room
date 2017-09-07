@@ -1,5 +1,7 @@
 import '../../api/bookings';
 
+import '../../api/bookings-transactions';
+
 import '../../api/rooms';
 
 import '../../api/voucher';

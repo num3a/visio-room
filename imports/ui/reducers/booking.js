@@ -12,12 +12,11 @@ const initialSate = {
   selectedCard: null,
   toggleAvailability: false,
   selectedStartDate: moment().add(1, 'days').set({ hour: 0, minutes: 0, second: 0, millisecond: 0 }),
-  selectedEndDate: moment().add(1, 'days').set({ hour: 0, minutes: 0, second: 0, millisecond: 0 }),
+  selectedEndDate: null, //moment().add(1, 'days').set({ hour: 0, minutes: 0, second: 0, millisecond: 0 }),
   capacity: 1,
   loadingCompleteBooking: false,
 };
 
-// TODO: expose method to reset state on route leave
 
 const roomReducer = (state = initialSate, action = {}) => {
   switch (action.type) {

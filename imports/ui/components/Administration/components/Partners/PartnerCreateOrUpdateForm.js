@@ -9,7 +9,6 @@ import { getProp } from '../../../common/Form/Helpers';
 const PartnerSchema = Partners.schema;
 
 const onSubmitForm = (doc) => {
-  debugger;
   console.log(JSON.stringify(doc));
 
 

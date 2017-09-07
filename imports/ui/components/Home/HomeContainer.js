@@ -41,6 +41,9 @@ class Home extends Component {
 }
 
 const HomeContainer = createContainer((props) => {
+  console.log('props.selectedStartDate', props.selectedStartDate.toDate());
+  console.log('props.selectedEndDate', props.selectedStartDate.toDate());
+
   const startDate = props.selectedStartDate ? props.selectedStartDate.toDate() : moment().toDate();
   const endDate = props.selectedEndDate ? props.selectedEndDate.toDate() : null;
   const search = {

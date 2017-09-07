@@ -6,10 +6,12 @@ import { Rooms } from '../../rooms/rooms-collection';
 import { BookingsTransactions } from '../bookings-transactions-collection';
 
 export default class BookingTransactionService {
-  saveTransaction( bookings, voucher, chargeData) {
+  saveTransaction( bookings, voucher, chargeData, userId) {
     const firstBooking = _.head(bookings);
     const roomId = firstBooking.roomId;
     const amount = chargeData.amount;
+
+    const room = Rooms.findOne(roomId);
 
     let voucherId = _.isNil(voucher) ? '' : voucher._id;
 
@@ -17,10 +19,12 @@ export default class BookingTransactionService {
       amount,
       voucherUsed: voucherId,
       roomId,
+      room,
+      userId,
       bookings,
     };
 
-    BookingsTransactions.insert(transaction);
+    const transactionId = BookingsTransactions.insert(transaction);
     const test = '';
   }
 }

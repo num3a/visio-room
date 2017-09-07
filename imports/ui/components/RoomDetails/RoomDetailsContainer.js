@@ -70,7 +70,7 @@ class RoomDetails extends Component {
 }
 
 const RoomDetailsContainer = createContainer(({ match }) => {
-  debugger;
+
   const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
   const room = Rooms.findOne(match.params.roomId);
 

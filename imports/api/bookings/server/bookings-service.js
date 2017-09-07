@@ -80,7 +80,6 @@ export default class  BookingService {
         bookedAt: moment().toDate(),
         bookedBy: Meteor.userId(),
         voucherUsed: voucherId,
-        // TODO: add price payed
       },
     };
 
@@ -93,15 +92,14 @@ export default class  BookingService {
   }
 
   sendMailToUser(bookings, voucher, chargeData) {
-    // TODO: send booking list
     const emailSender = new EmailInternals();
     emailSender.sendBookingConfirmation(bookings, voucher, chargeData);
   }
 
   saveTransaction(bookings, chargeData, voucher) {
-    // TODO: save transaction in booking-transaction collection
     const bookingTransaction = new BookingTransactionInternals();
-    bookingTransaction.saveTransaction(bookings, voucher, chargeData);
+    const currentUserId = Meteor.userId();
+    bookingTransaction.saveTransaction(bookings, voucher, chargeData, currentUserId);
   }
 
   validateInputs(bookingWithPayment) {
@@ -170,26 +168,6 @@ export default class  BookingService {
     this.sendMailToUser(bookings, voucher, chargeData);
 
     return chargeResult;
-/*
-    Meteor.call('payments.createCharge', chargeData, (err, charge) => {
-      if (err) {
-        console.log('payments.charge.err', err);
-        internalError = err;
-        successful = false;
-      } else {
-        console.log('payments.charge.data', charge);
-        chargeResult = charge;
-        successful = true;
-
-        // TODO: ensure that updateBookingList and invalidate voucher works
-        this.invalidateVoucher(voucher.id, bookingWithPayment.userId, bookingIds);
-        this.updateBookingList(bookings, voucher);
-       // this.saveTransaction(bookings, chargeData);
-        // this.sendMailToUser(bookings[0], voucher, chargeData);
-      }
-    });
-
-*/
   }
 
 }

@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory';
 import { AdminRoute, PrivateRoute, LogPageView } from './RoutesHelpers';
 import ScrollToTop from '../../common/ScrollToTop';
+
 // route components
 import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';

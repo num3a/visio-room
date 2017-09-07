@@ -127,8 +127,8 @@ Meteor.publish('bookings.searchWithDates', (search) => {
     bookingDate = { $gt: surround.minDate, $lt: surround.maxDate };
   } else {
     bookingDate = {
-      $gt: search.bookingDateBegin,
-      $lt: search.bookingDateEnd,
+      $gt: search.startDate,
+      $lt: search.endDate,
     };
   }
 

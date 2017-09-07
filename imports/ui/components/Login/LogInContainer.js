@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { closeLoginModal } from '../../actions/login';
 import LogIn from './Login';
-// TODO: add meteor data system
 
-class Container extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -89,7 +88,7 @@ class Container extends Component {
 
 const LoginContainer = createContainer(() => ({
   currentUser: Meteor.user(),
-}), Container);
+}), Login);
 
 const mapStateToProps = state => ({
 });

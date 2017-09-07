@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+// TODO: use pure component
 import { translate } from 'react-i18next';
 
 const ProfileInformations = props => (

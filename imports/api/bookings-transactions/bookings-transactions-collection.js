@@ -27,7 +27,9 @@ BookingsTransactions.schema = new SimpleSchema({
   roomId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
   bookedBy: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
   voucherUsed: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-  amount: { type: Number },
+  userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: false },
+  room: { type: Rooms.schema, optional: true },
+    amount: { type: Number },
   bookings: { type: Array, optional: true },
   'bookings.$': { type: Bookings.schema },
 }, { tracker: Tracker });
