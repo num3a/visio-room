@@ -8,7 +8,6 @@ class Voucher extends Component {
     const { dispatch } = this.props;
     const voucher = event.target.value;
 
-    // TODO: encapsulate validation in async redux action
     Meteor.call('voucher.validate', voucher, (error, result) => {
       if (error) {
         console.log('cannot validate voucher', error);

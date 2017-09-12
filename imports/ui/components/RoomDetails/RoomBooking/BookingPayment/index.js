@@ -20,9 +20,10 @@ class BookingPayment extends Component {
 
         <PaymentCardList >
           {this.props.isAuthenticated ?
-            <div>            <Voucher
-              data={this.props.voucher}
-            />
+            <div>
+              <Voucher
+                data={this.props.voucher}
+              />
               <CompletePayment
                 roomId={this.props.roomId}
               />

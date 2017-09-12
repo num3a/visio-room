@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
 class SignUp extends PureComponent {
-  render({ props: { t, onSignUpFormSubmit, onOAuthClick, onErrorMessage, errorMessage } = this }) {
+  render() {
+      const { t, onSignUpFormSubmit, onOAuthClick, onErrorMessage, errorMessage } = this.props;
     return (<div>
       <h1 className="title">{t('register_account')}</h1>
       <div className="box">

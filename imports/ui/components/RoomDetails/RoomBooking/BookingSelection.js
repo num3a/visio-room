@@ -15,7 +15,6 @@ class BookingSelection extends Component {
     dispatch(selectedBookingChanged(booking._id));
   }
 
-  // TODO: block
   renderBookings (bookings) {
     return (<BookingTable
       bookings={bookings}

@@ -12,7 +12,7 @@ import { checkByUserId } from '../../../common/userUtils';
 
 const STRIPE_API_KEY = Meteor.settings.STRIPE_API_KEY || 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 
-export default class  BookingService {
+export default class BookingService {
 
   getVoucher(code: string) {
     const voucherInternals = new VoucherInternals();
@@ -128,12 +128,11 @@ export default class  BookingService {
   checkBookingsAvailability(bookings) {
     return bookings
       .every(booking =>
-          booking.isBooked === false
-          && booking.isBlocked === false);
+        booking.isBooked === false
+        && booking.isBlocked === false);
   }
 
   bookWithPayment(bookingWithPayment) {
-
     this.validateInputs(bookingWithPayment); // Validate inputs
     checkByUserId(bookingWithPayment.userId); // Check user
     const bookingIds = bookingWithPayment.bookingIds; // Extract booking ids
@@ -158,7 +157,7 @@ export default class  BookingService {
     const paymentService = new PaymentInternals(STRIPE_API_KEY);
     const chargeResult = paymentService.createCharge(chargeData);
 
-    if(_.isNil(chargeResult)) {
+    if (_.isNil(chargeResult)) {
       throw new Meteor.Error('An error occured during payment.');
     }
 
