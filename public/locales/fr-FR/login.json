@@ -1,0 +1,10 @@
+{
+  "login_title": "Connexion",
+  "login_button": "Connexion",
+  "email": "Email",
+  "email_placeholder": "jsmith@example.co",
+  "password": "Mot de passe",
+  "continue_linkedin": "Continuer avec LinkedIn",
+  "forgot_password": "Mot de passe oublié",
+  "register_link": "Inscription"
+}

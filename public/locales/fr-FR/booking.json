@@ -1,0 +1,20 @@
+{
+  "selection_table_header_date": "Date",
+  "selection_table_header_price": "Prix",
+  "selection_table_header_action": "Action",
+  "selection_table_header_availability": "Disponibilité",
+  "selection_table_header_total": "Total",
+  "selection_validate": "Valider",
+  "selection_table_button_book": "Réserver",
+  "selection_table_button_booked": "Déjà réservé",
+  "selection_table_button_unavailable": "Non disponible",
+  "selection_table_button_available": "Disponible",
+  "booking_title": "Votre réservation",
+  "booking_payment_methods": "Moyens de paiment",
+  "booking_payment_add": "Ajouter une carte",
+  "booking_payment_voucher": "Code de réduction",
+  "booking_payment_cgu_message": "En cochant cette case, j'accepte les ",
+  "booking_payment_button_complete": "Réserver",
+  "booking_payment_complete": "Vous allez reçevoir un email de confirmation."
+
+}
