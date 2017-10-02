@@ -30,6 +30,7 @@ Voucher.schema = new SimpleSchema({
   usedFor: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 }, { tracker: Tracker });
 
+
 Voucher.attachSchema(Voucher.schema);
 
 Voucher.publicFields = {

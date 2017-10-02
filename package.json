@@ -12,6 +12,7 @@
     "pretest": "npm run lint --silent"
   },
   "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.20.0",
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
@@ -24,15 +25,16 @@
     "i18next-localstorage-cache": "^1.1.0",
     "i18next-xhr-backend": "^1.4.1",
     "import": "0.0.6",
-    "lodash": "^4.16.6",
+    "lodash": "^4.17.4",
     "meteor-node-stubs": "~0.2.0",
-    "moment": "^2.15.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.7",
     "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.5.2",
     "react-dates": "^10.1.1",
     "react-dom": "^15.6.1",
     "react-ga": "^2.1.2",
+    "react-google-maps": "^8.1.0",
     "react-i18next": "^3.1.0",
     "react-image-gallery": "^0.7.15",
     "react-moment-proptypes": "^1.4.0",
@@ -56,7 +58,13 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-meteor": "^4.0.1",
     "eslint-plugin-react": "^6.10.3",
+    "flow-bin": "^0.55.0",
     "react-addons-shallow-compare": "^15.5.2"
+  },
+  "babel": {
+    "plugins": [
+      "transform-class-properties"
+    ]
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"

@@ -1,5 +1,6 @@
+/* @flow */
 import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
+// import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -12,9 +13,43 @@ import { checkByUserId } from '../../../common/userUtils';
 
 const STRIPE_API_KEY = Meteor.settings.STRIPE_API_KEY || 'sk_test_XpBlmXOXgKrcpz0MBUVM4E13';
 
+type VoucherType = {
+  _id: string,
+  isValid: boolean,
+  code: string,
+  percentage: number,
+  createdAt: Date,
+  usedAt: Date,
+  usedBy: ?string,
+  usedFor: ?string
+}
+
+type BookingsType = {
+  _id: string,
+  roomId: string,
+  bookedBy: ?string,
+  voucherUsed: ?string,
+  isBooked: boolean,
+  isBlocked: boolean,
+  bookingDate: ?Date,
+  bookedAt: ?Date,
+  attendeeCount:?number,
+  createdAt:Date,
+  price: number,
+  capacity:number,
+  room: ?Object
+};
+
+type BookingsWithPayment = {
+  bookingIds: Array<string>,
+  userId: string,
+  voucher: ?string,
+  customerId: string
+};
+
 export default class BookingService {
 
-  getVoucher(code: string) {
+  getVoucher(code: string): ?VoucherType {
     const voucherInternals = new VoucherInternals();
     const voucher = voucherInternals.getVoucherByCode(code);
 
@@ -25,15 +60,21 @@ export default class BookingService {
     return voucher;
   }
 
-  invalidateVoucher(voucher, userId, bookingIds) {
-    if (voucher != null) {
+  invalidateVoucher(voucher: ?VoucherType, userId: string, bookingIds: Array<string>) {
+    if (voucher) {
       const voucherInternals = new VoucherInternals();
       voucherInternals.invalidateVoucher(voucher._id, userId, bookingIds);
     }
   }
 
-  getBookings(bookingIds) {
-    const bookings = Bookings.find({ _id: { $in: bookingIds }, isBooked: false, isBlocked: false }).fetch();
+  getBookings(bookingIds: Array<string>) {
+    const bookings =
+      Bookings.find(
+        {
+          _id: { $in: bookingIds },
+          isBooked: false,
+          isBlocked: false,
+        }).fetch();
 
     if (_.isNil(bookings)) {
       throw new Meteor.Error(`No bookings available for booking id: ${bookings.map(booking => booking._id).join('/')}`);
@@ -42,7 +83,7 @@ export default class BookingService {
     return bookings;
   }
 
-  applyDiscount(price, percentage) {
+  applyDiscount(price: number, percentage: number): number {
     if (_.isNil(percentage)) {
       return price;
     }
@@ -58,7 +99,7 @@ export default class BookingService {
     return price * discountRatio;
   }
 
-  updateBookingList(bookings, voucher) {
+  updateBookingList(bookings: Array<Object>, voucher: ?VoucherType) {
     if (bookings == null) {
       throw new Meteor.Error('Booking list cannot be empty');
     }
@@ -72,8 +113,12 @@ export default class BookingService {
     });
   }
 
-  updateBooking(bookingId, voucher) {
-    const voucherId = _.isNil(voucher) ? null : voucher._id;
+  updateBooking(bookingId: string, voucher: ?VoucherType): void {
+    let voucherId = null;
+    if (voucher) {
+      voucherId = voucher._id;
+    }
+
     const updateBookingQuery = {
       $set: {
         isBooked: true,
@@ -91,18 +136,18 @@ export default class BookingService {
     });
   }
 
-  sendMailToUser(bookings, voucher, chargeData) {
+  sendMailToUser(bookings: Array<Object>, voucher: ?VoucherType, chargeData: Object) {
     const emailSender = new EmailInternals();
     emailSender.sendBookingConfirmation(bookings, voucher, chargeData);
   }
 
-  saveTransaction(bookings, chargeData, voucher) {
+  saveTransaction(bookings: Array<Object>, chargeData: Object, voucher: ?VoucherType) {
     const bookingTransaction = new BookingTransactionInternals();
     const currentUserId = Meteor.userId();
     bookingTransaction.saveTransaction(bookings, voucher, chargeData, currentUserId);
   }
 
-  validateInputs(bookingWithPayment) {
+ /* validateInputs(bookingWithPayment) {
     new SimpleSchema({
       bookingIds: { type: Array, optional: false },
       'bookingIds.$': { type: String, regEx: SimpleSchema.RegEx.Id },
@@ -112,28 +157,33 @@ export default class BookingService {
       // TODO: add payment token infos to check tokens
     }).validate(bookingWithPayment);
   }
+*/
 
-  calculatePrice(bookings, voucher) {
+  calculatePrice(bookings: Array<Object>, voucher: ?VoucherType): number {
     const amount = bookings
       .map(booking => booking.price)
       .reduce((acc, price, index) => {
         if (index === 0) {
-          return acc + this.applyDiscount(price, voucher.percentage);
+          if (voucher) {
+            return acc + this.applyDiscount(price, voucher.percentage);
+          }
+
+          return acc + price;
         }
         return acc + price;
       });
     return amount.toFixed(2);
   }
 
-  checkBookingsAvailability(bookings) {
+  checkBookingsAvailability(bookings: Array<BookingsType>) {
     return bookings
       .every(booking =>
         booking.isBooked === false
         && booking.isBlocked === false);
   }
 
-  bookWithPayment(bookingWithPayment) {
-    this.validateInputs(bookingWithPayment); // Validate inputs
+  bookWithPayment(bookingWithPayment: BookingsWithPayment) {
+    // this.validateInputs(bookingWithPayment); // Validate inputs
     checkByUserId(bookingWithPayment.userId); // Check user
     const bookingIds = bookingWithPayment.bookingIds; // Extract booking ids
     const bookings = this.getBookings(bookingIds); // Get related bookings
@@ -143,8 +193,12 @@ export default class BookingService {
     }
 
     // Get the voucher object
-    const voucher = _.isNil(bookingWithPayment.voucher) ?
-      null : this.getVoucher(bookingWithPayment.voucher);
+    let voucher = null;
+    if (bookingWithPayment.voucher) {
+      voucher = this.getVoucher(bookingWithPayment.voucher);
+    }
+   // const voucher = _.isNil(bookingWithPayment.voucher) ?
+    //  null : this.getVoucher(bookingWithPayment.voucher);
     const price = this.calculatePrice(bookings, voucher);
 
     const chargeData = {

@@ -36,6 +36,7 @@ Bookings.schema = new SimpleSchema({
   room: { type: Rooms.schema, optional: true },
 }, { tracker: Tracker });
 
+
 Bookings.attachSchema(Bookings.schema);
 
 // This represents the keys from YachtieProfiles objects that should be published
