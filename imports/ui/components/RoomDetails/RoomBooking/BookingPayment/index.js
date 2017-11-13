@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import CompletePayment from './CompletePayment';
 import { Rooms } from '../../../../../api/rooms/rooms-collection';
 import Voucher from './Voucher';
@@ -40,7 +40,7 @@ class BookingPayment extends Component {
   }
 }
 
-const BookingPaymentContainer = createContainer(({ roomId }) => {
+const BookingPaymentContainer = withTracker(({ roomId }) => {
   const roomHandle = Meteor.subscribe('rooms.byId', roomId);
   const room = Rooms.findOne(roomId);
 

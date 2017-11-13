@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { Rooms } from '../../../../../api/rooms/rooms-collection';
 import { selectedRoomChanged } from '../../../../actions/admin';
@@ -41,7 +41,7 @@ class RoomSelector extends Component {
 }
 
 
-const RoomSelectorContainer = createContainer(() => {
+const RoomSelectorContainer = withTracker(() => {
   const admin = Roles.userIsInRole(Meteor.userId(), 'admin');
   const superAdmin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
   let roomsHandle = null;

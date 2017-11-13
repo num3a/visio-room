@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import { staticMarkerImage } from '../../../common/utils/googleMaps';
 import Details from './RoomDetails';
@@ -69,7 +69,7 @@ class RoomDetails extends Component {
   }
 }
 
-const RoomDetailsContainer = createContainer(({ match }) => {
+const RoomDetailsContainer = withTracker(({ match }) => {
 
   const roomHandle = Meteor.subscribe('rooms.byId', match.params.roomId);
   const room = Rooms.findOne(match.params.roomId);

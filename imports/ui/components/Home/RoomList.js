@@ -27,6 +27,7 @@ class RoomList extends Component {
   }
 
   render() {
+    const cards = this.renderCards();
     return (
       <div>
         <div className="columns is-multiline">

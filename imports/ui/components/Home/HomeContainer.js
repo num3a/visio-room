@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { Router, Route, Switch, withRouter } from 'react-router-dom';
+
+import { withTracker } from 'meteor/react-meteor-data';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -9,7 +11,6 @@ import RoomList from './RoomList';
 import SearchBarContainer from './SearchBar';
 import { Bookings } from '../../../api/bookings/bookings-collection';
 import { Rooms } from '../../../api/rooms/rooms-collection';
-import RoomMap from './RoomMap';
 
 class Home extends Component {
   constructor() {
@@ -41,7 +42,7 @@ class Home extends Component {
   }
 }
 
-const HomeContainer = createContainer((props) => {
+const HomeContainer = withTracker((props) => {
   console.log('props.selectedStartDate', props.selectedStartDate.toDate());
   console.log('props.selectedEndDate', props.selectedStartDate.toDate());
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { closeLoginModal } from '../../actions/login';
 import SignUp from './SignUp';
@@ -102,7 +102,7 @@ class Container extends Component {
   }
 }
 
-const SignUpContainer = createContainer(() => ({
+const SignUpContainer = withTracker(() => ({
   currentUser: Meteor.user(),
 }), Container);
 

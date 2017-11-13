@@ -1,7 +1,7 @@
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
+// import ImageGallery from 'react-image-gallery';
 import PropTypes from 'prop-types';
-import 'react-image-gallery/styles/css/image-gallery.css';
+// import 'react-image-gallery/styles/css/image-gallery.css';
 
 const width = { width: '40px' };
 const starColor = { color: '#ed6c63' };
@@ -37,12 +37,7 @@ const RoomDetails = props => (
       <hr />
       <br />
       <div className="image is-2by2" style={marginBottom}>
-        {/* <img src={props.bigPicture} />*/}
-        <ImageGallery
-          items={images}
-          slideInterval={5000}
-          showBullets
-        />
+        <img src={props.bigPicture} />
       </div>
     </div>
   </div>
@@ -53,7 +48,7 @@ RoomDetails.propType = {
   name: PropTypes.string.isRequired,
   pricePerDay: PropTypes.number.isRequired,
   bigPicture: PropTypes.string,
-  toggle: PropTypes.func.isRequired,
+ // toggle: PropTypes.func.isRequired,
 };
 
 export default RoomDetails;

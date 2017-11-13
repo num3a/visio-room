@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Rooms } from '../../../../api/rooms/rooms-collection';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 
 import AdditionalInformations from './AdditionalInformations';
@@ -43,7 +43,7 @@ class Informations extends Component {
 }
 
 
-const AdditionalInformationsContainer = createContainer(({ roomId }) => {
+const AdditionalInformationsContainer = withTracker(({ roomId }) => {
   const roomHandle = Meteor.subscribe('rooms.byId', roomId);
   const room = Rooms.findOne(roomId);
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import AutoForm from 'uniforms-unstyled/AutoForm';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { DropDown, Input, Hidden } from '../../../common/Form';
 import { Partners } from '../../../../../api/partners/partners-collection';
 import { getProp } from '../../../common/Form/Helpers';
@@ -96,7 +96,7 @@ class PartnerCreation extends Component {
     </div>);
   }
 }
-const PartnerCreationContainer = createContainer(({ match }) => {
+const PartnerCreationContainer = withTracker(({ match }) => {
   const partnerId = match.params.partnerId;
   const partnerHandle = Meteor.subscribe('partners.byId', partnerId);
   const partner = Partners.findOne({ _id: partnerId });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import { Bookings } from '../../../../api/bookings/bookings-collection';
 
@@ -20,7 +20,7 @@ class SelectedBookingDetails extends Component {
   }
 }
 
-const SelectedBookingDetailsContainer = createContainer(({ bookingId }) => {
+const SelectedBookingDetailsContainer = withTracker(({ bookingId }) => {
   if (!bookingId) {
     return {
       isAuthenticated: Meteor.userId(),

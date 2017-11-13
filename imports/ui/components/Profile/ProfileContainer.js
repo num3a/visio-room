@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 import ProfileInformations from './ProfileInformations';
@@ -53,7 +53,7 @@ class Profile extends Component {
   }
 }
 
-const ProfileContainer = createContainer(() => {
+const ProfileContainer = withTracker(() => {
   const transactionsHandle = Meteor.subscribe('bookings-transactions.byUserId');
   const transactions = BookingsTransactions.find({}).fetch();
 

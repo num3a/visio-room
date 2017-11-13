@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import BookingPayment from './BookingPayment';
 import BookingSelector from './BookingSelector';
 
@@ -64,7 +64,7 @@ class RoomBooking extends Component {
   }
 }
 
-const RoomBookingContainer = createContainer((props) => {
+const RoomBookingContainer = withTracker((props) => {
   const { roomId } = props;
   return {
     roomId,

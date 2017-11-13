@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { I18nextProvider } from 'react-i18next';
 import './useraccounts-configuration.js';
 import i18n from '../../i18n/i18n';
-import { renderRoutes } from './routes.js';
+import { RenderRoutes } from './routes.js';
 
 // DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy app.visioroom.co --settings private/settings.json
 
@@ -12,7 +12,7 @@ import { renderRoutes } from './routes.js';
 Meteor.startup(() => {
   render(
     <I18nextProvider i18n={i18n}>
-      {renderRoutes()}
+      <RenderRoutes />
     </I18nextProvider>
     , document.getElementById('app'));
 });

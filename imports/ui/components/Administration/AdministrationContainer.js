@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import AdminLeftMenu from './AdminLeftMenu';
 
@@ -29,7 +29,7 @@ Administration.propsType = {
   children: PropTypes.object.required,
 };
 
-const AdministrationContainer = createContainer(() => {
+const AdministrationContainer = withTracker(() => {
   const admin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
   const superAdmin = Roles.userIsInRole(Meteor.userId(), 'super-admin');
 

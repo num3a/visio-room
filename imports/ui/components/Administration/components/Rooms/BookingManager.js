@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import classnames from 'classnames';
 import moment from 'moment';
 
@@ -68,7 +68,7 @@ class BookingManager extends Component {
   }
 }
 
-const BookingManagerContainer = createContainer(({ selectedRoomId }) => {
+const BookingManagerContainer = withTracker(({ selectedRoomId }) => {
   const admin = Roles.userIsInRole(Meteor.userId(), 'admin');
   const roomsHandle = null;
 

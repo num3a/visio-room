@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { PaymentTokens } from '../../../../../api/payments/payment-token-collection';
 import { openAddCardModal } from '../../../../actions/payments';
 import { selectedCardChanged } from '../../../../actions/booking';
@@ -86,7 +86,7 @@ class PaymentCardList extends Component {
   }
 }
 
-const PaymentCardListContainer = createContainer(() => {
+const PaymentCardListContainer = withTracker(() => {
   const userId = Meteor.userId();
   const tokenHandle = Meteor.subscribe('payments.tokenByUser', userId);
   const loading = !tokenHandle.ready();

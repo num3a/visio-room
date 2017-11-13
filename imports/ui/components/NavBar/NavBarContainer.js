@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { translate } from 'react-i18next';
 import NavBar from './NavBar';
 
@@ -158,7 +158,7 @@ class Nav extends Component {
 }
 
 
-const NavBarContainer = createContainer(() => {
+const NavBarContainer = withTracker(() => {
   const tokenHandle = Meteor.subscribe('payments.tokenByUser'); // , Meteor.userId());
 
   const loadingPayments = !tokenHandle.ready();

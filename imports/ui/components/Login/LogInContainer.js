@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Router, browserHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -86,7 +86,7 @@ class Login extends Component {
   }
 }
 
-const LoginContainer = createContainer(() => ({
+const LoginContainer = withTracker(() => ({
   currentUser: Meteor.user(),
 }), Login);
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { translate } from 'react-i18next';
 import moment from 'moment';
 import { Bookings } from '../../../../../api/bookings/bookings-collection';
@@ -132,7 +132,7 @@ class BookingSelector extends Component {
 }
 
 
-const BookingSelectorContainer = createContainer((props) => {
+const BookingSelectorContainer = withTracker((props) => {
   const { roomId } = props;
   const minDate = props.selectedStartDate ? props.selectedStartDate.toDate() : moment().toDate();
   const maxDate = props.selectedEndDate ? props.selectedEndDate.toDate() : null;

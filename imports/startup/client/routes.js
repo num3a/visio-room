@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch, withRouter } from 'react-router-dom';
 import ReactGA from 'react-ga';
-
+import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { AdminRoute, PrivateRoute, LogPageView } from './RoutesHelpers';
 import ScrollToTop from '../../common/ScrollToTop';
@@ -9,7 +9,7 @@ import ScrollToTop from '../../common/ScrollToTop';
 // route components
 import ProfileContainer from '../../ui/components/Profile';
 import AppContainer from '../../ui/components/AppContainer';
-import HomeContainer from '../../ui/components/Home';
+import HomeContainer from '../../ui/components/Home/HomeContainer';
 import RoomDetailsContainer from '../../ui/components/RoomDetails';
 import PaymentsContainer from '../../ui/components/Payments';
 import SignUpContainer from '../../ui/components/Signup';
@@ -42,18 +42,25 @@ history.listen((location, action) => {
 
 
 const AppContainerWithRouter = withRouter(AppContainer);
-const ScrollToTopWithRouter = withRouter(ScrollToTop);
-const AdminContainerWithRouter = withRouter(AdministrationContainer);
-
-export const renderRoutes = () => (
+//const ScrollToTopWithRouter = withRouter(ScrollToTop);
+//const AdminContainerWithRouter = withRouter(AdministrationContainer);
+const cont = <div></div>;
+export const RenderRoutes = () => (
   <Router history={history} onUpdate={LogPageView} >
     <AppContainerWithRouter>
+      <Route exact path="/" component={HomeContainer} />
+    </AppContainerWithRouter>
+  </Router>
+);
+
+
+/*
+* <AppContainerWithRouter>
       <ScrollToTopWithRouter>
         <Switch>
           <Route exact path="/" component={HomeContainer} />
 
-          <Route path="/landing" component={Landing} />
-
+<Route path="/landing" component={Landing} />
           <Route path="/rooms/:roomId" component={RoomDetailsContainer} />
           <Route path="/bookings/:bookingId" component={RoomDetailsContainer} />
           <PrivateRoute path="/profile" component={ProfileContainer} />
@@ -75,6 +82,4 @@ export const renderRoutes = () => (
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </ScrollToTopWithRouter>
-    </AppContainerWithRouter>
-  </Router>
-);
+    </AppContainerWithRouter>*/

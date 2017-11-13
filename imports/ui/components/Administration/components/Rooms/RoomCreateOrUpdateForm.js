@@ -3,7 +3,7 @@ import { getFirstEmail } from '../../../../../common/emailHelper';
 import { DropDown, Input, Hidden } from '../../../common/Form';
 import { getProp } from '../../../common/Form/Helpers';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Partners } from '../../../../../api/partners/partners-collection';
 import { Rooms } from '../../../../../api/rooms/rooms-collection';
 
@@ -79,7 +79,7 @@ class RoomCreateOrUpdateForm extends Component {
   }
 }
 
-const RoomCreateOrUpdateFormContainer = createContainer(({ match }) => {
+const RoomCreateOrUpdateFormContainer = withTracker(({ match }) => {
   const roomId = match.params.roomId;
 
   const roomHandle = Meteor.subscribe('rooms.byId', roomId);
